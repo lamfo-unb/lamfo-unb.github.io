@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lamfo-unb.github.io/2017/05/09/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-1/</loc>
+    
+    <lastmod>2017-05-23T01:36:19.462Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lamfo-unb.github.io/2017/05/12/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-3/</loc>
     
     <lastmod>2017-05-17T23:29:41.775Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://lamfo-unb.github.io/2017/05/11/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-2/</loc>
     
     <lastmod>2017-05-17T23:22:52.922Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lamfo-unb.github.io/2017/05/09/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-1/</loc>
-    
-    <lastmod>2017-05-13T16:00:27.033Z</lastmod>
     
   </url>
   
