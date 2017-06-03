@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lamfo-unb.github.io/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R/</loc>
+    
+    <lastmod>2017-06-03T20:45:10.521Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lamfo-unb.github.io/2017/06/03/Visualizacao-e-exploracao-de-dados-espaciais-em-R/</loc>
+    
+    <lastmod>2017-06-03T20:45:07.489Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lamfo-unb.github.io/html/London_map.html</loc>
+    
+    <lastmod>2017-06-03T15:25:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lamfo-unb.github.io/html/df_map.html</loc>
+    
+    <lastmod>2017-06-03T15:25:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lamfo-unb.github.io/2017/05/09/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-1/</loc>
     
     <lastmod>2017-05-23T01:36:19.462Z</lastmod>
