@@ -9,6 +9,7 @@ header-img: img/ferdinand-stohr-149422.jpg
 author: Matheus Facure
 lang: pt
 date: 2017-05-12 20:57:20
+comments: true
 ---
 
 
@@ -46,7 +47,7 @@ Por fim, também é interessante notar como esse modelo peca mais em precisão, 
 
 ### Modelo de Floresta de Isolação
 
-O modelo de floresta de isolação é outro modelo que podemos considerar como um aproximador universal de distribuições. Assim, não precisamos colocar nenhuma hipótese restritiva na forma como os dados são distribuídos. Esse modelo é baseado em estruturas de árvores, uma classe de métodos de aprendizado de máquina que se popularizou muito nos últimos anos devido a sua simplicidade intuitiva e rapidez de treinamento. O modelo de floresta de isolação ajusta várias árvores de isolação aos dados. Para construir cada árvore de isolação, primeiro selecionamos aleatoriamente uma das variáveis nos dados. Em seguida, selecionamos um valor aleatório entre o máximo e o mínimo dessa variável, que será utilizado para separar os dados. Nós continuamos fazendo essas segmentações aleatórias até que todas as observações estejam isoladas, isto é, separadas das demais. Á primeira vista, pode parecer estranho como essas decisões aleatórias vão nos ajudar a detectar anomalias, mas eis a ideia. Na imagem abaixo, $X_1$ é uma observação normal e $X_0$ é uma observação anômala.
+O modelo de floresta de isolação é outro modelo que podemos considerar como um aproximador universal de distribuições. Assim, não precisamos colocar nenhuma hipótese restritiva na forma como os dados são distribuídos. Esse modelo é baseado em estruturas de árvores, uma classe de métodos de aprendizado de máquina que se popularizou muito nos últimos anos devido a sua simplicidade intuitiva e rapidez de treinamento. O modelo de floresta de isolação ajusta várias árvores de isolação aos dados. Para construir cada árvore de isolação, primeiro selecionamos aleatoriamente uma das variáveis nos dados. Em seguida, selecionamos um valor aleatório entre o máximo e o mínimo dessa variável, que será utilizado para separar os dados. Nós continuamos fazendo essas segmentações aleatórias até que todas as observações estejam isoladas, isto é, separadas das demais. Á primeira vista, pode parecer estranho como essas decisões aleatórias vão nos ajudar a detectar anomalias, mas eis a ideia. Na imagem abaixo, $$X_1$$ é uma observação normal e $$X_0$$ é uma observação anômala.
 
 <img src="/img/anomalia/isoforest.png" width="500">
 

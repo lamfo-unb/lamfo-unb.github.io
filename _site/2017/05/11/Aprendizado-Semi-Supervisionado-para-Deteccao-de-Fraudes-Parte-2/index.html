@@ -93,11 +93,7 @@
 </nav>
 
 
-    <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- Post Header -->
+    <!-- Post Header -->
 <header class="intro-header" style="background-image: url('/img/ferdinand-stohr-149422.jpg')">
     <div class="container">
         <div class="row">
@@ -134,15 +130,15 @@
 
 <script type="math/tex; mode=display">P=\frac{T_p}{T+p + F_p} \quad \quad \quad R=\frac{T_p}{T+p + F_n}</script>
 
-<p>Em que $T_p$ são os verdadeiros positivos, $T_n$, os verdadeiros negativos, $F_p$ são os falsos positivos e $F_n$ são os falsos negativos.</p>
+<p>Em que <script type="math/tex">T_p</script> são os verdadeiros positivos, <script type="math/tex">T_n</script>, os verdadeiros negativos, <script type="math/tex">F_p</script> são os falsos positivos e <script type="math/tex">F_n</script> são os falsos negativos.</p>
 
-<p>Para que possamos comparar os modelos, é bom que tenhamos uma única métrica que resuma a performance. Para isso, vamos utilizar o $F_2$-score, que combina revocação e precisão, dando mais importância a primeira. Nós optamos por essa métrica porque acreditamos ser mais custoso não detectar uma fraude bancária que apontar uma transação como sendo fraudulenta e obter um alarme falso. Assim, desejamos que nosso sistema coloque mais importância em conseguir boa revocação. Formalmente, temos:</p>
+<p>Para que possamos comparar os modelos, é bom que tenhamos uma única métrica que resuma a performance. Para isso, vamos utilizar o <script type="math/tex">F_2</script>-score, que combina revocação e precisão, dando mais importância a primeira. Nós optamos por essa métrica porque acreditamos ser mais custoso não detectar uma fraude bancária que apontar uma transação como sendo fraudulenta e obter um alarme falso. Assim, desejamos que nosso sistema coloque mais importância em conseguir boa revocação. Formalmente, temos:</p>
 
 <script type="math/tex; mode=display">F_2-score = (1+2)^2 \ast \frac{P \ast R}{2^2 \ast P + R}</script>
 
 <h3 id="benchmark">Benchmark</h3>
 
-<p>A maioria dos bons trabalhos que utilizaram essa base de dados fizeram uso de aprendizado puramente supervisionado com alguma técnica para lidar com o desbalanceamento severo entre as categorias. Particularmente, <a href="https://www.kaggle.com/joparga3/d/dalpozz/creditcardfraud/in-depth-skewed-data-classif-93-recall-acc-now">este trabalho</a> disponível no Kaggle conseguiu uma precisão de 0,883, uma revocação de 0,619 e um $F_2$-score de 0,658. Como esse é o melhor resultado que achamos dentre os trabalhos disponíveis no Kaggle, vamos tomá-lo como benchmark.</p>
+<p>A maioria dos bons trabalhos que utilizaram essa base de dados fizeram uso de aprendizado puramente supervisionado com alguma técnica para lidar com o desbalanceamento severo entre as categorias. Particularmente, <a href="https://www.kaggle.com/joparga3/d/dalpozz/creditcardfraud/in-depth-skewed-data-classif-93-recall-acc-now">este trabalho</a> disponível no Kaggle conseguiu uma precisão de 0,883, uma revocação de 0,619 e um <script type="math/tex">F_2</script>-score de 0,658. Como esse é o melhor resultado que achamos dentre os trabalhos disponíveis no Kaggle, vamos tomá-lo como benchmark.</p>
 
 <h2 id="técnicas-de-detecção-de-anomalias">Técnicas de Detecção de Anomalias</h2>
 
@@ -163,7 +159,7 @@ Aqui, nós estendemos a distribuição gaussiana para o seu caso multivariado, p
 
 <script type="math/tex; mode=display">R=0,793 \quad P=0,701 \quad F_2=0,773</script>
 
-<p>Apenas para que fique claro, uma revocação de 0,793 indica que, de todas as transações fraudulentas, nós conseguimos identificar 79,3% delas; uma precisão de 0,701 indica que, de todas as transações que previmos como sendo fraudulentas, 70,1% delas de fato o eram. O $F_2$-score não tem nenhuma interpretação intuitiva. Ele é apenas uma métrica que combina as outras duas de forma que possamos comparar os modelos mais facilmente. Por exemplo, podemos dizer que esse modelo é mais de 10 pontos melhor do que o nosso benchmark, que obteve um $F_2$-score de apenas 0,658. Abaixo está a matriz de confusão para mais detalhes sobre como o modelo classificou cada transação.</p>
+<p>Apenas para que fique claro, uma revocação de 0,793 indica que, de todas as transações fraudulentas, nós conseguimos identificar 79,3% delas; uma precisão de 0,701 indica que, de todas as transações que previmos como sendo fraudulentas, 70,1% delas de fato o eram. O <script type="math/tex">F_2</script>-score não tem nenhuma interpretação intuitiva. Ele é apenas uma métrica que combina as outras duas de forma que possamos comparar os modelos mais facilmente. Por exemplo, podemos dizer que esse modelo é mais de 10 pontos melhor do que o nosso benchmark, que obteve um <script type="math/tex">F_2</script>-score de apenas 0,658. Abaixo está a matriz de confusão para mais detalhes sobre como o modelo classificou cada transação.</p>
 
 <p><img src="/img/anomalia/confmatgaussian.png" width="500" /></p>
 
@@ -184,11 +180,11 @@ Aqui, nós estendemos a distribuição gaussiana para o seu caso multivariado, p
 
 <p><img src="/img/anomalia/histtuning.png" width="500" /></p>
 
-<p>O melhor limiar, de acordo com o $F_2$-score, foi 36161. Com o modelo assim ajustado, conseguimos os seguintes resultados:</p>
+<p>O melhor limiar, de acordo com o <script type="math/tex">F_2</script>-score, foi 36161. Com o modelo assim ajustado, conseguimos os seguintes resultados:</p>
 
 <script type="math/tex; mode=display">R=0,646 \quad P=0,170 \quad F_2=0,415</script>
 
-<p>Observamos que esse modelo não é melhor que nosso benchmark, conseguindo um $F_2$-score de apenas 0,41.  A performance do modelo é particularmente prejudicada pela baixa precisão, de 0,17. Isso indica que, de todas as observações que esse modelo classifica como sendo fraudulentas, apenas 17% delas de fato o são. Assim, o modelo incorre a um elevado custo em termos de falsos positivos. Devemos notar que esse modelo é capaz de aproximar qualquer distribuição por variável, mas não consegue capturar relações entre variáveis. Aparentemente, conseguir capturar interações é algo bastante importante nos dados aqui presente. Abaixo, na matriz de confusão, temos uma ideia melhor do tipo de erro que estamos cometendo.</p>
+<p>Observamos que esse modelo não é melhor que nosso benchmark, conseguindo um <script type="math/tex">F_2</script>-score de apenas 0,41.  A performance do modelo é particularmente prejudicada pela baixa precisão, de 0,17. Isso indica que, de todas as observações que esse modelo classifica como sendo fraudulentas, apenas 17% delas de fato o são. Assim, o modelo incorre a um elevado custo em termos de falsos positivos. Devemos notar que esse modelo é capaz de aproximar qualquer distribuição por variável, mas não consegue capturar relações entre variáveis. Aparentemente, conseguir capturar interações é algo bastante importante nos dados aqui presente. Abaixo, na matriz de confusão, temos uma ideia melhor do tipo de erro que estamos cometendo.</p>
 
 <p><img src="/img/anomalia/confmathist.png" width="500" /></p>
 
@@ -237,7 +233,31 @@ Aqui, nós estendemos a distribuição gaussiana para o seu caso multivariado, p
         </div>
     </div>
 </article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+</div>
 <hr>
 
 
@@ -316,6 +336,8 @@ Aqui, nós estendemos a distribuição gaussiana para o seu caso multivariado, p
 </script>
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 

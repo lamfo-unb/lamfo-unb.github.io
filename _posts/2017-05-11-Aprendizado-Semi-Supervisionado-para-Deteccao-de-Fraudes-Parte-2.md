@@ -6,6 +6,7 @@ tags: [semi-supervisionado, anomalia, risco-de-credito]
 header-img: img/ferdinand-stohr-149422.jpg
 author: Matheus Facure
 lang: pt
+comments: true
 ---
 
 # Aprendizado Semi-Supervisionado para Detecção de Fraudes [Parte 2]
@@ -25,15 +26,15 @@ Em problemas de previsão, a métrica de avaliação mais comum é a acurácia, 
 
 $$P=\frac{T_p}{T+p + F_p} \quad \quad \quad R=\frac{T_p}{T+p + F_n}$$
 
-Em que $T_p$ são os verdadeiros positivos, $T_n$, os verdadeiros negativos, $F_p$ são os falsos positivos e $F_n$ são os falsos negativos.
+Em que $$T_p$$ são os verdadeiros positivos, $$T_n$$, os verdadeiros negativos, $$F_p$$ são os falsos positivos e $$F_n$$ são os falsos negativos.
 
-Para que possamos comparar os modelos, é bom que tenhamos uma única métrica que resuma a performance. Para isso, vamos utilizar o $F_2$-score, que combina revocação e precisão, dando mais importância a primeira. Nós optamos por essa métrica porque acreditamos ser mais custoso não detectar uma fraude bancária que apontar uma transação como sendo fraudulenta e obter um alarme falso. Assim, desejamos que nosso sistema coloque mais importância em conseguir boa revocação. Formalmente, temos:
+Para que possamos comparar os modelos, é bom que tenhamos uma única métrica que resuma a performance. Para isso, vamos utilizar o $$F_2$$-score, que combina revocação e precisão, dando mais importância a primeira. Nós optamos por essa métrica porque acreditamos ser mais custoso não detectar uma fraude bancária que apontar uma transação como sendo fraudulenta e obter um alarme falso. Assim, desejamos que nosso sistema coloque mais importância em conseguir boa revocação. Formalmente, temos:
 
 $$F_2-score = (1+2)^2 \ast \frac{P \ast R}{2^2 \ast P + R}$$
 
 ### Benchmark 
 
-A maioria dos bons trabalhos que utilizaram essa base de dados fizeram uso de aprendizado puramente supervisionado com alguma técnica para lidar com o desbalanceamento severo entre as categorias. Particularmente, [este trabalho](https://www.kaggle.com/joparga3/d/dalpozz/creditcardfraud/in-depth-skewed-data-classif-93-recall-acc-now) disponível no Kaggle conseguiu uma precisão de 0,883, uma revocação de 0,619 e um $F_2$-score de 0,658. Como esse é o melhor resultado que achamos dentre os trabalhos disponíveis no Kaggle, vamos tomá-lo como benchmark.
+A maioria dos bons trabalhos que utilizaram essa base de dados fizeram uso de aprendizado puramente supervisionado com alguma técnica para lidar com o desbalanceamento severo entre as categorias. Particularmente, [este trabalho](https://www.kaggle.com/joparga3/d/dalpozz/creditcardfraud/in-depth-skewed-data-classif-93-recall-acc-now) disponível no Kaggle conseguiu uma precisão de 0,883, uma revocação de 0,619 e um $$F_2$$-score de 0,658. Como esse é o melhor resultado que achamos dentre os trabalhos disponíveis no Kaggle, vamos tomá-lo como benchmark.
 
 ## Técnicas de Detecção de Anomalias
 
@@ -54,7 +55,7 @@ O limiar ótimo escolhido foi de -269, isto é, amostras com uma log probabilida
 
 $$R=0,793 \quad P=0,701 \quad F_2=0,773$$
 
-Apenas para que fique claro, uma revocação de 0,793 indica que, de todas as transações fraudulentas, nós conseguimos identificar 79,3% delas; uma precisão de 0,701 indica que, de todas as transações que previmos como sendo fraudulentas, 70,1% delas de fato o eram. O $F_2$-score não tem nenhuma interpretação intuitiva. Ele é apenas uma métrica que combina as outras duas de forma que possamos comparar os modelos mais facilmente. Por exemplo, podemos dizer que esse modelo é mais de 10 pontos melhor do que o nosso benchmark, que obteve um $F_2$-score de apenas 0,658. Abaixo está a matriz de confusão para mais detalhes sobre como o modelo classificou cada transação.
+Apenas para que fique claro, uma revocação de 0,793 indica que, de todas as transações fraudulentas, nós conseguimos identificar 79,3% delas; uma precisão de 0,701 indica que, de todas as transações que previmos como sendo fraudulentas, 70,1% delas de fato o eram. O $$F_2$$-score não tem nenhuma interpretação intuitiva. Ele é apenas uma métrica que combina as outras duas de forma que possamos comparar os modelos mais facilmente. Por exemplo, podemos dizer que esse modelo é mais de 10 pontos melhor do que o nosso benchmark, que obteve um $$F_2$$-score de apenas 0,658. Abaixo está a matriz de confusão para mais detalhes sobre como o modelo classificou cada transação.
 
 <img src="/img/anomalia/confmatgaussian.png" width="500">
 
@@ -75,11 +76,11 @@ Uma vez treinado esse modelo, vamos ajustar o limiar para essa nossa pontuação
 
 <img src="/img/anomalia/histtuning.png" width="500">
 
-O melhor limiar, de acordo com o $F_2$-score, foi 36161. Com o modelo assim ajustado, conseguimos os seguintes resultados:
+O melhor limiar, de acordo com o $$F_2$$-score, foi 36161. Com o modelo assim ajustado, conseguimos os seguintes resultados:
 
 $$R=0,646 \quad P=0,170 \quad F_2=0,415$$
 
-Observamos que esse modelo não é melhor que nosso benchmark, conseguindo um $F_2$-score de apenas 0,41.  A performance do modelo é particularmente prejudicada pela baixa precisão, de 0,17. Isso indica que, de todas as observações que esse modelo classifica como sendo fraudulentas, apenas 17% delas de fato o são. Assim, o modelo incorre a um elevado custo em termos de falsos positivos. Devemos notar que esse modelo é capaz de aproximar qualquer distribuição por variável, mas não consegue capturar relações entre variáveis. Aparentemente, conseguir capturar interações é algo bastante importante nos dados aqui presente. Abaixo, na matriz de confusão, temos uma ideia melhor do tipo de erro que estamos cometendo.
+Observamos que esse modelo não é melhor que nosso benchmark, conseguindo um $$F_2$$-score de apenas 0,41.  A performance do modelo é particularmente prejudicada pela baixa precisão, de 0,17. Isso indica que, de todas as observações que esse modelo classifica como sendo fraudulentas, apenas 17% delas de fato o são. Assim, o modelo incorre a um elevado custo em termos de falsos positivos. Devemos notar que esse modelo é capaz de aproximar qualquer distribuição por variável, mas não consegue capturar relações entre variáveis. Aparentemente, conseguir capturar interações é algo bastante importante nos dados aqui presente. Abaixo, na matriz de confusão, temos uma ideia melhor do tipo de erro que estamos cometendo.
 
 <img src="/img/anomalia/confmathist.png" width="500">
 

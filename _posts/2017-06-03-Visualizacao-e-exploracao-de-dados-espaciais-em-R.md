@@ -6,6 +6,7 @@ tags: [georrefenciamento]
 author: Marcelo Felix
 lang: pt
 header-img: img/0018.jpg
+comments: true
 ---
 # ***Visualização e exploração de dados espaciais no R***
 

@@ -6,6 +6,7 @@ tags: [georreference]
 author: Marcelo Felix
 lang: en
 header-img: img/0018.jpg
+comments: true
 ---
 # ***Vizualization and exploration of Spatial data in R***
 
@@ -42,7 +43,7 @@ plot(lnd[sel,], col = "turquoise", add = TRUE)
 
 Another interesting analysis is the identification of quadrants. This division can be made based on the coordinates of the centroid, which in this case represents the central point of London.
 
-{% highlight r %}
+```r
 library(rgeos)
 ## encontrando o centro da região de londres
 lat <- coordinates(gCentroid(lnd))[[1]]
@@ -67,7 +68,7 @@ plot(lnd[norte & leste,],col = "red", add = TRUE)
 plot(lnd[norte & oeste,], col = "blue", add = TRUE)
 plot(lnd[sul & leste,], col = "green", add = TRUE)
 plot(lnd[sul & oeste,], col = "yellow", add = TRUE)
-{% endhighlight %}
+```
 
 <img src="/img/geospace/chunk-4-1.png" width="500">
 

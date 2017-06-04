@@ -93,11 +93,7 @@
 </nav>
 
 
-    <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- Post Header -->
+    <!-- Post Header -->
 <header class="intro-header" style="background-image: url('/img/0018.jpg')">
     <div class="container">
         <div class="row">
@@ -153,7 +149,7 @@
 
 <p>Another interesting analysis is the identification of quadrants. This division can be made based on the coordinates of the centroid, which in this case represents the central point of London.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
 </span><span class="c1">## encontrando o centro da região de londres
 </span><span class="n">lat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span><span class="n">lng</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">2</span><span class="p">]]</span><span class="w">
@@ -176,7 +172,9 @@
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">,],</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span></code></pre></figure>
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
 <p><img src="/img/geospace/chunk-4-1.png" width="500" /></p>
 
@@ -275,7 +273,31 @@
         </div>
     </div>
 </article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+</div>
 <hr>
 
 
@@ -354,6 +376,8 @@
 </script>
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 

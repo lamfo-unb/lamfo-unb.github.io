@@ -6,13 +6,14 @@ header-img: img/0026.png
 date: 2017-04-29 23:59:07
 tags: [statistics,variance]
 author: Peng Yaohao
+comments: true
 ---
 
 # Um Olhar Descontraído Sobre o Dilema Viés-Variância
 
 Fazer previsões é uma das principais ambições do ser humano. Uma pessoa pode ter a motivação de saber prever quase qualquer coisa, desde o placar de um evento esportivo até o preço de uma ação ou o humor da sua namorada... Mas o futuro é uma variável aleatória -- ninguém sabe de fato como vai ser, qualquer previsão é em essência um "chute". Bem, como chutar então? Você pode simplesmente jogar uma moeda, isso é bem conveniente, mas certamente não dá o melhor chute possível. É aí que entra a estatística, uma área do conhecimento que defino sucintamente como "a ciência do chute".
 
-Enquanto o futuro é um inerente mistério, o passado é um ambiente onde não há mais incerteza, então nada mais natural e sensato que tentar prever o futuro com base no que já aconteceu. A grosso modo, com base em potenciais elementos (uma lista de $x_1,x_2,...,x_k$ variáveis independentes) que influenciem essa variável que se deseja prever (uma variável dependente $y$), tentar chutar valores futuros de $y$ ao se coletar novos valores dos $x$'s (em aprendizado de máquina, o jargão para isso é "aprendizagem supervisionada"). Ou seja, a estatística busca fornecer o melhor chute, condicionado às informações disponíveis.
+Enquanto o futuro é um inerente mistério, o passado é um ambiente onde não há mais incerteza, então nada mais natural e sensato que tentar prever o futuro com base no que já aconteceu. A grosso modo, com base em potenciais elementos (uma lista de $$x_1,x_2,...,x_k$$ variáveis independentes) que influenciem essa variável que se deseja prever (uma variável dependente $$y$$), tentar chutar valores futuros de $$y$$ ao se coletar novos valores dos $$x$$'s (em aprendizado de máquina, o jargão para isso é "aprendizagem supervisionada"). Ou seja, a estatística busca fornecer o melhor chute, condicionado às informações disponíveis.
 
 Pense intuitivamente: por mais que o futuro possa trazer uma coisa completamente diferente de tudo que já foi visto, é razoável assumir que o futuro e o passado compartilham de certos **padrões**, conexões que fazem as duas instâncias temporais serem manifestações de um mesmo fenômeno. Para obter bons chutes, um conceito bem importante é o chamado **dilema viés-variância**.
 

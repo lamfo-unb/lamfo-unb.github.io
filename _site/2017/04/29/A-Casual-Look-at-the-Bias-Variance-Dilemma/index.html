@@ -93,11 +93,7 @@
 </nav>
 
 
-    <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- Post Header -->
+    <!-- Post Header -->
 <header class="intro-header" style="background-image: url('/img/0026.png')">
     <div class="container">
         <div class="row">
@@ -122,7 +118,7 @@
 
 <p>Making predictions is one of the main ambitions of the human race. One may have the motivation to forecast almost anything from a sports event to the stock price or his girlfriend’s mood… But the future is a random variable – no one really knows how it’s gonna be, so any prediction is in essence a “guess”. Well, how to guess then? You can simply toss a coin, this is quite convenient, but it certainly does not give the best guess possible. This is where statistics comes to stage, as I define briefly that knowledge field as “the science of guessing”.</p>
 
-<p>While the future is an inherent mystery, the past is an environment where uncertainty doesn’t exist anymore, so it’s only natural and reasonable trying to predict the future based on what has already happened. Roughly, based on elements (a list of $x_1,x_2,…,x_k$ independent variables) that may have influence on the variable to be predicted (a dependent variable $y$), the goal is to try and guess future values of $y$ by collecting new values of the $x$s (in machine learning, the jargon for this is “supervised learning”). That is, statistics seek to provide the best guess, conditioned to the available information.</p>
+<p>While the future is an inherent mystery, the past is an environment where uncertainty doesn’t exist anymore, so it’s only natural and reasonable trying to predict the future based on what has already happened. Roughly, based on elements (a list of <span><script type="math/tex">x_1,x_2,...,x_k</script></span> independent variables) that may have influence on the variable to be predicted (a dependent variable <script type="math/tex">y</script>), the goal is to try and guess future values of <script type="math/tex">y</script> by collecting new values of the <script type="math/tex">x</script>’s (in machine learning, the jargon for this is “supervised learning”). That is, statistics seek to provide the best guess, conditioned to the available information.</p>
 
 <p>Think intuitively: even though the future may bring in stuff completely different from anything seen in the past, it’s reasonable to assume that both future and past share certain <strong>patterns</strong>, connections that make those two temporal instances a manifestation of the same phenomenon. To get good guesses, a very important concept is called <strong>bias-variance dilemma</strong>.</p>
 
@@ -134,7 +130,7 @@
 
 <p>It is natural to think that the better the model describes the sample data, the better it is. But this is not true, since the primary purpose is <strong>not</strong> to describe the data, but rather to use those to make predictions (or <strong>inferences</strong>) about the future. This brings us to the “variance” side:</p>
 
-<p>Our goal here is to be able to predict the variable of interest $y$ based on <strong>some</strong> elements of the whole population, so we have a major problem from the start, for what we actually see in the sample is only part of the whole phenomenon; so if we simply stick onto describing the already available data, we essencially <strong>hoping that the same pattern will repeat in the future</strong>, which clearly doesn’t always happens. To be able to <strong>generalize</strong> what has been observed for future samples – that is, to anticipate something that has not yet happened – one must calibrate the model for it to capture only the “essential” information that actually contributes to a good prediction, instead of fully capturing the patterns of that particular sample, because in doing so, useless information (“<strong>noise</strong>”) is incorporated at the same time. Basically, by forcing a very accurate description of the sample data, we end up losing in generalization ability, since, in general, the future is <strong>not</strong> a mere extension of the past.</p>
+<p>Our goal here is to be able to predict the variable of interest <script type="math/tex">y</script> based on <strong>some</strong> elements of the whole population, so we have a major problem from the start, for what we actually see in the sample is only part of the whole phenomenon; so if we simply stick onto describing the already available data, we essencially <strong>hoping that the same pattern will repeat in the future</strong>, which clearly doesn’t always happens. To be able to <strong>generalize</strong> what has been observed for future samples – that is, to anticipate something that has not yet happened – one must calibrate the model for it to capture only the “essential” information that actually contributes to a good prediction, instead of fully capturing the patterns of that particular sample, because in doing so, useless information (“<strong>noise</strong>”) is incorporated at the same time. Basically, by forcing a very accurate description of the sample data, we end up losing in generalization ability, since, in general, the future is <strong>not</strong> a mere extension of the past.</p>
 
 <p>Models that describe the data of a sample excessively well tend to introduce a lot of complexity and volatility, thus hindering the generalization ability. In the philosophy of science there is a principle called <strong>Occam’s razor</strong> (the statisticians know it as the “principle of parsimony”, popular culture has adopted a rather pushy mnemonic:</p>
 
@@ -170,7 +166,31 @@
         </div>
     </div>
 </article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+</div>
 <hr>
 
 
@@ -249,6 +269,8 @@
 </script>
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 

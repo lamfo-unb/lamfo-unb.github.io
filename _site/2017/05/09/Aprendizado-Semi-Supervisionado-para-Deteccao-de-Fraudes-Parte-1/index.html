@@ -93,11 +93,7 @@
 </nav>
 
 
-    <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- Post Header -->
+    <!-- Post Header -->
 <header class="intro-header" style="background-image: url('/img/ferdinand-stohr-149422.jpg')">
     <div class="container">
         <div class="row">
@@ -126,7 +122,7 @@
 
 <h2 id="o-que-é-uma-anomalia">O que é uma anomalia?</h2>
 
-<p>“Anomalias são padrões nos dados que não obedecem bem as noções definidas como normalidade” (Chandola et al, 2009). Em outras palavras, são dados que apresentam algum comportamento estranho, distinto do padrão normal. Por exemplo, os pontos $O_1$, $O_2$ na imagem abaixo estão isolados e fora das regiões de normalidade ($N_1$ e $N_2$), sendo assim considerados anomalias. Os pontos na região $O_3$, embora tenham uma vizinhança, também são anomalias, pois a região inteira está fora da de normalidade.</p>
+<p>“Anomalias são padrões nos dados que não obedecem bem as noções definidas como normalidade” (Chandola et al, 2009). Em outras palavras, são dados que apresentam algum comportamento estranho, distinto do padrão normal. Por exemplo, os pontos <script type="math/tex">O_1</script>, <script type="math/tex">O_2</script> na imagem abaixo estão isolados e fora das regiões de normalidade (<script type="math/tex">N_1</script> e <script type="math/tex">N_2</script>), sendo assim considerados anomalias. Os pontos na região <script type="math/tex">O_3</script>, embora tenham uma vizinhança, também são anomalias, pois a região inteira está fora da de normalidade.</p>
 
 <p><img src="/img/anomalia/anomaly.png" width="400" /></p>
 
@@ -154,7 +150,7 @@
 
 <h2 id="o-que-é-aprendizado-de-máquina-semi-supervisionado">O que é aprendizado de máquina semi-supervisionado</h2>
 
-<p>Aprendizado de máquina é uma ciência que utiliza métodos da ciência da computação e estatística para analisar dados. As técnicas de aprendizado de máquina surgiram dentro do campo de inteligência artificial, como um meio de permitir que os computadores aprendessem uma forma de conhecimento própria. Hoje, aprendizado de máquina se expandiu em um campo autônomo e tem obtido sucessos também em problemas que demandam raciocínio estatístico além da capacidade humana. Dentro dos regimes de aprendizado de máquina, destaca-se o de aprendizado de máquina supervisionado, que foca em problemas de previsão: tendo uma base de dados com “alvos” para cada observação (pares $(x,y)$), a meta é aprender quais “alvos” ($y$) estão associados a quais dados ($x$). Isso é feito apresentando ao computador pares suficientes de dados e alvos, até que ele aprenda a associar um ao outro. Alguns exemplos desse tipo de problema são: identificar a presença de uma doença (alvo), dado os sintomas do paciente (dados); prever se o preço da ação de uma empresa vai subir ou cair (alvo), dado o histórico do mercado financeiro (dados); identificar de que pessoa é a face (alvo) em uma imagem (dados) ou classificar um livro (dados) em uma escola literária (alvo).</p>
+<p>Aprendizado de máquina é uma ciência que utiliza métodos da ciência da computação e estatística para analisar dados. As técnicas de aprendizado de máquina surgiram dentro do campo de inteligência artificial, como um meio de permitir que os computadores aprendessem uma forma de conhecimento própria. Hoje, aprendizado de máquina se expandiu em um campo autônomo e tem obtido sucessos também em problemas que demandam raciocínio estatístico além da capacidade humana. Dentro dos regimes de aprendizado de máquina, destaca-se o de aprendizado de máquina supervisionado, que foca em problemas de previsão: tendo uma base de dados com “alvos” para cada observação (pares <script type="math/tex">(x,y)</script>), a meta é aprender quais “alvos” (<script type="math/tex">y</script>) estão associados a quais dados (<script type="math/tex">x</script>). Isso é feito apresentando ao computador pares suficientes de dados e alvos, até que ele aprenda a associar um ao outro. Alguns exemplos desse tipo de problema são: identificar a presença de uma doença (alvo), dado os sintomas do paciente (dados); prever se o preço da ação de uma empresa vai subir ou cair (alvo), dado o histórico do mercado financeiro (dados); identificar de que pessoa é a face (alvo) em uma imagem (dados) ou classificar um livro (dados) em uma escola literária (alvo).</p>
 
 <p>Uma limitação de aprendizado de máquina supervisionado é que pode ser extremamente custoso conseguir os alvos para cada observação (nós chamamos isso de nomear a base de dados). Por exemplo, considere o problema de prever o tema de um artigo de jornal (alvo) dado o seu conteúdo escrito (dados). Para que um computador faça isso, é preciso que antes alguém tenha lido uma grande quantidade (muitas vezes, milhares) de artigos e nomeado cada um com um tema. Assim, o computador terá acesso tanto ao conteúdo, quanto ao alvo que ele precisa prever, nesse caso o tema do artigo. Em cenários de detecção de anomalias, muitas vezes nós só temos dados que representam o caso normal, sendo extremamente difícil conseguir dados que representam anomalias. Em alguns extremos, como, por exemplo, o problema de detectar falhas em uma usina nuclear, conseguir exemplos de falhas críticas é tanto impossível quanto indesejável. Assim, com poucos ou nenhum exemplo do que é um caso anormal, o computador não tem informação suficiente para aprender os padrões estatísticos da anormalidade, tornando o problema de detectá-la extremamente difícil.</p>
 
@@ -184,7 +180,31 @@
         </div>
     </div>
 </article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+</div>
 <hr>
 
 
@@ -263,6 +283,8 @@
 </script>
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 

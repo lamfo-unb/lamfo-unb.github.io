@@ -93,11 +93,7 @@
 </nav>
 
 
-    <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- Post Header -->
+    <!-- Post Header -->
 <header class="intro-header" style="background-image: url('/img/0026.png')">
     <div class="container">
         <div class="row">
@@ -122,7 +118,7 @@
 
 <p>Fazer previsões é uma das principais ambições do ser humano. Uma pessoa pode ter a motivação de saber prever quase qualquer coisa, desde o placar de um evento esportivo até o preço de uma ação ou o humor da sua namorada… Mas o futuro é uma variável aleatória – ninguém sabe de fato como vai ser, qualquer previsão é em essência um “chute”. Bem, como chutar então? Você pode simplesmente jogar uma moeda, isso é bem conveniente, mas certamente não dá o melhor chute possível. É aí que entra a estatística, uma área do conhecimento que defino sucintamente como “a ciência do chute”.</p>
 
-<p>Enquanto o futuro é um inerente mistério, o passado é um ambiente onde não há mais incerteza, então nada mais natural e sensato que tentar prever o futuro com base no que já aconteceu. A grosso modo, com base em potenciais elementos (uma lista de $x_1,x_2,…,x_k$ variáveis independentes) que influenciem essa variável que se deseja prever (uma variável dependente $y$), tentar chutar valores futuros de $y$ ao se coletar novos valores dos $x$’s (em aprendizado de máquina, o jargão para isso é “aprendizagem supervisionada”). Ou seja, a estatística busca fornecer o melhor chute, condicionado às informações disponíveis.</p>
+<p>Enquanto o futuro é um inerente mistério, o passado é um ambiente onde não há mais incerteza, então nada mais natural e sensato que tentar prever o futuro com base no que já aconteceu. A grosso modo, com base em potenciais elementos (uma lista de <script type="math/tex">x_1,x_2,...,x_k</script> variáveis independentes) que influenciem essa variável que se deseja prever (uma variável dependente <script type="math/tex">y</script>), tentar chutar valores futuros de <script type="math/tex">y</script> ao se coletar novos valores dos <script type="math/tex">x</script>’s (em aprendizado de máquina, o jargão para isso é “aprendizagem supervisionada”). Ou seja, a estatística busca fornecer o melhor chute, condicionado às informações disponíveis.</p>
 
 <p>Pense intuitivamente: por mais que o futuro possa trazer uma coisa completamente diferente de tudo que já foi visto, é razoável assumir que o futuro e o passado compartilham de certos <strong>padrões</strong>, conexões que fazem as duas instâncias temporais serem manifestações de um mesmo fenômeno. Para obter bons chutes, um conceito bem importante é o chamado <strong>dilema viés-variância</strong>.</p>
 
@@ -173,7 +169,31 @@
         </div>
     </div>
 </article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+</div>
 <hr>
 
 
@@ -252,6 +272,8 @@
 </script>
 
 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 
