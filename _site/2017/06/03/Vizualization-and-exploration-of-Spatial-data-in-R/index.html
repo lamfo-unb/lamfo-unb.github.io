@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Vizualization and exploration of Spatial data in R - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+				
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/0018.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Vizualization and exploration of Spatial data in R</h1>
+                    
+                    <span class="meta">Posted by Marcelo Felix on June 3, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="vizualization-and-exploration-of-spatial-data-in-r"><strong><em>Vizualization and exploration of Spatial data in R</em></strong></h1>
+
+<p>In this post we will base ourselves on the tutorial by Robin Lovelace et. Al. (2017) and the material that will be used is available <a href="https://github.com/Robinlovelace/Creating-maps-in-R">here</a> in the <em>Creating-maps-in-R.Rproj</em> project.</p>
+
+<p>Initially, you need to install the following packages in the R:
+<code class="highlighter-rouge">"ggplot2", "ggmap","rgdal","rgeos","maptools","dplyr","tidyr","tmap"</code></p>
+
+<p>The next step is to open the shape file. The shapefile is a file format that stores geospatial data, such as position, shape, and attributes, in a vector form. In RStudio you can open this type of file as follows:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"london_sport"</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>The last line of the code shows that the variable class <em>Pop_2001</em> is classified as a factor, whereas it should be numeric. We must change it for this analysis:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="p">))</span><span class="w">
+</span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w"> 
+</span></code></pre>
+</div>
+
+<p>A first analysis can be made selecting the regions that have a certain index of participation in the sport:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">sel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">25</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgrey"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sel</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"turquoise"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/img/geospace/chunk-3-1.png" width="500" /></p>
+
+<p>Another interesting analysis is the identification of quadrants. This division can be made based on the coordinates of the centroid, which in this case represents the central point of London.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
+</span><span class="c1">## encontrando o centro da região de londres
+</span><span class="n">lat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span><span class="n">lng</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">2</span><span class="p">]]</span><span class="w">
+</span><span class="c1">## argumento para testar se a região está ao norte ou ao leste do centro
+</span><span class="n">norte</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">lng</span><span class="p">)</span><span class="w">
+</span><span class="n">leste</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">oeste</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">sul</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">lng</span><span class="p">)</span><span class="w">
+</span><span class="c1">## testando se a coordenada está a norte ou leste do centro
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"nordeste"</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"noroeste"</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"sudeste"</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"sudoeste"</span><span class="w">
+
+</span><span class="c1">## colorindo os quadrantes no gráfico
+</span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="o">$</span><span class="n">quadrant</span><span class="p">))</span><span class="w">
+</span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgrey"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">,],</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/img/geospace/chunk-4-1.png" width="500" /></p>
+
+<h2 id="creating-maps-whith-tmap-ggplot-and-leaflet">Creating maps whith tmap, ggplot and leaflet</h2>
+<p><strong>Tmap</strong></p>
+
+<p>The analysis can be done by generating a color gradient based on the percentage participation of the population in the sport:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">qtm</span><span class="p">(</span><span class="n">shp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Partic_Per"</span><span class="p">,</span><span class="w"> </span><span class="n">fill.palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"-Blues"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/img/geospace/chunk-5-1.png" width="500" /></p>
+
+<p><strong>ggplot2</strong></p>
+
+<p>Unlike tmap, ggplot requires you to provide the database in data.frame format. This can be done through the <code class="highlighter-rouge">fortify()</code> function:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fortify</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">row.names</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># Atribui um ID para a base sp 
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># ultima checagem antes da junção (os nomes das variáveis precisam ser iguais)
+</span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="c1"># juntou pela única variável com nome em comum
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Now the lnd_f object can be used to create a map with ggplot:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">map</span><span class="o">&lt;-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_polygon</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">coord_equal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Easting (m)"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Northing (m)"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Sports\nParticipation"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"London Sports Participation"</span><span class="p">)</span><span class="w">
+</span><span class="n">map</span><span class="w">
+</span><span class="c1">## trocando as cores
+</span><span class="n">map</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w">
+</span><span class="c1">## salvando o grafico com ggsave
+</span><span class="n">ggsave</span><span class="p">(</span><span class="s2">"Sport Participation - London.jpg"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/img/geospace/img_ggplot2.jpg" width="500" /></p>
+
+<h2 id="interactive-maps-with-leaflet"><strong>Interactive maps with leaflet</strong></h2>
+
+<p>The leaflet package allows the creation of interactive maps and acts together with the shiny package, making the online visualization possible. The lnd object is with a Coordinate Reference System (CRS) that is not compatible with the leaflet. The display will be possible after the CRS of the lnd object is changed to the EPSG: 4326, which has been the most used one:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd84</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">))</span><span class="w"> </span><span class="c1">#reprojeta
+</span><span class="n">leaflet</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+   </span><span class="n">addTiles</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+   </span><span class="n">addPolygons</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd84</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<iframe title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/fdb08a2c254288844c6ae4673e4e6e0b/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/london_map.html" frameborder="0" allowfullscreen=""></iframe>
+
+<p>This map differs from the others because it allows a similar expirience to the use of googlemaps in the browser.</p>
+
+<p>Next we have another example of visualization in the leaflet, but now we will use the shapefile of the Federal District, available on the IBGE website. After you download the file and sabe it to your current Working Directory, the first step is to assign the file to a new object, here called <em>df_shp</em>:</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span><span class="w">
+</span><span class="n">df_shp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"df_setores_censitarios"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"53SEE250GC_SIR"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Criação do mapa com leaflet
+</span><span class="n">df_shp</span><span class="o">@</span><span class="n">proj4string</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">)</span><span class="w"> </span><span class="c1"># reprojeta
+</span><span class="n">df_leaf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">leaflet</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_shp</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">addTiles</span><span class="p">()</span><span class="o">%&gt;%</span><span class="w">
+	</span><span class="n">addPolygons</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">stroke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
+	</span><span class="n">addLegend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Distrito Federal"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df_leaf</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>The code above follows the same reasoning of the created for the map of London, but with some more configurations. The .shp file was inserted directly into the leaflet function and the addPolygons function included the fill, weight, stroke and color arguments, which respectively represent whether the interior of the polygons should receive some color, the thickness of the contour line, if the lines of the Polygons should be colored and which color should be chosen. The addLegend function creates a legend for the map. For more details on functions, simply run the following command:?Function-name.</p>
+
+<iframe title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/9f68419b0b05e32b8741861e80c7df02/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df.html" frameborder="0" allowfullscreen=""></iframe>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/06/03/Visualizacao-e-exploracao-de-dados-espaciais-em-R/" data-toggle="tooltip" data-placement="top" title="Visualização e exploração de dados espaciais em R">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo/(at)unb/(dot)br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+
+</html>
