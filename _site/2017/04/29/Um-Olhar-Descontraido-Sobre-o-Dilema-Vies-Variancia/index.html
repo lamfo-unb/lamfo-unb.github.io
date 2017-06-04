@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Um Olhar Descontraído Sobre o Dilema Viés-Variância - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+				
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/0026.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Um Olhar Descontraído Sobre o Dilema Viés-Variância</h1>
+                    
+                    <span class="meta">Posted by Peng Yaohao on April 29, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="um-olhar-descontraído-sobre-o-dilema-viés-variância">Um Olhar Descontraído Sobre o Dilema Viés-Variância</h1>
+
+<p>Fazer previsões é uma das principais ambições do ser humano. Uma pessoa pode ter a motivação de saber prever quase qualquer coisa, desde o placar de um evento esportivo até o preço de uma ação ou o humor da sua namorada… Mas o futuro é uma variável aleatória – ninguém sabe de fato como vai ser, qualquer previsão é em essência um “chute”. Bem, como chutar então? Você pode simplesmente jogar uma moeda, isso é bem conveniente, mas certamente não dá o melhor chute possível. É aí que entra a estatística, uma área do conhecimento que defino sucintamente como “a ciência do chute”.</p>
+
+<p>Enquanto o futuro é um inerente mistério, o passado é um ambiente onde não há mais incerteza, então nada mais natural e sensato que tentar prever o futuro com base no que já aconteceu. A grosso modo, com base em potenciais elementos (uma lista de <script type="math/tex">x_1,x_2,...,x_k</script> variáveis independentes) que influenciem essa variável que se deseja prever (uma variável dependente <script type="math/tex">y</script>), tentar chutar valores futuros de <script type="math/tex">y</script> ao se coletar novos valores dos <script type="math/tex">x</script>’s (em aprendizado de máquina, o jargão para isso é “aprendizagem supervisionada”). Ou seja, a estatística busca fornecer o melhor chute, condicionado às informações disponíveis.</p>
+
+<p>Pense intuitivamente: por mais que o futuro possa trazer uma coisa completamente diferente de tudo que já foi visto, é razoável assumir que o futuro e o passado compartilham de certos <strong>padrões</strong>, conexões que fazem as duas instâncias temporais serem manifestações de um mesmo fenômeno. Para obter bons chutes, um conceito bem importante é o chamado <strong>dilema viés-variância</strong>.</p>
+
+<h4 id="o-que-isso-quer-dizer">O que isso quer dizer?</h4>
+
+<p>Vamos discutir primeiro o “viés”. É fácil imaginar que, para ser capaz de prever com exatidão o futuro, primeiro é preciso entender bem o passado. Um preditor que não consegue mapear bem as características daquilo que já se observou claramente tende a não se sair bem para o futuro. O que aqui chamamos de “viés” são os desvios entre aquilo que se observou no passado e aquilo que se prevê pelo modelo proposto – em suma, é o quão bem o modelo está <strong>descrevendo</strong> os dados observados.</p>
+
+<p><img src="/img/chunk-8.png" alt="alt text" title="Distribuições" /></p>
+
+<p>É natural pensar que quanto melhor o modelo descreve os dados da amostra, melhor ele é. Porém, isso não é verdade, pois o objetivo primordial <strong>não</strong> é descrever os dados, mas usá-los para fazer previsões (ou <strong>inferências</strong>) sobre o futuro. Isso nos leva para o lado da “variância”:</p>
+
+<p>O objetivo aqui é conseguir prever a variável de interesse com base em <strong>alguns</strong> elementos. De cara temos um problema, pois aquilo que efetivamente vemos é apenas uma parte do fenômeno todo; então, se nos atermos demais a simplesmente descrever os dados disponíveis, estamos no fundo torcendo para que o <strong>mesmo padrão observado se repita para o futuro</strong>, o que claramente não é verdade. Para poder <strong>generalizar</strong> o que se observou para amostras futuras – ou seja, antecipar alguma coisa que ainda não aconteceu – é preciso calibrar o modelo de modo a capturar apenas o “essencial”, informações que realmente contribuem para uma boa previsão, em vez de captar por completo os padrões daquela amostra específica, pois ao fazer isso, informações inúteis (“<strong>ruído</strong>”) acabam sendo incorporadas ao mesmo tempo. Basicamente, ao forçar uma descrição muito fiel dos dados da amostra, acaba que se perde em capacidade de generalização, pois o futuro em geral <strong>não</strong> é uma extensão do passado.</p>
+
+<p>Modelos que descrevem excessivamente bem os dados de uma amostra tendem a introduzir muita complexidade e volatilidade, de modo a prejudicar a capacidade de generalização. Na filosofia da ciência há um princípio chamado “navalha de Occam”, os estatísticos conhecem como “princípio da parcimônia”; a cultura popular adotou um mnemômico um tanto quanto ácido:</p>
+<blockquote>
+  <p><em>“KISS – <strong>keep it simple, stupid</strong>“</em></p>
+</blockquote>
+
+<p>Basicamente, quer dizer que entre modelos com mesmo poder explicativo, o mais simples deles é o melhor, pois apresenta a mesma qualidade com um custo menor.</p>
+
+<p>A essa altura, você já deve ter percebido que estamos diante de um cobertor curto, pois o cenário ideal que buscamos possui as duas características desejáveis, porém contraditórias: queremos um modelo que descreva bem os dados disponíveis <strong>E</strong> que seja capaz de generalizar para dados futuros. Se temos um modelo que se ajusta mal aos dados do passado (“under-fitting”), o modelo já começa com pouca confiabilidade, pois não está sendo fiel às informações disponíveis; por outro lado, um ajustamento excessivo (“over-fitting”) acaba assumindo que o futuro irá repetir o passado, de modo que o modelo tende a fornecer uma péssima previsão para observações que sejam apenas um pouquinho fora daquele padrão dos dados passados.</p>
+
+<p>O dilema viés-variância é muito importante na construção de modelos matemáticos: a qualidade de um modelo depende diretamente das variáveis consideradas, e saber achar o meio-termo entre incorporar variáveis úteis e descartar variáveis inúteis pode ser um desafio e tanto. Vejamos um exemplo simplista: suponha que queremos construir um modelo para prever o preço de uma ação de uma empresa. É de se esperar que o desempenho econômico da empresa tenha uma influência decisiva no preço da ação, então podemos colocar como variáveis alguns indicadores como índice de lucratividade e liquidez, o <strong>market share</strong> da empresa, número de filiais, e por aí vai.</p>
+
+<p>Poderíamos colocar por exemplo “escolaridade do CEO” como uma variável explicativa; é de se esperar que um gestor com uma formação acadêmica mais robusta possa incrementar o valor da companhia, mas a relação já não parece tão direta assim… Poderíamos colocar como variável se o CEO da empresa é destro, canhoto ou ambidestro, mas essa informação tende a não influenciar em nada na variável que se deseja prever, e a introdução dessa variável acabaria poluindo o modelo com uma <strong>complexidade desnecessária</strong>.</p>
+
+<p>Note que não há limites para a criatividade do pesquisador, e teoricamente poderíamos colocar um número gigantesco de variáveis. Mas à medida que variáveis com menor relevância vão sendo inseridas, chega um momento em que a “variância” introduzida pela nova variável não compensa o <strong>poder explicativo</strong> que ela agrega ao modelo.</p>
+
+<p>Saber encontrar o meio-termo ideal entre viés e variância não é uma tarefa fácil, há diversas técnicas para nos ajudar com isso, tais como validação cruzada e redução de dimensionalidade, podemos abordar esses tópicos em posts futuros.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/29/A-Casual-Look-at-the-Bias-Variance-Dilemma/" data-toggle="tooltip" data-placement="top" title="A Casual Look at the Bias-Variance Dilemma">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/05/09/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-1/" data-toggle="tooltip" data-placement="top" title="Aprendizado Semi-Supervisionado para Detecção de Fraudes Parte 1">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo/(at)unb/(dot)br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+
+</html>
