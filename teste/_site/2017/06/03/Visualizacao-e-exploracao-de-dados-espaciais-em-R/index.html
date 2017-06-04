@@ -118,43 +118,33 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<h1 id="visualização-e-exploração-de-dados-espaciais-no-r"><strong><em>Visualização e exploração de dados espaciais no R</em></strong></h1>
+				<h1><strong><em>Visualização e exploração de dados espaciais no R</em></strong></h1>
 
 <p>Neste post iremos nos basear no tutorial de Robin Lovelace et. al. (2017) e o material que será utilizado está disponível em seu <a href="https://www.github.com/Robinlovelace/Creating-maps-in-R">repositorio</a> no Github, no projeto <em>Creating-maps-in-R.Rproj</em>. 
 Inicialmente, é preciso instalar os seguintes pacotes no R: 
-<code class="highlighter-rouge">"ggplot2", "ggmap","rgdal","rgeos","maptools","dplyr","tidyr","tmap"</code></p>
+<code>&quot;ggplot2&quot;, &quot;ggmap&quot;,&quot;rgdal&quot;,&quot;rgeos&quot;,&quot;maptools&quot;,&quot;dplyr&quot;,&quot;tidyr&quot;,&quot;tmap&quot;</code></p>
 
-<p>Feita a instalação dos pacotes necessários, o primeiro passo é abrir a shape file. Aqui iremos nos basear no tutorial de Robin Lovelace et. al. (2017) e o material que será utilizado está disponível no <a href="https://www.github.com/Robinlovelace/Creating-maps-in-R">link</a> no projeto <em>Creating-maps-in-R.Rproj</em>.</p>
+<p>Feita a instalação dos pacotes necessários, o primeiro passo é abrir a shape file. Aqui iremos nos basear no tutorial de Robin Lovelace et. al. (2017) e o material que será utilizado está disponível no <a href="https://www.github.com/Robinlovelace/Creating-maps-in-R">link</a> no projeto <em>Creating-maps-in-R.Rproj</em>. </p>
 
-<p>O shapefile é um formato de arquivo que armazena dados geoespaciais, como posição, forma e atributos, em forma de vetor. No RStudio a abertura desse tipo de arquivo pode ser feita da seguinte forma:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+<p>O shapefile é um formato de arquivo que armazena dados geoespaciais, como posição, forma e atributos, em forma de vetor. No RStudio a abertura desse tipo de arquivo pode ser feita da seguinte forma: </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
 </span><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"london_sport"</span><span class="p">)</span><span class="w">
 </span><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
 </span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
-
+</span></code></pre></div>
 <p>A última linha do código mostra que a classe da variável <em>Pop_2001</em> está classificada como fator, enquanto deveria ser do tipo numérico. Portanto, devemos alterá-la:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="p">))</span><span class="w">
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="p">))</span><span class="w">
 </span><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w"> 
-</span></code></pre>
-</div>
-
-<p>Uma primeira análise pode ser feita com apenas selecionando as regiões que possuam determinado índice de participação no esporte:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">sel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">25</span><span class="w">
+</span></code></pre></div>
+<p>Uma primeira análise pode ser feita com apenas selecionando as regiões que possuam determinado índice de participação no esporte: </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">sel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">25</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgrey"</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sel</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"turquoise"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div>
+<p><img src="/img/geospace/chunk-3-1.png" width="500"></p>
 
-<p><img src="/img/geospace/chunk-3-1.png" width="500" /></p>
-
-<p>Outra análise interessante é a identificação de quadrantes. Essa divisão pode ser feita tendo como base as coordenadas do centroide, que no caso representa o ponto central de Londres.</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
+<p>Outra análise interessante é a identificação de quadrantes. Essa divisão pode ser feita tendo como base as coordenadas do centroide, que no caso representa o ponto central de Londres. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
 </span><span class="c1">## encontrando o centro da região de londres
 </span><span class="n">lat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span><span class="n">lng</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">2</span><span class="p">]]</span><span class="w">
@@ -178,28 +168,23 @@ Inicialmente, é preciso instalar os seguintes pacotes no R:
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">norte</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">leste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sul</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">oeste</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div>
+<p><img src="/img/geospace/chunk-4-1.png" width="500"></p>
 
-<p><img src="/img/geospace/chunk-4-1.png" width="500" /></p>
+<h2>Criando mapas com tmap, ggplot e leaflet</h2>
 
-<h2 id="criando-mapas-com-tmap-ggplot-e-leaflet">Criando mapas com tmap, ggplot e leaflet</h2>
 <p><strong>Tmap</strong></p>
 
-<p>A análise pode ser feita gerando um gradiente de cores com base na participação percentual da população no esporte:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+<p>A análise pode ser feita gerando um gradiente de cores com base na participação percentual da população no esporte: </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
 </span><span class="n">qtm</span><span class="p">(</span><span class="n">shp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Partic_Per"</span><span class="p">,</span><span class="w"> </span><span class="n">fill.palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"-Blues"</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
-
-<p><img src="/img/geospace/chunk-5-1.png" width="500" /></p>
+</span></code></pre></div>
+<p><img src="/img/geospace/chunk-5-1.png" width="500"></p>
 
 <p><strong>ggplot2</strong></p>
 
-<p>Diferentemente do tmap, o ggplot exige que você forneça a base de dados em formado de data.frame. Isto pode ser feito por meio da função fortify():</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+<p>Diferentemente do tmap, o ggplot exige que você forneça a base de dados em formado de data.frame. Isto pode ser feito por meio da função fortify(): </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
 </span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fortify</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
 </span><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
@@ -207,12 +192,9 @@ Inicialmente, é preciso instalar os seguintes pacotes no R:
 </span><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># ultima checagem antes da junção (os nomes das variáveis precisam ser iguais)
 </span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="c1"># juntou pela única variável com nome em comum
 </span><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
-
+</span></code></pre></div>
 <p>Agora o objeto lnd_f pode ser utilizado para a criação de um mapa com ggplot:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">map</span><span class="o">&lt;-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">map</span><span class="o">&lt;-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
   </span><span class="n">geom_polygon</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">coord_equal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
   </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Easting (m)"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Northing (m)"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Sports\nParticipation"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
   </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"London Sports Participation"</span><span class="p">)</span><span class="w">
@@ -221,46 +203,38 @@ Inicialmente, é preciso instalar os seguintes pacotes no R:
 </span><span class="n">map</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w">
 </span><span class="c1">## salvando o grafico com ggsave
 </span><span class="n">ggsave</span><span class="p">(</span><span class="s2">"Sport Participation - London.jpg"</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
-
-<p><img src="/img/geospace/img_ggplot2.jpg" width="500" /></p>
+</span></code></pre></div>
+<p><img src="/img/geospace/img_ggplot2.jpg" width="500"></p>
 
 <p><strong>Mapas interativos com leaflet</strong></p>
 
-<p>O pacote leaflet permite a criação de mapas interativos e age de forma conjunta com o pacote shiny, tornando possível a visualização online dos mapas. O objeto lnd está com um CRS (Coordinate Reference System) que não é compatível com o leaflet. A visualização será possível depois que o CRS do objeto lnd for alterado para o EPSG:4326, que tem sido o mais utilizado:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+<p>O pacote leaflet permite a criação de mapas interativos e age de forma conjunta com o pacote shiny, tornando possível a visualização online dos mapas. O objeto lnd está com um CRS (Coordinate Reference System) que não é compatível com o leaflet. A visualização será possível depois que o CRS do objeto lnd for alterado para o EPSG:4326, que tem sido o mais utilizado: </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
 </span><span class="n">lnd84</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">))</span><span class="w"> </span><span class="c1">#reprojeta
 </span><span class="n">leaflet</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
    </span><span class="n">addTiles</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
    </span><span class="n">addPolygons</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd84</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div>
+<iframe  title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/fdb08a2c254288844c6ae4673e4e6e0b/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/london_map.html" frameborder="0" allowfullscreen></iframe>
 
-<iframe title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/fdb08a2c254288844c6ae4673e4e6e0b/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/london_map.html" frameborder="0" allowfullscreen=""></iframe>
-
-<p>Esse mapa se diferencia dos outros por permitir uma interatividade semelhante à que se tem com a utilização do googlemaps no navegador.</p>
+<p>Esse mapa se diferencia dos outros por permitir uma interatividade semelhante à que se tem com a utilização do googlemaps no navegador. </p>
 
 <p>A seguir temos mais um exemplo de visualização de uma determinada região no leaflet, porém agora será utilizado o arquivo shapefile do Distrito Federal, disponível no site do IBGE. Depois de baixar o arquivo e salvá-lo no seu Working Directory atual,  o primeiro passo é atribuir o arquivo à um novo objeto, aqui denominado <em>df_shp</em>:</p>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span><span class="w">
 </span><span class="n">df_shp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"df_setores_censitarios"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"53SEE250GC_SIR"</span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># Criação do mapa com leaflet
 </span><span class="n">df_shp</span><span class="o">@</span><span class="n">proj4string</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">)</span><span class="w"> </span><span class="c1"># reprojeta
 </span><span class="n">df_leaf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">leaflet</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_shp</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">addTiles</span><span class="p">()</span><span class="o">%&gt;%</span><span class="w">
-	</span><span class="n">addPolygons</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">stroke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
-	</span><span class="n">addLegend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Distrito Federal"</span><span class="p">)</span><span class="w">
+    </span><span class="n">addPolygons</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">stroke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">addLegend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#03F"</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Distrito Federal"</span><span class="p">)</span><span class="w">
 
 </span><span class="n">df_leaf</span><span class="w">
-</span></code></pre>
-</div>
-
+</span></code></pre></div>
 <p>O código acima segue o mesmo raciocínio do criado para o mapa de Londres, porém com algumas configurações a mais. O arquivo .shp foi inserido diretamente na função leaflet e na função addPolygons foram incluídos os argumentos fill, weight, stroke e color, que representam respectivamente se o interior dos polígonos devem receber alguma cor, a espessura da linha de contorno, se as linhas dos polígonos devem ser coloridas e qual a cor escolhida. A função addLegend cria uma legenda para o mapa. Para mais detalhes sobre funções, basta rodar o seguinte comando: ?nomedafunção.</p>
 
-<iframe title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/9f68419b0b05e32b8741861e80c7df02/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe  title="London Map" width="700" height="400" src="https://cdn.rawgit.com/jadermcs/9f68419b0b05e32b8741861e80c7df02/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df.html" frameborder="0" allowfullscreen></iframe>
 
 
                 <hr>
