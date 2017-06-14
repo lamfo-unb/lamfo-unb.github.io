@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Instalando Python e Outras Ferramentas para Aprendizado de Máquina
+title: Instalando Python para Aprendizado de Máquina
 lang: pt
 header-img: 
 date: 2017-06-10 10:19:07
@@ -31,15 +31,15 @@ Antes de mais nada, [certifique-se de que seu sistema operacional é 64 bits](ht
 
 No momento que escrevo, a última versão do Anaconda não é compatível com o TensorFlow (uma extensão para redes neurais que instalaremos mais a frente). Por isso, vamos baixar uma versão mais antiga. Vá em [https://repo.continuum.io/archive/index.html](https://repo.continuum.io/archive/index.html) e clique na versão Anaconda3 4.2 para Windows: `Anaconda3-4.2.0-Windows-x86_64.exe`. Isso baixará um arquivo executável. 
 
-Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção `Add Python 3.5 to PATH` esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.
+Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção `Add Anaconda to PATH` esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.
 
 Abra a prompt de comando. Antes de prosseguir, vamos nos familiarizar com ela um pouco. A propt de comando é uma forma alternativa de interagir com o seu computador. Da mesma forma que você navega pelas pastas e arquivos clicando com o mouse, você pode fazer isso na linha de comando. Por padrão, a linha de comando abre no seu `Home`, o local onde ficam suas pastas de imagens, documentos, downloads, etc. Após abrir o prompt de comando, digite `ls` para ver o que está na sua pasta, naquele local. Você verá escrito as pastas de arquivos do seu `Home`. O comando `ls` lista o que está na sua pasta (ou diretório) corrente.
 
-Agora, digite `cd Desktop` para navegar ao Desktop do seu computador. Se quiser, digite `ls` para mostrar quais arquivos estão no seu Desktop. O comando `cd` (change directory) troca o diretório (ou pasta) corrente. O comando `cd ..` sobe um nível nas pastas do seu computador. Se você digitar isso na prompt de comando enquanto estiver no Desktop, ele te levará de volta ao `Home`, que é a o diretório um nível acima do `Desktop`
+Agora, digite `cd Desktop` para navegar ao Desktop do seu computador. Se quiser, digite `ls` para mostrar quais arquivos estão no seu Desktop. O comando `cd` (change directory) troca o diretório (ou pasta) corrente. O comando `cd ..` sobe um nível nas pastas do seu computador. Se você digitar isso na prompt de comando enquanto estiver no Desktop, ele te levará de volta ao `Home`, que é a o diretório um nível acima do `Desktop`. Volte para o `HOME`.
 
-No Desktop, digite `python` na prompt de comando. Isso iniciará o modo interativa do Python. Execute algumas operações matemáticas como `2+2` e veja o resultado sendo calculado pelo Python. Quando terminar, digite `quit()` para sair da versão interativa do Python.
+No `HOME`, digite `python` na prompt de comando. Isso iniciará o modo interativa do Python. Execute algumas operações matemáticas como `2+2` e veja o resultado sendo calculado pelo Python. Quando terminar, digite `quit()` para sair da versão interativa do Python.
 
-Para finalizar, digite `jupyter notebook` na linha de comando. Isso inicializará o Jupyter, um programa que executa códigos em Python. Na prompt de comando, você verá uma mensagem `Copy/paste this URL into your browser when you connect for the first time, to login with a token:` seguida de um url, que começará com ` http://localhost:8889/`. Copie e cole esse url em no seu browser (OBS: funciona apenas com Chrome ou Firefox). Isso abrirá um notebook jupyter, onde você poderá escrever cógigo em Python intercalado com comentários, se assim desejar (veja um [exemplo](https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/DeepANN.ipynb)). Para sair do notebook, feche a aba no seu browser, volte a prompt de comando e aperte CTR+C, seguido de y e enter.
+Para finalizar, digite `jupyter notebook` na linha de comando. Isso inicializará o Jupyter, um programa que executa códigos em Python. Uma nova aba será aberta no seu browser (OBS: funciona apenas com Chrome ou Firefox) e nela você verá a interface do Jupyter. Caso essa aba não abra, na prompt de comando, procure um link que deve começar com `http://localhost:8889/`. Copie e cole esse link em uma nova aba do seu browser para abrir a interface do Jupyter. Nessa interface, você poderá escrever *notebooks* que intercalam código em Python intercalado com comentários, se assim desejar (veja um [exemplo](https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/DeepANN.ipynb)). Para sair do notebook, feche a aba no seu browser, volte a prompt de comando e aperte CTRL+C, seguido de y e enter. CTRL+C é um comando para fechar programas que estão rodando na sua prompt de comando; você terá que confirmar o fechamento com y (*yes*), seguido de enter.
 
 Para aprender mais sobre a linha de comando, sugiro este [link](https://learnpythonthehardway.org/book/appendixa.html). Para aprender mais sobre o Jupyter, sugiro este [link](http://jupyter.readthedocs.io/en/latest/content-quickstart.html).
 
@@ -47,15 +47,16 @@ Para aprender mais sobre a linha de comando, sugiro este [link](https://learnpyt
 
 O [TensorFlow](https://www.tensorflow.org/) é um programa de computação numérica, que tem sua versão principal em Python. Nós usamos o TensorFlow para programas de *deep learning*, devido a sua eficiência computacional e abundância de comandos facilitadores para construção e treinamento de redes neurais. Antes de instalar o TensorFlow, vamos criar um ambiente Python. Nesse ambiente, todas as extensões (ou pacotes) que vem no Anaconda estarão presentes, mas o que instalarmos nele não será acessível de fora dele. Isso evita que a instalação de um pacote novo possa prejudicar o funcionamento dos pacotes já instalados. 
 
-Para criar um ambiente novo, digite `conda create -n tensorflow` na linha de comando. Agora, digite `activate tensorflow` para entrar nesse ambiente. Note que a sua linha de comando mudará para incluir `(tensorflow)` antes do nome do seu diretório corrente. Para sair do ambiente, basta digitar `deactivate`.
+Para criar um ambiente novo, digite `conda create -n tensorflow` na linha de comando. Confirme a criação do ambiente digitando y (*yes*), seguido de enter. Agora, digite `activate tensorflow` para entrar nesse ambiente. Note que a sua linha de comando mudará para incluir `(tensorflow)` antes do nome do seu diretório corrente. Para sair do ambiente, basta digitar `deactivate`.
 
 Finalmente, para instalar o TensorFlow, entre no ambiente recém criado e digite:
 
 ```bash
 pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.1.0-cp35-cp35m-win_amd64.whl
 ```
+Dica: CTRL+C e CTRL+V não funciona na linha de comando, mas você pode copiar e colar comandos clicando com o botão direito do mouse. Em alguns computadores, na linha de comando, podemos usar CTRL+SHIFT+C para copiar e CTRL+SHITF+V para colar.
 
-Nós usaremos `pip` que é o gerenciador de pacotes do Python para instalar o TensorFlow 1.1 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as [instruções no site do TensorFlow](https://www.tensorflow.org/install/install_windows). Teste agora sua instalação. Na linha de comando, digite `python` para iniciar o modo iterativo do Python. Digite `import tensorflow as tf`. Se tudo ocorreu bem até aqui, você não verá nenhum erro.
+Na instalação do TensorFlow, usaremos `pip`, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.1 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as [instruções no site do TensorFlow](https://www.tensorflow.org/install/install_windows). Teste agora sua instalação. Na linha de comando, digite `python` para iniciar o modo iterativo do Python. Digite `import tensorflow as tf`. Se tudo ocorreu bem até aqui, você não verá nenhum erro.
 
 ## Instalando Git <a name="git"></a>
 
@@ -71,8 +72,10 @@ Vamos fazer um último teste para ver se tudo está funcionando. Abra a linha de
 ```bash
 git clone https://github.com/matheusfacure/DeepArt.git
 ```
-Isso baixará um repositório meu com uma implementação do [algoritmo de DeepDream](https://en.wikipedia.org/wiki/DeepDream). Digite agora `cd DeepArt/` para entrar no diretório baixado. Por fim, digite `python deep_dream.py` para executar o programa que fiz. Isso baixará uma rede neural (pode levar alguns minutos) e a utilizará para realizar o algoritmo de DeepDream. Usando o navegador padrão do seu sistema operacional (clicando com o mouse). Vá até o diretório (ou pasta) de DeepArt que acabamos de baixar e veja a imagem criada pelo algoritmo de DeepDream. Caso não saiba onde está essa pasta, na linha de comando do Git, digite `pwd` (print working directory) para mostrar o endereço da pasta.
+Isso baixará um repositório meu com uma implementação do [algoritmo de DeepDream](https://en.wikipedia.org/wiki/DeepDream). Por padrão, o a linha de comando do Git também abre no `HOME`. Se não for o caso, navega até o Home com `cd` e então clone o repositório com o comando acima. Voltando à linha de comando do Windows, você deve estar no Home também. Digite `ls` para ver a pasta `DeepArt` que baixamos com o Git. 
+
+Na linha de comando do Windows, digite agora `cd DeepArt/` para entrar no diretório baixado. Por fim, digite `python deep_dream.py` para executar o programa que fiz. Isso baixará uma rede neural (pode levar alguns minutos) e a utilizará para realizar o algoritmo de DeepDream. Usando o navegador padrão do seu sistema operacional (clicando com o mouse). Vá até o diretório (ou pasta) de DeepArt que acabamos de baixar e veja a imagem criada pelo algoritmo de DeepDream. Caso não saiba onde está essa pasta, na linha de comando do Git, digite `pwd` (print working directory) para mostrar o endereço da pasta.
 
 ## Considerações Finais <a name="fim"></a>
 
-Eu testei a execução dos passos desse tutorial apenas uma vêz e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando esse tutorial, tanto para abarcar a resolução dos erros mais frequentemente encontrados quanto para torná-lo mais compreensível. 
+Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros mais frequentemente encontrados quanto para torná-lo mais compreensível. 
