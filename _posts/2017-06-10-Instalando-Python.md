@@ -27,9 +27,7 @@ Para seguir com esse tutorial de instalação, você precisa de um computador co
 
 No momento, Python a linguagem de programação preferida pelos cientistas de dados, especialmente para aprendizado de máquina. Mas mais do que isso, Python tem uma sintaxe extremamente simples e legível, o que te permite focar mais no conteúdo do seu programa do que em como escrevê-lo. Aqui, vamos ensinar como instalar a distribuição [Anaconda](https://www.continuum.io/downloads), um pacote de programas que inclui o Python mais uma série de extensões utilizadas em ciência de dados e aprendizado de máquina (como Numpy, Pandas, Jupyter Notebooks e Scikit Learn).
 
-Antes de mais nada, [certifique-se de que seu sistema operacional é 64 bits](https://support.microsoft.com/pt-br/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64-bit-version-of-the-windows-operating-system). Infelizmente, o tutorial a seguir só funciona na versão 64 bits do Windows, então uma vez que você tenha confirmado essa versão, podemos prosseguir com a instalação.
-
-No momento que escrevo, a última versão do Anaconda não é compatível com o TensorFlow (uma extensão para redes neurais que instalaremos mais a frente). Por isso, vamos baixar uma versão mais antiga. Vá em [https://repo.continuum.io/archive/index.html](https://repo.continuum.io/archive/index.html) e clique na versão Anaconda3 4.2 para Windows: `Anaconda3-4.2.0-Windows-x86_64.exe`. Isso baixará um arquivo executável. 
+Antes de mais nada, [certifique-se de que seu sistema operacional é 64 bits](https://support.microsoft.com/pt-br/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64-bit-version-of-the-windows-operating-system). Infelizmente, o tutorial a seguir só funciona na versão 64 bits do Windows, então uma vez que você tenha confirmado essa versão, podemos prosseguir com a instalação. Agora, vá em [https://www.continuum.io/downloads](https://www.continuum.io/downloads) e baixe o Anaconda para Windows, versão 64-bit. Ao clicar no botão do download, um arquivo executável será baixado. 
 
 Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção `Add Anaconda to PATH` esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.
 
@@ -52,11 +50,11 @@ Para criar um ambiente novo, digite `conda create -n tensorflow` na linha de com
 Finalmente, para instalar o TensorFlow, entre no ambiente recém criado e digite:
 
 ```bash
-pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.1.0-cp35-cp35m-win_amd64.whl
+pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.2.0-cp36-cp36m-win_amd64.whl
 ```
 Dica: CTRL+C e CTRL+V não funciona na linha de comando, mas você pode copiar e colar comandos clicando com o botão direito do mouse. Em alguns computadores, na linha de comando, podemos usar CTRL+SHIFT+C para copiar e CTRL+SHITF+V para colar.
 
-Na instalação do TensorFlow, usaremos `pip`, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.1 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as [instruções no site do TensorFlow](https://www.tensorflow.org/install/install_windows). Teste agora sua instalação. Na linha de comando, digite `python` para iniciar o modo iterativo do Python. Digite `import tensorflow as tf`. Se tudo ocorreu bem até aqui, você não verá nenhum erro.
+Na instalação do TensorFlow, usaremos `pip`, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.2 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as [instruções no site do TensorFlow](https://www.tensorflow.org/install/install_windows). Teste agora sua instalação. Na linha de comando, digite `python` para iniciar o modo iterativo do Python. Digite `import tensorflow as tf`. Se tudo ocorreu bem até aqui, você não verá nenhum erro.
 
 ## Instalando Git <a name="git"></a>
 
