@@ -19,11 +19,13 @@ comments: true
 4. [Testando](#test)
 5. [Considerações Finais](#fim)
 
-## Requisitos <a name="req"></a>
+## Requisitos computacionais <a name="req"></a>
 
-Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM (mas recomendo ter pelo menos 7 GB de RAM). Além disso, não recomendo trabalhar com aprendizado de máquina em um computador que não tenha um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (*quad core*).
+Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (*quad core*).
 
 ## Instalando Python <a name="python"></a>
+
+<img src="/img/python.png" alt="python" class="img-responsive thumbnail pull-right" style="margin-left:3%; width:45%;">
 
 No momento, Python a linguagem de programação preferida pelos cientistas de dados, especialmente para aprendizado de máquina. Mas mais do que isso, Python tem uma sintaxe extremamente simples e legível, o que te permite focar mais no conteúdo do seu programa do que em como escrevê-lo. Aqui, vamos ensinar como instalar a distribuição [Anaconda](https://www.continuum.io/downloads), um pacote de programas que inclui o Python mais uma série de extensões utilizadas em ciência de dados e aprendizado de máquina (como Numpy, Pandas, Jupyter Notebooks e Scikit Learn).
 
@@ -42,6 +44,8 @@ Para finalizar, digite `jupyter notebook` na linha de comando. Isso inicializar�
 Para aprender mais sobre a linha de comando, sugiro este [link](https://learnpythonthehardway.org/book/appendixa.html). Para aprender mais sobre o Jupyter, sugiro este [link](http://jupyter.readthedocs.io/en/latest/content-quickstart.html).
 
 ## Instalando TensorFlow <a name="tf"></a>
+
+<img src="/img/tf.jpg" alt="python" class="img-responsive thumbnail pull-right" style="margin-left:3%; width:45%;">
 
 O [TensorFlow](https://www.tensorflow.org/) é um programa de computação numérica, que tem sua versão principal em Python. Nós usamos o TensorFlow para programas de *deep learning*, devido a sua eficiência computacional e abundância de comandos facilitadores para construção e treinamento de redes neurais. Antes de instalar o TensorFlow, vamos criar um ambiente Python. Nesse ambiente, todas as extensões (ou pacotes) que vem no Anaconda estarão presentes, mas o que instalarmos nele não será acessível de fora dele. Isso evita que a instalação de um pacote novo possa prejudicar o funcionamento dos pacotes já instalados. 
 
