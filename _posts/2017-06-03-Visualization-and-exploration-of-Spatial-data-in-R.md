@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Vizualization and exploration of Spatial data in R
+title: Visualization and exploration of Spatial data in R
 date: 2017-06-03 16:25:15
 tags: [georreference]
 author: Marcelo Felix
@@ -8,7 +8,7 @@ lang: en
 header-img: img/0018.jpg
 comments: true
 ---
-# ***Vizualization and exploration of Spatial data in R***
+# ***Visualization and exploration of Spatial data in R***
 
 In this post we will base ourselves on the tutorial by Robin Lovelace et. Al. (2017) and the material that will be used is available [here](https://github.com/Robinlovelace/Creating-maps-in-R) in the *Creating-maps-in-R.Rproj* project.
 
