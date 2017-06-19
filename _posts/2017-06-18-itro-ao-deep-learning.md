@@ -20,7 +20,7 @@ comments: true
 6. [Referências](#ref)
 
 ## Introdução <a name="intro"></a>
-
+teste!
 Antes de começarmos, preciso garantir que possamos conversar na mesma língua. Por isso, peço que leia a [introdução ao aprendizado de máquina](https://matheusfacure.github.io/AM-Essencial/) que fiz especialmente para quem quer começar a entender esse assunto. Lá, falo sobre o que é e para que serve aprendizado de máquina e apresento alguns do principais conceitos dessa ciência, como os três tipos de aprendizado, o dilema de viés e variância, treinamento, avaliação e validação cruzada. Reconheço que é um post um pouco longo, mas, por favor, invista um pouco do seu tempo nele e entenda bem os conceitos lá apresentados. 
 
 Bom, espero que você tenha lido o que recomendei. A partir desse ponto, vou usar alguns dos termos que apresentei lá (e que, talvez, você tenha acabado de aprender). Isso me permitirá tornar este post mais curto, já que não precisarei explicar todos os conceitos de aprendizado de máquina do zero.
