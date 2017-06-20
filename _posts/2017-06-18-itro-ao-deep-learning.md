@@ -262,4 +262,5 @@ Não é difícil encontrar material gratuito e de qualidade na internet, mas tam
 
 Esse post abrange o conteúdo que ministrei em um *workshop* do LAMFO sobre redes neurais. A proposta dessa iniciativa era mostrar que é possível falar sobre inteligência artificial e aprendizado de máquina de maneira simples e intuitiva, sem pressupor nenhum conhecimento técnico de quem está começando a aprender. Você pode acessar os slides do *workshop* [aqui](/img/workshop_dl.pdf). Todas as imagens foram retiradas da internet e assumi que estavam em domínio público. Caso encontre uma imagem sua e queira as devidas citações, favor [entrar em contato](mailto:matheusfacure01@gmail.com).
 
+# Esclarecer o que é notebook
 Como de costume, fiz o *upload* de um notebook com o código desenvolvido nesse post. Você pode baixar o notebook e acompanhar o tutorial de redes neurais por lá, ao mesmo tempo que executa os comandos. Também coloquei um exercício adicional lá, para quem quiser fixar o que vimos acima. O notebook está no [meu GitHub](https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/RNA_simples.ipynb)
