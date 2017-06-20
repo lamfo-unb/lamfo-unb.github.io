@@ -21,7 +21,7 @@ comments: true
 
 ## Introdução <a name="intro"></a>
 
-Antes de começarmos, preciso garantir a uniformidade da nossa liguagem. Por isso, peço que leia a [introdução ao aprendizado de máquina](https://matheusfacure.github.io/AM-Essencial/) que fiz especialmente para quem quer iniciar o entendimento sobre o assunto. Lá, falo sobre o que é e para que serve aprendizado de máquina e apresento alguns do principais conceitos dessa ciência, como os três tipos de aprendizado, o dilema de viés e variância, treinamento, avaliação e validação cruzada. Reconheço que é um post um pouco longo, mas, por favor, invista um pouco do seu tempo nele e entenda bem os conceitos lá apresentados. 
+Antes de começarmos, é necessário ter uniformidade em nossa liguagem. Por isso, peço que leia a [introdução ao aprendizado de máquina](https://matheusfacure.github.io/AM-Essencial/) que fiz especialmente para quem quer iniciar o entendimento sobre o assunto. Lá, falo sobre o que é e para que serve aprendizado de máquina e apresento alguns do principais conceitos dessa ciência, como os três tipos de aprendizado, o dilema de viés e variância, treinamento, avaliação e validação cruzada. Reconheço que é um post um pouco longo, mas, por favor, invista um pouco do seu tempo nele e entenda bem os conceitos lá apresentados. 
 
 Bom, espero que você tenha lido o que recomendei. A partir desse ponto, utilizarei alguns dos termos apresentados (e que, talvez, você tenha acabado de aprender). Isso me permitirá tornar este post mais curto, já que não precisarei explicar todos os conceitos de aprendizado de máquina do zero.
 
@@ -60,11 +60,11 @@ Infelizmente, os neurônios são bastante limitados. Em aprendizado de máquina,
 
 <img class="img-responsive center-block thumbnail" src="http://www.texample.net/media/tikz/examples/PNG/neural-network.png" alt="RNA">
 
-Na rede neural acima, como exemplo, dizemos que ainda estamos lidando com o problema de prever se o preço de uma casa será acima ou abaixo da média. Na entrada da rede, temos as mesmas 3 variáveis mais o viés, que são representados pelas bolinhas verdes. Isso é o que chamamos de camada de entrada da rede neural. Posteriormente, utilizando 5 neurônios, realizamos 5 somas ponderadas seguidas de uma função de ativação. Essas operações são representadas pelas bolinhas azuis, que recebem o nome de camada oculta da rede neural. Por fim, usamos um único neurônio que realiza uma soma ponderada do resultado dos neurônios anteriores e então converte essa soma ponderada em uma probabilidade com a função softmax. Isso é o que chamamos de camada de saída da rede neural e está representado pela bolinha vermelha.
+Na rede neural acima, como exemplo, dizemos que ainda lidamos com o problema de prever se o preço de uma casa será acima ou abaixo da média. Na entrada da rede, temos as mesmas 3 variáveis mais o viés, que são representados pelas bolinhas verdes. Isso é o que chamamos de camada de entrada da rede neural. Posteriormente, utilizando 5 neurônios, realizamos 5 somas ponderadas seguidas de uma função de ativação. Essas operações são representadas pelas bolinhas azuis, que recebem o nome de camada oculta da rede neural. Por fim, usamos um único neurônio que realiza uma soma ponderada do resultado dos neurônios anteriores e então converte essa soma ponderada em uma probabilidade com a função softmax. Isso é o que chamamos de camada de saída da rede neural e está representado pela bolinha vermelha.
 
 Ignore a camada de entrada (verde) por um momento. Você notou como a camada de saída mais a camada oculta são exatamente o modelo de neurônio que vimos anteriormente? A camada de saída é simplesmente um modelo de neurônio, que está tratando a camada oculta como se fosse as variáveis independentes que determinam a variável de resposta (no nosso exemplo, a probabilidade do preço da casa ser alto). Assim, podemos observar que a rede neural está **aprendendo novas variáveis** e usando um modelo de neurônio nessas novas variáveis. Esse é o princípio básico de *deep learning*: aprender variáveis representativas, geralmente mais abstratas, que auxiliem na tarefa em questão, no caso, uma tarefa de previsão.
 
-Podemos ir ainda um passo além e adicionar uma segunda camada oculta. 
+Podemos ir um passo além e adicionar uma segunda camada oculta. 
 
 <img class="img-responsive center-block thumbnail" src="http://cs231n.github.io/assets/nn1/neural_net2.jpeg" alt="RNA">
 
@@ -88,7 +88,7 @@ Junto com o Python, utilizarei alguns pacotes para ajudar na construção e trei
 
 Se você ainda não tem esses programas, não se preocupe. Também fiz um [tutorial sobre como instalá-los](https://lamfo-unb.github.io/2017/06/10/Instalando-Python/). Sugiro que você instale os programas necessários e acompanhe o tutorial a seguir executando cada passo no seu computador.
 
-Em mais enrolações, no Python, vamos importar alguns pacotes:
+Sem mais delongas, no Python, vamos importar alguns pacotes:
 
 
 ```python
@@ -104,7 +104,7 @@ import os # para criar pastas
 
 ### Os dados
 
-Em primeiro lugar, vamos ver como são nossos dados. Já disse que trabalharemos com OCR. Em particular, vamos usar a base de dados [MNIST](https://en.wikipedia.org/wiki/MNIST_database), que contém 55 mil dados de treino e 10 mil dados de teste. Os dados são imagens de 28x28 pixeis, o que nos dá 784 variáveis para colocar na camada de entrada da nossa rede neural. Mas, antes disso, vamos criar uma nova pasta no nosso computador e baixar esses dados nela.
+Em primeiro lugar, vamos ver como são nossos dados. Já disse que trabalharemos com OCR. Em particular, utilizamos a base de dados [MNIST](https://en.wikipedia.org/wiki/MNIST_database), que contém 55 mil dados de treino e 10 mil dados de teste. Os dados são imagens de 28x28 pixeis, o que nos dá 784 variáveis para colocar na camada de entrada da nossa rede neural. Mas, antes disso, vamos criar uma nova pasta no nosso computador e baixar esses dados nela.
 
 
 ```python
@@ -137,7 +137,7 @@ print(data.train.images) # mostra algumas linhas e colunas dos dados de treino
  [ 0.  0.  0. ...,  0.  0.  0.]]
 ```
 
-Acima, podemos ver que os dados de treino são uma tabela com 55 mil linhas, cada uma com uma observação de 784 colunas, (que representam os pixeis de uma imagem). Como nossa tarefa se encaixa no regime de aprendizado supervisionado, cada imagem vem anotada com um alvo, o dígito que está nela (e que queremos prever). Podemos acessar os alvos de treino com o comando `print()` mais `data.train.labels`.
+Acima, observamos que os dados de treino são uma tabela com 55 mil linhas, cada uma com uma observação de 784 colunas, (que representam os pixeis de uma imagem). Como nossa tarefa se encaixa no regime de aprendizado supervisionado, cada imagem vem anotada com um alvo, o dígito que está nela (e que queremos prever). Podemos acessar os alvos de treino com o comando `print()` mais `data.train.labels`.
 
 
 ```python
@@ -148,7 +148,7 @@ print(data.train.labels) # mostra os alvos de treino
 (55000,)
 [7 3 4 ..., 5 6 8]
 ```
-As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é de um 7, nossa segunda imagem é um 3 e assim por diante. Para ficar menos abstrato, vamos ver como são essas imagens. Isso necessitará de um pacote do Python para ver imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando `plt.imshow(...)` (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação se começa a contar do zero), usamos o alvo correspondente como título da imagem com `plt.title(...)` e, por fim, usamos `plt.show()` para mostras a imagem. Além disso, na imagem, precisamos usar `.reshape(28,28)` para reformatar ela de uma linha com 784 pixeis para uma grade com 28px de altura e largura. 
+As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é de um 7, nossa segunda imagem é um 3 e assim por diante. Para ficar menos abstrato, analisaremos como são essas imagens. Para tanto, necessitamos de um pacote do Python para visualizar as imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando `plt.imshow(...)` (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação a contagem é iniciada a partir do zero), usamos o alvo correspondente como título da imagem com `plt.title(...)` e, por fim, usamos `plt.show()` para mostras a imagem. Além disso, na imagem, precisamos usar `.reshape(28,28)` para reformatar ela de uma linha com 784 pixeis para uma grade com 28px de altura e largura. 
 
 
 ```python
