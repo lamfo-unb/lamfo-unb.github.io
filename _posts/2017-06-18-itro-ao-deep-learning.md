@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Redes Neurais (muito) Simplificadas 
+title: Uma Abordagem Intuitiva às Redes Neurais
 lang: pt
 header-img: 
 date: 2017-06-18 10:19:07
