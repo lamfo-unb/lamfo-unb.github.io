@@ -261,16 +261,6 @@ Não é difícil encontrar material gratuito e de qualidade na internet, mas tam
         
 </ul>
 </li>
-	<li>Livros
-<ul> 
-    <li><a href="http://www.deeplearningbook.org/">Deep Learning (Goodfellow et al, 2016)</a>: Este é o melhor livro de aprendizado de máquina que já li. Em um nível teórico, ele trata tanto das práticas modernas de aprendizado de máquina quanto das fronteiras de pesquisa dessa ciência. Assim, se faz essencial tanto para engenheiros que querem apenas utilizar técnicas já bem estabelecidas quanto para pesquisadores que estão interessados em contribuir para o estado da arte.</li>
-    <li><a href="http://shop.oreilly.com/product/0636920052289.do">Hands-On Machine Learning with Scikit-Learn and TensorFlow (Aurélien Géron, 2017)</a>: Este é o melhor livro prático de aprendizado de máquina que já li. Recomendo como um segundo livro, para ser lido após ter entendido bem a teoria e matemática de aprendizado de máquina.
-    </li>
-    <li><a href="http://shop.oreilly.com/product/0636920052289.do">Introduction to Machine Learning (Ethem Alpaydin, 2009)</a>: Um ótimo livro introdutório, para quem quer começar a estudar aprendizado de máquina.
-    </li>
-</ul>
-</li>
-</ul>
 
 ## Referências <a name="ref"></a>
 
