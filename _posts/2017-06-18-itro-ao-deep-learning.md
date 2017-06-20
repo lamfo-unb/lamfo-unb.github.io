@@ -88,7 +88,7 @@ Junto com o Python, utilizarei alguns pacotes para ajudar na construção e trei
 
 Se você ainda não tem esses programas, não se preocupe. Também fiz um [tutorial sobre como instalá-los](https://lamfo-unb.github.io/2017/06/10/Instalando-Python/). Sugiro que você instale os programas necessários e acompanhe o tutorial a seguir executando cada passo no seu computador.
 
-Sem mais delongas, no Python, vamos importar alguns pacotes:
+Sem mais delongas, no Python, importaremos alguns pacotes:
 
 
 ```python
@@ -148,7 +148,7 @@ print(data.train.labels) # mostra os alvos de treino
 (55000,)
 [7 3 4 ..., 5 6 8]
 ```
-As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é de um 7, nossa segunda imagem é um 3 e assim por diante. Para ficar menos abstrato, analisaremos como são essas imagens. Para tanto, necessitamos de um pacote do Python para visualizar as imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando `plt.imshow(...)` (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação a contagem é iniciada a partir do zero), usamos o alvo correspondente como título da imagem com `plt.title(...)` e, por fim, usamos `plt.show()` para mostras a imagem. Além disso, na imagem, precisamos usar `.reshape(28,28)` para reformatar ela de uma linha com 784 pixeis para uma grade com 28px de altura e largura. 
+As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é um 7, nossa segunda imagem é um 3 e assim por diante. Com o intuito de minimizar o nível de abstração, analisaremos como são essas imagens. Para tanto, necessitamos de um pacote do Python para visualizar as imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando `plt.imshow(...)` (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação a contagem é iniciada a partir do zero), usamos o alvo correspondente como título da imagem com `plt.title(...)` e, por fim, usamos `plt.show()` para mostrar a imagem. Além disso, na imagem, usamos `.reshape(28,28)` para reformatá-la de uma linha com 784 pixeis para uma grade com 28px de altura e largura. 
 
 
 ```python
@@ -162,11 +162,11 @@ plt.show()
 ![png](output_10_0.png)
 
 ### Definindo os hiper-parâmetros
-Tudo parece OK com os nossos dados. Podemos então começar a construção da rede neural. O primeiro passo é definir os hiper-parâmetros do modelo. Diferentemente dos parâmetros da rede, os \\(w\\), os hiper-parâmetros não são naturalmente aprendidos durante o treinamento e devem ser ajustados à mão. Alguns dos hiper-parâmetros mais importantes da rede neural são o número de camadas e o número de neurônios em cada camada. Esses hiper-parâmetros definem a capacidade da rede neural e, por meio deles, podemos ajustar o [*trade-off* entre erro por viés e por variância](https://matheusfacure.github.io/AM-Essencial/#Viés-e-variância). Quanto maior o número de neurônios, mais potente será a rede neural, mas maior será a probabilidade dela sofrer com sobre-ajustamento.
+Tudo parece OK com os nossos dados. Podemos então começar a construção da rede neural. O primeiro passo é definir os hiper-parâmetros do modelo. Diferentemente dos parâmetros da rede, os \\(w\\), os hiper-parâmetros não são naturalmente aprendidos durante o treinamento e devem ser ajustados à mão. Alguns dos hiper-parâmetros mais importantes da rede neural são o número de camadas e o número de neurônios em cada camada. Esses hiper-parâmetros definem a capacidade da rede neural e, por meio deles, podemos ajustar o [*trade-off* entre erro por viés e por variância](https://matheusfacure.github.io/AM-Essencial/#Viés-e-variância). Quanto maior o número de neurônios, mais potente será a rede neural, mas a probabilidade dela sofrer com sobre-ajustamento será superior.
 
 Outros hiper-parâmetros da rede neural são o tamanho do punhado de dados usado durante a otimização e o tamanho do passo dado a cada iteração de treino. Em outras palavras, o tamanho do punhado de dados define quão precisa será nossa estimativa local da superfície de custo, enquanto que a taxa de aprendizado definirá o tamanho do passo em cada descida nessa superfície de custo.
 
-Outro detalhe importante é que a rede neural que vamos construir não tem apenas um neurônio na camada de saída, mas 10 neurônios. Casa neurônios representará a probabilidade da imagem conter um dos dígitos de 0 a 9. 
+Outro detalhe importante é que a rede neural que vamos construir não tem apenas um neurônio na camada de saída, mas 10 neurônios. Cada neurônio representará a probabilidade da imagem conter um dos dígitos de 0 a 9. 
 
 
 ```python
@@ -184,9 +184,9 @@ Nossa rede neural terá duas camadas, cada uma com 512 neurônios.
 
 ### Construindo a rede neural
 
-Felizmente, não precisamos construir uma rede neural do zero. Como elas são extremamente populares, outras pessoas já as deixaram pré-montada para facilitar a nossa vida. A única coisa que precisamos fazer é dizer quais serão os hiper-parâmetros da rede neural que o pacote TensorFlow tomará conta de construí-la para nós.
+Felizmente, não precisamos construir uma rede neural do zero. Como elas são extremamente populares, outras pessoas já as deixaram pré-montada para facilitar nossa vida. A única coisa que precisamos fazer é dizer quais serão os hiper-parâmetros da rede neural, que o pacote TensorFlow construirá para nós.
 
-O primeiro passo é converter os dados para um formato com que TensorFlow consiga trabalhar facilmente. Isso é feito com o comando `tf.contrib.learn.infer_real_valued_columns_from_input(...)` e passamos como argumento desse comando as imagens de treino. Por fim, passamos os hiper-parâmetros definidos acima para o comando `DNNClassifier(...)`, o que cria a nossa rede neural e a armazena em `deep_ann`.
+O primeiro passo é converter os dados para um formato com que TensorFlow consiga trabalhar facilmente. Isso é feito com o comando `tf.contrib.learn.infer_real_valued_columns_from_input(...)` e passamos como argumento desse comando as imagens de treino. Por fim, transmitimos os hiper-parâmetros definidos acima para o comando `DNNClassifier(...)`, o que cria a nossa rede neural e a armazena em `deep_ann`.
 
 
 ```python
@@ -204,7 +204,7 @@ OBS: Ao rodar esse código, talvez você veja alguns textos de aviso. Apenas os 
 
 ### Treinando e Avaliando a RNA
 
-Para treinar a rede neural criada acima basta um único comando do TensorFlow. Esse comando vem com o nosso modelo de rede neural e podemos acessá-lo com a notação de ponto a partir da rede neural criada acima: `deep_ann.fit(...)`. Passamos ao comando as imagens de treino com os respectivos dígitos anotados. Lembre-se de que esse é um problema de aprendizado de máquina supervisionado e de que a tarefa da rede neural é aprender como mapear dos valores numéricos dos pixeis no dígito que está escrito na imagem. Por isso, precisamos passar também as anotações das imagens de treino: `data.train.labels`. Antes de passar esses dados à rede neural, precisamos convertê-los para os tipos aceitos pelo modelo. As imagens devem ser do tipo `float32` (dígitos com casas decimais), enquanto que as anotações devem ser do tipo `int64` (dígitos inteiros, sem casas decimais).  Por fim, passamos para o comando de treinamento o número de iterações de treino (passos na caminhada para baixo na superfície de custo).
+Para treinar a rede neural criada acima basta um único comando do TensorFlow. Esse comando vem com o nosso modelo de rede neural e podemos acessá-lo com a notação de ponto a partir da rede neural criada acima: `deep_ann.fit(...)`. Passamos ao comando as imagens de treino com os respectivos dígitos anotados. Lembre-se que esse é um problema de aprendizado de máquina supervisionado e que a tarefa da rede neural é aprender como mapear dos valores numéricos dos pixeis no dígito que está escrito na imagem. Por isso, precisamos passar também as anotações das imagens de treino: `data.train.labels`. Antes de encaminhar esses dados à rede neural, precisamos convertê-los para os tipos aceitos pelo modelo. As imagens devem ser do tipo `float32` (dígitos com casas decimais), enquanto que as anotações devem ser do tipo `int64` (dígitos inteiros, sem casas decimais).  Por fim, passamos para o comando de treinamento o número de iterações de treino (passos na caminhada para baixo na superfície de custo).
 
 
 ```python
@@ -214,7 +214,7 @@ deep_ann.fit(x=data.train.images.astype(np.float32), # conversão de tipo
             steps=n_iter) # iterações de treino
 ```
 
-Após treinada, precisamos avaliar nossa rede neural nos dados de teste. Para isso, usamos o comando `.evaluate`, que pode ser acessado uma vez que a rede neural for treinada. Passamos os dados e anotações de teste para esse comando e podemos ver a acurácia da rede neural, isto é, a taxa de acerto.
+Após treinada, precisamos avaliar nossa rede neural nos dados de teste. Para isso, usamos o comando `.evaluate`, que pode ser acessado uma vez que a rede neural for treinada. Enviamos os dados e anotações de teste para esse comando e observamos a acurácia da rede neural, isto é, a taxa de acerto.
 
 
 ```python
@@ -228,19 +228,19 @@ deep_ann.evaluate(data.test.images.astype(np.float32), # variáveis independente
 Com apenas 1000 iterações de treino, nossa simples rede neural já consegue uma taxa de acerto de 96%. Isso não é um resultado muito bom, mas já é satisfatório, principalmente se considerarmos quão simples foi treinar esse modelo.
 
 ## Próximos Passos
-Como já disse, este post é bastante introdutório e tem o propósito de simplesmente instigar a curiosidade sobre aprendizado de máquina. Dentre as coisas que não dá para falar em um post introdutório estão outras arquiteturas de redes neurais (convolucionais, recorrentes, *autoencoders*, *deep-q*, adversárias...), formas de acelerar o treinamento, técnicas de regularização para controlar o sobre-ajustamento, isso sem falar nas outras classes de modelos de aprendizado de máquina, como máquinas de suporte vetoriais, árvores de decisão, Bayes ingênuo, k-vizinhos mais próximos...
+Como já disse, este post é bastante introdutório e tem o propósito de simplesmente instigar a curiosidade sobre aprendizado de máquina. Dentre tópicos que não podemos abarcar em um post introdutório estão outras arquiteturas de redes neurais (convolucionais, recorrentes, *autoencoders*, *deep-q*, adversárias...), formas de acelerar o treinamento, técnicas de regularização para controlar o sobre-ajustamento, isso sem falar nas outras classes de modelos de aprendizado de máquina, como máquinas de suporte vetoriais, árvores de decisão, Bayes ingênuo, k-vizinhos mais próximos...
 
 Além disso, mesmo em se tratando de redes neurais bem simples como a que treinamos, o nível de abstração desse post é demasiadamente elevado, isto é, não mostrei como construir cada camada de neurônios, como conectá-las nem como construir o algoritmo de treinamento. Embora você possa utilizar aprendizado de máquina sem se preocupar muito com esses detalhes mais mecânicos, conhecê-los é extremamente importante. Entender de fato o funcionamento dos modelos é condição fundamental para solucionar possíveis falhas no treinamento, para descobrir quais modelos utilizar em cada situação e até mesmo para criar novos modelos ou melhorias que possam contribuir para a ciência de aprendizado de máquina. 
 
-Termino com um apelo: não seja um cientista de dados que simplesmente ficam tentando aplicar um modelo caixa preta atrás do outro, na esperança de que algum resolva seu problema. **Isso não é aprendizado de máquina; é tentativa e erro**. Se for estudar aprendizado de máquina, entenda **BEM** as ferramentas que você usa. Entenda a matemática e a mecânica de um algoritmo em seus mínimos detalhes. Se possível, implemente os modelos de aprendizado de máquina sem o auxílio de pacotes. E, por fim, detalhes são muito, muito, muito importantes! São a eles que devemos parte do renascimento atual de IA, então não os deixe passar batido.
+Termino com um apelo: não seja um cientista de dados que simplesmente tenta aplicar um modelo caixa preta atrás do outro, na esperança de que algum resolva seu problema. **Isso não é aprendizado de máquina; é tentativa e erro**. Se for estudar aprendizado de máquina, entenda **BEM** as ferramentas que você usa. Entenda a matemática e a mecânica de um algoritmo em seus mínimos detalhes. Se possível, implemente os modelos de aprendizado de máquina sem o auxílio de pacotes. E, por fim, detalhes são muito, muito, muito importantes! A eles que devemos parte do renascimento atual de IA, então não os deixe passar batido.
 
-Não é difícil encontrar material gratuito e de qualidade na internet, mas também é fácil cair em armadilhas, aprendendo apenas IA em um nível intuitivo, sem se adentrar nos detalhes. Aqui vai então uma pequena lista de onde encontrar conteúdo de qualidade sobre aprendizado de máquina:
+Não é difícil encontrar material gratuito e de qualidade na internet, mas também é fácil cair em armadilhas, aprendendo apenas IA em um nível intuitivo, sem se adentrar nos detalhes. Segue uma pequena lista de onde encontrar conteúdo de qualidade sobre aprendizado de máquina:
 
 <ul>
 	<li>Blogs
 <ul>
 	<li><a href="https://matheusfacure.github.io/tutorials/">{Quinhentos:Nove}</a>: Sou suspeito para falar, mas acredito que meu blog tenha os melhores tutoriais em português sobre aprendizado de máquina. Em parte, eu o criei com o objetivo de corrigir algumas falhas que percebi nos outros blogs sobre AM. Percebi que o conteúdo deles ou eram simplesmente intuitivos, sem aprofundamento na matemática e na implementação dos modelos, ou eram muito técnicos. Por isso, comecei a criar tutoriais estruturados para conter uma explicação intuitiva da técnica explicada, seguida de uma explicação matemática mais aprofundada e terminando com uma implementação bem documentada. Além disso, eu frequentemente <a href="https://matheusfacure.github.io/blog/">posto sobre meus trabalhos </a> para que sirvam como exemplos de aplicações de aprendizado de máquina.</li>
-	<li><a href="https://lamfo-unb.github.io/">Blog do LAMFO</a>: O nosso blog é uma excelente fonte tutoriais e exemplos de aplicações de aprendizado de máquina. O LAMFO é a primeira entidade acadêmica no Brasil a tratar de aprendizado de máquina dentro da grande área de ciências humanas (e até onde sei, ainda é a única que atua na área), então acho que posso dizer que somos autoridade nesse assunto.</li>
+	<li><a href="https://lamfo-unb.github.io/">Blog do LAMFO</a>: O nosso blog é uma excelente fonte de tutoriais e exemplos de aplicações de aprendizado de máquina. O LAMFO é a primeira entidade acadêmica no Brasil a tratar de aprendizado de máquina dentro da grande área de ciências humanas (e até onde sei, ainda é a única que atua na área), então acho que posso dizer que somos autoridade nesse assunto.</li>
 	<li><a href="http://colah.github.io/">colah's blog</a>: Esse é um dos melhores blogs que conheço sobre aprendizado de máquina. Infelizmente, o conteúdo é mais avançado e com pouco enfoque em questões práticas (aquele problema do qual falei sobre ser muito técnico).</li>
     <li><a href="https://r2rt.com/">R2RT</a>: É um blog excelente, tanto em termos de tutoriais quanto em termos de explicação técnica e matemática por detrás dos algoritmos ensinados. Infelizmente, já começa no nível avançado, sem uma progressão clara entre os tutoriais.</li>
     <li><a href="http://karpathy.github.io/">Andrej Karpathy blog</a>: Andrej Karpathy é um pesquisador extremamente inteligente e que escreve com uma simplicidade incrível para alguém do seu nível de conhecimento. Esse não é um blog sobre tutoriais, mas fala sobre assuntos muito interessantes em aprendizado de máquina, além de fornecer implementações detalhadas e bem documentadas sobre o assunto tratado.</li>
@@ -260,6 +260,6 @@ Não é difícil encontrar material gratuito e de qualidade na internet, mas tam
 
 ## Referências <a name="ref"></a>
 
-Esse post abrange o conteúdo que dei em um *workshop* do LAMFO sobre redes neurais. A proposta dessa iniciativa era mostrar que é possível falar sobre inteligência artificial e aprendizado de máquina de maneira simples e intuitiva, sem pressupor nenhum conhecimento técnico de quem está começando a aprender. Você pode acessar os slides do *workshop* [aqui](/img/workshop_dl.pdf). Todas as imagens foram retiradas da internet e assumi que estavam em domínio público. Caso encontre uma imagem sua e queira as devidas citações, favor [entrar em contato](mailto:matheusfacure01@gmail.com).
+Esse post abrange o conteúdo que ministrei em um *workshop* do LAMFO sobre redes neurais. A proposta dessa iniciativa era mostrar que é possível falar sobre inteligência artificial e aprendizado de máquina de maneira simples e intuitiva, sem pressupor nenhum conhecimento técnico de quem está começando a aprender. Você pode acessar os slides do *workshop* [aqui](/img/workshop_dl.pdf). Todas as imagens foram retiradas da internet e assumi que estavam em domínio público. Caso encontre uma imagem sua e queira as devidas citações, favor [entrar em contato](mailto:matheusfacure01@gmail.com).
 
 Como de costume, fiz o *upload* de um notebook com o código desenvolvido nesse post. Você pode baixar o notebook e acompanhar o tutorial de redes neurais por lá, ao mesmo tempo que executa os comandos. Também coloquei um exercício adicional lá, para quem quiser fixar o que vimos acima. O notebook está no [meu GitHub](https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/RNA_simples.ipynb)
