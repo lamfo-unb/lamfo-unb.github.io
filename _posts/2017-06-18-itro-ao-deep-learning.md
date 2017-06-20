@@ -31,10 +31,10 @@ Bom, espero que você tenha lido o que recomendei. A partir desse ponto, utiliza
 
 A maioria dos algoritmos de aprendizado de máquina são do século passado. Alguns, como redes neurais, são especialmente velhos, tendo sido inventados na década de 50. Por que, então, só agora observamos aprendizado de máquina em todos os cantos e  seu anúncio em revistas e jornais aos quatro ventos? Podemos argumentar que, embora os algoritmos em si sejam velhos, algumas pequenas melhorias mais recentes os tornaram, finalmente, extremamente úteis. Isso é parcialmente verdade, mas foram outros dois fatores que mais contribuíram para o atual renascimento da inteligência artificial:  
 
-<ol>
+<ul>
   <li>Aumento do poder computacional (leia-se GPUs enormes)</li>
-  <li>Aumento da disponibilidade de dados (leia-se *Big Data* ou simplesmente bases de dados maiores)</li>
-</ol> 
+  <li>Aumento da disponibilidade de dados (leia-se <b>Big Data</b> ou simplesmente bases de dados maiores)</li>
+</ul> 
    
 Infelizmente, ainda hoje, para que um modelo de aprendizado de máquina consiga extrapolar um padrão aprendido, ele precisa de uma abundância de exemplos desses padrões. Por exemplo, para que um sistema inteligente consiga interpretar uma palavra, ele necessita antes visualizar milhões de frases para entender como as plavras se relacionam. Isso só foi possível recentemente, com a expansão da quantidade de dados e da capacidade computacional para processá-los. 
 
