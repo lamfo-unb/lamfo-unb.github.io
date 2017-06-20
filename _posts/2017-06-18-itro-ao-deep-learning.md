@@ -48,6 +48,11 @@ Esse modo de estruturar os sistemas de IA é o que leva o nome de **Deep Learnin
 
 Nesta introdução, para exemplificar a construção e o treinamento de um sistema moderno de IA, realizaremos uma simples tarefa de visão computacional, na qual usaremos uma rede neural bem simples para reconhecer dígitos escritos. Em termos técnicos, será uma tarefa de [OCR (Optical Character Recognition)](https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres). Mas, antes de entendermos o que são e como treinar redes neurais, precisamos falar sobre seu componente mais básico: os neurônios. 
 
+<figure class="figure center-block thumbnail">
+  <img src="https://matheusfacure.github.io/img/perceptron.png" class="img-responsive center-block" alt="perceptron">
+  <figcaption class="figure-caption text-center"><a href="https://blog.dbrgn.ch/2013/3/26/perceptrons-in-python/">Fonte</a></figcaption>
+</figure>
+
 <img class="img-responsive center-block thumbnail" src="https://matheusfacure.github.io/img/perceptron.png" alt="perceptron">
 
 Como grande parte dos algoritmos de aprendizado de máquina, os neurônios são modelos matemáticos (ou funções) que representam a realidade de forma simplificada. Eles são compostos por uma soma ponderada, seguida ou não de uma função ativação. Por exemplo, considere a tarefa de prever se o preço de uma casa será maior ou menor do que a média, dadas as variáveis \\(x_1\\), o tamanho da casa em metros quadrados, \\(x_2\\), o índice de pobreza da vizinhança e \\(x_3\\) o tamanho do meu cabelo. Podemos facilmente utilizar um neurônio para resolver essa tarefa. Note que, provavelmente, quanto maior \\(x_1\\), maior a probabilidade da casa ter um preço acima da média (e vice versa). Assim, devemos esperar que o peso de \\(x_1\\), \\(w_1\\), na soma ponderada do nosso neurônio seja positivo, indicando que essa variável tem um impacto igualmente positivo na probabilidade do preço da casa ser acima da média. Com o mesmo raciocínio, podemos argumentar que \\(w_2\\) será negativo. Note que esses dois pesos não precisam ter a mesma intensidade. Pode ser que o impacto positivo de \\(x_1\\) seja muito maior que o impacto negativo de \\(x_2\\), de forma que \\(w_1\\) seja maior que \\(w_2\\). Em outras palavras, pode ser que o tamanho da casa seja um determinante mais importante do preço do que o índice de pobreza da vizinhança. Por fim, é provável que o tamanho do meu cabelo, \\(x_3\\), não tenha muito impacto no preço de uma casa. Por isso, esperamos que \\(w_3\\) seja muito próximo de zero na soma ponderada do nosso neurônio. Isso indica que essa variável influencia pouco o preço da casa. Repare também que temos uma variável que é sempre \\(1\\). A ponderação desse \\(1\\) com o \\(w_0\\) é o que chamamos de viés. Esse viés captura a tendência da casa ter valor alto, uma vez que já consideramos as outras variáveis. Por fim, é importante ressaltar que os \\(w\\)s são o que chamamos de parâmetros do modelo. Eles são variáveis que o neurônio (e, mais para frente, a rede neural) vai aprender (ou estimar) durante o treinamento.
@@ -58,7 +63,10 @@ Além da soma ponderada, nosso neurônio precisa de uma função de ativação. 
 
 Infelizmente, os neurônios são bastante limitados. Em aprendizado de máquina, queremos que um algoritmo possa aprender qualquer tipo de padrão presente nos dados, mas isso não é possível com um simples neurônio. Por isso, construímos as redes neurais, que são simplesmente vários neurônios conectados. Pense nos neurônios como blocos de Lego e nas redes neurais como estruturas que montamos empilhando esses blocos de Lego. Dependendo da tarefa, uma estrutura pode se mais útil do que outra. No entanto, aqui, vamos considerar apenas a estrutura mais simples e mais comum de rede neural, o modelo de **redes neurais *feedforward* densas**.
 
-<img class="img-responsive center-block thumbnail" src="http://www.texample.net/media/tikz/examples/PNG/neural-network.png" alt="RNA">
+<figure class="figure center-block thumbnail">
+  <img src="http://www.texample.net/media/tikz/examples/PNG/neural-network.png" class="img-responsive center-block" alt="RNA1">
+  <figcaption class="figure-caption text-center"><a href="http://www.texample.net/tikz/examples/neural-network/">Fonte</a></figcaption>
+</figure>
 
 Na rede neural acima, como exemplo, dizemos que ainda lidamos com o problema de prever se o preço de uma casa será acima ou abaixo da média. Na entrada da rede, temos as mesmas 3 variáveis mais o viés, que são representados pelas bolinhas verdes. Isso é o que chamamos de camada de entrada da rede neural. Posteriormente, utilizando 5 neurônios, realizamos 5 somas ponderadas seguidas de uma função de ativação. Essas operações são representadas pelas bolinhas azuis, que recebem o nome de camada oculta da rede neural. Por fim, usamos um único neurônio que realiza uma soma ponderada do resultado dos neurônios anteriores e então converte essa soma ponderada em uma probabilidade com a função softmax. Isso é o que chamamos de camada de saída da rede neural e está representado pela bolinha vermelha.
 
@@ -66,7 +74,10 @@ Ignore a camada de entrada (verde) por um momento. Você notou como a camada de 
 
 Podemos ir um passo além e adicionar uma segunda camada oculta. 
 
-<img class="img-responsive center-block thumbnail" src="http://cs231n.github.io/assets/nn1/neural_net2.jpeg" alt="RNA">
+<figure class="figure center-block thumbnail">
+  <img src="http://cs231n.github.io/assets/nn1/neural_net2.jpeg" class="img-responsive center-block" alt="RNA1">
+  <figcaption class="figure-caption text-center"><a href="http://cs231n.github.io/neural-networks-1/">Fonte</a></figcaption>
+</figure>
 
 Isso aumenta ainda mais o poder representativo da rede neural. Lembre-se de que **podemos pensar nas camadas da rede neural como níveis hierárquicos de abstração**.
 
@@ -76,7 +87,10 @@ Agora que entendemos o que são redes neurais em um nível intuitivo, iremos tre
 
 Para iniciar o treinamento, vamos chutar alguns valores para os \\(w\\)s de cada neurônio. Em seguida, observaremos a previsão da rede neural em alguns dados, que, muito provavelmente, será péssima. Dessa forma, os \\(w\\)s iniciais serão associados a um alto custo ou a uma **região elevada na superfície de custo**. No treinamento então, vamos atualizar os \\(w\\)s de maneira iterativa, de forma a diminuir o custo. Isso é feito com a técnica de gradiente descendente estocástico, que pode ser entendida como uma descida na superfície de custo de uma tarefa de otimização.
 
-<img class="img-responsive center-block thumbnail" src="https://sebastianraschka.com/images/blog/2015/singlelayer_neural_networks_files/perceptron_gradient_descent_1.png" alt="GDE">
+<figure class="figure center-block thumbnail">
+  <img src="https://sebastianraschka.com/images/faq/closed-form-vs-gd/ball.png" class="img-responsive center-block" alt="GD">
+  <figcaption class="figure-caption text-center"><a href="https://sebastianraschka.com/faq/docs/closed-form-vs-gd.html">Fonte</a></figcaption>
+</figure>
 
 Para entender a fundo essa técnica, é preciso saber cálculo multivariado, mas, intuitivamente, ela é bem simples. Em primeiro lugar, escolhemos aleatoriamente (daí a palavra estocástico) um pequeno punhado de dados para conseguir uma estimativa da nossa posição na superfície de custo. Então, movemos os parâmetros \\(w\\) na direção oposta da inclinação dessa superfície. Isso é como dar um passo para baixo na superfície de custo. Com passos suficientes, nossa esperança é que os \\(w\\) nos coloque em uma região de custo (ou erro) baixa o suficiente.
 
@@ -159,7 +173,7 @@ plt.imshow(data.train.images[1].reshape(28,28), cmap='Greys', interpolation='nea
 plt.title(str(data.train.labels[1])) # anotação do dígito
 plt.show()
 ```
-![png](output_10_0.png)
+<img src="/img/mnist3.png" class="img-responsive" alt="mnist_digit">
 
 ### Definindo os hiper-parâmetros
 Tudo parece OK com os nossos dados. Podemos então começar a construção da rede neural. O primeiro passo é definir os hiper-parâmetros do modelo. Diferentemente dos parâmetros da rede, os \\(w\\), os hiper-parâmetros não são naturalmente aprendidos durante o treinamento e devem ser ajustados à mão. Alguns dos hiper-parâmetros mais importantes da rede neural são o número de camadas e o número de neurônios em cada camada. Esses hiper-parâmetros definem a capacidade da rede neural e, por meio deles, podemos ajustar o [*trade-off* entre erro por viés e por variância](https://matheusfacure.github.io/AM-Essencial/#Viés-e-variância). Quanto maior o número de neurônios, mais potente será a rede neural, mas a probabilidade dela sofrer com sobre-ajustamento será superior.
