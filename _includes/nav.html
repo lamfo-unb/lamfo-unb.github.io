@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+            <a class="navbar-brand" href="http://lamfo.unb.br">{{ site.title }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,13 +18,20 @@
                 <li>
                     <a href="{{ site.baseurl }}/">Home</a>
                 </li>
-                {% for page in site.pages %}{% if page.title %}
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Home</a>
+                </li>
+		
+		<!--    
+		 {% for page in site.pages %}{% if page.title %}
 				{% if page.url != '/404.html' %}
                 <li>
                     <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                 </li>
 				{% endif %}
                 {% endif %}{% endfor %}
+		-->
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
