@@ -9,6 +9,7 @@ author: Matheus Facure
 comments: true
 ---
 
+UPDATE: 18/06/2017
 
 ## Conteúdo
 
@@ -80,4 +81,4 @@ Na linha de comando do Windows, digite agora `cd DeepArt/` para entrar no diret�
 
 ## Considerações Finais <a name="fim"></a>
 
-Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros mais frequentemente encontrados quanto para torná-lo mais compreensível. 
+Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros frequentemente encontrados quanto para torná-lo mais compreensível. 
