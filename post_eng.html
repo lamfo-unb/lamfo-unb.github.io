@@ -1,16 +1,19 @@
 ---
 layout: page
-description: "Laboratório de Aprendizado de Máquina em Finanças e Organizações"
+description: "Machine Learning Laboratory for Finance and Organizations"
 ---
+
+<!-- seletor de lingua -->
 <div class="row">
 <ul class="nav nav-tabs navbar-right">
-    <li class="active"><a href="#">Português</a></li>
-    <li><a href="/post_eng">English</a></li>
+    <li><a href="/">Português</a></li>
+    <li class="active"><a href="#">English</a></li>
 </ul>
 </div>
 
+<!-- posts -->
 {% for post in site.posts %}
-	{% if post.lang contains 'pt' %}
+	{% if post.lang contains 'en' %}
 		<div class="post-preview">
 		    <a href="{{ post.url | prepend: site.baseurl }}">
 		        <h2 class="post-title">            {{ post.title }}
@@ -21,9 +24,8 @@ description: "Laboratório de Aprendizado de Máquina em Finanças e Organizaç�
 		        </h3>
 		        {% endif %}
 		    </a>
-		    <p class="post-meta">Postado por {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} em {{ post.date | date: "%-d/%m/%Y" }}</p>
+		    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
 		</div>
 		<hr>
 	{% endif %}
 {% endfor %}
-
