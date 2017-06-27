@@ -95,7 +95,8 @@ Filtrando os dados, selecionando apenas valores com 'Zone' igual a 1 (maiores ci
 dados <- dados %>% filter( Zone == 1 & Make != 9)
 
 head(dados)
-
+```
+```
   Kilometres Zone Bonus Make Insured Claims Payment
 1          1    1     1    1  455.13    108  392491
 2          1    1     1    2   69.17     19   46221
@@ -107,7 +108,7 @@ head(dados)
 ```
 
 A estimação do parâmetro $p$ é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de $p$, são calculados os parâmetros $\mu$ e $\phi$ e a log-verossimilhança é observada. Escolhe-se então, o valor de $p$ que  levou à maior log-verosimilhança. Desta maneira, o $p$ estimado foi de $1,73$.  
-```R=
+```r
 perfil <- tweedie.profile( Payment ~ Make,
                            p.vec = seq(1.1,2,length = 10), 
                            method = "interpolation",
@@ -115,6 +116,8 @@ perfil <- tweedie.profile( Payment ~ Make,
                            data = dados)
 
 perfil$p.max
+```
+```
 [1] 1.736735
 ```
 Ajustamos um modelo simples, onde deseja-se verificar se os diferentes grupos de tipos de carro diferem em valor de pagamento, em relação  à classe de referência. No nosso modelo a classe de referência é Make igual a 1.
@@ -129,7 +132,7 @@ Verificando os residuos. O modelo não parece estar mal ajustado.
 res <- qres.tweedie(modelo)
 qqnorm(res)
 ```
-![](/image/tweeres.png)
+![](/img/tweeres.png)
 
 Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.
 
