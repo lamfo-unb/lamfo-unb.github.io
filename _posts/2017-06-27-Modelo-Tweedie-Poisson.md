@@ -77,7 +77,7 @@ Iremos utilizar o banco de dados de sinistros de automovéis na Suécia no ano d
 
 Inicialmente, vamos ler os dados e transformar a variável 'Make' em fator.
 
-```r=
+```r
 library(dplyr)
 library(tweedie)
 library(faraway)
@@ -91,7 +91,7 @@ dados$Make <- as.factor(dados$Make)
 
 Filtrando os dados, selecionando apenas valores com 'Zone' igual a 1 (maiores cidades) e 'Make' diferente de 9 (carros mais 'raros').
 
-```r=
+```r
 dados <- dados %>% filter( Zone == 1 & Make != 9)
 
 head(dados)
@@ -119,13 +119,13 @@ perfil$p.max
 ```
 Ajustamos um modelo simples, onde deseja-se verificar se os diferentes grupos de tipos de carro diferem em valor de pagamento, em relação  à classe de referência. No nosso modelo a classe de referência é Make igual a 1.
 
-```r=    	
+```r 	
 modelo <- glm(Payment ~ Make, 
               family = tweedie(var.power = perfil$p.max), 
               data = dados)
 ```
 Verificando os residuos. O modelo não parece estar mal ajustado.
-```r=
+```r
 res <- qres.tweedie(modelo)
 qqnorm(res)
 ```
@@ -133,7 +133,7 @@ qqnorm(res)
 
 Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.
 
-```r=
+```r
 summary(modelo)
 
 Call:
@@ -168,7 +168,7 @@ Number of Fisher Scoring iterations: 7
 
 Observando as médias por grupo, nota-se que o grupo 1 demonstra possuir uma média de pagamentos maior que os demais, de modo que também seria valido observar o número de sinistros para futuras conclusões.
 
-```r=
+```r
 tapply(dados$Payment , dados$Make , mean)
 
         1         2         3         4         5         6         7         8 
