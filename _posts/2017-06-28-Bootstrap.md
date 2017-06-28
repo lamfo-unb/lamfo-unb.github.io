@@ -2,7 +2,7 @@
 layout: post
 title: Bootstrap
 lang: pt
-header-img: juskteez-vu-1041.jpg
+header-img: /img/juskteez-vu-1041.jpg
 date: 2017-06-28 10:00:00
 tags: [statistics,finance]
 author: Mariana Rosa Montenegro
