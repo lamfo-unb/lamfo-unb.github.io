@@ -29,9 +29,7 @@ Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na
 
 Felizmente, para solucionar esse problema existe o 
 
-:::success
-Bootstrap :tada:
-:::
+<span markdown="block">Bootstrap :tada:</span>
 
 Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.
 
@@ -41,9 +39,7 @@ Vamos agora apresentar o Bootstrap com mais detalhes.
 
 Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.
 
-:::info
-Qual a origem da palavra Bootstrap?? 
-:::
+<span markdown="block">Qual a origem da palavra Bootstrap??</span>
 
 O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.
 
@@ -68,10 +64,7 @@ A história do Barão Munchausen, também mencionada na origem do Bootstrap, con
 </div>
 </div>
 
-
-:::info
-Teoria 
-:::
+<span markdown="block">Teoria</span>
 
 Pense no caso de uma amostra aleatória de tamanho *n* , a partir de uma função de distribuição de probabilidade *F* indefinida:
 $$X_i=x_i,     X_i$$ $$\sim$$ $$F_{ind}$$, $$i=1,2,...,n$$.
