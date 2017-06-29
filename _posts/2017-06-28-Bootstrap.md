@@ -64,7 +64,7 @@ A história do Barão Munchausen, também mencionada na origem do Bootstrap, con
 </div>
 </div>
 
-<span markdown="block">Teoria</span>
+### Teoria
 
 Pense no caso de uma amostra aleatória de tamanho *n* , a partir de uma função de distribuição de probabilidade *F* indefinida:
 $$X_i=x_i,     X_i$$ $$\sim$$ $$F_{ind}$$, $$i=1,2,...,n$$.
@@ -73,21 +73,21 @@ Sejam $$X= (X_1,X_2,...X_n)$$ e $$x=(x_1,x_2,...,x_n)$$ as variáveis aleatória
 
 Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:
 
-### Passo 1:
+#### Passo 1:
 Construa, a partir da amostra, uma distribuição de probabilidade empírica $$F_n$$, inserindo, em cada ponto $$x_1,x_2,...x_n$$ da amostra, uma probabilidade $$1/n$$.
 
 Caracterizada como uma função de distribuição empírica da amostra, esta é uma estimativa não paramétrica de máxima probabilidade da distribuição populacional, *F*. 
 
-### Passo 2:
+#### Passo 2:
 Realize a reamostragem: desenhe uma amostra aleatória de tamanho *n* com reposição a partir da função de distribuição $$F_n$$. 
 
-### Passo 3:
+#### Passo 3:
 Calcule para essa reamostragem a estatística de interesse $$T_n$$, gerando $$T_n^*$$.
 
-### Passo 4:
+#### Passo 4:
 Repita os passos 2 e 3 *B* vezes. Para criar *B* reamostras, *B* deve ser um valor grande. O tamanho de *B* depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $T_n$ é necessária, sugere-se que *B* seja ao menos igual à 1000. 
 
-### Passo 5:
+#### Passo 5:
 Construa a partir do valor *B* de $$T_n$$ a frequência relativa do histograma, atribuindo probabilidade de $$1/B$$ à cada ponto $$T_n^1$$, $$T_n^2$$,..., $$T_n^B$$.
 
 A distribuição obtida é a estimativa Bootstrap da distribuição amostral de $$T_n$$. Pode-se realizar inferências sobre o parâmetro θ, utilizando essa distribuição, estimando $$T_n$$. 
