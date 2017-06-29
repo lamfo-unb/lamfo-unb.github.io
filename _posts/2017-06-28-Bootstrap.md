@@ -76,7 +76,7 @@ A história do Barão Munchausen, também mencionada na origem do Bootstrap, con
 Pense no caso de uma amostra aleatória de tamanho *n* , a partir de uma função de distribuição de probabilidade *F* indefinida:
 $$X_i=x_i,     X_i$$ $$\sim$$ $$F_{ind}$$, $$i=1,2,...,n$$.
 
-Sejam $$X= (X_1,X_2,...X_n)$$ e $$x=(x_1,x_2,...,x_n)$$ as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum *F*. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho *n*. Denotamos essa estimativa local como $\widehatθ$. Note que $$\widehatθ$$ é uma função das variáveis aleatórias $$(X_1,X_2,...X_n)$$ e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por *n* e *F*.
+Sejam $$X= (X_1,X_2,...X_n)$$ e $$x=(x_1,x_2,...,x_n)$$ as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum *F*. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho *n*. Denotamos essa estimativa local como $$\widehatθ$$. Note que $$\widehatθ$$ é uma função das variáveis aleatórias $$(X_1,X_2,...X_n)$$ e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por *n* e *F*.
 
 Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:
 
