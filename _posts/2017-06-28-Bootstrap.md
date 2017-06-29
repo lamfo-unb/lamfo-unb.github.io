@@ -92,7 +92,7 @@ Realize a reamostragem: desenhe uma amostra aleatória de tamanho *n* com reposi
 Calcule para essa reamostragem a estatística de interesse $$T_n$$, gerando $$T_n^*$$.
 
 #### Passo 4:
-Repita os passos 2 e 3 *B* vezes. Para criar *B* reamostras, *B* deve ser um valor grande. O tamanho de *B* depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $T_n$ é necessária, sugere-se que *B* seja ao menos igual à 1000. 
+Repita os passos 2 e 3 *B* vezes. Para criar *B* reamostras, *B* deve ser um valor grande. O tamanho de *B* depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $$T_n$$ é necessária, sugere-se que *B* seja ao menos igual à 1000. 
 
 #### Passo 5:
 Construa a partir do valor *B* de $$T_n$$ a frequência relativa do histograma, atribuindo probabilidade de $$1/B$$ à cada ponto $$T_n^1$$, $$T_n^2$$,..., $$T_n^B$$.
