@@ -75,7 +75,7 @@ The story of Baron Munchausen, also mentioned in the origin of the Bootstrap con
 Think about the case of a random sample of size *n* , from a probability distribution function *F* undefined:
 $$X_i=x_i,     X_i$$ $$\sim$$ $$F_{i}$$, $$i=1,2,...,n$$.
 
-Let $$X= (X_1,X_2,...X_n)$$ and $$x=(x_1,x_2,...,x_n)$$ be the random variables and the observations of the independent random variables, with the same distribution function * F * . We will investigate the variability and the sampling distribution of the local estimation calculation from the sample of size *n*. We denote this local estimate as $$\widehatθ$$. Note that $$\widehatθ$$ is a function of the random variables $$(X_1, X_2, ... X_n)$$ and, therefore, has a probability distribution, its sample distribution, which is determined by *n* and *F*.
+Let $$X= (X_1,X_2,...X_n)$$ and $$x=(x_1,x_2,...,x_n)$$ be the random variables and the observations of the independent random variables, with the same distribution function *F* . We will investigate the variability and the sampling distribution of the local estimation calculation from the sample of size *n*. We denote this local estimate as $$\widehatθ$$. Note that $$\widehatθ$$ is a function of the random variables $$(X_1, X_2, ... X_n)$$ and, therefore, has a probability distribution, its sample distribution, which is determined by *n* and *F*.
 
 Based on Efron and Tibshirani (1993), the basic steps for creating Bootstrap are:
 
