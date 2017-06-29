@@ -4,7 +4,7 @@
 	<title>LAMFO's Blog</title>
 	<link href="/blog/atom.xml" rel="self"/>
 	<link href="/blog"/>
-	<updated>2017-06-04T00:09:57-03:00</updated>
+	<updated>2017-06-29T00:28:17-03:00</updated>
 	<id>http://lamfo-unb.github.io/blog</id>
 	<author>
 		<name>LAMFO</name>
@@ -13,11 +13,662 @@
 
 	
 		<entry>
-			<title>Vizualization and exploration of Spatial data in R</title>
+			<title>Bootstrap</title>
+			<link href="http://lamfo-unb.github.io/2017/06/28/Bootstrap/"/>
+			<updated>2017-06-28T07:00:00-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/28/Bootstrap</id>
+			<content type="html">&lt;link href=&quot;https://fonts.googleapis.com/css?family=Rock Salt&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;link href=&quot;https://fonts.googleapis.com/css?family=Sofia&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;h1 id=&quot;bootstrap&quot;&gt;Bootstrap&lt;/h1&gt;
+
+&lt;p&gt;Nesse post apresentaremos a técnica estatística Bootstrap. Nada melhor do que um exemplo de brigadeiro para termos um gostinho inicial sobre o tema.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bootstrap/Avelã.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine que você seja dono de uma loja de doces. Um cliente espera que, ao comprar um brigadeiro, este tenha, em média, o mesmo peso que o de outro cliente. No entanto, é impossível pesar todos os brigadeiros que serão produzidos pela sua loja!!&lt;/p&gt;
+
+&lt;p&gt;O que fazer então??&lt;/p&gt;
+
+&lt;p&gt;Você, dono do estabelecimento, pode utilizar técnicas de amostragem capazes de selecionar aleatoriamente 150 brigadeiros e calcular o peso médio desses brigadeiros. Feito isso, poderá concluir que a média da população está dentro de uma margem de erro relativa à média da amostra.&lt;/p&gt;
+
+&lt;p&gt;Suponha que você queira saber, após alguns meses, qual o peso médio do brigadeiro no dia em que foi feita uma amostra da linha de produção levando em conta uma maior precisão.&lt;/p&gt;
+
+&lt;p&gt;Como diversas variáveis surgiram, não podemos mais usar como base o brigadeiro produzido hoje. Dentre essas variáveis consideramos os diferentes tipos de açúcar, cacau e manteiga, novos sabores, o tipo de confeito, o recheio, entre outros.&lt;/p&gt;
+
+&lt;p&gt;Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na data de teste inicial. E, podemos considerar a margem de erro inicial como nossa informação mais relevante.&lt;/p&gt;
+
+&lt;p&gt;Felizmente, para solucionar esse problema existe o&lt;/p&gt;
+
+&lt;h1&gt;
+&lt;div style=&quot;font-family: 'Rock Salt';font-size: 60px;&quot;&gt;
+Bootstrap!! :tada:
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.&lt;/p&gt;
+
+&lt;h2 id=&quot;visão-técnica&quot;&gt;Visão técnica&lt;/h2&gt;
+
+&lt;p&gt;Vamos agora apresentar o Bootstrap com mais detalhes.&lt;/p&gt;
+
+&lt;p&gt;Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.&lt;/p&gt;
+
+&lt;div style=&quot;font-family: 'Sofia';font-size: 30px;&quot;&gt;
+    Qual a origem da palavra Bootstrap?
+&lt;/div&gt;
+
+&lt;p&gt;O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.&lt;/p&gt;
+
+&lt;p&gt;Seu uso surge da frase “To lift himself up by his bootstraps.”, ou seja, “Erguer-se utilizando seu bootstrap”. Ocorre aqui uma alusão a algo impossível, de difícil realização.&lt;/p&gt;
+
+&lt;p&gt;Imagine levantar-se no ar puxando apenas pedaços de couro de sua bota. Isso é impossível! E a ideia que esse modelo quis trazer é a de poder fazer o impossível.&lt;/p&gt;
+
+&lt;p&gt;A história do Barão Munchausen, também mencionada na origem do Bootstrap, conta que o Barão conseguiu erguer a si e o seu cavalo de um pântano por meio de seu cabelo (especificamente, seu rabo de cavalo). No entanto, na história não há o uso da palavra bootstrap como a conhecemos e nenhuma outra referência explícita aos bootstraps foi encontrada em outras partes das várias versões dos contos Munchausen.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/boot2.jpg&quot; alt=&quot;mat_elis_1&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/pic2.png&quot; alt=&quot;mat_elis_2&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;teoria&quot;&gt;Teoria&lt;/h3&gt;
+
+&lt;p&gt;Pense no caso de uma amostra aleatória de tamanho &lt;em&gt;n&lt;/em&gt; , a partir de uma função de distribuição de probabilidade &lt;em&gt;F&lt;/em&gt; indefinida:
+&lt;script type=&quot;math/tex&quot;&gt;X_i=x_i,     X_i&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;\sim&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;F_{ind}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;i=1,2,...,n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sejam &lt;script type=&quot;math/tex&quot;&gt;X= (X_1,X_2,...X_n)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;x=(x_1,x_2,...,x_n)&lt;/script&gt; as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum &lt;em&gt;F&lt;/em&gt;. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho &lt;em&gt;n&lt;/em&gt;. Denotamos essa estimativa local como $\widehatθ$. Note que &lt;script type=&quot;math/tex&quot;&gt;\widehatθ&lt;/script&gt; é uma função das variáveis aleatórias &lt;script type=&quot;math/tex&quot;&gt;(X_1,X_2,...X_n)&lt;/script&gt; e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por &lt;em&gt;n&lt;/em&gt; e &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-1&quot;&gt;Passo 1:&lt;/h4&gt;
+&lt;p&gt;Construa, a partir da amostra, uma distribuição de probabilidade empírica &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt;, inserindo, em cada ponto &lt;script type=&quot;math/tex&quot;&gt;x_1,x_2,...x_n&lt;/script&gt; da amostra, uma probabilidade &lt;script type=&quot;math/tex&quot;&gt;1/n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caracterizada como uma função de distribuição empírica da amostra, esta é uma estimativa não paramétrica de máxima probabilidade da distribuição populacional, &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-2&quot;&gt;Passo 2:&lt;/h4&gt;
+&lt;p&gt;Realize a reamostragem: desenhe uma amostra aleatória de tamanho &lt;em&gt;n&lt;/em&gt; com reposição a partir da função de distribuição &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-3&quot;&gt;Passo 3:&lt;/h4&gt;
+&lt;p&gt;Calcule para essa reamostragem a estatística de interesse &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;, gerando &lt;script type=&quot;math/tex&quot;&gt;T_n^*&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-4&quot;&gt;Passo 4:&lt;/h4&gt;
+&lt;p&gt;Repita os passos 2 e 3 &lt;em&gt;B&lt;/em&gt; vezes. Para criar &lt;em&gt;B&lt;/em&gt; reamostras, &lt;em&gt;B&lt;/em&gt; deve ser um valor grande. O tamanho de &lt;em&gt;B&lt;/em&gt; depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $T_n$ é necessária, sugere-se que &lt;em&gt;B&lt;/em&gt; seja ao menos igual à 1000.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-5&quot;&gt;Passo 5:&lt;/h4&gt;
+&lt;p&gt;Construa a partir do valor &lt;em&gt;B&lt;/em&gt; de &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt; a frequência relativa do histograma, atribuindo probabilidade de &lt;script type=&quot;math/tex&quot;&gt;1/B&lt;/script&gt; à cada ponto &lt;script type=&quot;math/tex&quot;&gt;T_n^1&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;T_n^2&lt;/script&gt;,…, &lt;script type=&quot;math/tex&quot;&gt;T_n^B&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;A distribuição obtida é a estimativa Bootstrap da distribuição amostral de &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;. Pode-se realizar inferências sobre o parâmetro θ, utilizando essa distribuição, estimando &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;bootstrap-e-ações-do-mercado-financeiro-utilizando-o-r&quot;&gt;Bootstrap e ações do mercado financeiro utilizando o R&lt;/h2&gt;
+
+&lt;p&gt;No exemplo a seguir, criaremos a amostra Bootstrap para os retornos diários das ações da Apple e do índice S&amp;amp;P500 de 02/06/2016 a 31/05/2017. Para tanto, primeiro baixe a base &lt;em&gt;bootstrap.txt&lt;/em&gt; que está disponível no &lt;a href=&quot;https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt&quot;&gt;link&lt;/a&gt;. Faça a leitura dessa base no R conforme demonstrado no código abaixo:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file.choose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Para  trabalhar com a base digite o seguinte comando:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SP500index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'APPLE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SP500index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sp500&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;spxret&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;applret&lt;/code&gt; extraem uma coluna para criar um vetor. Nas linhas seguintes trabalhamos a base para transformar todos os dados em numéricos, retiramos NA’s e transformamos os retornos em log retornos.&lt;/p&gt;
+
+&lt;p&gt;Na nossa análise obtivemos, em um ano, 251 retornos diários. Aleatoriamente uma amostra bootstrap foi obtida dos retornos diários. No nosso caso, você observará que alguns dias estarão diversas vezes na amostra bootstrap enquanto outros nem aparecerão. Isso ocorre devido ao fato de realizarmos amostragem com reposição. A partir da nossa amostra bootstrap, optamos por realizar a soma dos valores. Tipicamente várias amostras bootstrap são criadas.&lt;/p&gt;
+
+&lt;p&gt;O código abaixo mostra como utilizar o Bootstrap para gerar 1000 amostras Bootstrap. Podemos observar abaixo que amostramos com inteiros de 1 a 251. Criamos uma amostra de tamanho 251 e a amostramos com reposição. Com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;this.samp&lt;/code&gt; temos um ano com retornos diários que poderiam ter acontecido. Coletamos os retornos anuais para cada ano hipotético na linha de código seguinte.&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# numeric vector 1000 long
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Você pode também plotar a distribuição dos retornos anuais obtidos com o Bootstrap com o código a seguir:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;orange&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'blue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Segundo a imagem abaixo, o retorno anual é bastante variável. Caso você utilize uma base de dados inicial diferente, o seu gráfico sofrerá alterações. Nessa situação encontramos bem próximo ao meio da distribuição o nosso retorno anual. Vale ressaltar que esse resultado pode ser diferente devido a vieses estatísticos ou na base de dados.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bootstrap/Rplot02.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;vamos-praticar&quot;&gt;Vamos praticar?&lt;/h3&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;p&gt;Efron, B. (1979). Bootstrap methods: another look at the jackknife. The annals of Statistics, 1-26.&lt;/p&gt;
+
+&lt;p&gt;Efron, B, and Tibshirani, R.J. (1993). An introduction to the bootstrap. Chapman and Hall, London.&lt;/p&gt;
+
+</content>
+		</entry>
+	
+		<entry>
+			<title>Bootstrap</title>
+			<link href="http://lamfo-unb.github.io/2017/06/28/Bootstrap-en/"/>
+			<updated>2017-06-28T07:00:00-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/28/Bootstrap-en</id>
+			<content type="html">&lt;link href=&quot;https://fonts.googleapis.com/css?family=Rock Salt&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;link href=&quot;https://fonts.googleapis.com/css?family=Sofia&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;h1 id=&quot;bootstrap&quot;&gt;Bootstrap&lt;/h1&gt;
+
+&lt;p&gt;In this post, we present a statistic technique called Bootstrap. Nothing better than an example of brigadeiro (a typical and popular desert in Brazil) for a preliminary taste on the subject.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bootstrap/Avelã.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine you own a candy store. A customer expects that, when buying a brigadeiro, it will have, on average, the same weight as the one of another customer. However, it is impossible to weigh all the brigadeiros that will be produced in your store!!&lt;/p&gt;
+
+&lt;p&gt;What should we do then??&lt;/p&gt;
+
+&lt;p&gt;You, the owner of the establishment, can use sampling techniques to randomly select 150 brigadeiros and calculate the average weight of these brigadeiros. Done this, you can conclude that the population mean is within an margin error relative to the sample mean.&lt;/p&gt;
+
+&lt;p&gt;Suppose you want to know, after a few months, what the average weight of the brigadeiro would be on a given production line date, taking into account greater accuracy.&lt;/p&gt;
+
+&lt;p&gt;As several variables have emerged, we can no longer use the sample of brigadeiros produced today as a baseline. Among these variables involved, we consider different types of sugar, cocoa and butter, new flavors, type of confectionery, the filling, among others.&lt;/p&gt;
+
+&lt;p&gt;Let us assume that the only information we have is the weight of a sample of 150 brigadeiros on the initial testing date. We can consider the initial error margin as our most relevant information.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, to solve this problem there is&lt;/p&gt;
+
+&lt;h1&gt;
+&lt;div style=&quot;font-family: 'Rock Salt';font-size: 60px;&quot;&gt;
+Bootstrap!! :tada:
+&lt;/div&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;In this scenario, we create our Bootstrap sample, which arises from the random sampling of the 150 known weights. If weight replacement is allowed, this bootstrap sample will not necessarily be identical to the initial sample. Some data may be omitted and others may be repeated. In this scenarion, numerous bootstrap samples are quickly created.&lt;/p&gt;
+
+&lt;h2 id=&quot;technical-view&quot;&gt;Technical View&lt;/h2&gt;
+
+&lt;p&gt;Let’s now introduce Bootstrap with more detail.&lt;/p&gt;
+
+&lt;p&gt;This statistical technique was initially proposed by Bradley Efron in 1979. It has been gaining strength, especially due to the advances in computer power.&lt;/p&gt;
+
+&lt;div style=&quot;font-family: 'Sofia';font-size: 30px;&quot;&gt;What is the origin of the word Bootstrap??&lt;/div&gt;
+
+&lt;p&gt;Bootstrap term has English origin and refers to the lace on the back of a boot which helps to put it on.&lt;/p&gt;
+
+&lt;p&gt;Its use comes from the phrase “To lift himself up by his bootstraps”, that is, “Get up using your bootstrap”. Here, there is an allusion to something impossible, difficult to achieve.&lt;/p&gt;
+
+&lt;p&gt;Imagine getting up in the air pulling only pieces of leather from your boot. This is impossible! And the idea that this model wants to bring is to be able to do the impossible.&lt;/p&gt;
+
+&lt;p&gt;The story of Baron Munchausen, also mentioned in the origin of the Bootstrap concept, tells that he was able to raise himself and his horse from a swamp by pulling his own hair (specifically, his ponytail). However, in this history there is no use of the word bootstrap as we know it and no other explicit reference to bootstraps has been found elsewhere in the various versions of Munchausen tales.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/boot2.jpg&quot; alt=&quot;mat_elis_1&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/pic2.png&quot; alt=&quot;mat_elis_2&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;theory&quot;&gt;Theory&lt;/h3&gt;
+
+&lt;p&gt;Think about the case of a random sample of size &lt;em&gt;n&lt;/em&gt; , from a probability distribution function &lt;em&gt;F&lt;/em&gt; undefined:
+&lt;script type=&quot;math/tex&quot;&gt;X_i=x_i,     X_i&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;\sim&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;F_{i}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;i=1,2,...,n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let &lt;script type=&quot;math/tex&quot;&gt;X= (X_1,X_2,...X_n)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;x=(x_1,x_2,...,x_n)&lt;/script&gt; be the random variables and the observations of the independent random variables, with the same distribution function * F &lt;em&gt;. We will investigate the variability and the sampling distribution of the local estimation calculation from the sample of size *n&lt;/em&gt;. We denote this local estimate as &lt;script type=&quot;math/tex&quot;&gt;\widehatθ&lt;/script&gt;. Note that &lt;script type=&quot;math/tex&quot;&gt;\widehatθ&lt;/script&gt; is a function of the random variables &lt;script type=&quot;math/tex&quot;&gt;(X_1, X_2, ... X_n)&lt;/script&gt; and, therefore, has a probability distribution, its sample distribution, which is determined by &lt;em&gt;n&lt;/em&gt; and &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Based on Efron and Tibshirani (1993), the basic steps for creating Bootstrap are:&lt;/p&gt;
+
+&lt;h4 id=&quot;step-1&quot;&gt;Step 1:&lt;/h4&gt;
+&lt;p&gt;Construct, from the sample, an empirical probability distribution &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt;, inserting, in each point &lt;script type=&quot;math/tex&quot;&gt;x_1, x_2, ... x_n&lt;/script&gt; of the sample, a probability &lt;script type=&quot;math/tex&quot;&gt;1/n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Characterized as an empirical distribution function of the sample, this is a non-parametric estimate of the maximum probability from the population distribution, &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;step-2&quot;&gt;Step 2:&lt;/h4&gt;
+&lt;p&gt;Perform the resample: draw a random sample of size &lt;em&gt;n&lt;/em&gt; with replacement from the &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt; distribution function.&lt;/p&gt;
+
+&lt;h4 id=&quot;step-3&quot;&gt;Step 3:&lt;/h4&gt;
+&lt;p&gt;Calculate for this resampling the statistic of interest &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;, generating &lt;script type=&quot;math/tex&quot;&gt;T_n^*&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;step-4&quot;&gt;Step 4:&lt;/h4&gt;
+&lt;p&gt;Repeat steps 2 and 3 &lt;em&gt;B&lt;/em&gt; times. To create &lt;em&gt;B&lt;/em&gt; resamples, &lt;em&gt;B&lt;/em&gt; must be a large value. The size of &lt;em&gt;B&lt;/em&gt; depends on tests that will be performed with the data. When an estimate with confidence interval of &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt; is required, it is suggested that &lt;em&gt;B&lt;/em&gt; should be at least equal to 1000.&lt;/p&gt;
+
+&lt;h4 id=&quot;step-5&quot;&gt;Step 5:&lt;/h4&gt;
+&lt;p&gt;Build, from the value &lt;em&gt;B&lt;/em&gt; of &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;, the relative frequency of the histogram, assigning probability of &lt;script type=&quot;math/tex&quot;&gt;1/B&lt;/script&gt; to each point &lt;script type=&quot;math/tex&quot;&gt;T_n^1&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;T_n^2&lt;/script&gt;,…, &lt;script type=&quot;math/tex&quot;&gt;T_n^B&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;The obtained distribution is the Bootstrap estimate of the sampling distribution of &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;. One can make inferences from parameter θ, using this distribution, estimating &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;bootstrap-and-stocks-in-financial-market-using-r&quot;&gt;Bootstrap and stocks in financial market using R&lt;/h2&gt;
+
+&lt;p&gt;In the following example, we will create the Bootstrap sample for the daily returns of Apple shares and the S&amp;amp;P500 index from 06/02/2016 to 05/31/2017. To do so, first download the base &lt;em&gt;bootstrap.txt&lt;/em&gt; from the following &lt;a href=&quot;https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt&quot;&gt;file&lt;/a&gt;. Now, read the database in R using the code below:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file.choose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;To work with this file type the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SP500index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'APPLE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SP500index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sp500&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;spxret&lt;/code&gt; and&lt;code class=&quot;highlighter-rouge&quot;&gt; applret&lt;/code&gt; commands extract a column to create a vector. In the following lines of the code above, we work on the database to turn all data into numerics, removing NA’s (No Data values) and transforming returns into log returns.
+   
+In our analysis we obtained, in one year, 251 daily returns. Randomly a bootstrap sample was obtained from daily returns. In our case, you will notice that some days will appear several times in the bootstrap sample while others will not appear at all. This is due to the fact that we perform sampling with replacement. From our bootstrap sample, we chose to perform the sum of the values. Typically several bootstrap samples are created.&lt;/p&gt;
+
+&lt;p&gt;The code below shows how to use Bootstrap to generate 1000 Bootstrap samples. We can see below that we sample with integers from 1 to 251. We created a sample of size 251 and sample it with replacement. With the command &lt;code class=&quot;highlighter-rouge&quot;&gt;this.samp&lt;/code&gt; we get a year with daily returns that could have happened. We collect annual returns for each hypothetical year in the following code line.&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# numeric vector 1000 long
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can also plot the annual returns distribution obtained using Bootstrap with the following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;orange&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'blue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;According to the image below, the annual return is quite variable. If you use a different initial database, your chart will change. In this case we find that our annual return is very close to the middle of the distribution. It is noteworthy that this result may be different due to statistical biases or the database.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/HrxEhHM.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;lets-practice&quot;&gt;Let’s practice?&lt;/h3&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;Efron, B. (1979). Bootstrap methods: another look at the jackknife. The annals of Statistics, 1-26.&lt;/p&gt;
+
+&lt;p&gt;Efron, B, and Tibshirani, R.J. (1993). An introduction to the bootstrap. Chapman and Hall, London.&lt;/p&gt;
+
+</content>
+		</entry>
+	
+		<entry>
+			<title>Uma Abordagem Intuitiva às Redes Neurais</title>
+			<link href="http://lamfo-unb.github.io/2017/06/18/itro-ao-deep-learning/"/>
+			<updated>2017-06-18T07:19:07-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/18/itro-ao-deep-learning</id>
+			<content type="html">&lt;h2 id=&quot;conteúdo&quot;&gt;Conteúdo&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introdução&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#am-contemp&quot;&gt;Aprendizado de Máquina Contemporâneo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#neuronios&quot;&gt;Neurônios&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#RNA&quot;&gt;Redes Neurais Artificiais&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#treino&quot;&gt;Treinamento&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementacao&quot;&gt;Implementando uma Rede Neural Artificial&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ref&quot;&gt;Referências&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introdução-&quot;&gt;Introdução &lt;a name=&quot;intro&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Antes de começarmos, é necessário ter uniformidade em nossa liguagem. Por isso, peço que leia a &lt;a href=&quot;https://matheusfacure.github.io/AM-Essencial/&quot;&gt;introdução ao aprendizado de máquina&lt;/a&gt; que fiz especialmente para quem quer iniciar o entendimento sobre o assunto. Lá, falo sobre o que é e para que serve aprendizado de máquina e apresento alguns do principais conceitos dessa ciência, como os três tipos de aprendizado, o dilema de viés e variância, treinamento, avaliação e validação cruzada. Reconheço que é um post um pouco longo, mas, por favor, invista um pouco do seu tempo nele e entenda bem os conceitos lá apresentados.&lt;/p&gt;
+
+&lt;p&gt;Bom, espero que você tenha lido o que recomendei. A partir desse ponto, utilizarei alguns dos termos apresentados (e que, talvez, você tenha acabado de aprender). Isso me permitirá tornar este post mais curto, já que não precisarei explicar todos os conceitos de aprendizado de máquina do zero.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Aviso:&lt;/strong&gt; Ao final deste post, você entenderá intuitivamente o que é uma rede neural e será capaz de treinar uma para reconhecimento de imagem. Mesmo assim, esse post é apenas uma breve introdução ao aprendizado de máquina contemporâneo. Pensei nele como uma forma de instigar a sua curiosidade e lhe convencer de que aprendizado de máquina é um assunto no qual vale a pena se aprofundar. Assim, do &lt;strong&gt;fundo do meu coração&lt;/strong&gt;, não terminem essa leitura achando que já sabem o suficiente e, por favor, continuem aprendendo mais, bem mais, do que o conteúdo apresentado aqui.&lt;/p&gt;
+
+&lt;h2 id=&quot;aprendizado-de-máquina-contemporâneo-&quot;&gt;Aprendizado de Máquina Contemporâneo &lt;a name=&quot;am-contemp&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;A maioria dos algoritmos de aprendizado de máquina são do século passado. Alguns, como redes neurais, são especialmente velhos, tendo sido inventados na década de 50. Por que, então, só agora observamos aprendizado de máquina em todos os cantos e  seu anúncio em revistas e jornais aos quatro ventos? Podemos argumentar que, embora os algoritmos em si sejam velhos, algumas pequenas melhorias mais recentes os tornaram, finalmente, extremamente úteis. Isso é parcialmente verdade, mas foram outros dois fatores que mais contribuíram para o atual renascimento da inteligência artificial:  &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Aumento do poder computacional (leia-se GPUs enormes)&lt;/li&gt;
+  &lt;li&gt;Aumento da disponibilidade de dados (leia-se &lt;b&gt;Big Data&lt;/b&gt; ou simplesmente bases de dados maiores)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Infelizmente, ainda hoje, para que um modelo de aprendizado de máquina consiga extrapolar um padrão aprendido, ele precisa de uma abundância de exemplos desses padrões. Por exemplo, para que um sistema inteligente consiga interpretar uma palavra, ele necessita antes visualizar milhões de frases para entender como as plavras se relacionam. Isso só foi possível recentemente, com a expansão da quantidade de dados e da capacidade computacional para processá-los.&lt;/p&gt;
+
+&lt;p&gt;Devemos ter em mente que os &lt;strong&gt;sistemas de inteligência artificias contemporâneos não são nada mais do que modelos matemáticos complexos que conseguem aprender uma representação simplificada da realidade, a partir da extração de padrões estatísticos presentes nos dados, que são, por sua vez, extraídos dessa mesma realidade que motiva o aprendizado&lt;/strong&gt;. E, &lt;a href=&quot;https://arxiv.org/abs/1605.06065&quot;&gt;por enquanto&lt;/a&gt;, um ponto fraco desses sistemas ou modelos estatísticos é que eles precisam de muitos dados para conseguir entender os padrões que se apresentam na nossa complexa realidade.&lt;/p&gt;
+
+&lt;p&gt;Mas como exatamente esses sistemas conseguem entender a nossa realidade? Infelizmente, ainda não podemos dizer com certeza como isso é feito. Agora explicarei da forma mais aceita e cujas evidenciais são mais fortes. Em poucas palavras, os sistemas de inteligência artificial modernos primeiro aprendem uma &lt;strong&gt;representação interna abstrata&lt;/strong&gt; dos dados brutos e, a partir dessa representação abstrata, realizam alguma tarefa, geralmente uma previsão. Por exemplo, considere a tarefa de prever que objeto está em uma imagem. Nesse caso, os dados são simples pixeis com quantidades de vermelho, verde e azul (se a imagem for preta e branca, os pixeis são ainda mais simples, indicando apenas a quantidade de preto). Como é muito difícil sair desses dados brutos para conceitos abstratos - como a transparência de uma garrafa pet, um olho em uma face, o telhado de uma casa -, o sistema antes converte os pixeis de uma imagem em algo mais abstrato, como o conceito visual de um olho.&lt;/p&gt;
+
+&lt;p&gt;Isso é provavelmente o que eu e você fazemos quando enxergamos. O nosso corpo percebe raios multicoloridos refletidos nos objetos, mas o que vemos são conceitos com uma carga semântica muito maior, tais como a textura da madeira em uma cadeira ou a silhueta opaca de um gato branco passeando sob a meia luz. Para representar esse nível de abstração, os sistemas contemporâneos de IA são geralmente construídos em camadas. Podemos pensar nelas como &lt;strong&gt;níveis hierárquicos de abstração&lt;/strong&gt; que serão aprendidos por um modelo estatístico. Por exemplo, a primeira camada de um sistema pode aprender a abstrair pixeis em cantos e quinas de objetos ou diferenças de contraste e luminosidade; a segunda camada, partido das abstrações da primeira, converte os cantos e quinas em formas mais elaboradas, como círculos, triângulos e quadrados; a terceira camada então pode partir dessas formas para criar abstrações sobre parte de objetos, como a roda de um carro ou o bico de um papagaio; por fim, o sistema usa essas abstrações finais para identificar o que está em uma foto colorida. (Isso é mais do que um mero exemplo. Na verdade, existem &lt;a href=&quot;https://matheusfacure.github.io/2017/05/09/deepdream/&quot;&gt;formas um tanto divertidas de ver as abstrações aprendidas por IAs&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Esse modo de estruturar os sistemas de IA é o que leva o nome de &lt;strong&gt;Deep Learning&lt;/strong&gt; (aprendizado profundo) ou aprendizado de representações. A palavra “profundo” vem do simples fato de construímos nossos sistemas empilhando camadas.&lt;/p&gt;
+
+&lt;h2 id=&quot;neurônios-&quot;&gt;Neurônios &lt;a name=&quot;neuronios&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Nesta introdução, para exemplificar a construção e o treinamento de um sistema moderno de IA, realizaremos uma simples tarefa de visão computacional, na qual usaremos uma rede neural bem simples para reconhecer dígitos escritos. Em termos técnicos, será uma tarefa de &lt;a href=&quot;https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres&quot;&gt;OCR (Optical Character Recognition)&lt;/a&gt;. Mas, antes de entendermos o que são e como treinar redes neurais, precisamos falar sobre seu componente mais básico: os neurônios.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/perceptron.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;perceptron&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;https://blog.dbrgn.ch/2013/3/26/perceptrons-in-python/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Como grande parte dos algoritmos de aprendizado de máquina, os neurônios são modelos matemáticos (ou funções) que representam a realidade de forma simplificada. Eles são compostos por uma soma ponderada, seguida ou não de uma função ativação. Por exemplo, considere a tarefa de prever se o preço de uma casa será maior ou menor do que a média, dadas as variáveis \(x_1\), o tamanho da casa em metros quadrados, \(x_2\), o índice de pobreza da vizinhança e \(x_3\) o tamanho do meu cabelo. Podemos facilmente utilizar um neurônio para resolver essa tarefa. Note que, provavelmente, quanto maior \(x_1\), maior a probabilidade da casa ter um preço acima da média (e vice versa). Assim, devemos esperar que o peso de \(x_1\), \(w_1\), na soma ponderada do nosso neurônio seja positivo, indicando que essa variável tem um impacto igualmente positivo na probabilidade do preço da casa ser acima da média. Com o mesmo raciocínio, podemos argumentar que \(w_2\) será negativo. Note que esses dois pesos não precisam ter a mesma intensidade. Pode ser que o impacto positivo de \(x_1\) seja muito maior que o impacto negativo de \(x_2\), de forma que \(w_1\) seja maior que \(w_2\). Em outras palavras, pode ser que o tamanho da casa seja um determinante mais importante do preço do que o índice de pobreza da vizinhança. Por fim, é provável que o tamanho do meu cabelo, \(x_3\), não tenha muito impacto no preço de uma casa. Por isso, esperamos que \(w_3\) seja muito próximo de zero na soma ponderada do nosso neurônio. Isso indica que essa variável influencia pouco o preço da casa. Repare também que temos uma variável que é sempre \(1\). A ponderação desse \(1\) com o \(w_0\) é o que chamamos de viés. Esse viés captura a tendência da casa ter valor alto, uma vez que já consideramos as outras variáveis. Por fim, é importante ressaltar que os \(w\)s são o que chamamos de parâmetros do modelo. Eles são variáveis que o neurônio (e, mais para frente, a rede neural) vai aprender (ou estimar) durante o treinamento.&lt;/p&gt;
+
+&lt;p&gt;Além da soma ponderada, nosso neurônio precisa de uma função de ativação. Isso porque a soma ponderada pode nos dar um resultado qualquer, mas, como nossa previsão é uma probabilidade, precisamos de uma função ativação que converta um número qualquer, positivo ou negativo, em um valor entre 0 e 1. Essa função é denominada função &lt;a href=&quot;https://en.wikipedia.org/wiki/Softmax_function&quot;&gt;softmax&lt;/a&gt;, que será utilizada após a soma ponderada do nosso neurônio. Existem várias funções de ativação e, dependendo da tarefa em questão, uma é mais recomendada do que outra. Infelizmente, para falar delas é preciso mais conhecimento matemático. Intuitivamente, quando as mencionamos em redes neurais, imagine a função ativação como algo que dá um comportamento mais complexo aos neurônios. Elas também são fundamentais nas redes neurais, para que essas consigam representar padrões complexos.&lt;/p&gt;
+
+&lt;h2 id=&quot;redes-neurais-artificiais-&quot;&gt;Redes Neurais Artificiais &lt;a name=&quot;RNA&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Infelizmente, os neurônios são bastante limitados. Em aprendizado de máquina, queremos que um algoritmo possa aprender qualquer tipo de padrão presente nos dados, mas isso não é possível com um simples neurônio. Por isso, construímos as redes neurais, que são simplesmente vários neurônios conectados. Pense nos neurônios como blocos de Lego e nas redes neurais como estruturas que montamos empilhando esses blocos de Lego. Dependendo da tarefa, uma estrutura pode se mais útil do que outra. No entanto, aqui, vamos considerar apenas a estrutura mais simples e mais comum de rede neural, o modelo de &lt;strong&gt;redes neurais &lt;em&gt;feedforward&lt;/em&gt; densas&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/RNA1.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;RNA1&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;http://www.texample.net/tikz/examples/neural-network/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Na rede neural acima, como exemplo, dizemos que ainda lidamos com o problema de prever se o preço de uma casa será acima ou abaixo da média. Na entrada da rede, temos as mesmas 3 variáveis mais o viés, que são representados pelas bolinhas verdes. Isso é o que chamamos de camada de entrada da rede neural. Posteriormente, utilizando 5 neurônios, realizamos 5 somas ponderadas seguidas de uma função de ativação. Essas operações são representadas pelas bolinhas azuis, que recebem o nome de camada oculta da rede neural. Por fim, usamos um único neurônio que realiza uma soma ponderada do resultado dos neurônios anteriores e então converte essa soma ponderada em uma probabilidade com a função softmax. Isso é o que chamamos de camada de saída da rede neural e está representado pela bolinha vermelha.&lt;/p&gt;
+
+&lt;p&gt;Ignore a camada de entrada (verde) por um momento. Você notou como a camada de saída mais a camada oculta são exatamente o modelo de neurônio que vimos anteriormente? A camada de saída é simplesmente um modelo de neurônio, que está tratando a camada oculta como se fosse as variáveis independentes que determinam a variável de resposta (no nosso exemplo, a probabilidade do preço da casa ser alto). Assim, podemos observar que a rede neural está &lt;strong&gt;aprendendo novas variáveis&lt;/strong&gt; e usando um modelo de neurônio nessas novas variáveis. Esse é o princípio básico de &lt;em&gt;deep learning&lt;/em&gt;: aprender variáveis representativas, geralmente mais abstratas, que auxiliem na tarefa em questão, no caso, uma tarefa de previsão.&lt;/p&gt;
+
+&lt;p&gt;Podemos ir um passo além e adicionar uma segunda camada oculta.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/RNA2.jpeg&quot; class=&quot;img-responsive center-block&quot; alt=&quot;RNA2&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;http://cs231n.github.io/neural-networks-1/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Isso aumenta ainda mais o poder representativo da rede neural. Lembre-se de que &lt;strong&gt;podemos pensar nas camadas da rede neural como níveis hierárquicos de abstração&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;treinamento-&quot;&gt;Treinamento &lt;a name=&quot;treino&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Agora que entendemos o que são redes neurais em um nível intuitivo, iremos treiná-las. Isso é feito por um processo de otimização no qual minimizamos uma função custo (ou objetivo). Para manter o nível de simplicidade, pense na função custo como algo que mede a diferença entre o que a rede neural prevê e o que de fato foi observado. Por exemplo, se a rede neural prever um valor pequeno para a probabilidade de uma casa ter preço acima da média, mas a casa, na verdade, for bastante cara, então a função custo terá um valor alto.&lt;/p&gt;
+
+&lt;p&gt;Para iniciar o treinamento, vamos chutar alguns valores para os \(w\)s de cada neurônio. Em seguida, observaremos a previsão da rede neural em alguns dados, que, muito provavelmente, será péssima. Dessa forma, os \(w\)s iniciais serão associados a um alto custo ou a uma &lt;strong&gt;região elevada na superfície de custo&lt;/strong&gt;. No treinamento então, vamos atualizar os \(w\)s de maneira iterativa, de forma a diminuir o custo. Isso é feito com a técnica de gradiente descendente estocástico, que pode ser entendida como uma descida na superfície de custo de uma tarefa de otimização.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/gd.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;GD&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;https://sebastianraschka.com/faq/docs/closed-form-vs-gd.html&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Para entender a fundo essa técnica, é preciso saber cálculo multivariado, mas, intuitivamente, ela é bem simples. Em primeiro lugar, escolhemos aleatoriamente (daí a palavra estocástico) um pequeno punhado de dados para conseguir uma estimativa da nossa posição na superfície de custo. Então, movemos os parâmetros \(w\) na direção oposta da inclinação dessa superfície. Isso é como dar um passo para baixo na superfície de custo. Com passos suficientes, nossa esperança é que os \(w\) nos coloque em uma região de custo (ou erro) baixa o suficiente.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementando-uma-rede-neural-artificial-&quot;&gt;Implementando uma Rede Neural Artificial &lt;a name=&quot;implementacao&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Muito bem, tudo isso já parece bastante promissor. Vamos então construir e treinar uma rede neural de duas camadas ocultas para uma tarefa simples de reconhecimento de caracteres em imagens. Para isso, utilizarei a linguagem de programação Python, mas não se preocupe, não será preciso saber programar para entender o que vem a seguir. Na verdade, quase não vou usar programação. Peço então que, por hora, você pense no Python apenas como um programa de computador como outro qualquer. Com ele, podemos digitar uma série de comandos para que o computador os execute. Aqui, vou simplesmente mostrar quais são os comando necessários para construir e treinar uma simples rede neural.&lt;/p&gt;
+
+&lt;p&gt;Junto com o Python, utilizarei alguns pacotes para ajudar na construção e treinamento de redes neurais. Você pode pensar nesses pacotes como extensões de um programa de computador. Mais concretamente, pense em um pacote do Python como uma fonte nova que você baixa para seu editor de texto. Particularmente importante será o pacote &lt;a href=&quot;https://en.wikipedia.org/wiki/TensorFlow&quot;&gt;TensorFlow&lt;/a&gt;, que foi desenvolvido pelo Google e feito &lt;em&gt;open source&lt;/em&gt; (aberto) em 2015.&lt;/p&gt;
+
+&lt;p&gt;Se você ainda não tem esses programas, não se preocupe. Também fiz um &lt;a href=&quot;https://lamfo-unb.github.io/2017/06/10/Instalando-Python/&quot;&gt;tutorial sobre como instalá-los&lt;/a&gt;. Sugiro que você instale os programas necessários e acompanhe o tutorial a seguir executando cada passo no seu computador.&lt;/p&gt;
+
+&lt;p&gt;Sem mais delongas, no Python, importaremos alguns pacotes:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa o TensorFlow&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.contrib.learn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DNNClassifier&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa o modelo de rede neural do TensorFlow&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# pacotes adicionais&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# para computação numérica menos intensiva&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# para criar pastas&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;OBS&lt;/strong&gt;: em uma sequência de comandos (código) de Python, o computador ignora tudo que for escrito após #, por isso, # indica o início de um comentário meu explicando o código.&lt;/p&gt;
+
+&lt;h3 id=&quot;os-dados&quot;&gt;Os dados&lt;/h3&gt;
+
+&lt;p&gt;Em primeiro lugar, vamos ver como são nossos dados. Já disse que trabalharemos com OCR. Em particular, utilizamos a base de dados &lt;a href=&quot;https://en.wikipedia.org/wiki/MNIST_database&quot;&gt;MNIST&lt;/a&gt;, que contém 55 mil dados de treino e 10 mil dados de teste. Os dados são imagens de 28x28 pixeis, o que nos dá 784 variáveis para colocar na camada de entrada da nossa rede neural. Mas, antes disso, vamos criar uma nova pasta no nosso computador e baixar esses dados nela.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# criamos uma pasta para colocar os dados&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tmp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# se a pasta não existir&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;makedirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tmp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# cria a pasta&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# baixa os dados na pasta criada &lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.examples.tutorials.mnist&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# baixa os dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_data_sets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;tmp/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;one_hot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# baixa e carrega os dados já formatados&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Após executar os comandos acima, todos os dados, tanto de treino como de teste, estão armazenados em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;. Você pode pensar em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; como uma planilha do Excel aberta. As únicas diferenças são que você não pode interagir com a linhas e colunas da planilha clicando com o mouse e que você não pode ver a planilha a todo tempo. No entanto, podemos facilmente ver como são nossos dados usando o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;print()&lt;/code&gt; do Python. Para interagir com os dados em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;, usamos a notação de ponto &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;. Por exemplo, &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.images&lt;/code&gt; nos dá acesso aos dados de treino e, a partir daí, às imagens de treino. Podemos ir além e usar &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.images.shape&lt;/code&gt; para ver o atributo de tamanho dos dados de treino.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos dados de treino&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos dados de teste&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra algumas linhas e colunas dos dados de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(55000, 784)
+(10000, 784)
+[[ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ ..., 
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Acima, observamos que os dados de treino são uma tabela com 55 mil linhas, cada uma com uma observação de 784 colunas, (que representam os pixeis de uma imagem). Como nossa tarefa se encaixa no regime de aprendizado supervisionado, cada imagem vem anotada com um alvo, o dígito que está nela (e que queremos prever). Podemos acessar os alvos de treino com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;print()&lt;/code&gt; mais &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.labels&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos alvos de treino&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra os alvos de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(55000,)
+[7 3 4 ..., 5 6 8]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é um 7, nossa segunda imagem é um 3 e assim por diante. Com o intuito de minimizar o nível de abstração, analisaremos como são essas imagens. Para tanto, necessitamos de um pacote do Python para visualizar as imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.imshow(...)&lt;/code&gt; (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação a contagem é iniciada a partir do zero), usamos o alvo correspondente como título da imagem com &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.title(...)&lt;/code&gt; e, por fim, usamos &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.show()&lt;/code&gt; para mostrar a imagem. Além disso, na imagem, usamos &lt;code class=&quot;highlighter-rouge&quot;&gt;.reshape(28,28)&lt;/code&gt; para reformatá-la de uma linha com 784 pixeis para uma grade com 28px de altura e largura.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa pacote para mostrar imagens&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# mostra a primeira imagem no set de treino&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Greys'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interpolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nearest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# anotação do dígito&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/img/simple_DNN/mnist3.png&quot; class=&quot;img-responsive&quot; alt=&quot;mnist_digit&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;definindo-os-hiper-parâmetros&quot;&gt;Definindo os hiper-parâmetros&lt;/h3&gt;
+&lt;p&gt;Tudo parece OK com os nossos dados. Podemos então começar a construção da rede neural. O primeiro passo é definir os hiper-parâmetros do modelo. Diferentemente dos parâmetros da rede, os \(w\), os hiper-parâmetros não são naturalmente aprendidos durante o treinamento e devem ser ajustados à mão. Alguns dos hiper-parâmetros mais importantes da rede neural são o número de camadas e o número de neurônios em cada camada. Esses hiper-parâmetros definem a capacidade da rede neural e, por meio deles, podemos ajustar o &lt;a href=&quot;https://matheusfacure.github.io/AM-Essencial/#Viés-e-variância&quot;&gt;&lt;em&gt;trade-off&lt;/em&gt; entre erro por viés e por variância&lt;/a&gt;. Quanto maior o número de neurônios, mais potente será a rede neural, mas a probabilidade dela sofrer com sobre-ajustamento será superior.&lt;/p&gt;
+
+&lt;p&gt;Outros hiper-parâmetros da rede neural são o tamanho do punhado de dados usado durante a otimização e o tamanho do passo dado a cada iteração de treino. Em outras palavras, o tamanho do punhado de dados define quão precisa será nossa estimativa local da superfície de custo, enquanto que a taxa de aprendizado definirá o tamanho do passo em cada descida nessa superfície de custo.&lt;/p&gt;
+
+&lt;p&gt;Outro detalhe importante é que a rede neural que vamos construir não tem apenas um neurônio na camada de saída, mas 10 neurônios. Cada neurônio representará a probabilidade da imagem conter um dos dígitos de 0 a 9.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# definindo constantes&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# taxa de aprendizado&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_iter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de iterações de treino&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# qtd. de imagens no punhado de dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_inputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de variáveis (pixeis)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da primeira camada&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_l2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da segunda camada&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_outputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da camada de saída&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nossa rede neural terá duas camadas, cada uma com 512 neurônios.&lt;/p&gt;
+
+&lt;h3 id=&quot;construindo-a-rede-neural&quot;&gt;Construindo a rede neural&lt;/h3&gt;
+
+&lt;p&gt;Felizmente, não precisamos construir uma rede neural do zero. Como elas são extremamente populares, outras pessoas já as deixaram pré-montada para facilitar nossa vida. A única coisa que precisamos fazer é dizer quais serão os hiper-parâmetros da rede neural, que o pacote TensorFlow construirá para nós.&lt;/p&gt;
+
+&lt;p&gt;O primeiro passo é converter os dados para um formato com que TensorFlow consiga trabalhar facilmente. Isso é feito com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.contrib.learn.infer_real_valued_columns_from_input(...)&lt;/code&gt; e passamos como argumento desse comando as imagens de treino. Por fim, transmitimos os hiper-parâmetros definidos acima para o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;DNNClassifier(...)&lt;/code&gt;, o que cria a nossa rede neural e a armazena em &lt;code class=&quot;highlighter-rouge&quot;&gt;deep_ann&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# converte os dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x_input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;infer_real_valued_columns_from_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# cria a rede neural&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DNNClassifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hidden_units&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# qtd. de neurônios por camada&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;feature_columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# camada de entrada (dados)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;n_classes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_outputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de classes (10 dígitos)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;activation_fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# função de ativação das camadas&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AdamOptimizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# otimizador &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;OBS: Ao rodar esse código, talvez você veja alguns textos de aviso. Apenas os ignore. Nesses casos, o TensorFlow está nos fornecendo mais informação do que precisamos.&lt;/p&gt;
+
+&lt;h3 id=&quot;treinando-e-avaliando-a-rna&quot;&gt;Treinando e Avaliando a RNA&lt;/h3&gt;
+
+&lt;p&gt;Para treinar a rede neural criada acima basta um único comando do TensorFlow. Esse comando vem com o nosso modelo de rede neural e podemos acessá-lo com a notação de ponto a partir da rede neural criada acima: &lt;code class=&quot;highlighter-rouge&quot;&gt;deep_ann.fit(...)&lt;/code&gt;. Passamos ao comando as imagens de treino com os respectivos dígitos anotados. Lembre-se que esse é um problema de aprendizado de máquina supervisionado e que a tarefa da rede neural é aprender como mapear dos valores numéricos dos pixeis no dígito que está escrito na imagem. Por isso, precisamos passar também as anotações das imagens de treino: &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.labels&lt;/code&gt;. Antes de encaminhar esses dados à rede neural, precisamos convertê-los para os tipos aceitos pelo modelo. As imagens devem ser do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;float32&lt;/code&gt; (dígitos com casas decimais), enquanto que as anotações devem ser do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;int64&lt;/code&gt; (dígitos inteiros, sem casas decimais).  Por fim, passamos para o comando de treinamento o número de iterações de treino (passos na caminhada para baixo na superfície de custo).&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# conversão de tipo&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# conversão de tipo&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# tamanho do punhado de dados&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_iter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# iterações de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Após treinada, precisamos avaliar nossa rede neural nos dados de teste. Para isso, usamos o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;.evaluate&lt;/code&gt;, que pode ser acessado uma vez que a rede neural for treinada. Enviamos os dados e anotações de teste para esse comando e observamos a acurácia da rede neural, isto é, a taxa de acerto.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evaluate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# variáveis independentes&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# variáveis dependentes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'accuracy':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0.96030003,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'global_step':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1000,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'loss':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0.14502561&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Com apenas 1000 iterações de treino, nossa simples rede neural já consegue uma taxa de acerto de 96%. Isso não é um resultado muito bom, mas já é satisfatório, principalmente se considerarmos quão simples foi treinar esse modelo.&lt;/p&gt;
+
+&lt;h2 id=&quot;próximos-passos&quot;&gt;Próximos Passos&lt;/h2&gt;
+&lt;p&gt;Como já disse, este post é bastante introdutório e tem o propósito de simplesmente instigar a curiosidade sobre aprendizado de máquina. Dentre tópicos que não podemos abarcar em um post introdutório estão outras arquiteturas de redes neurais (convolucionais, recorrentes, &lt;em&gt;autoencoders&lt;/em&gt;, &lt;em&gt;deep-q&lt;/em&gt;, adversárias…), formas de acelerar o treinamento, técnicas de regularização para controlar o sobre-ajustamento, isso sem falar nas outras classes de modelos de aprendizado de máquina, como máquinas de suporte vetoriais, árvores de decisão, Bayes ingênuo, k-vizinhos mais próximos…&lt;/p&gt;
+
+&lt;p&gt;Além disso, mesmo em se tratando de redes neurais bem simples como a que treinamos, o nível de abstração desse post é demasiadamente elevado, isto é, não mostrei como construir cada camada de neurônios, como conectá-las nem como construir o algoritmo de treinamento. Embora você possa utilizar aprendizado de máquina sem se preocupar muito com esses detalhes mais mecânicos, conhecê-los é extremamente importante. Entender de fato o funcionamento dos modelos é condição fundamental para solucionar possíveis falhas no treinamento, para descobrir quais modelos utilizar em cada situação e até mesmo para criar novos modelos ou melhorias que possam contribuir para a ciência de aprendizado de máquina.&lt;/p&gt;
+
+&lt;p&gt;Termino com um apelo: não seja um cientista de dados que simplesmente tenta aplicar um modelo caixa preta atrás do outro, na esperança de que algum resolva seu problema. &lt;strong&gt;Isso não é aprendizado de máquina; é tentativa e erro&lt;/strong&gt;. Se for estudar aprendizado de máquina, entenda &lt;strong&gt;BEM&lt;/strong&gt; as ferramentas que você usa. Entenda a matemática e a mecânica de um algoritmo em seus mínimos detalhes. Se possível, implemente os modelos de aprendizado de máquina sem o auxílio de pacotes. E, por fim, detalhes são muito, muito, muito importantes! A eles que devemos parte do renascimento atual de IA, então não os deixe passar batido.&lt;/p&gt;
+
+&lt;p&gt;Não é difícil encontrar material gratuito e de qualidade na internet, mas também é fácil cair em armadilhas, aprendendo apenas IA em um nível intuitivo, sem se adentrar nos detalhes. Segue uma pequena lista de onde encontrar conteúdo de qualidade sobre aprendizado de máquina:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;Blogs
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;https://matheusfacure.github.io/tutorials/&quot;&gt;{Quinhentos:Nove}&lt;/a&gt;: Sou suspeito para falar, mas acredito que meu blog tenha os melhores tutoriais em português sobre aprendizado de máquina. Em parte, eu o criei com o objetivo de corrigir algumas falhas que percebi nos outros blogs sobre AM. Percebi que o conteúdo deles ou eram simplesmente intuitivos, sem aprofundamento na matemática e na implementação dos modelos, ou eram muito técnicos. Por isso, comecei a criar tutoriais estruturados para conter uma explicação intuitiva da técnica explicada, seguida de uma explicação matemática mais aprofundada e terminando com uma implementação bem documentada. Além disso, eu frequentemente &lt;a href=&quot;https://matheusfacure.github.io/blog/&quot;&gt;posto sobre meus trabalhos &lt;/a&gt; para que sirvam como exemplos de aplicações de aprendizado de máquina.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;https://lamfo-unb.github.io/&quot;&gt;Blog do LAMFO&lt;/a&gt;: O nosso blog é uma excelente fonte de tutoriais e exemplos de aplicações de aprendizado de máquina. O LAMFO é a primeira entidade acadêmica no Brasil a tratar de aprendizado de máquina dentro da grande área de ciências humanas (e até onde sei, ainda é a única que atua na área), então acho que posso dizer que somos autoridade nesse assunto.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://colah.github.io/&quot;&gt;colah's blog&lt;/a&gt;: Esse é um dos melhores blogs que conheço sobre aprendizado de máquina. Infelizmente, o conteúdo é mais avançado e com pouco enfoque em questões práticas (aquele problema do qual falei sobre ser muito técnico).&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://r2rt.com/&quot;&gt;R2RT&lt;/a&gt;: É um blog excelente, tanto em termos de tutoriais quanto em termos de explicação técnica e matemática por detrás dos algoritmos ensinados. Infelizmente, já começa no nível avançado, sem uma progressão clara entre os tutoriais.&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://karpathy.github.io/&quot;&gt;Andrej Karpathy blog&lt;/a&gt;: Andrej Karpathy é um pesquisador extremamente inteligente e que escreve com uma simplicidade incrível para alguém do seu nível de conhecimento. Esse não é um blog sobre tutoriais, mas fala sobre assuntos muito interessantes em aprendizado de máquina, além de fornecer implementações detalhadas e bem documentadas sobre o assunto tratado.&lt;/li&gt;
+        
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;referências-&quot;&gt;Referências &lt;a name=&quot;ref&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Esse post abrange o conteúdo que ministrei em um &lt;em&gt;workshop&lt;/em&gt; do LAMFO sobre redes neurais. A proposta dessa iniciativa era mostrar que é possível falar sobre inteligência artificial e aprendizado de máquina de maneira simples e intuitiva, sem pressupor nenhum conhecimento técnico de quem está começando a aprender. Você pode acessar os slides do &lt;em&gt;workshop&lt;/em&gt; &lt;a href=&quot;/img/simple_DNN/workshop_dl.pdf&quot;&gt;aqui&lt;/a&gt;. Todas as imagens foram retiradas da internet e assumi que estavam em domínio público. Caso encontre uma imagem sua e queira as devidas citações, favor &lt;a href=&quot;mailto:matheusfacure01@gmail.com&quot;&gt;entrar em contato&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Como de costume, fiz o &lt;em&gt;upload&lt;/em&gt; de um notebook Jupyter com o código desenvolvido nesse post. Nesse notebook, código e explicação são intercalados, de forma que você pode acompanhar esse mesmo post ao mesmo tempo que executa os comandos em Python. Recomendo que você baixe o notebook e reveja esse tutorial de redes neurais por lá. Isso te dará mais confiança para generalizar o que ensinei aqui para outras situações. Também coloquei um exercício adicional lá, para quem quiser fixar o que vimos acima. O notebook está no &lt;a href=&quot;https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/RNA_simples.ipynb&quot;&gt;meu GitHub&lt;/a&gt;&lt;/p&gt;
+</content>
+		</entry>
+	
+		<entry>
+			<title>Instalando Python para Aprendizado de Máquina</title>
+			<link href="http://lamfo-unb.github.io/2017/06/10/Instalando-Python/"/>
+			<updated>2017-06-10T07:19:07-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/10/Instalando-Python</id>
+			<content type="html">&lt;p&gt;UPDATE: 18/06/2017&lt;/p&gt;
+
+&lt;h2 id=&quot;conteúdo&quot;&gt;Conteúdo&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#req&quot;&gt;Requisitos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#python&quot;&gt;Instalando Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tf&quot;&gt;Instalando TensorFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#git&quot;&gt;Instalando Git&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test&quot;&gt;Testando&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#fim&quot;&gt;Considerações Finais&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;requisitos-computacionais-&quot;&gt;Requisitos computacionais &lt;a name=&quot;req&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (&lt;em&gt;quad core&lt;/em&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-python-&quot;&gt;Instalando Python &lt;a name=&quot;python&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/python.png&quot; alt=&quot;python&quot; class=&quot;img-responsive thumbnail pull-right&quot; style=&quot;margin-left:3%; width:45%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;No momento, Python a linguagem de programação preferida pelos cientistas de dados, especialmente para aprendizado de máquina. Mas mais do que isso, Python tem uma sintaxe extremamente simples e legível, o que te permite focar mais no conteúdo do seu programa do que em como escrevê-lo. Aqui, vamos ensinar como instalar a distribuição &lt;a href=&quot;https://www.continuum.io/downloads&quot;&gt;Anaconda&lt;/a&gt;, um pacote de programas que inclui o Python mais uma série de extensões utilizadas em ciência de dados e aprendizado de máquina (como Numpy, Pandas, Jupyter Notebooks e Scikit Learn).&lt;/p&gt;
+
+&lt;p&gt;Antes de mais nada, &lt;a href=&quot;https://support.microsoft.com/pt-br/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64-bit-version-of-the-windows-operating-system&quot;&gt;certifique-se de que seu sistema operacional é 64 bits&lt;/a&gt;. Infelizmente, o tutorial a seguir só funciona na versão 64 bits do Windows, então uma vez que você tenha confirmado essa versão, podemos prosseguir com a instalação. Agora, vá em &lt;a href=&quot;https://www.continuum.io/downloads&quot;&gt;https://www.continuum.io/downloads&lt;/a&gt; e baixe o Anaconda para Windows, versão 64-bit. Ao clicar no botão do download, um arquivo executável será baixado.&lt;/p&gt;
+
+&lt;p&gt;Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção &lt;code class=&quot;highlighter-rouge&quot;&gt;Add Anaconda to PATH&lt;/code&gt; esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.&lt;/p&gt;
+
+&lt;p&gt;Abra a prompt de comando. Antes de prosseguir, vamos nos familiarizar com ela um pouco. A propt de comando é uma forma alternativa de interagir com o seu computador. Da mesma forma que você navega pelas pastas e arquivos clicando com o mouse, você pode fazer isso na linha de comando. Por padrão, a linha de comando abre no seu &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;, o local onde ficam suas pastas de imagens, documentos, downloads, etc. Após abrir o prompt de comando, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para ver o que está na sua pasta, naquele local. Você verá escrito as pastas de arquivos do seu &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; lista o que está na sua pasta (ou diretório) corrente.&lt;/p&gt;
+
+&lt;p&gt;Agora, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;cd Desktop&lt;/code&gt; para navegar ao Desktop do seu computador. Se quiser, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para mostrar quais arquivos estão no seu Desktop. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; (change directory) troca o diretório (ou pasta) corrente. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cd ..&lt;/code&gt; sobe um nível nas pastas do seu computador. Se você digitar isso na prompt de comando enquanto estiver no Desktop, ele te levará de volta ao &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;, que é a o diretório um nível acima do &lt;code class=&quot;highlighter-rouge&quot;&gt;Desktop&lt;/code&gt;. Volte para o &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;No &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt; na prompt de comando. Isso iniciará o modo interativa do Python. Execute algumas operações matemáticas como &lt;code class=&quot;highlighter-rouge&quot;&gt;2+2&lt;/code&gt; e veja o resultado sendo calculado pelo Python. Quando terminar, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;quit()&lt;/code&gt; para sair da versão interativa do Python.&lt;/p&gt;
+
+&lt;p&gt;Para finalizar, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter notebook&lt;/code&gt; na linha de comando. Isso inicializará o Jupyter, um programa que executa códigos em Python. Uma nova aba será aberta no seu browser (OBS: funciona apenas com Chrome ou Firefox) e nela você verá a interface do Jupyter. Caso essa aba não abra, na prompt de comando, procure um link que deve começar com &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8889/&lt;/code&gt;. Copie e cole esse link em uma nova aba do seu browser para abrir a interface do Jupyter. Nessa interface, você poderá escrever &lt;em&gt;notebooks&lt;/em&gt; que intercalam código em Python intercalado com comentários, se assim desejar (veja um &lt;a href=&quot;https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/DeepANN.ipynb&quot;&gt;exemplo&lt;/a&gt;). Para sair do notebook, feche a aba no seu browser, volte a prompt de comando e aperte CTRL+C, seguido de y e enter. CTRL+C é um comando para fechar programas que estão rodando na sua prompt de comando; você terá que confirmar o fechamento com y (&lt;em&gt;yes&lt;/em&gt;), seguido de enter.&lt;/p&gt;
+
+&lt;p&gt;Para aprender mais sobre a linha de comando, sugiro este &lt;a href=&quot;https://learnpythonthehardway.org/book/appendixa.html&quot;&gt;link&lt;/a&gt;. Para aprender mais sobre o Jupyter, sugiro este &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/content-quickstart.html&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-tensorflow-&quot;&gt;Instalando TensorFlow &lt;a name=&quot;tf&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tf.jpg&quot; alt=&quot;python&quot; class=&quot;img-responsive thumbnail pull-right&quot; style=&quot;margin-left:3%; width:45%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;O &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;TensorFlow&lt;/a&gt; é um programa de computação numérica, que tem sua versão principal em Python. Nós usamos o TensorFlow para programas de &lt;em&gt;deep learning&lt;/em&gt;, devido a sua eficiência computacional e abundância de comandos facilitadores para construção e treinamento de redes neurais. Antes de instalar o TensorFlow, vamos criar um ambiente Python. Nesse ambiente, todas as extensões (ou pacotes) que vem no Anaconda estarão presentes, mas o que instalarmos nele não será acessível de fora dele. Isso evita que a instalação de um pacote novo possa prejudicar o funcionamento dos pacotes já instalados.&lt;/p&gt;
+
+&lt;p&gt;Para criar um ambiente novo, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;conda create -n tensorflow&lt;/code&gt; na linha de comando. Confirme a criação do ambiente digitando y (&lt;em&gt;yes&lt;/em&gt;), seguido de enter. Agora, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;activate tensorflow&lt;/code&gt; para entrar nesse ambiente. Note que a sua linha de comando mudará para incluir &lt;code class=&quot;highlighter-rouge&quot;&gt;(tensorflow)&lt;/code&gt; antes do nome do seu diretório corrente. Para sair do ambiente, basta digitar &lt;code class=&quot;highlighter-rouge&quot;&gt;deactivate&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finalmente, para instalar o TensorFlow, entre no ambiente recém criado e digite:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.2.0-cp36-cp36m-win_amd64.whl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Dica: CTRL+C e CTRL+V não funciona na linha de comando, mas você pode copiar e colar comandos clicando com o botão direito do mouse. Em alguns computadores, na linha de comando, podemos usar CTRL+SHIFT+C para copiar e CTRL+SHITF+V para colar.&lt;/p&gt;
+
+&lt;p&gt;Na instalação do TensorFlow, usaremos &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt;, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.2 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as &lt;a href=&quot;https://www.tensorflow.org/install/install_windows&quot;&gt;instruções no site do TensorFlow&lt;/a&gt;. Teste agora sua instalação. Na linha de comando, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt; para iniciar o modo iterativo do Python. Digite &lt;code class=&quot;highlighter-rouge&quot;&gt;import tensorflow as tf&lt;/code&gt;. Se tudo ocorreu bem até aqui, você não verá nenhum erro.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-git-&quot;&gt;Instalando Git &lt;a name=&quot;git&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Git é um programa de controle de versões. Ele permite que você volte a uma versão anterior do seu código caso escreva algum bug ou alguma coisa que pare o funcionamento do seu programa. Em outras palavras, o Git te permite experimentar novas coisas sem medo de ferrar com o que já foi feito, afinal você sempre poderá restaurar versões passadas do seu código. Além disso, o Git tem uma plataforma online, o &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, que permite colaboração entre programadores, principalmente para códigos abertos. O GitHub também funciona como um currículo do cientista de dados. Por meio dele, é possível compartilhar seus trabalhos de forma que eles sejam completamente reprodutíveis, permitindo que qualquer um possa certificar-se das suas habilidades.&lt;/p&gt;
+
+&lt;p&gt;Para baixar o Git, va em &lt;a href=&quot;https://git-scm.com/downloads&quot;&gt;https://git-scm.com/downloads&lt;/a&gt; e clique na versão para Windows. Isso iniciará o download de um executável. Quando o download terminar, clique no executável para iniciar a instalação. Aceite todas as configurações padrão, &lt;strong&gt;exceto&lt;/strong&gt; a Configuração de Final de Linha. Nesse caso, mude para &lt;code class=&quot;highlighter-rouge&quot;&gt;Checkout as-is, commit Unix-style line endings&lt;/code&gt;. Isso facilitará muito no momento que você estiver contribuindo com outros projetos via GitHub.&lt;/p&gt;
+
+&lt;p&gt;Recomendo fortemente que você faça &lt;a href=&quot;https://br.udacity.com/course/how-to-use-git-and-github--ud775/&quot;&gt;este pequeno curso online&lt;/a&gt; (e gratuito) sobre como usar controle de versões, Git e GitHub. Não deve te tomar muito tempo.&lt;/p&gt;
+
+&lt;h2 id=&quot;testando-&quot;&gt;Testando &lt;a name=&quot;test&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Vamos fazer um último teste para ver se tudo está funcionando. Abra a linha de comando do Git e digite&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/matheusfacure/DeepArt.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Isso baixará um repositório meu com uma implementação do &lt;a href=&quot;https://en.wikipedia.org/wiki/DeepDream&quot;&gt;algoritmo de DeepDream&lt;/a&gt;. Por padrão, o a linha de comando do Git também abre no &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;. Se não for o caso, navega até o Home com &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; e então clone o repositório com o comando acima. Voltando à linha de comando do Windows, você deve estar no Home também. Digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para ver a pasta &lt;code class=&quot;highlighter-rouge&quot;&gt;DeepArt&lt;/code&gt; que baixamos com o Git.&lt;/p&gt;
+
+&lt;p&gt;Na linha de comando do Windows, digite agora &lt;code class=&quot;highlighter-rouge&quot;&gt;cd DeepArt/&lt;/code&gt; para entrar no diretório baixado. Por fim, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python deep_dream.py&lt;/code&gt; para executar o programa que fiz. Isso baixará uma rede neural (pode levar alguns minutos) e a utilizará para realizar o algoritmo de DeepDream. Usando o navegador padrão do seu sistema operacional (clicando com o mouse). Vá até o diretório (ou pasta) de DeepArt que acabamos de baixar e veja a imagem criada pelo algoritmo de DeepDream. Caso não saiba onde está essa pasta, na linha de comando do Git, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt; (print working directory) para mostrar o endereço da pasta.&lt;/p&gt;
+
+&lt;h2 id=&quot;considerações-finais-&quot;&gt;Considerações Finais &lt;a name=&quot;fim&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros frequentemente encontrados quanto para torná-lo mais compreensível.&lt;/p&gt;
+</content>
+		</entry>
+	
+		<entry>
+			<title>Visualization and exploration of Spatial data in R</title>
 			<link href="http://lamfo-unb.github.io/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R/"/>
 			<updated>2017-06-03T13:25:15-03:00</updated>
 			<id>http://lamfo-unb.github.io/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R</id>
-			<content type="html">&lt;h1 id=&quot;vizualization-and-exploration-of-spatial-data-in-r&quot;&gt;&lt;strong&gt;&lt;em&gt;Vizualization and exploration of Spatial data in R&lt;/em&gt;&lt;/strong&gt;&lt;/h1&gt;
+			<content type="html">&lt;h1 id=&quot;visualization-and-exploration-of-spatial-data-in-r&quot;&gt;&lt;strong&gt;&lt;em&gt;Visualization and exploration of Spatial data in R&lt;/em&gt;&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;p&gt;In this post we will base ourselves on the tutorial by Robin Lovelace et. Al. (2017) and the material that will be used is available &lt;a href=&quot;https://github.com/Robinlovelace/Creating-maps-in-R&quot;&gt;here&lt;/a&gt; in the &lt;em&gt;Creating-maps-in-R.Rproj&lt;/em&gt; project.&lt;/p&gt;
 

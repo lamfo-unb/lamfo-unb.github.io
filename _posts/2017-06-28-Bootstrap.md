@@ -2,18 +2,20 @@
 layout: post
 title: Bootstrap
 lang: pt
-header-img: /img/bootstrap/juskteez-vu-1041.jpg
+header-img: img/bootstrap/juskteez-vu-1041.jpg
 date: 2017-06-28 10:00:00
 tags: [estatística,finanças]
 author: Mariana Rosa Montenegro
 comments: true
 ---
+<link href='https://fonts.googleapis.com/css?family=Rock Salt' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
 
 # Bootstrap
 
 Nesse post apresentaremos a técnica estatística Bootstrap. Nada melhor do que um exemplo de brigadeiro para termos um gostinho inicial sobre o tema.
 
-<img src="/img/bootstrap/Avelã.jpg" width="700">
+<img src="/img/bootstrap/Avelã.jpg" width="700"/>
 
 Imagine que você seja dono de uma loja de doces. Um cliente espera que, ao comprar um brigadeiro, este tenha, em média, o mesmo peso que o de outro cliente. No entanto, é impossível pesar todos os brigadeiros que serão produzidos pela sua loja!! 
 
@@ -29,8 +31,11 @@ Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na
 
 Felizmente, para solucionar esse problema existe o 
 
-<div markdown="block">Bootstrap :tada:</div>
-
+<h1>
+<div style="font-family: 'Rock Salt';font-size: 60px;">
+Bootstrap!! :tada:
+</div>
+</h1>
 Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.
 
 ## Visão técnica
@@ -39,7 +44,9 @@ Vamos agora apresentar o Bootstrap com mais detalhes.
 
 Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.
 
-<div markdown="1">Qual a origem da palavra Bootstrap??</div>
+<div style="font-family: 'Sofia';font-size: 30px;">
+    Qual a origem da palavra Bootstrap?
+</div>
 
 O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.
 
@@ -58,7 +65,7 @@ A história do Barão Munchausen, também mencionada na origem do Bootstrap, con
 </div>
 
 <div class="col-md-6">
-<img class="img-responsive thumbnail" src="/img/bootstrap/pic2.tif" alt="mat_elis_2" style="width:0.000001"/>
+<img class="img-responsive thumbnail" src="/img/bootstrap/pic2.png" alt="mat_elis_2" style="width:0.000001"/>
 <div class="caption">
 </div>
 </div>
@@ -94,7 +101,7 @@ A distribuição obtida é a estimativa Bootstrap da distribuição amostral de 
 
 ## Bootstrap e ações do mercado financeiro utilizando o R
 
-No exemplo a seguir, criaremos a amostra Bootstrap para os retornos diários das ações da Apple e do índice S&P500 de 02/06/2016 a 31/05/2017. Para tanto, primeiro baixe a base *bootstrap.txt* que está disponível no link [https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt]. Faça a leitura dessa base no R conforme demonstrado no código abaixo:
+No exemplo a seguir, criaremos a amostra Bootstrap para os retornos diários das ações da Apple e do índice S&P500 de 02/06/2016 a 31/05/2017. Para tanto, primeiro baixe a base *bootstrap.txt* que está disponível no [link](https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt). Faça a leitura dessa base no R conforme demonstrado no código abaixo:
 
 ```R
 dados<-read.table(file.choose())
@@ -112,7 +119,7 @@ dados$sp500 <- as.numeric(as.character(dados$sp500))
 dados$sp500<-c(NA,diff(log(dados$sp500)))
 dados$APPLE<-c(NA,diff(log(dados$APPLE)))
 
-spxret<-as.numeric(spxret)    
+spxret<-as.numeric(spxret)
    ```
    Os comandos `spxret` e `applret` extraem uma coluna para criar um vetor. Nas linhas seguintes trabalhamos a base para transformar todos os dados em numéricos, retiramos NA's e transformamos os retornos em log retornos.
    
@@ -120,24 +127,24 @@ Na nossa análise obtivemos, em um ano, 251 retornos diários. Aleatoriamente um
    
   O código abaixo mostra como utilizar o Bootstrap para gerar 1000 amostras Bootstrap. Podemos observar abaixo que amostramos com inteiros de 1 a 251. Criamos uma amostra de tamanho 251 e a amostramos com reposição. Com o comando `this.samp` temos um ano com retornos diários que poderiam ter acontecido. Coletamos os retornos anuais para cada ano hipotético na linha de código seguinte. 
   
-  ```R
+```R
 spx.boot.sum <- numeric(1000) # numeric vector 1000 long
 
 for(i in 1:1000) {
   this.samp <- spxret[ sample(251, 251, replace=TRUE) ]
   spx.boot.sum[i] <- sum(this.samp)
 }
-   ```
+```
    
    Você pode também plotar a distribuição dos retornos anuais obtidos com o Bootstrap com o código a seguir: 
   
 ```R
 plot(density(spx.boot.sum), lwd=3, col="orange")
 abline(v=sum(spxret), lwd=3, col='blue')
-   ```
+```
    Segundo a imagem abaixo, o retorno anual é bastante variável. Caso você utilize uma base de dados inicial diferente, o seu gráfico sofrerá alterações. Nessa situação encontramos bem próximo ao meio da distribuição o nosso retorno anual. Vale ressaltar que esse resultado pode ser diferente devido a vieses estatísticos ou na base de dados.
    
-   <img src="/img/bootstrap/Rplot02.png" width="500">
+<img src="/img/bootstrap/Rplot02.png" width="500">
 
 ### Vamos praticar?
    
@@ -146,5 +153,4 @@ abline(v=sum(spxret), lwd=3, col='blue')
 Efron, B. (1979). Bootstrap methods: another look at the jackknife. The annals of Statistics, 1-26.
 
 Efron, B, and Tibshirani, R.J. (1993). An introduction to the bootstrap. Chapman and Hall, London.
-
 
