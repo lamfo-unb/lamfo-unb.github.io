@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Bootstrap - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/06/28/Bootstrap/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/bootstrap/juskteez-vu-1041.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Bootstrap</h1>
+                    
+                    <span class="meta">Posted by Mariana Rosa Montenegro on June 28, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<link href="https://fonts.googleapis.com/css?family=Rock%20Salt" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
+
+<h1 id="bootstrap">Bootstrap</h1>
+
+<p>Nesse post apresentaremos a técnica estatística Bootstrap. Nada melhor do que um exemplo de brigadeiro para termos um gostinho inicial sobre o tema.</p>
+
+<p><img src="/img/bootstrap/Avel%C3%A3.jpg" width="700"></p>
+
+<p>Imagine que você seja dono de uma loja de doces. Um cliente espera que, ao comprar um brigadeiro, este tenha, em média, o mesmo peso que o de outro cliente. No entanto, é impossível pesar todos os brigadeiros que serão produzidos pela sua loja!!</p>
+
+<p>O que fazer então??</p>
+
+<p>Você, dono do estabelecimento, pode utilizar técnicas de amostragem capazes de selecionar aleatoriamente 150 brigadeiros e calcular o peso médio desses brigadeiros. Feito isso, poderá concluir que a média da população está dentro de uma margem de erro relativa à média da amostra.</p>
+
+<p>Suponha que você queira saber, após alguns meses, qual o peso médio do brigadeiro no dia em que foi feita uma amostra da linha de produção levando em conta uma maior precisão.</p>
+
+<p>Como diversas variáveis surgiram, não podemos mais usar como base o brigadeiro produzido hoje. Dentre essas variáveis consideramos os diferentes tipos de açúcar, cacau e manteiga, novos sabores, o tipo de confeito, o recheio, entre outros.</p>
+
+<p>Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na data de teste inicial. E, podemos considerar a margem de erro inicial como nossa informação mais relevante.</p>
+
+<p>Felizmente, para solucionar esse problema existe o</p>
+
+<h1>
+<div style="font-family: 'Rock Salt';font-size: 60px;">
+Bootstrap!! <img class="emoji" title=":tada:" alt=":tada:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png" height="20" width="20" align="absmiddle">
+</div>
+</h1>
+<p>Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.</p>
+
+<h2 id="visão-técnica">Visão técnica</h2>
+
+<p>Vamos agora apresentar o Bootstrap com mais detalhes.</p>
+
+<p>Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.</p>
+
+<div style="font-family: 'Sofia';font-size: 30px;">
+    Qual a origem da palavra Bootstrap?
+</div>
+
+<p>O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.</p>
+
+<p>Seu uso surge da frase “To lift himself up by his bootstraps.”, ou seja, “Erguer-se utilizando seu bootstrap”. Ocorre aqui uma alusão a algo impossível, de difícil realização.</p>
+
+<p>Imagine levantar-se no ar puxando apenas pedaços de couro de sua bota. Isso é impossível! E a ideia que esse modelo quis trazer é a de poder fazer o impossível.</p>
+
+<p>A história do Barão Munchausen, também mencionada na origem do Bootstrap, conta que o Barão conseguiu erguer a si e o seu cavalo de um pântano por meio de seu cabelo (especificamente, seu rabo de cavalo). No entanto, na história não há o uso da palavra bootstrap como a conhecemos e nenhuma outra referência explícita aos bootstraps foi encontrada em outras partes das várias versões dos contos Munchausen.</p>
+
+<div class="row">
+
+<div class="col-md-6">
+<img class="img-responsive thumbnail" src="/img/bootstrap/boot2.jpg" alt="mat_elis_1" style="width:0.000001">
+<div class="caption">
+</div>
+</div>
+
+<div class="col-md-6">
+<img class="img-responsive thumbnail" src="/img/bootstrap/pic2.png" alt="mat_elis_2" style="width:0.000001">
+<div class="caption">
+</div>
+</div>
+</div>
+
+<h3 id="teoria">Teoria</h3>
+
+<p>Pense no caso de uma amostra aleatória de tamanho <em>n</em> , a partir de uma função de distribuição de probabilidade <em>F</em> indefinida:
+<script type="math/tex">X_i=x_i,     X_i</script> <script type="math/tex">\sim</script> <script type="math/tex">F_{ind}</script>, <script type="math/tex">i=1,2,...,n</script>.</p>
+
+<p>Sejam <script type="math/tex">X= (X_1,X_2,...X_n)</script> e <script type="math/tex">x=(x_1,x_2,...,x_n)</script> as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum <em>F</em>. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho <em>n</em>. Denotamos essa estimativa local como $\widehatθ$. Note que <script type="math/tex">\widehatθ</script> é uma função das variáveis aleatórias <script type="math/tex">(X_1,X_2,...X_n)</script> e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por <em>n</em> e <em>F</em>.</p>
+
+<p>Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:</p>
+
+<h4 id="passo-1">Passo 1:</h4>
+<p>Construa, a partir da amostra, uma distribuição de probabilidade empírica <script type="math/tex">F_n</script>, inserindo, em cada ponto <script type="math/tex">x_1,x_2,...x_n</script> da amostra, uma probabilidade <script type="math/tex">1/n</script>.</p>
+
+<p>Caracterizada como uma função de distribuição empírica da amostra, esta é uma estimativa não paramétrica de máxima probabilidade da distribuição populacional, <em>F</em>.</p>
+
+<h4 id="passo-2">Passo 2:</h4>
+<p>Realize a reamostragem: desenhe uma amostra aleatória de tamanho <em>n</em> com reposição a partir da função de distribuição <script type="math/tex">F_n</script>.</p>
+
+<h4 id="passo-3">Passo 3:</h4>
+<p>Calcule para essa reamostragem a estatística de interesse <script type="math/tex">T_n</script>, gerando <script type="math/tex">T_n^*</script>.</p>
+
+<h4 id="passo-4">Passo 4:</h4>
+<p>Repita os passos 2 e 3 <em>B</em> vezes. Para criar <em>B</em> reamostras, <em>B</em> deve ser um valor grande. O tamanho de <em>B</em> depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $T_n$ é necessária, sugere-se que <em>B</em> seja ao menos igual à 1000.</p>
+
+<h4 id="passo-5">Passo 5:</h4>
+<p>Construa a partir do valor <em>B</em> de <script type="math/tex">T_n</script> a frequência relativa do histograma, atribuindo probabilidade de <script type="math/tex">1/B</script> à cada ponto <script type="math/tex">T_n^1</script>, <script type="math/tex">T_n^2</script>,…, <script type="math/tex">T_n^B</script>.</p>
+
+<p>A distribuição obtida é a estimativa Bootstrap da distribuição amostral de <script type="math/tex">T_n</script>. Pode-se realizar inferências sobre o parâmetro θ, utilizando essa distribuição, estimando <script type="math/tex">T_n</script>.</p>
+
+<h2 id="bootstrap-e-ações-do-mercado-financeiro-utilizando-o-r">Bootstrap e ações do mercado financeiro utilizando o R</h2>
+
+<p>No exemplo a seguir, criaremos a amostra Bootstrap para os retornos diários das ações da Apple e do índice S&amp;P500 de 02/06/2016 a 31/05/2017. Para tanto, primeiro baixe a base <em>bootstrap.txt</em> que está disponível no <a href="https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt">link</a>. Faça a leitura dessa base no R conforme demonstrado no código abaixo:</p>
+
+<div class="language-R highlighter-rouge">
+<pre class="highlight"><code><span class="n">dados</span><span class="o">&lt;-</span><span class="n">read.table</span><span class="p">(</span><span class="n">file.choose</span><span class="p">())</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Para  trabalhar com a base digite o seguinte comando:</p>
+
+<div class="language-R highlighter-rouge">
+<pre class="highlight"><code><span class="n">spxret</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="p">[,</span><span class="w"> </span><span class="s1">'SP500index'</span><span class="p">]</span><span class="w">
+</span><span class="n">applret</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="p">[,</span><span class="s1">'APPLE'</span><span class="p">]</span><span class="w">
+
+</span><span class="nf">names</span><span class="p">(</span><span class="n">dados</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span><span class="o">==</span><span class="s2">"SP500index"</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"sp500"</span><span class="w">
+</span><span class="n">dados</span><span class="o">$</span><span class="n">sp500</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">sp500</span><span class="p">))</span><span class="w">
+
+</span><span class="n">dados</span><span class="o">$</span><span class="n">sp500</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">sp500</span><span class="p">)))</span><span class="w">
+</span><span class="n">dados</span><span class="o">$</span><span class="n">APPLE</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">APPLE</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">spxret</span><span class="o">&lt;-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">spxret</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>Os comandos <code class="highlighter-rouge">spxret</code> e <code class="highlighter-rouge">applret</code> extraem uma coluna para criar um vetor. Nas linhas seguintes trabalhamos a base para transformar todos os dados em numéricos, retiramos NA’s e transformamos os retornos em log retornos.</p>
+
+<p>Na nossa análise obtivemos, em um ano, 251 retornos diários. Aleatoriamente uma amostra bootstrap foi obtida dos retornos diários. No nosso caso, você observará que alguns dias estarão diversas vezes na amostra bootstrap enquanto outros nem aparecerão. Isso ocorre devido ao fato de realizarmos amostragem com reposição. A partir da nossa amostra bootstrap, optamos por realizar a soma dos valores. Tipicamente várias amostras bootstrap são criadas.</p>
+
+<p>O código abaixo mostra como utilizar o Bootstrap para gerar 1000 amostras Bootstrap. Podemos observar abaixo que amostramos com inteiros de 1 a 251. Criamos uma amostra de tamanho 251 e a amostramos com reposição. Com o comando <code class="highlighter-rouge">this.samp</code> temos um ano com retornos diários que poderiam ter acontecido. Coletamos os retornos anuais para cada ano hipotético na linha de código seguinte.</p>
+
+<div class="language-R highlighter-rouge">
+<pre class="highlight"><code><span class="n">spx.boot.sum</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">numeric</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span><span class="w"> </span><span class="c1"># numeric vector 1000 long
+</span><span class="w">
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">this.samp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spxret</span><span class="p">[</span><span class="w"> </span><span class="n">sample</span><span class="p">(</span><span class="m">251</span><span class="p">,</span><span class="w"> </span><span class="m">251</span><span class="p">,</span><span class="w"> </span><span class="n">replace</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">]</span><span class="w">
+  </span><span class="n">spx.boot.sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">this.samp</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Você pode também plotar a distribuição dos retornos anuais obtidos com o Bootstrap com o código a seguir:</p>
+
+<div class="language-R highlighter-rouge">
+<pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">density</span><span class="p">(</span><span class="n">spx.boot.sum</span><span class="p">),</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"orange"</span><span class="p">)</span><span class="w">
+</span><span class="n">abline</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="nf">sum</span><span class="p">(</span><span class="n">spxret</span><span class="p">),</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>Segundo a imagem abaixo, o retorno anual é bastante variável. Caso você utilize uma base de dados inicial diferente, o seu gráfico sofrerá alterações. Nessa situação encontramos bem próximo ao meio da distribuição o nosso retorno anual. Vale ressaltar que esse resultado pode ser diferente devido a vieses estatísticos ou na base de dados.</p>
+
+<p><img src="/img/bootstrap/Rplot02.png" width="500"></p>
+
+<h3 id="vamos-praticar">Vamos praticar?</h3>
+
+<h2 id="referências">Referências</h2>
+
+<p>Efron, B. (1979). Bootstrap methods: another look at the jackknife. The annals of Statistics, 1-26.</p>
+
+<p>Efron, B, and Tibshirani, R.J. (1993). An introduction to the bootstrap. Chapman and Hall, London.</p>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/06/28/Bootstrap-en/" data-toggle="tooltip" data-placement="top" title="Bootstrap">← Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width="500px"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright © LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js%20"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js%20"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js%20"></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>
