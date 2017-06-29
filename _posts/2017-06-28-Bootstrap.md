@@ -29,7 +29,7 @@ Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na
 
 Felizmente, para solucionar esse problema existe o 
 
-<span markdown="block">Bootstrap :tada:</span>
+<div markdown="block">Bootstrap :tada:</div>
 
 Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.
 
@@ -39,7 +39,7 @@ Vamos agora apresentar o Bootstrap com mais detalhes.
 
 Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.
 
-<span markdown="block">Qual a origem da palavra Bootstrap??</span>
+<div markdown="1">Qual a origem da palavra Bootstrap??</div>
 
 O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.
 
