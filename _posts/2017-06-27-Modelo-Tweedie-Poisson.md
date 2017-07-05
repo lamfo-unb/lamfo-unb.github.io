@@ -1,3 +1,13 @@
+---
+layout: post
+title: Modelo Tweedie Poisson Compound para dados de sinistros de veículos
+date: 2017-06-05 16:24:52
+tags: [Tweedie Poisson Compound]
+header-img: img/0021.png
+author: Cayan Portela
+lang: pt
+comments: true
+---
 # Modelo Tweedie Poisson Compound para dados de sinistros de veículos
 
  Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos. 
