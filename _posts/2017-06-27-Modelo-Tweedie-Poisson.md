@@ -28,7 +28,12 @@ Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para
 $$f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},$$
 
 em que $$\theta_i$$ é o parâmetro canônico; $$b(\cdot)$$ e $$c(\cdot)$$ são funções conhecidas. 
-Assim, denota-se $$Y_i \sim \mbox{FE}(\mu_i , \phi)$$. A média e variância de $$Y_i$$ são dadas, respectivamente, por: $$E(Y_i) = b'(\theta_i) = {\mu_i}$$ $$Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),   $$
+Assim, denota-se $$Y_i \sim \mbox{FE}(\mu_i , \phi)$$. A média e variância de $$Y_i$$ são dadas, respectivamente, por:
+
+$$E(Y_i) = b'(\theta_i) = {\mu_i}$$
+
+$$Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),$$
+
 em que $$V(\mu_i)$$ é a função de variância, que depende unicamente de $$\mu_i$$.
 
 
@@ -39,9 +44,11 @@ Outra classe de modelos importante é a classe dos modelos de dispersão, que in
 Aqui, focaremos no segundo caso.
 
 Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
+
 $$f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R$$
 
 com parâmetro canônico $$\theta_i$$, função adequada $$a(\cdot)$$ e $$k(\theta_i)$$ função definida como
+
 $$k(\theta) = log  \int  e^{\theta y} \nu dy $$
 
 em que $$\nu$$ é uma medida finita em $$R$$.
@@ -52,7 +59,8 @@ Por definição, temos que:
 
 Considerando a reparametrização $$\sigma²$$ = $$\frac{1}{\lambda}$$, temos que $$\sigma²$$ representa o parâmetro de dispersão.
 
-O modelo ED, denotado por $$ED(\mu , \sigma²)$$, pode ser escrito da seguinte maneira: 
+O modelo ED, denotado por $$ED(\mu , \sigma²)$$, pode ser escrito da seguinte maneira:
+
 $$f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},$$
 
 em que $$a(\textbf{y};\sigma²) \geq 0$$, $$d(\textbf{y};\mu)$$ representa a função deviance, $$\mu$$ é o parâmetro de locação e $$\sigma²$$ é o parâmetro de escala (dispersão).
@@ -60,7 +68,8 @@ em que $$a(\textbf{y};\sigma²) \geq 0$$, $$d(\textbf{y};\mu)$$ representa a fun
 
 Percebe-se então, a similaridade entre os modelos lineares generalizados e modelos de dispersão exponencial. 
 
-Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma: 
+Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma:
+
 $$V(\mu) = \mu^p , \qquad p \notin (0,1)$$
 
 A distribuição Poisson Compound, caracteriza-se no caso $$1 < p < 2$$. Dentre outros casos particulares, observa-se a distribuição Poisson ($$p = 1$$) e a distribuição Gamma ($$p = 2$$).
@@ -77,6 +86,7 @@ Então como modelar?
 Segundo Withers e  Nadarajah (2011), a soma de v.a.'s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.'s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:
 
 Seja $$T$$ o número de sinistros em determinado grupo e $$X_i$$ o valor de pagamento do i-ésimo sinistro. Definimos $$Y$$ como
+
 $$Y = \sum_{i=1}^{T} X_i$$
 
 Dado que $$T \sim Poisson(\lambda)$$ e $$X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)$$, temos que $$Y$$ possui distribuição Poisson Compound..

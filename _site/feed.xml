@@ -4,7 +4,7 @@
 	<title>LAMFO's Blog</title>
 	<link href="/blog/atom.xml" rel="self"/>
 	<link href="/blog"/>
-	<updated>2017-07-05T20:09:55-03:00</updated>
+	<updated>2017-07-05T20:14:29-03:00</updated>
 	<id>http://lamfo-unb.github.io/blog</id>
 	<author>
 		<name>LAMFO</name>
@@ -36,8 +36,13 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},&lt;/script&gt;
 
 &lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt; é o parâmetro canônico; &lt;script type=&quot;math/tex&quot;&gt;b(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;c(\cdot)&lt;/script&gt; são funções conhecidas. 
-Assim, denota-se &lt;script type=&quot;math/tex&quot;&gt;Y_i \sim \mbox{FE}(\mu_i , \phi)&lt;/script&gt;. A média e variância de &lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt; são dadas, respectivamente, por: &lt;script type=&quot;math/tex&quot;&gt;E(Y_i) = b'(\theta_i) = {\mu_i}&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),&lt;/script&gt;
-em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a função de variância, que depende unicamente de &lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt;.&lt;/p&gt;
+Assim, denota-se &lt;script type=&quot;math/tex&quot;&gt;Y_i \sim \mbox{FE}(\mu_i , \phi)&lt;/script&gt;. A média e variância de &lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt; são dadas, respectivamente, por:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;E(Y_i) = b'(\theta_i) = {\mu_i}&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),&lt;/script&gt;
+
+&lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a função de variância, que depende unicamente de &lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt;.&lt;/p&gt;
 
 &lt;p&gt;Outra classe de modelos importante é a classe dos modelos de dispersão, que inclui distribuições para dados positivos, positivos com massa de probabilidade em zero, contagem e dados na reta real e podem ser classificados como:&lt;/p&gt;
 &lt;ul&gt;
@@ -47,11 +52,13 @@ em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a fun�
 
 &lt;p&gt;Aqui, focaremos no segundo caso.&lt;/p&gt;
 
-&lt;p&gt;Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
-&lt;script type=&quot;math/tex&quot;&gt;f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:&lt;/p&gt;
 
-&lt;p&gt;com parâmetro canônico &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt;, função adequada &lt;script type=&quot;math/tex&quot;&gt;a(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;k(\theta_i)&lt;/script&gt; função definida como
-&lt;script type=&quot;math/tex&quot;&gt;k(\theta) = log  \int  e^{\theta y} \nu dy&lt;/script&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R&lt;/script&gt;
+
+&lt;p&gt;com parâmetro canônico &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt;, função adequada &lt;script type=&quot;math/tex&quot;&gt;a(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;k(\theta_i)&lt;/script&gt; função definida como&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;k(\theta) = log  \int  e^{\theta y} \nu dy&lt;/script&gt;
 
 &lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;\nu&lt;/script&gt; é uma medida finita em &lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;.&lt;/p&gt;
 
@@ -63,15 +70,17 @@ em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a fun�
 
 &lt;p&gt;Considerando a reparametrização &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;\frac{1}{\lambda}&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; representa o parâmetro de dispersão.&lt;/p&gt;
 
-&lt;p&gt;O modelo ED, denotado por &lt;script type=&quot;math/tex&quot;&gt;ED(\mu , \sigma²)&lt;/script&gt;, pode ser escrito da seguinte maneira: 
-&lt;script type=&quot;math/tex&quot;&gt;f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;O modelo ED, denotado por &lt;script type=&quot;math/tex&quot;&gt;ED(\mu , \sigma²)&lt;/script&gt;, pode ser escrito da seguinte maneira:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},&lt;/script&gt;
 
 &lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;a(\textbf{y};\sigma²) \geq 0&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;d(\textbf{y};\mu)&lt;/script&gt; representa a função deviance, &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; é o parâmetro de locação e &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; é o parâmetro de escala (dispersão).&lt;/p&gt;
 
 &lt;p&gt;Percebe-se então, a similaridade entre os modelos lineares generalizados e modelos de dispersão exponencial.&lt;/p&gt;
 
-&lt;p&gt;Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma: 
-&lt;script type=&quot;math/tex&quot;&gt;V(\mu) = \mu^p , \qquad p \notin (0,1)&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;V(\mu) = \mu^p , \qquad p \notin (0,1)&lt;/script&gt;
 
 &lt;p&gt;A distribuição Poisson Compound, caracteriza-se no caso &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
 1 &lt; p &lt; 2 %]]&gt;&lt;/script&gt;. Dentre outros casos particulares, observa-se a distribuição Poisson (&lt;script type=&quot;math/tex&quot;&gt;p = 1&lt;/script&gt;) e a distribuição Gamma (&lt;script type=&quot;math/tex&quot;&gt;p = 2&lt;/script&gt;).&lt;/p&gt;
@@ -87,8 +96,9 @@ em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a fun�
 
 &lt;p&gt;Segundo Withers e  Nadarajah (2011), a soma de v.a.’s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.’s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:&lt;/p&gt;
 
-&lt;p&gt;Seja &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; o número de sinistros em determinado grupo e &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; o valor de pagamento do i-ésimo sinistro. Definimos &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; como
-&lt;script type=&quot;math/tex&quot;&gt;Y = \sum_{i=1}^{T} X_i&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;Seja &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; o número de sinistros em determinado grupo e &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; o valor de pagamento do i-ésimo sinistro. Definimos &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; como&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Y = \sum_{i=1}^{T} X_i&lt;/script&gt;
 
 &lt;p&gt;Dado que &lt;script type=&quot;math/tex&quot;&gt;T \sim Poisson(\lambda)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; possui distribuição Poisson Compound..&lt;/p&gt;
 
