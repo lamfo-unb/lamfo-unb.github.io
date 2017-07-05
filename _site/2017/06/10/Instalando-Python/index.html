@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Instalando Python para Aprendizado de Máquina - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/06/10/Instalando-Python/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:4000">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Instalando Python para Aprendizado de Máquina</h1>
+                    
+                    <span class="meta">Posted by Matheus Facure on June 10, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>UPDATE: 18/06/2017</p>
+
+<h2 id="conteúdo">Conteúdo</h2>
+
+<ol>
+  <li><a href="#req">Requisitos</a></li>
+  <li><a href="#python">Instalando Python</a></li>
+  <li><a href="#tf">Instalando TensorFlow</a></li>
+  <li><a href="#git">Instalando Git</a></li>
+  <li><a href="#test">Testando</a></li>
+  <li><a href="#fim">Considerações Finais</a></li>
+</ol>
+
+<h2 id="requisitos-computacionais-">Requisitos computacionais <a name="req"></a></h2>
+
+<p>Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (<em>quad core</em>).</p>
+
+<h2 id="instalando-python-">Instalando Python <a name="python"></a></h2>
+
+<p><img src="/img/python.png" alt="python" class="img-responsive thumbnail pull-right" style="margin-left:3%; width:45%;" /></p>
+
+<p>No momento, Python a linguagem de programação preferida pelos cientistas de dados, especialmente para aprendizado de máquina. Mas mais do que isso, Python tem uma sintaxe extremamente simples e legível, o que te permite focar mais no conteúdo do seu programa do que em como escrevê-lo. Aqui, vamos ensinar como instalar a distribuição <a href="https://www.continuum.io/downloads">Anaconda</a>, um pacote de programas que inclui o Python mais uma série de extensões utilizadas em ciência de dados e aprendizado de máquina (como Numpy, Pandas, Jupyter Notebooks e Scikit Learn).</p>
+
+<p>Antes de mais nada, <a href="https://support.microsoft.com/pt-br/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64-bit-version-of-the-windows-operating-system">certifique-se de que seu sistema operacional é 64 bits</a>. Infelizmente, o tutorial a seguir só funciona na versão 64 bits do Windows, então uma vez que você tenha confirmado essa versão, podemos prosseguir com a instalação. Agora, vá em <a href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> e baixe o Anaconda para Windows, versão 64-bit. Ao clicar no botão do download, um arquivo executável será baixado.</p>
+
+<p>Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção <code class="highlighter-rouge">Add Anaconda to PATH</code> esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.</p>
+
+<p>Abra a prompt de comando. Antes de prosseguir, vamos nos familiarizar com ela um pouco. A propt de comando é uma forma alternativa de interagir com o seu computador. Da mesma forma que você navega pelas pastas e arquivos clicando com o mouse, você pode fazer isso na linha de comando. Por padrão, a linha de comando abre no seu <code class="highlighter-rouge">Home</code>, o local onde ficam suas pastas de imagens, documentos, downloads, etc. Após abrir o prompt de comando, digite <code class="highlighter-rouge">ls</code> para ver o que está na sua pasta, naquele local. Você verá escrito as pastas de arquivos do seu <code class="highlighter-rouge">Home</code>. O comando <code class="highlighter-rouge">ls</code> lista o que está na sua pasta (ou diretório) corrente.</p>
+
+<p>Agora, digite <code class="highlighter-rouge">cd Desktop</code> para navegar ao Desktop do seu computador. Se quiser, digite <code class="highlighter-rouge">ls</code> para mostrar quais arquivos estão no seu Desktop. O comando <code class="highlighter-rouge">cd</code> (change directory) troca o diretório (ou pasta) corrente. O comando <code class="highlighter-rouge">cd ..</code> sobe um nível nas pastas do seu computador. Se você digitar isso na prompt de comando enquanto estiver no Desktop, ele te levará de volta ao <code class="highlighter-rouge">Home</code>, que é a o diretório um nível acima do <code class="highlighter-rouge">Desktop</code>. Volte para o <code class="highlighter-rouge">HOME</code>.</p>
+
+<p>No <code class="highlighter-rouge">HOME</code>, digite <code class="highlighter-rouge">python</code> na prompt de comando. Isso iniciará o modo interativa do Python. Execute algumas operações matemáticas como <code class="highlighter-rouge">2+2</code> e veja o resultado sendo calculado pelo Python. Quando terminar, digite <code class="highlighter-rouge">quit()</code> para sair da versão interativa do Python.</p>
+
+<p>Para finalizar, digite <code class="highlighter-rouge">jupyter notebook</code> na linha de comando. Isso inicializará o Jupyter, um programa que executa códigos em Python. Uma nova aba será aberta no seu browser (OBS: funciona apenas com Chrome ou Firefox) e nela você verá a interface do Jupyter. Caso essa aba não abra, na prompt de comando, procure um link que deve começar com <code class="highlighter-rouge">http://localhost:8889/</code>. Copie e cole esse link em uma nova aba do seu browser para abrir a interface do Jupyter. Nessa interface, você poderá escrever <em>notebooks</em> que intercalam código em Python intercalado com comentários, se assim desejar (veja um <a href="https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/DeepANN.ipynb">exemplo</a>). Para sair do notebook, feche a aba no seu browser, volte a prompt de comando e aperte CTRL+C, seguido de y e enter. CTRL+C é um comando para fechar programas que estão rodando na sua prompt de comando; você terá que confirmar o fechamento com y (<em>yes</em>), seguido de enter.</p>
+
+<p>Para aprender mais sobre a linha de comando, sugiro este <a href="https://learnpythonthehardway.org/book/appendixa.html">link</a>. Para aprender mais sobre o Jupyter, sugiro este <a href="http://jupyter.readthedocs.io/en/latest/content-quickstart.html">link</a>.</p>
+
+<h2 id="instalando-tensorflow-">Instalando TensorFlow <a name="tf"></a></h2>
+
+<p><img src="/img/tf.jpg" alt="python" class="img-responsive thumbnail pull-right" style="margin-left:3%; width:45%;" /></p>
+
+<p>O <a href="https://www.tensorflow.org/">TensorFlow</a> é um programa de computação numérica, que tem sua versão principal em Python. Nós usamos o TensorFlow para programas de <em>deep learning</em>, devido a sua eficiência computacional e abundância de comandos facilitadores para construção e treinamento de redes neurais. Antes de instalar o TensorFlow, vamos criar um ambiente Python. Nesse ambiente, todas as extensões (ou pacotes) que vem no Anaconda estarão presentes, mas o que instalarmos nele não será acessível de fora dele. Isso evita que a instalação de um pacote novo possa prejudicar o funcionamento dos pacotes já instalados.</p>
+
+<p>Para criar um ambiente novo, digite <code class="highlighter-rouge">conda create -n tensorflow</code> na linha de comando. Confirme a criação do ambiente digitando y (<em>yes</em>), seguido de enter. Agora, digite <code class="highlighter-rouge">activate tensorflow</code> para entrar nesse ambiente. Note que a sua linha de comando mudará para incluir <code class="highlighter-rouge">(tensorflow)</code> antes do nome do seu diretório corrente. Para sair do ambiente, basta digitar <code class="highlighter-rouge">deactivate</code>.</p>
+
+<p>Finalmente, para instalar o TensorFlow, entre no ambiente recém criado e digite:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.2.0-cp36-cp36m-win_amd64.whl
+</code></pre>
+</div>
+<p>Dica: CTRL+C e CTRL+V não funciona na linha de comando, mas você pode copiar e colar comandos clicando com o botão direito do mouse. Em alguns computadores, na linha de comando, podemos usar CTRL+SHIFT+C para copiar e CTRL+SHITF+V para colar.</p>
+
+<p>Na instalação do TensorFlow, usaremos <code class="highlighter-rouge">pip</code>, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.2 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as <a href="https://www.tensorflow.org/install/install_windows">instruções no site do TensorFlow</a>. Teste agora sua instalação. Na linha de comando, digite <code class="highlighter-rouge">python</code> para iniciar o modo iterativo do Python. Digite <code class="highlighter-rouge">import tensorflow as tf</code>. Se tudo ocorreu bem até aqui, você não verá nenhum erro.</p>
+
+<h2 id="instalando-git-">Instalando Git <a name="git"></a></h2>
+
+<p>Git é um programa de controle de versões. Ele permite que você volte a uma versão anterior do seu código caso escreva algum bug ou alguma coisa que pare o funcionamento do seu programa. Em outras palavras, o Git te permite experimentar novas coisas sem medo de ferrar com o que já foi feito, afinal você sempre poderá restaurar versões passadas do seu código. Além disso, o Git tem uma plataforma online, o <a href="https://github.com/">GitHub</a>, que permite colaboração entre programadores, principalmente para códigos abertos. O GitHub também funciona como um currículo do cientista de dados. Por meio dele, é possível compartilhar seus trabalhos de forma que eles sejam completamente reprodutíveis, permitindo que qualquer um possa certificar-se das suas habilidades.</p>
+
+<p>Para baixar o Git, va em <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> e clique na versão para Windows. Isso iniciará o download de um executável. Quando o download terminar, clique no executável para iniciar a instalação. Aceite todas as configurações padrão, <strong>exceto</strong> a Configuração de Final de Linha. Nesse caso, mude para <code class="highlighter-rouge">Checkout as-is, commit Unix-style line endings</code>. Isso facilitará muito no momento que você estiver contribuindo com outros projetos via GitHub.</p>
+
+<p>Recomendo fortemente que você faça <a href="https://br.udacity.com/course/how-to-use-git-and-github--ud775/">este pequeno curso online</a> (e gratuito) sobre como usar controle de versões, Git e GitHub. Não deve te tomar muito tempo.</p>
+
+<h2 id="testando-">Testando <a name="test"></a></h2>
+<p>Vamos fazer um último teste para ver se tudo está funcionando. Abra a linha de comando do Git e digite</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/matheusfacure/DeepArt.git
+</code></pre>
+</div>
+<p>Isso baixará um repositório meu com uma implementação do <a href="https://en.wikipedia.org/wiki/DeepDream">algoritmo de DeepDream</a>. Por padrão, o a linha de comando do Git também abre no <code class="highlighter-rouge">HOME</code>. Se não for o caso, navega até o Home com <code class="highlighter-rouge">cd</code> e então clone o repositório com o comando acima. Voltando à linha de comando do Windows, você deve estar no Home também. Digite <code class="highlighter-rouge">ls</code> para ver a pasta <code class="highlighter-rouge">DeepArt</code> que baixamos com o Git.</p>
+
+<p>Na linha de comando do Windows, digite agora <code class="highlighter-rouge">cd DeepArt/</code> para entrar no diretório baixado. Por fim, digite <code class="highlighter-rouge">python deep_dream.py</code> para executar o programa que fiz. Isso baixará uma rede neural (pode levar alguns minutos) e a utilizará para realizar o algoritmo de DeepDream. Usando o navegador padrão do seu sistema operacional (clicando com o mouse). Vá até o diretório (ou pasta) de DeepArt que acabamos de baixar e veja a imagem criada pelo algoritmo de DeepDream. Caso não saiba onde está essa pasta, na linha de comando do Git, digite <code class="highlighter-rouge">pwd</code> (print working directory) para mostrar o endereço da pasta.</p>
+
+<h2 id="considerações-finais-">Considerações Finais <a name="fim"></a></h2>
+
+<p>Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros frequentemente encontrados quanto para torná-lo mais compreensível.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/06/03/Visualizacao-e-exploracao-de-dados-espaciais-em-R/" data-toggle="tooltip" data-placement="top" title="Visualização e exploração de dados espaciais em R">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/06/18/itro-ao-deep-learning/" data-toggle="tooltip" data-placement="top" title="Uma Abordagem Intuitiva às Redes Neurais">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo/(at)unb/(dot)br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>

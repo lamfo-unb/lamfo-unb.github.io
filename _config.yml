@@ -4,10 +4,12 @@ header-img: img/home-bg.jpg
 email: lamfo/(at)unb/(dot)br
 copyright_name: LAMFO - UNB
 description: "Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações"
-url: "http://lamfo.unb.br/"
+url: http://lamfo.unb.br/
 github_username:  lamfo-unb
 facebook_username:  lamfounb
 email_username:  lamfo/(at)unb/(dot)br
+languages: [pt, en]
+exclude_from_localizations: ["javascript", "images", "css"]
 
 # Google Analytics
 # To enable google analytics, uncomment below line with a valid Google Tracking ID
@@ -20,4 +22,4 @@ permalink: pretty
 paginate: 5
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-gems: [jekyll-paginate, jekyll-feed]
+gems: [jekyll-paginate, jekyll-feed, jemoji, jekyll-multiple-languages-plugin]

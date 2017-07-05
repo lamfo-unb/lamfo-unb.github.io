@@ -4,7 +4,7 @@
 	<title>LAMFO's Blog</title>
 	<link href="/blog/atom.xml" rel="self"/>
 	<link href="/blog"/>
-	<updated>2017-06-04T00:09:57-03:00</updated>
+	<updated>2017-07-05T18:41:03-03:00</updated>
 	<id>http://lamfo-unb.github.io/blog</id>
 	<author>
 		<name>LAMFO</name>
@@ -13,152 +13,701 @@
 
 	
 		<entry>
-			<title>Vizualization and exploration of Spatial data in R</title>
-			<link href="http://lamfo-unb.github.io/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R/"/>
-			<updated>2017-06-03T13:25:15-03:00</updated>
-			<id>http://lamfo-unb.github.io/2017/06/03/Vizualization-and-exploration-of-Spatial-data-in-R</id>
-			<content type="html">&lt;h1 id=&quot;vizualization-and-exploration-of-spatial-data-in-r&quot;&gt;&lt;strong&gt;&lt;em&gt;Vizualization and exploration of Spatial data in R&lt;/em&gt;&lt;/strong&gt;&lt;/h1&gt;
+			<title>Modelo Tweedie Poisson Compound para dados de sinistros de veículos</title>
+			<link href="http://lamfo-unb.github.io/2017/07/05/Modelo-Tweedie-Poisson/"/>
+			<updated>2017-07-05T13:24:52-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/07/05/Modelo-Tweedie-Poisson</id>
+			<content type="html">&lt;h1 id=&quot;modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos&quot;&gt;Modelo Tweedie Poisson Compound para Dados de Sinistros de Veículos&lt;/h1&gt;
 
-&lt;p&gt;In this post we will base ourselves on the tutorial by Robin Lovelace et. Al. (2017) and the material that will be used is available &lt;a href=&quot;https://github.com/Robinlovelace/Creating-maps-in-R&quot;&gt;here&lt;/a&gt; in the &lt;em&gt;Creating-maps-in-R.Rproj&lt;/em&gt; project.&lt;/p&gt;
+&lt;p&gt;Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos.&lt;/p&gt;
 
-&lt;p&gt;Initially, you need to install the following packages in the R:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;ggplot2&quot;, &quot;ggmap&quot;,&quot;rgdal&quot;,&quot;rgeos&quot;,&quot;maptools&quot;,&quot;dplyr&quot;,&quot;tidyr&quot;,&quot;tmap&quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Para as seguradoras, a análise do nível de risco é extremamente importante para se estabelecer preço, tarifas e até o planejamento da empresa, como projeção de receitas e despesas. Desta forma, é essencial que as seguradoras possuam um modelo que apresente quais fatores influenciam o nível de diferentes riscos, como por exemplo, se uma certo tipo de automóvel tende a gerar mais custos de pagamento do que outros, etc.&lt;/p&gt;
 
-&lt;p&gt;The next step is to open the shape file. The shapefile is a file format that stores geospatial data, such as position, shape, and attributes, in a vector form. In RStudio you can open this type of file as follows:&lt;/p&gt;
+&lt;p&gt;Ainda utilizando o exemplo dos tipos de carro. Cada tipo de carro apresenta um preço de seguro diferente, isso se deve porque cada tipo de carro é classificado em uma determinada categoria de acordo com seu nível de risco. O nível de risco é definido por um conjunto de fatores, que podem apresentar ou não apresentar diferenças entre si. Logo, carros que apresentem fatores de risco similares, terão um preço igual ou muito próximo, enquanto que carros que possuem fatores de risco mais destoantes entre si terão um preços divergentes.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rgdal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readOGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dsn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;london_sport&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;p&gt;Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para cálculo do risco; (2) aplicabilidade, utilizando uma base real.&lt;/p&gt;
+
+&lt;h2 id=&quot;modelagem&quot;&gt;Modelagem&lt;/h2&gt;
+
+&lt;p&gt;Para problemas com este tipo interesse (influência de fatores), uma das técnicas mais clássicas é a regressão linear, onde se pode ajustar um modelo para verificar a influência de certas covariáveis (variáveis explicativas) em uma variável de interesse. Entretanto, a regressão linear possui vários pressupostos que frequentemente não são satisfeitos, restringindo sua aplicabilidade. Alguns desses pressupostos são erros independentes e identicamente distribuídos, centrados em zero com distribuição normal, homogeneidade de variância, variáveis explicativas não correlacionadas, entre outros.&lt;/p&gt;
+
+&lt;p&gt;Nelder e Wedderburn (1972) propuseram uma classe de modelos de regressão mais flexível, os modelos lineares generalizados. Esta nova classe abrange as distribuições pertencentes à família exponencial (Normal, Gamma, Poisson, Binomial, Normal-Inversa), aumentando a quantidade de problema a serem abordados.  Uma distribuição que pertença à família exponencial pode ser representada da seguinte forma:&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},&lt;/script&gt;
+em que &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt; é o parâmetro canônico; &lt;script type=&quot;math/tex&quot;&gt;b(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;c(\cdot)&lt;/script&gt; são funções conhecidas. 
+Assim, denota-se &lt;script type=&quot;math/tex&quot;&gt;Y_i \sim \mbox{FE}(\mu_i , \phi)&lt;/script&gt;. A média e variância de &lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt; são dadas, respectivamente, por: &lt;script type=&quot;math/tex&quot;&gt;E(Y_i) = b'(\theta_i) = {\mu_i}&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),&lt;/script&gt;
+em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a função de variância, que depende unicamente de &lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Outra classe de modelos importante é a classe dos modelos de dispersão, que inclui distribuições para dados positivos, positivos com massa de probabilidade em zero, contagem e dados na reta real e podem ser classificados como:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Modelos de dispersão próprio;&lt;/li&gt;
+  &lt;li&gt;Modelos de dispersão exponencial;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Aqui, focaremos no segundo caso.&lt;/p&gt;
+
+&lt;p&gt;Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
+&lt;script type=&quot;math/tex&quot;&gt;f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;com parâmetro canônico &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt;, função adequada &lt;script type=&quot;math/tex&quot;&gt;a(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;k(\theta_i)&lt;/script&gt; função definida como
+&lt;script type=&quot;math/tex&quot;&gt;k(\theta) = log  \int  e^{\theta y} \nu dy&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;\nu&lt;/script&gt; é uma medida finita em &lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Por definição, temos que:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;E(Y_i)&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;k'(\theta_i)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;Var(Y_i)&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;\frac{1}{\lambda} Var(\mu_i)&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;\frac{1}{\lambda}k''(\theta_i)&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Considerando a reparametrização &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;\frac{1}{\lambda}&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; representa o parâmetro de dispersão.&lt;/p&gt;
+
+&lt;p&gt;O modelo ED, denotado por &lt;script type=&quot;math/tex&quot;&gt;ED(\mu , \sigma²)&lt;/script&gt;, pode ser escrito da seguinte maneira: 
+&lt;script type=&quot;math/tex&quot;&gt;f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;a(\textbf{y};\sigma²) \geq 0&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;d(\textbf{y};\mu)&lt;/script&gt; representa a função deviance, &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; é o parâmetro de locação e &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; é o parâmetro de escala (dispersão).&lt;/p&gt;
+
+&lt;p&gt;Percebe-se então, a similaridade entre os modelos lineares generalizados e modelos de dispersão exponencial.&lt;/p&gt;
+
+&lt;p&gt;Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma: 
+&lt;script type=&quot;math/tex&quot;&gt;V(\mu) = \mu^p , \qquad p \notin (0,1)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;A distribuição Poisson Compound, caracteriza-se no caso &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+1 &lt; p &lt; 2 %]]&gt;&lt;/script&gt;. Dentre outros casos particulares, observa-se a distribuição Poisson (&lt;script type=&quot;math/tex&quot;&gt;p = 1&lt;/script&gt;) e a distribuição Gamma (&lt;script type=&quot;math/tex&quot;&gt;p = 2&lt;/script&gt;).&lt;/p&gt;
+&lt;h3 id=&quot;número-de-sinistros-e-pagamento-total&quot;&gt;Número de Sinistros e Pagamento Total&lt;/h3&gt;
+
+&lt;p&gt;Os dados referem-se ao número de sinistros e total de pagamento (valores monetários) gerados, por grupo. Desta maneira, um grupo corresponde a uma observação no banco de dados.&lt;/p&gt;
+
+&lt;p&gt;Dados referentes a pagamentos pelo total de sinistros por grupo, são contínuos (pois a variável valor de pagamento, geralmente está em unidades de moeda nacional) mas possuem uma massa de probabilidade em zero, vinda dos grupos em que não obtiveram nenhum sinistro no período observado.&lt;/p&gt;
+
+&lt;p&gt;Esta característica em particular torna inviável o ajuste de distribuições que já pensaríamos em primeira hipótese em se tratando de dados contínuos à direita, como a distribuição gamma e gaussiana-inversa.&lt;/p&gt;
+
+&lt;p&gt;Então como modelar?&lt;/p&gt;
+
+&lt;p&gt;Segundo Withers e  Nadarajah (2011), a soma de v.a.’s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.’s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:&lt;/p&gt;
+
+&lt;p&gt;Seja &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; o número de sinistros em determinado grupo e &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; o valor de pagamento do i-ésimo sinistro. Definimos &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; como
+&lt;script type=&quot;math/tex&quot;&gt;Y = \sum_{i=1}^{T} X_i&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Dado que &lt;script type=&quot;math/tex&quot;&gt;T \sim Poisson(\lambda)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; possui distribuição Poisson Compound..&lt;/p&gt;
+
+&lt;h3 id=&quot;aplicação&quot;&gt;Aplicação&lt;/h3&gt;
+
+&lt;p&gt;Para realizar uma aplicação real dos modelos apresentados, faremos um exercício utilizando o banco de dados de sinistros de automóveis na Suécia, no ano de 1977, utilizando o ambiente R de computação estatística.&lt;/p&gt;
+
+&lt;p&gt;A base de dados pode ser obtida no link a seguir: &lt;a href=&quot;http://www.statsci.org/data/general/motorins.html&quot;&gt;StatiSci&lt;/a&gt;.
+A descrição das variáveis está disponível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).&lt;/p&gt;
+
+&lt;p&gt;Inicialmente, vamos ler os dados e transformar a variável ‘Make’ em fator.&lt;/p&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tweedie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;faraway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;statmod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://www.statsci.org/data/general/motorins.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+                    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;\t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as.factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The last line of the code shows that the variable class &lt;em&gt;Pop_2001&lt;/em&gt; is classified as a factor, whereas it should be numeric. We must change it for this analysis:&lt;/p&gt;
+&lt;p&gt;Filtrando os dados, selecionando apenas valores com ‘Zone’ igual a 1 (maiores cidades) e ‘Make’ diferente de 9 (carros mais ‘raros’).&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pop_2001&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pop_2001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  Kilometres Zone Bonus Make Insured Claims Payment
+1          1    1     1    1  455.13    108  392491
+2          1    1     1    2   69.17     19   46221
+3          1    1     1    3   72.88     13   15694
+4          1    1     1    4 1292.39    124  422201
+5          1    1     1    5  191.01     40  119373
+6          1    1     1    6  477.66     57  170913
+&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A estimação do parâmetro &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt;, são calculados os parâmetros &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; e a log-verossimilhança é observada. Escolhe-se então, o valor de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; que  levou à maior log-verosimilhança. Desta maneira, o &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; estimado foi de &lt;script type=&quot;math/tex&quot;&gt;1,73&lt;/script&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;perfil&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tweedie.profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Payment&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                           &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p.vec&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+                           &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;interpolation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                           &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;do.plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                           &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perfil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p.max&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1] 1.736735
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Ajustamos um modelo simples, onde deseja-se verificar se os diferentes grupos de tipos de carro diferem em valor de pagamento, em relação  à classe de referência. No nosso modelo a classe de referência é Make igual a 1.&lt;/p&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;modelo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Payment&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+              &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;family&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tweedie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var.power&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perfil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p.max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+              &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Verificando os residuos. O modelo não parece estar mal ajustado.&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qres.tweedie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qqnorm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/img/tweeres.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;summary(modelo)
+
+Call:
+glm(formula = Payment ~ Make, family = tweedie(var.power = perfil$p.max), 
+    data = seguros2)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-12.771   -6.329   -2.474    1.764   17.402  
+
+Coefficients:
+             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+(Intercept) 1.146e-04  1.511e-05   7.583 5.35e-13 ***
+Make2       1.579e-04  4.512e-05   3.500 0.000544 ***
+Make3       2.024e-04  5.312e-05   3.810 0.000172 ***
+Make4       2.467e-04  6.143e-05   4.016 7.65e-05 ***
+Make5       2.288e-04  5.803e-05   3.942 0.000103 ***
+Make6       1.573e-04  4.501e-05   3.494 0.000555 ***
+Make7       3.678e-04  8.543e-05   4.305 2.33e-05 ***
+Make8       5.276e-04  1.193e-04   4.423 1.41e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for Tweedie family taken to be 39.68757)
+
+    Null deviance: 14409  on 279  degrees of freedom
+Residual deviance: 10958  on 272  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Observando as médias por grupo, nota-se que o grupo 1 demonstra possuir uma média de pagamentos maior que os demais, de modo que também seria valido observar o número de sinistros para futuras conclusões.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;tapply(dados$Payment , dados$Make , mean)
+
+        1         2         3         4         5         6         7         8 
+295303.29  88720.63  71936.57  59976.89  64369.14  89016.20  40156.29  26995.97 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Analogamente, modelos podem ser ajustados incluindo as demais covariáveis, dando suporte na tomada de decisões e precificações de seguros, no caso.&lt;/p&gt;
+
+&lt;h3 id=&quot;referências&quot;&gt;Referências.&lt;/h3&gt;
+
+&lt;p&gt;Nelder, J. A., and R. W. Wedderburn. “M (1972) Generalized linear models J Rev.” Stat. Soc 135: 370-383.&lt;/p&gt;
+
+&lt;p&gt;Tweedie, M. C. K. “An index which distinguishes between some important exponential families.” Statistics: Applications and new directions: Proc. Indian statistical institute golden Jubilee International conference. Vol. 579. 1984.&lt;/p&gt;
+
+&lt;p&gt;Withers, Christopher, and Saralees Nadarajah. “On the compound Poisson-gamma distribution.” Kybernetika 47.1 (2011): 15-37.&lt;/p&gt;
+</content>
+		</entry>
+	
+		<entry>
+			<title>Bootstrap</title>
+			<link href="http://lamfo-unb.github.io/2017/06/28/Bootstrap/"/>
+			<updated>2017-06-28T07:00:00-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/28/Bootstrap</id>
+			<content type="html">&lt;link href=&quot;https://fonts.googleapis.com/css?family=Rock Salt&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;link href=&quot;https://fonts.googleapis.com/css?family=Sofia&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;h1 id=&quot;bootstrap&quot;&gt;Bootstrap&lt;/h1&gt;
+
+&lt;p&gt;Nesse post apresentaremos a técnica estatística Bootstrap. Nada melhor do que um exemplo de brigadeiro para termos um gostinho inicial sobre o tema.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bootstrap/Avelã.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine que você seja dono de uma loja de doces. Um cliente espera que, ao comprar um brigadeiro, este tenha, em média, o mesmo peso que o de outro cliente. No entanto, é impossível pesar todos os brigadeiros que serão produzidos pela sua loja!!&lt;/p&gt;
+
+&lt;p&gt;O que fazer então??&lt;/p&gt;
+
+&lt;p&gt;Você, dono do estabelecimento, pode utilizar técnicas de amostragem capazes de selecionar aleatoriamente 150 brigadeiros e calcular o peso médio desses brigadeiros. Feito isso, poderá concluir que a média da população está dentro de uma margem de erro relativa à média da amostra.&lt;/p&gt;
+
+&lt;p&gt;Suponha que você queira saber, após alguns meses, qual o peso médio do brigadeiro no dia em que foi feita uma amostra da linha de produção levando em conta uma maior precisão.&lt;/p&gt;
+
+&lt;p&gt;Como diversas variáveis surgiram, não podemos mais usar como base o brigadeiro produzido hoje. Dentre essas variáveis consideramos os diferentes tipos de açúcar, cacau e manteiga, novos sabores, o tipo de confeito, o recheio, entre outros.&lt;/p&gt;
+
+&lt;p&gt;Assuma que a única informação que temos é o peso daqueles 150 brigadeiros na data de teste inicial. E, podemos considerar a margem de erro inicial como nossa informação mais relevante.&lt;/p&gt;
+
+&lt;p&gt;Felizmente, para solucionar esse problema existe o&lt;/p&gt;
+
+&lt;h1&gt;
+&lt;div style=&quot;font-family: 'Rock Salt';font-size: 60px;&quot;&gt;
+Bootstrap!! :tada:
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;Dessa forma, criamos nossa amostra Bootstrap, que surge a partir da amostragem aleatória dos 150 pesos conhecidos. Caso seja permitida a reposição dos pesos, essa amostra bootstrap não será necessariamente idêntica à inicial. Alguns dados podem estar omitidos e outros repetidos. Assim, inúmeras amostras bootstrap são rapidamente criadas com ajuda computacional.&lt;/p&gt;
+
+&lt;h2 id=&quot;visão-técnica&quot;&gt;Visão técnica&lt;/h2&gt;
+
+&lt;p&gt;Vamos agora apresentar o Bootstrap com mais detalhes.&lt;/p&gt;
+
+&lt;p&gt;Essa técnica estatística foi inicialmente proposta por Bradley Efron, em 1979. Ela vem ganhando força, em especial, devido ao avanço computacional.&lt;/p&gt;
+
+&lt;div style=&quot;font-family: 'Sofia';font-size: 30px;&quot;&gt;
+    Qual a origem da palavra Bootstrap?
+&lt;/div&gt;
+
+&lt;p&gt;O termo Bootstrap tem origem inglesa e faz referência ao laço da parte de trás de uma bota que o auxilia a calçá-la.&lt;/p&gt;
+
+&lt;p&gt;Seu uso surge da frase “To lift himself up by his bootstraps.”, ou seja, “Erguer-se utilizando seu bootstrap”. Ocorre aqui uma alusão a algo impossível, de difícil realização.&lt;/p&gt;
+
+&lt;p&gt;Imagine levantar-se no ar puxando apenas pedaços de couro de sua bota. Isso é impossível! E a ideia que esse modelo quis trazer é a de poder fazer o impossível.&lt;/p&gt;
+
+&lt;p&gt;A história do Barão Munchausen, também mencionada na origem do Bootstrap, conta que o Barão conseguiu erguer a si e o seu cavalo de um pântano por meio de seu cabelo (especificamente, seu rabo de cavalo). No entanto, na história não há o uso da palavra bootstrap como a conhecemos e nenhuma outra referência explícita aos bootstraps foi encontrada em outras partes das várias versões dos contos Munchausen.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/boot2.jpg&quot; alt=&quot;mat_elis_1&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-6&quot;&gt;
+&lt;img class=&quot;img-responsive thumbnail&quot; src=&quot;/img/bootstrap/pic2.png&quot; alt=&quot;mat_elis_2&quot; style=&quot;width:0.000001&quot; /&gt;
+&lt;div class=&quot;caption&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;teoria&quot;&gt;Teoria&lt;/h3&gt;
+
+&lt;p&gt;Pense no caso de uma amostra aleatória de tamanho &lt;em&gt;n&lt;/em&gt; , a partir de uma função de distribuição de probabilidade &lt;em&gt;F&lt;/em&gt; indefinida:
+&lt;script type=&quot;math/tex&quot;&gt;X_i=x_i,     X_i&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;\sim&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;F_{ind}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;i=1,2,...,n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sejam &lt;script type=&quot;math/tex&quot;&gt;X= (X_1,X_2,...X_n)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;x=(x_1,x_2,...,x_n)&lt;/script&gt; as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum &lt;em&gt;F&lt;/em&gt;. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho &lt;em&gt;n&lt;/em&gt;. Denotamos essa estimativa local como &lt;script type=&quot;math/tex&quot;&gt;\widehatθ&lt;/script&gt;. Note que &lt;script type=&quot;math/tex&quot;&gt;\widehatθ&lt;/script&gt; é uma função das variáveis aleatórias &lt;script type=&quot;math/tex&quot;&gt;(X_1,X_2,...X_n)&lt;/script&gt; e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por &lt;em&gt;n&lt;/em&gt; e &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-1&quot;&gt;Passo 1:&lt;/h4&gt;
+&lt;p&gt;Construa, a partir da amostra, uma distribuição de probabilidade empírica &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt;, inserindo, em cada ponto &lt;script type=&quot;math/tex&quot;&gt;x_1,x_2,...x_n&lt;/script&gt; da amostra, uma probabilidade &lt;script type=&quot;math/tex&quot;&gt;1/n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caracterizada como uma função de distribuição empírica da amostra, esta é uma estimativa não paramétrica de máxima probabilidade da distribuição populacional, &lt;em&gt;F&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-2&quot;&gt;Passo 2:&lt;/h4&gt;
+&lt;p&gt;Realize a reamostragem: desenhe uma amostra aleatória de tamanho &lt;em&gt;n&lt;/em&gt; com reposição a partir da função de distribuição &lt;script type=&quot;math/tex&quot;&gt;F_n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-3&quot;&gt;Passo 3:&lt;/h4&gt;
+&lt;p&gt;Calcule para essa reamostragem a estatística de interesse &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;, gerando &lt;script type=&quot;math/tex&quot;&gt;T_n^*&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-4&quot;&gt;Passo 4:&lt;/h4&gt;
+&lt;p&gt;Repita os passos 2 e 3 &lt;em&gt;B&lt;/em&gt; vezes. Para criar &lt;em&gt;B&lt;/em&gt; reamostras, &lt;em&gt;B&lt;/em&gt; deve ser um valor grande. O tamanho de &lt;em&gt;B&lt;/em&gt; depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt; é necessária, sugere-se que &lt;em&gt;B&lt;/em&gt; seja ao menos igual à 1000.&lt;/p&gt;
+
+&lt;h4 id=&quot;passo-5&quot;&gt;Passo 5:&lt;/h4&gt;
+&lt;p&gt;Construa a partir do valor &lt;em&gt;B&lt;/em&gt; de &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt; a frequência relativa do histograma, atribuindo probabilidade de &lt;script type=&quot;math/tex&quot;&gt;1/B&lt;/script&gt; à cada ponto &lt;script type=&quot;math/tex&quot;&gt;T_n^1&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;T_n^2&lt;/script&gt;,…, &lt;script type=&quot;math/tex&quot;&gt;T_n^B&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;A distribuição obtida é a estimativa Bootstrap da distribuição amostral de &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;. Pode-se realizar inferências sobre o parâmetro θ, utilizando essa distribuição, estimando &lt;script type=&quot;math/tex&quot;&gt;T_n&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;bootstrap-e-ações-do-mercado-financeiro-utilizando-o-r&quot;&gt;Bootstrap e ações do mercado financeiro utilizando o R&lt;/h2&gt;
+
+&lt;p&gt;No exemplo a seguir, criaremos a amostra Bootstrap para os retornos diários das ações da Apple e do índice S&amp;amp;P500 de 02/06/2016 a 31/05/2017. Para tanto, primeiro baixe a base &lt;em&gt;bootstrap.txt&lt;/em&gt; que está disponível no &lt;a href=&quot;https://raw.githubusercontent.com/lamfo-unb/lamfo-data/master/dadosBootstrap.txt&quot;&gt;link&lt;/a&gt;. Faça a leitura dessa base no R conforme demonstrado no código abaixo:&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file.choose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;A first analysis can be made selecting the regions that have a certain index of participation in the sport:&lt;/p&gt;
+&lt;p&gt;Para  trabalhar com a base digite o seguinte comando:&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sel&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Partic_Per&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Partic_Per&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lightgrey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;turquoise&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SP500index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applret&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'APPLE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SP500index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sp500&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;APPLE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;spxret&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;applret&lt;/code&gt; extraem uma coluna para criar um vetor. Nas linhas seguintes trabalhamos a base para transformar todos os dados em numéricos, retiramos NA’s e transformamos os retornos em log retornos.&lt;/p&gt;
+
+&lt;p&gt;Na nossa análise obtivemos, em um ano, 251 retornos diários. Aleatoriamente uma amostra bootstrap foi obtida dos retornos diários. No nosso caso, você observará que alguns dias estarão diversas vezes na amostra bootstrap enquanto outros nem aparecerão. Isso ocorre devido ao fato de realizarmos amostragem com reposição. A partir da nossa amostra bootstrap, optamos por realizar a soma dos valores. Tipicamente várias amostras bootstrap são criadas.&lt;/p&gt;
+
+&lt;p&gt;O código abaixo mostra como utilizar o Bootstrap para gerar 1000 amostras Bootstrap. Podemos observar abaixo que amostramos com inteiros de 1 a 251. Criamos uma amostra de tamanho 251 e a amostramos com reposição. Com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;this.samp&lt;/code&gt; temos um ano com retornos diários que poderiam ter acontecido. Coletamos os retornos anuais para cada ano hipotético na linha de código seguinte.&lt;/p&gt;
+
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# numeric vector 1000 long
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;251&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this.samp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/geospace/chunk-3-1.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Você pode também plotar a distribuição dos retornos anuais obtidos com o Bootstrap com o código a seguir:&lt;/p&gt;
 
-&lt;p&gt;Another interesting analysis is the identification of quadrants. This division can be made based on the coordinates of the centroid, which in this case represents the central point of London.&lt;/p&gt;
+&lt;div class=&quot;language-R highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spx.boot.sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;orange&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spxret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'blue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Segundo a imagem abaixo, o retorno anual é bastante variável. Caso você utilize uma base de dados inicial diferente, o seu gráfico sofrerá alterações. Nessa situação encontramos bem próximo ao meio da distribuição o nosso retorno anual. Vale ressaltar que esse resultado pode ser diferente devido a vieses estatísticos ou na base de dados.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rgeos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## encontrando o centro da região de londres
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gCentroid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gCentroid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## argumento para testar se a região está ao norte ou ao leste do centro
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norte&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leste&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oeste&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sul&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coordinates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## testando se a coordenada está a norte ou leste do centro
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norte&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nordeste&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norte&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oeste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;noroeste&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sul&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sudeste&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sul&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oeste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sudoeste&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;/img/bootstrap/Rplot02.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
 
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## colorindo os quadrantes no gráfico
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as.factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quadrant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lightgrey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norte&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;red&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norte&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oeste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;blue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sul&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;green&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sul&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oeste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yellow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;h3 id=&quot;vamos-praticar&quot;&gt;Vamos praticar?&lt;/h3&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;p&gt;Efron, B. (1979). Bootstrap methods: another look at the jackknife. The annals of Statistics, 1-26.&lt;/p&gt;
+
+&lt;p&gt;Efron, B, and Tibshirani, R.J. (1993). An introduction to the bootstrap. Chapman and Hall, London.&lt;/p&gt;
+
+</content>
+		</entry>
+	
+		<entry>
+			<title>Uma Abordagem Intuitiva às Redes Neurais</title>
+			<link href="http://lamfo-unb.github.io/2017/06/18/itro-ao-deep-learning/"/>
+			<updated>2017-06-18T07:19:07-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/18/itro-ao-deep-learning</id>
+			<content type="html">&lt;h2 id=&quot;conteúdo&quot;&gt;Conteúdo&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introdução&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#am-contemp&quot;&gt;Aprendizado de Máquina Contemporâneo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#neuronios&quot;&gt;Neurônios&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#RNA&quot;&gt;Redes Neurais Artificiais&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#treino&quot;&gt;Treinamento&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementacao&quot;&gt;Implementando uma Rede Neural Artificial&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ref&quot;&gt;Referências&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introdução-&quot;&gt;Introdução &lt;a name=&quot;intro&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Antes de começarmos, é necessário ter uniformidade em nossa liguagem. Por isso, peço que leia a &lt;a href=&quot;https://matheusfacure.github.io/AM-Essencial/&quot;&gt;introdução ao aprendizado de máquina&lt;/a&gt; que fiz especialmente para quem quer iniciar o entendimento sobre o assunto. Lá, falo sobre o que é e para que serve aprendizado de máquina e apresento alguns do principais conceitos dessa ciência, como os três tipos de aprendizado, o dilema de viés e variância, treinamento, avaliação e validação cruzada. Reconheço que é um post um pouco longo, mas, por favor, invista um pouco do seu tempo nele e entenda bem os conceitos lá apresentados.&lt;/p&gt;
+
+&lt;p&gt;Bom, espero que você tenha lido o que recomendei. A partir desse ponto, utilizarei alguns dos termos apresentados (e que, talvez, você tenha acabado de aprender). Isso me permitirá tornar este post mais curto, já que não precisarei explicar todos os conceitos de aprendizado de máquina do zero.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Aviso:&lt;/strong&gt; Ao final deste post, você entenderá intuitivamente o que é uma rede neural e será capaz de treinar uma para reconhecimento de imagem. Mesmo assim, esse post é apenas uma breve introdução ao aprendizado de máquina contemporâneo. Pensei nele como uma forma de instigar a sua curiosidade e lhe convencer de que aprendizado de máquina é um assunto no qual vale a pena se aprofundar. Assim, do &lt;strong&gt;fundo do meu coração&lt;/strong&gt;, não terminem essa leitura achando que já sabem o suficiente e, por favor, continuem aprendendo mais, bem mais, do que o conteúdo apresentado aqui.&lt;/p&gt;
+
+&lt;h2 id=&quot;aprendizado-de-máquina-contemporâneo-&quot;&gt;Aprendizado de Máquina Contemporâneo &lt;a name=&quot;am-contemp&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;A maioria dos algoritmos de aprendizado de máquina são do século passado. Alguns, como redes neurais, são especialmente velhos, tendo sido inventados na década de 50. Por que, então, só agora observamos aprendizado de máquina em todos os cantos e  seu anúncio em revistas e jornais aos quatro ventos? Podemos argumentar que, embora os algoritmos em si sejam velhos, algumas pequenas melhorias mais recentes os tornaram, finalmente, extremamente úteis. Isso é parcialmente verdade, mas foram outros dois fatores que mais contribuíram para o atual renascimento da inteligência artificial:  &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Aumento do poder computacional (leia-se GPUs enormes)&lt;/li&gt;
+  &lt;li&gt;Aumento da disponibilidade de dados (leia-se &lt;b&gt;Big Data&lt;/b&gt; ou simplesmente bases de dados maiores)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Infelizmente, ainda hoje, para que um modelo de aprendizado de máquina consiga extrapolar um padrão aprendido, ele precisa de uma abundância de exemplos desses padrões. Por exemplo, para que um sistema inteligente consiga interpretar uma palavra, ele necessita antes visualizar milhões de frases para entender como as plavras se relacionam. Isso só foi possível recentemente, com a expansão da quantidade de dados e da capacidade computacional para processá-los.&lt;/p&gt;
+
+&lt;p&gt;Devemos ter em mente que os &lt;strong&gt;sistemas de inteligência artificias contemporâneos não são nada mais do que modelos matemáticos complexos que conseguem aprender uma representação simplificada da realidade, a partir da extração de padrões estatísticos presentes nos dados, que são, por sua vez, extraídos dessa mesma realidade que motiva o aprendizado&lt;/strong&gt;. E, &lt;a href=&quot;https://arxiv.org/abs/1605.06065&quot;&gt;por enquanto&lt;/a&gt;, um ponto fraco desses sistemas ou modelos estatísticos é que eles precisam de muitos dados para conseguir entender os padrões que se apresentam na nossa complexa realidade.&lt;/p&gt;
+
+&lt;p&gt;Mas como exatamente esses sistemas conseguem entender a nossa realidade? Infelizmente, ainda não podemos dizer com certeza como isso é feito. Agora explicarei da forma mais aceita e cujas evidenciais são mais fortes. Em poucas palavras, os sistemas de inteligência artificial modernos primeiro aprendem uma &lt;strong&gt;representação interna abstrata&lt;/strong&gt; dos dados brutos e, a partir dessa representação abstrata, realizam alguma tarefa, geralmente uma previsão. Por exemplo, considere a tarefa de prever que objeto está em uma imagem. Nesse caso, os dados são simples pixeis com quantidades de vermelho, verde e azul (se a imagem for preta e branca, os pixeis são ainda mais simples, indicando apenas a quantidade de preto). Como é muito difícil sair desses dados brutos para conceitos abstratos - como a transparência de uma garrafa pet, um olho em uma face, o telhado de uma casa -, o sistema antes converte os pixeis de uma imagem em algo mais abstrato, como o conceito visual de um olho.&lt;/p&gt;
+
+&lt;p&gt;Isso é provavelmente o que eu e você fazemos quando enxergamos. O nosso corpo percebe raios multicoloridos refletidos nos objetos, mas o que vemos são conceitos com uma carga semântica muito maior, tais como a textura da madeira em uma cadeira ou a silhueta opaca de um gato branco passeando sob a meia luz. Para representar esse nível de abstração, os sistemas contemporâneos de IA são geralmente construídos em camadas. Podemos pensar nelas como &lt;strong&gt;níveis hierárquicos de abstração&lt;/strong&gt; que serão aprendidos por um modelo estatístico. Por exemplo, a primeira camada de um sistema pode aprender a abstrair pixeis em cantos e quinas de objetos ou diferenças de contraste e luminosidade; a segunda camada, partido das abstrações da primeira, converte os cantos e quinas em formas mais elaboradas, como círculos, triângulos e quadrados; a terceira camada então pode partir dessas formas para criar abstrações sobre parte de objetos, como a roda de um carro ou o bico de um papagaio; por fim, o sistema usa essas abstrações finais para identificar o que está em uma foto colorida. (Isso é mais do que um mero exemplo. Na verdade, existem &lt;a href=&quot;https://matheusfacure.github.io/2017/05/09/deepdream/&quot;&gt;formas um tanto divertidas de ver as abstrações aprendidas por IAs&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Esse modo de estruturar os sistemas de IA é o que leva o nome de &lt;strong&gt;Deep Learning&lt;/strong&gt; (aprendizado profundo) ou aprendizado de representações. A palavra “profundo” vem do simples fato de construímos nossos sistemas empilhando camadas.&lt;/p&gt;
+
+&lt;h2 id=&quot;neurônios-&quot;&gt;Neurônios &lt;a name=&quot;neuronios&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Nesta introdução, para exemplificar a construção e o treinamento de um sistema moderno de IA, realizaremos uma simples tarefa de visão computacional, na qual usaremos uma rede neural bem simples para reconhecer dígitos escritos. Em termos técnicos, será uma tarefa de &lt;a href=&quot;https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres&quot;&gt;OCR (Optical Character Recognition)&lt;/a&gt;. Mas, antes de entendermos o que são e como treinar redes neurais, precisamos falar sobre seu componente mais básico: os neurônios.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/perceptron.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;perceptron&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;https://blog.dbrgn.ch/2013/3/26/perceptrons-in-python/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Como grande parte dos algoritmos de aprendizado de máquina, os neurônios são modelos matemáticos (ou funções) que representam a realidade de forma simplificada. Eles são compostos por uma soma ponderada, seguida ou não de uma função ativação. Por exemplo, considere a tarefa de prever se o preço de uma casa será maior ou menor do que a média, dadas as variáveis \(x_1\), o tamanho da casa em metros quadrados, \(x_2\), o índice de pobreza da vizinhança e \(x_3\) o tamanho do meu cabelo. Podemos facilmente utilizar um neurônio para resolver essa tarefa. Note que, provavelmente, quanto maior \(x_1\), maior a probabilidade da casa ter um preço acima da média (e vice versa). Assim, devemos esperar que o peso de \(x_1\), \(w_1\), na soma ponderada do nosso neurônio seja positivo, indicando que essa variável tem um impacto igualmente positivo na probabilidade do preço da casa ser acima da média. Com o mesmo raciocínio, podemos argumentar que \(w_2\) será negativo. Note que esses dois pesos não precisam ter a mesma intensidade. Pode ser que o impacto positivo de \(x_1\) seja muito maior que o impacto negativo de \(x_2\), de forma que \(w_1\) seja maior que \(w_2\). Em outras palavras, pode ser que o tamanho da casa seja um determinante mais importante do preço do que o índice de pobreza da vizinhança. Por fim, é provável que o tamanho do meu cabelo, \(x_3\), não tenha muito impacto no preço de uma casa. Por isso, esperamos que \(w_3\) seja muito próximo de zero na soma ponderada do nosso neurônio. Isso indica que essa variável influencia pouco o preço da casa. Repare também que temos uma variável que é sempre \(1\). A ponderação desse \(1\) com o \(w_0\) é o que chamamos de viés. Esse viés captura a tendência da casa ter valor alto, uma vez que já consideramos as outras variáveis. Por fim, é importante ressaltar que os \(w\)s são o que chamamos de parâmetros do modelo. Eles são variáveis que o neurônio (e, mais para frente, a rede neural) vai aprender (ou estimar) durante o treinamento.&lt;/p&gt;
+
+&lt;p&gt;Além da soma ponderada, nosso neurônio precisa de uma função de ativação. Isso porque a soma ponderada pode nos dar um resultado qualquer, mas, como nossa previsão é uma probabilidade, precisamos de uma função ativação que converta um número qualquer, positivo ou negativo, em um valor entre 0 e 1. Essa função é denominada função &lt;a href=&quot;https://en.wikipedia.org/wiki/Softmax_function&quot;&gt;softmax&lt;/a&gt;, que será utilizada após a soma ponderada do nosso neurônio. Existem várias funções de ativação e, dependendo da tarefa em questão, uma é mais recomendada do que outra. Infelizmente, para falar delas é preciso mais conhecimento matemático. Intuitivamente, quando as mencionamos em redes neurais, imagine a função ativação como algo que dá um comportamento mais complexo aos neurônios. Elas também são fundamentais nas redes neurais, para que essas consigam representar padrões complexos.&lt;/p&gt;
+
+&lt;h2 id=&quot;redes-neurais-artificiais-&quot;&gt;Redes Neurais Artificiais &lt;a name=&quot;RNA&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Infelizmente, os neurônios são bastante limitados. Em aprendizado de máquina, queremos que um algoritmo possa aprender qualquer tipo de padrão presente nos dados, mas isso não é possível com um simples neurônio. Por isso, construímos as redes neurais, que são simplesmente vários neurônios conectados. Pense nos neurônios como blocos de Lego e nas redes neurais como estruturas que montamos empilhando esses blocos de Lego. Dependendo da tarefa, uma estrutura pode se mais útil do que outra. No entanto, aqui, vamos considerar apenas a estrutura mais simples e mais comum de rede neural, o modelo de &lt;strong&gt;redes neurais &lt;em&gt;feedforward&lt;/em&gt; densas&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/RNA1.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;RNA1&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;http://www.texample.net/tikz/examples/neural-network/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Na rede neural acima, como exemplo, dizemos que ainda lidamos com o problema de prever se o preço de uma casa será acima ou abaixo da média. Na entrada da rede, temos as mesmas 3 variáveis mais o viés, que são representados pelas bolinhas verdes. Isso é o que chamamos de camada de entrada da rede neural. Posteriormente, utilizando 5 neurônios, realizamos 5 somas ponderadas seguidas de uma função de ativação. Essas operações são representadas pelas bolinhas azuis, que recebem o nome de camada oculta da rede neural. Por fim, usamos um único neurônio que realiza uma soma ponderada do resultado dos neurônios anteriores e então converte essa soma ponderada em uma probabilidade com a função softmax. Isso é o que chamamos de camada de saída da rede neural e está representado pela bolinha vermelha.&lt;/p&gt;
+
+&lt;p&gt;Ignore a camada de entrada (verde) por um momento. Você notou como a camada de saída mais a camada oculta são exatamente o modelo de neurônio que vimos anteriormente? A camada de saída é simplesmente um modelo de neurônio, que está tratando a camada oculta como se fosse as variáveis independentes que determinam a variável de resposta (no nosso exemplo, a probabilidade do preço da casa ser alto). Assim, podemos observar que a rede neural está &lt;strong&gt;aprendendo novas variáveis&lt;/strong&gt; e usando um modelo de neurônio nessas novas variáveis. Esse é o princípio básico de &lt;em&gt;deep learning&lt;/em&gt;: aprender variáveis representativas, geralmente mais abstratas, que auxiliem na tarefa em questão, no caso, uma tarefa de previsão.&lt;/p&gt;
+
+&lt;p&gt;Podemos ir um passo além e adicionar uma segunda camada oculta.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/RNA2.jpeg&quot; class=&quot;img-responsive center-block&quot; alt=&quot;RNA2&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;http://cs231n.github.io/neural-networks-1/&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Isso aumenta ainda mais o poder representativo da rede neural. Lembre-se de que &lt;strong&gt;podemos pensar nas camadas da rede neural como níveis hierárquicos de abstração&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;treinamento-&quot;&gt;Treinamento &lt;a name=&quot;treino&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Agora que entendemos o que são redes neurais em um nível intuitivo, iremos treiná-las. Isso é feito por um processo de otimização no qual minimizamos uma função custo (ou objetivo). Para manter o nível de simplicidade, pense na função custo como algo que mede a diferença entre o que a rede neural prevê e o que de fato foi observado. Por exemplo, se a rede neural prever um valor pequeno para a probabilidade de uma casa ter preço acima da média, mas a casa, na verdade, for bastante cara, então a função custo terá um valor alto.&lt;/p&gt;
+
+&lt;p&gt;Para iniciar o treinamento, vamos chutar alguns valores para os \(w\)s de cada neurônio. Em seguida, observaremos a previsão da rede neural em alguns dados, que, muito provavelmente, será péssima. Dessa forma, os \(w\)s iniciais serão associados a um alto custo ou a uma &lt;strong&gt;região elevada na superfície de custo&lt;/strong&gt;. No treinamento então, vamos atualizar os \(w\)s de maneira iterativa, de forma a diminuir o custo. Isso é feito com a técnica de gradiente descendente estocástico, que pode ser entendida como uma descida na superfície de custo de uma tarefa de otimização.&lt;/p&gt;
+
+&lt;figure class=&quot;figure center-block thumbnail&quot;&gt;
+  &lt;img src=&quot;/img/simple_DNN/gd.png&quot; class=&quot;img-responsive center-block&quot; alt=&quot;GD&quot; /&gt;
+  &lt;figcaption class=&quot;figure-caption text-center&quot;&gt;&lt;a href=&quot;https://sebastianraschka.com/faq/docs/closed-form-vs-gd.html&quot;&gt;Fonte&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Para entender a fundo essa técnica, é preciso saber cálculo multivariado, mas, intuitivamente, ela é bem simples. Em primeiro lugar, escolhemos aleatoriamente (daí a palavra estocástico) um pequeno punhado de dados para conseguir uma estimativa da nossa posição na superfície de custo. Então, movemos os parâmetros \(w\) na direção oposta da inclinação dessa superfície. Isso é como dar um passo para baixo na superfície de custo. Com passos suficientes, nossa esperança é que os \(w\) nos coloque em uma região de custo (ou erro) baixa o suficiente.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementando-uma-rede-neural-artificial-&quot;&gt;Implementando uma Rede Neural Artificial &lt;a name=&quot;implementacao&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Muito bem, tudo isso já parece bastante promissor. Vamos então construir e treinar uma rede neural de duas camadas ocultas para uma tarefa simples de reconhecimento de caracteres em imagens. Para isso, utilizarei a linguagem de programação Python, mas não se preocupe, não será preciso saber programar para entender o que vem a seguir. Na verdade, quase não vou usar programação. Peço então que, por hora, você pense no Python apenas como um programa de computador como outro qualquer. Com ele, podemos digitar uma série de comandos para que o computador os execute. Aqui, vou simplesmente mostrar quais são os comando necessários para construir e treinar uma simples rede neural.&lt;/p&gt;
+
+&lt;p&gt;Junto com o Python, utilizarei alguns pacotes para ajudar na construção e treinamento de redes neurais. Você pode pensar nesses pacotes como extensões de um programa de computador. Mais concretamente, pense em um pacote do Python como uma fonte nova que você baixa para seu editor de texto. Particularmente importante será o pacote &lt;a href=&quot;https://en.wikipedia.org/wiki/TensorFlow&quot;&gt;TensorFlow&lt;/a&gt;, que foi desenvolvido pelo Google e feito &lt;em&gt;open source&lt;/em&gt; (aberto) em 2015.&lt;/p&gt;
+
+&lt;p&gt;Se você ainda não tem esses programas, não se preocupe. Também fiz um &lt;a href=&quot;https://lamfo-unb.github.io/2017/06/10/Instalando-Python/&quot;&gt;tutorial sobre como instalá-los&lt;/a&gt;. Sugiro que você instale os programas necessários e acompanhe o tutorial a seguir executando cada passo no seu computador.&lt;/p&gt;
+
+&lt;p&gt;Sem mais delongas, no Python, importaremos alguns pacotes:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa o TensorFlow&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.contrib.learn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DNNClassifier&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa o modelo de rede neural do TensorFlow&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# pacotes adicionais&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# para computação numérica menos intensiva&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# para criar pastas&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;OBS&lt;/strong&gt;: em uma sequência de comandos (código) de Python, o computador ignora tudo que for escrito após #, por isso, # indica o início de um comentário meu explicando o código.&lt;/p&gt;
+
+&lt;h3 id=&quot;os-dados&quot;&gt;Os dados&lt;/h3&gt;
+
+&lt;p&gt;Em primeiro lugar, vamos ver como são nossos dados. Já disse que trabalharemos com OCR. Em particular, utilizamos a base de dados &lt;a href=&quot;https://en.wikipedia.org/wiki/MNIST_database&quot;&gt;MNIST&lt;/a&gt;, que contém 55 mil dados de treino e 10 mil dados de teste. Os dados são imagens de 28x28 pixeis, o que nos dá 784 variáveis para colocar na camada de entrada da nossa rede neural. Mas, antes disso, vamos criar uma nova pasta no nosso computador e baixar esses dados nela.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# criamos uma pasta para colocar os dados&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tmp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# se a pasta não existir&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;makedirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tmp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# cria a pasta&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# baixa os dados na pasta criada &lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.examples.tutorials.mnist&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# baixa os dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_data_sets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;tmp/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;one_hot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# baixa e carrega os dados já formatados&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Após executar os comandos acima, todos os dados, tanto de treino como de teste, estão armazenados em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;. Você pode pensar em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; como uma planilha do Excel aberta. As únicas diferenças são que você não pode interagir com a linhas e colunas da planilha clicando com o mouse e que você não pode ver a planilha a todo tempo. No entanto, podemos facilmente ver como são nossos dados usando o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;print()&lt;/code&gt; do Python. Para interagir com os dados em &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;, usamos a notação de ponto &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;. Por exemplo, &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.images&lt;/code&gt; nos dá acesso aos dados de treino e, a partir daí, às imagens de treino. Podemos ir além e usar &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.images.shape&lt;/code&gt; para ver o atributo de tamanho dos dados de treino.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos dados de treino&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos dados de teste&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra algumas linhas e colunas dos dados de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(55000, 784)
+(10000, 784)
+[[ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ ..., 
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]
+ [ 0.  0.  0. ...,  0.  0.  0.]]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Acima, observamos que os dados de treino são uma tabela com 55 mil linhas, cada uma com uma observação de 784 colunas, (que representam os pixeis de uma imagem). Como nossa tarefa se encaixa no regime de aprendizado supervisionado, cada imagem vem anotada com um alvo, o dígito que está nela (e que queremos prever). Podemos acessar os alvos de treino com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;print()&lt;/code&gt; mais &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.labels&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra o formato dos alvos de treino&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mostra os alvos de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(55000,)
+[7 3 4 ..., 5 6 8]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;As anotações da base de treino podem ser entendidas como uma tabela de 55 mil linhas e com uma única coluna. Pelo que vemos acima, nossa primeira imagem é um 7, nossa segunda imagem é um 3 e assim por diante. Com o intuito de minimizar o nível de abstração, analisaremos como são essas imagens. Para tanto, necessitamos de um pacote do Python para visualizar as imagens. Abaixo, importamos esse pacote, desenhamos a segunda imagem de treino com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.imshow(...)&lt;/code&gt; (usamos índice 1 para selecionar a segunda imagem, pois em ciência da computação a contagem é iniciada a partir do zero), usamos o alvo correspondente como título da imagem com &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.title(...)&lt;/code&gt; e, por fim, usamos &lt;code class=&quot;highlighter-rouge&quot;&gt;plt.show()&lt;/code&gt; para mostrar a imagem. Além disso, na imagem, usamos &lt;code class=&quot;highlighter-rouge&quot;&gt;.reshape(28,28)&lt;/code&gt; para reformatá-la de uma linha com 784 pixeis para uma grade com 28px de altura e largura.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# importa pacote para mostrar imagens&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# mostra a primeira imagem no set de treino&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Greys'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interpolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nearest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# anotação do dígito&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/img/simple_DNN/mnist3.png&quot; class=&quot;img-responsive&quot; alt=&quot;mnist_digit&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;definindo-os-hiper-parâmetros&quot;&gt;Definindo os hiper-parâmetros&lt;/h3&gt;
+&lt;p&gt;Tudo parece OK com os nossos dados. Podemos então começar a construção da rede neural. O primeiro passo é definir os hiper-parâmetros do modelo. Diferentemente dos parâmetros da rede, os \(w\), os hiper-parâmetros não são naturalmente aprendidos durante o treinamento e devem ser ajustados à mão. Alguns dos hiper-parâmetros mais importantes da rede neural são o número de camadas e o número de neurônios em cada camada. Esses hiper-parâmetros definem a capacidade da rede neural e, por meio deles, podemos ajustar o &lt;a href=&quot;https://matheusfacure.github.io/AM-Essencial/#Viés-e-variância&quot;&gt;&lt;em&gt;trade-off&lt;/em&gt; entre erro por viés e por variância&lt;/a&gt;. Quanto maior o número de neurônios, mais potente será a rede neural, mas a probabilidade dela sofrer com sobre-ajustamento será superior.&lt;/p&gt;
+
+&lt;p&gt;Outros hiper-parâmetros da rede neural são o tamanho do punhado de dados usado durante a otimização e o tamanho do passo dado a cada iteração de treino. Em outras palavras, o tamanho do punhado de dados define quão precisa será nossa estimativa local da superfície de custo, enquanto que a taxa de aprendizado definirá o tamanho do passo em cada descida nessa superfície de custo.&lt;/p&gt;
+
+&lt;p&gt;Outro detalhe importante é que a rede neural que vamos construir não tem apenas um neurônio na camada de saída, mas 10 neurônios. Cada neurônio representará a probabilidade da imagem conter um dos dígitos de 0 a 9.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# definindo constantes&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# taxa de aprendizado&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_iter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de iterações de treino&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# qtd. de imagens no punhado de dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_inputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de variáveis (pixeis)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da primeira camada&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_l2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da segunda camada&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_outputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de neurônios da camada de saída&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nossa rede neural terá duas camadas, cada uma com 512 neurônios.&lt;/p&gt;
+
+&lt;h3 id=&quot;construindo-a-rede-neural&quot;&gt;Construindo a rede neural&lt;/h3&gt;
+
+&lt;p&gt;Felizmente, não precisamos construir uma rede neural do zero. Como elas são extremamente populares, outras pessoas já as deixaram pré-montada para facilitar nossa vida. A única coisa que precisamos fazer é dizer quais serão os hiper-parâmetros da rede neural, que o pacote TensorFlow construirá para nós.&lt;/p&gt;
+
+&lt;p&gt;O primeiro passo é converter os dados para um formato com que TensorFlow consiga trabalhar facilmente. Isso é feito com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.contrib.learn.infer_real_valued_columns_from_input(...)&lt;/code&gt; e passamos como argumento desse comando as imagens de treino. Por fim, transmitimos os hiper-parâmetros definidos acima para o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;DNNClassifier(...)&lt;/code&gt;, o que cria a nossa rede neural e a armazena em &lt;code class=&quot;highlighter-rouge&quot;&gt;deep_ann&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# converte os dados&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x_input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contrib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;infer_real_valued_columns_from_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# cria a rede neural&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DNNClassifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hidden_units&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# qtd. de neurônios por camada&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;feature_columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# camada de entrada (dados)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;n_classes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_outputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# número de classes (10 dígitos)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;activation_fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# função de ativação das camadas&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AdamOptimizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# otimizador &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;OBS: Ao rodar esse código, talvez você veja alguns textos de aviso. Apenas os ignore. Nesses casos, o TensorFlow está nos fornecendo mais informação do que precisamos.&lt;/p&gt;
+
+&lt;h3 id=&quot;treinando-e-avaliando-a-rna&quot;&gt;Treinando e Avaliando a RNA&lt;/h3&gt;
+
+&lt;p&gt;Para treinar a rede neural criada acima basta um único comando do TensorFlow. Esse comando vem com o nosso modelo de rede neural e podemos acessá-lo com a notação de ponto a partir da rede neural criada acima: &lt;code class=&quot;highlighter-rouge&quot;&gt;deep_ann.fit(...)&lt;/code&gt;. Passamos ao comando as imagens de treino com os respectivos dígitos anotados. Lembre-se que esse é um problema de aprendizado de máquina supervisionado e que a tarefa da rede neural é aprender como mapear dos valores numéricos dos pixeis no dígito que está escrito na imagem. Por isso, precisamos passar também as anotações das imagens de treino: &lt;code class=&quot;highlighter-rouge&quot;&gt;data.train.labels&lt;/code&gt;. Antes de encaminhar esses dados à rede neural, precisamos convertê-los para os tipos aceitos pelo modelo. As imagens devem ser do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;float32&lt;/code&gt; (dígitos com casas decimais), enquanto que as anotações devem ser do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;int64&lt;/code&gt; (dígitos inteiros, sem casas decimais).  Por fim, passamos para o comando de treinamento o número de iterações de treino (passos na caminhada para baixo na superfície de custo).&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# conversão de tipo&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# conversão de tipo&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# tamanho do punhado de dados&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_iter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# iterações de treino&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Após treinada, precisamos avaliar nossa rede neural nos dados de teste. Para isso, usamos o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;.evaluate&lt;/code&gt;, que pode ser acessado uma vez que a rede neural for treinada. Enviamos os dados e anotações de teste para esse comando e observamos a acurácia da rede neural, isto é, a taxa de acerto.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;deep_ann&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evaluate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# variáveis independentes&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# variáveis dependentes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'accuracy':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0.96030003,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'global_step':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1000,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'loss':&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0.14502561&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/geospace/chunk-4-1.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Com apenas 1000 iterações de treino, nossa simples rede neural já consegue uma taxa de acerto de 96%. Isso não é um resultado muito bom, mas já é satisfatório, principalmente se considerarmos quão simples foi treinar esse modelo.&lt;/p&gt;
 
-&lt;h2 id=&quot;creating-maps-whith-tmap-ggplot-and-leaflet&quot;&gt;Creating maps whith tmap, ggplot and leaflet&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Tmap&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;próximos-passos&quot;&gt;Próximos Passos&lt;/h2&gt;
+&lt;p&gt;Como já disse, este post é bastante introdutório e tem o propósito de simplesmente instigar a curiosidade sobre aprendizado de máquina. Dentre tópicos que não podemos abarcar em um post introdutório estão outras arquiteturas de redes neurais (convolucionais, recorrentes, &lt;em&gt;autoencoders&lt;/em&gt;, &lt;em&gt;deep-q&lt;/em&gt;, adversárias…), formas de acelerar o treinamento, técnicas de regularização para controlar o sobre-ajustamento, isso sem falar nas outras classes de modelos de aprendizado de máquina, como máquinas de suporte vetoriais, árvores de decisão, Bayes ingênuo, k-vizinhos mais próximos…&lt;/p&gt;
 
-&lt;p&gt;The analysis can be done by generating a color gradient based on the percentage participation of the population in the sport:&lt;/p&gt;
+&lt;p&gt;Além disso, mesmo em se tratando de redes neurais bem simples como a que treinamos, o nível de abstração desse post é demasiadamente elevado, isto é, não mostrei como construir cada camada de neurônios, como conectá-las nem como construir o algoritmo de treinamento. Embora você possa utilizar aprendizado de máquina sem se preocupar muito com esses detalhes mais mecânicos, conhecê-los é extremamente importante. Entender de fato o funcionamento dos modelos é condição fundamental para solucionar possíveis falhas no treinamento, para descobrir quais modelos utilizar em cada situação e até mesmo para criar novos modelos ou melhorias que possam contribuir para a ciência de aprendizado de máquina.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qtm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Partic_Per&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill.palette&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-Blues&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Termino com um apelo: não seja um cientista de dados que simplesmente tenta aplicar um modelo caixa preta atrás do outro, na esperança de que algum resolva seu problema. &lt;strong&gt;Isso não é aprendizado de máquina; é tentativa e erro&lt;/strong&gt;. Se for estudar aprendizado de máquina, entenda &lt;strong&gt;BEM&lt;/strong&gt; as ferramentas que você usa. Entenda a matemática e a mecânica de um algoritmo em seus mínimos detalhes. Se possível, implemente os modelos de aprendizado de máquina sem o auxílio de pacotes. E, por fim, detalhes são muito, muito, muito importantes! A eles que devemos parte do renascimento atual de IA, então não os deixe passar batido.&lt;/p&gt;
+
+&lt;p&gt;Não é difícil encontrar material gratuito e de qualidade na internet, mas também é fácil cair em armadilhas, aprendendo apenas IA em um nível intuitivo, sem se adentrar nos detalhes. Segue uma pequena lista de onde encontrar conteúdo de qualidade sobre aprendizado de máquina:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;Blogs
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;https://matheusfacure.github.io/tutorials/&quot;&gt;{Quinhentos:Nove}&lt;/a&gt;: Sou suspeito para falar, mas acredito que meu blog tenha os melhores tutoriais em português sobre aprendizado de máquina. Em parte, eu o criei com o objetivo de corrigir algumas falhas que percebi nos outros blogs sobre AM. Percebi que o conteúdo deles ou eram simplesmente intuitivos, sem aprofundamento na matemática e na implementação dos modelos, ou eram muito técnicos. Por isso, comecei a criar tutoriais estruturados para conter uma explicação intuitiva da técnica explicada, seguida de uma explicação matemática mais aprofundada e terminando com uma implementação bem documentada. Além disso, eu frequentemente &lt;a href=&quot;https://matheusfacure.github.io/blog/&quot;&gt;posto sobre meus trabalhos &lt;/a&gt; para que sirvam como exemplos de aplicações de aprendizado de máquina.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;https://lamfo-unb.github.io/&quot;&gt;Blog do LAMFO&lt;/a&gt;: O nosso blog é uma excelente fonte de tutoriais e exemplos de aplicações de aprendizado de máquina. O LAMFO é a primeira entidade acadêmica no Brasil a tratar de aprendizado de máquina dentro da grande área de ciências humanas (e até onde sei, ainda é a única que atua na área), então acho que posso dizer que somos autoridade nesse assunto.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://colah.github.io/&quot;&gt;colah's blog&lt;/a&gt;: Esse é um dos melhores blogs que conheço sobre aprendizado de máquina. Infelizmente, o conteúdo é mais avançado e com pouco enfoque em questões práticas (aquele problema do qual falei sobre ser muito técnico).&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://r2rt.com/&quot;&gt;R2RT&lt;/a&gt;: É um blog excelente, tanto em termos de tutoriais quanto em termos de explicação técnica e matemática por detrás dos algoritmos ensinados. Infelizmente, já começa no nível avançado, sem uma progressão clara entre os tutoriais.&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://karpathy.github.io/&quot;&gt;Andrej Karpathy blog&lt;/a&gt;: Andrej Karpathy é um pesquisador extremamente inteligente e que escreve com uma simplicidade incrível para alguém do seu nível de conhecimento. Esse não é um blog sobre tutoriais, mas fala sobre assuntos muito interessantes em aprendizado de máquina, além de fornecer implementações detalhadas e bem documentadas sobre o assunto tratado.&lt;/li&gt;
+        
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;referências-&quot;&gt;Referências &lt;a name=&quot;ref&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Esse post abrange o conteúdo que ministrei em um &lt;em&gt;workshop&lt;/em&gt; do LAMFO sobre redes neurais. A proposta dessa iniciativa era mostrar que é possível falar sobre inteligência artificial e aprendizado de máquina de maneira simples e intuitiva, sem pressupor nenhum conhecimento técnico de quem está começando a aprender. Você pode acessar os slides do &lt;em&gt;workshop&lt;/em&gt; &lt;a href=&quot;/img/simple_DNN/workshop_dl.pdf&quot;&gt;aqui&lt;/a&gt;. Todas as imagens foram retiradas da internet e assumi que estavam em domínio público. Caso encontre uma imagem sua e queira as devidas citações, favor &lt;a href=&quot;mailto:matheusfacure01@gmail.com&quot;&gt;entrar em contato&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Como de costume, fiz o &lt;em&gt;upload&lt;/em&gt; de um notebook Jupyter com o código desenvolvido nesse post. Nesse notebook, código e explicação são intercalados, de forma que você pode acompanhar esse mesmo post ao mesmo tempo que executa os comandos em Python. Recomendo que você baixe o notebook e reveja esse tutorial de redes neurais por lá. Isso te dará mais confiança para generalizar o que ensinei aqui para outras situações. Também coloquei um exercício adicional lá, para quem quiser fixar o que vimos acima. O notebook está no &lt;a href=&quot;https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/RNA_simples.ipynb&quot;&gt;meu GitHub&lt;/a&gt;&lt;/p&gt;
+</content>
+		</entry>
+	
+		<entry>
+			<title>Instalando Python para Aprendizado de Máquina</title>
+			<link href="http://lamfo-unb.github.io/2017/06/10/Instalando-Python/"/>
+			<updated>2017-06-10T07:19:07-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/06/10/Instalando-Python</id>
+			<content type="html">&lt;p&gt;UPDATE: 18/06/2017&lt;/p&gt;
+
+&lt;h2 id=&quot;conteúdo&quot;&gt;Conteúdo&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#req&quot;&gt;Requisitos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#python&quot;&gt;Instalando Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tf&quot;&gt;Instalando TensorFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#git&quot;&gt;Instalando Git&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test&quot;&gt;Testando&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#fim&quot;&gt;Considerações Finais&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;requisitos-computacionais-&quot;&gt;Requisitos computacionais &lt;a name=&quot;req&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (&lt;em&gt;quad core&lt;/em&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-python-&quot;&gt;Instalando Python &lt;a name=&quot;python&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/python.png&quot; alt=&quot;python&quot; class=&quot;img-responsive thumbnail pull-right&quot; style=&quot;margin-left:3%; width:45%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;No momento, Python a linguagem de programação preferida pelos cientistas de dados, especialmente para aprendizado de máquina. Mas mais do que isso, Python tem uma sintaxe extremamente simples e legível, o que te permite focar mais no conteúdo do seu programa do que em como escrevê-lo. Aqui, vamos ensinar como instalar a distribuição &lt;a href=&quot;https://www.continuum.io/downloads&quot;&gt;Anaconda&lt;/a&gt;, um pacote de programas que inclui o Python mais uma série de extensões utilizadas em ciência de dados e aprendizado de máquina (como Numpy, Pandas, Jupyter Notebooks e Scikit Learn).&lt;/p&gt;
+
+&lt;p&gt;Antes de mais nada, &lt;a href=&quot;https://support.microsoft.com/pt-br/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64-bit-version-of-the-windows-operating-system&quot;&gt;certifique-se de que seu sistema operacional é 64 bits&lt;/a&gt;. Infelizmente, o tutorial a seguir só funciona na versão 64 bits do Windows, então uma vez que você tenha confirmado essa versão, podemos prosseguir com a instalação. Agora, vá em &lt;a href=&quot;https://www.continuum.io/downloads&quot;&gt;https://www.continuum.io/downloads&lt;/a&gt; e baixe o Anaconda para Windows, versão 64-bit. Ao clicar no botão do download, um arquivo executável será baixado.&lt;/p&gt;
+
+&lt;p&gt;Clique no arquivo executável para inicializar a instalação. Prossiga com as opções padrões, mas certifique-se de que a caixa com a opção &lt;code class=&quot;highlighter-rouge&quot;&gt;Add Anaconda to PATH&lt;/code&gt; esteja selecionada. Esse processo de instalação pode demorar um pouco. Quando a instalação concluir, podemos testar se tudo deu certo.&lt;/p&gt;
+
+&lt;p&gt;Abra a prompt de comando. Antes de prosseguir, vamos nos familiarizar com ela um pouco. A propt de comando é uma forma alternativa de interagir com o seu computador. Da mesma forma que você navega pelas pastas e arquivos clicando com o mouse, você pode fazer isso na linha de comando. Por padrão, a linha de comando abre no seu &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;, o local onde ficam suas pastas de imagens, documentos, downloads, etc. Após abrir o prompt de comando, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para ver o que está na sua pasta, naquele local. Você verá escrito as pastas de arquivos do seu &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; lista o que está na sua pasta (ou diretório) corrente.&lt;/p&gt;
+
+&lt;p&gt;Agora, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;cd Desktop&lt;/code&gt; para navegar ao Desktop do seu computador. Se quiser, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para mostrar quais arquivos estão no seu Desktop. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; (change directory) troca o diretório (ou pasta) corrente. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cd ..&lt;/code&gt; sobe um nível nas pastas do seu computador. Se você digitar isso na prompt de comando enquanto estiver no Desktop, ele te levará de volta ao &lt;code class=&quot;highlighter-rouge&quot;&gt;Home&lt;/code&gt;, que é a o diretório um nível acima do &lt;code class=&quot;highlighter-rouge&quot;&gt;Desktop&lt;/code&gt;. Volte para o &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;No &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt; na prompt de comando. Isso iniciará o modo interativa do Python. Execute algumas operações matemáticas como &lt;code class=&quot;highlighter-rouge&quot;&gt;2+2&lt;/code&gt; e veja o resultado sendo calculado pelo Python. Quando terminar, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;quit()&lt;/code&gt; para sair da versão interativa do Python.&lt;/p&gt;
+
+&lt;p&gt;Para finalizar, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter notebook&lt;/code&gt; na linha de comando. Isso inicializará o Jupyter, um programa que executa códigos em Python. Uma nova aba será aberta no seu browser (OBS: funciona apenas com Chrome ou Firefox) e nela você verá a interface do Jupyter. Caso essa aba não abra, na prompt de comando, procure um link que deve começar com &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8889/&lt;/code&gt;. Copie e cole esse link em uma nova aba do seu browser para abrir a interface do Jupyter. Nessa interface, você poderá escrever &lt;em&gt;notebooks&lt;/em&gt; que intercalam código em Python intercalado com comentários, se assim desejar (veja um &lt;a href=&quot;https://github.com/matheusfacure/Tutoriais-de-AM/blob/master/Redes%20Neurais%20Artificiais/DeepANN.ipynb&quot;&gt;exemplo&lt;/a&gt;). Para sair do notebook, feche a aba no seu browser, volte a prompt de comando e aperte CTRL+C, seguido de y e enter. CTRL+C é um comando para fechar programas que estão rodando na sua prompt de comando; você terá que confirmar o fechamento com y (&lt;em&gt;yes&lt;/em&gt;), seguido de enter.&lt;/p&gt;
+
+&lt;p&gt;Para aprender mais sobre a linha de comando, sugiro este &lt;a href=&quot;https://learnpythonthehardway.org/book/appendixa.html&quot;&gt;link&lt;/a&gt;. Para aprender mais sobre o Jupyter, sugiro este &lt;a href=&quot;http://jupyter.readthedocs.io/en/latest/content-quickstart.html&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-tensorflow-&quot;&gt;Instalando TensorFlow &lt;a name=&quot;tf&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tf.jpg&quot; alt=&quot;python&quot; class=&quot;img-responsive thumbnail pull-right&quot; style=&quot;margin-left:3%; width:45%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;O &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;TensorFlow&lt;/a&gt; é um programa de computação numérica, que tem sua versão principal em Python. Nós usamos o TensorFlow para programas de &lt;em&gt;deep learning&lt;/em&gt;, devido a sua eficiência computacional e abundância de comandos facilitadores para construção e treinamento de redes neurais. Antes de instalar o TensorFlow, vamos criar um ambiente Python. Nesse ambiente, todas as extensões (ou pacotes) que vem no Anaconda estarão presentes, mas o que instalarmos nele não será acessível de fora dele. Isso evita que a instalação de um pacote novo possa prejudicar o funcionamento dos pacotes já instalados.&lt;/p&gt;
+
+&lt;p&gt;Para criar um ambiente novo, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;conda create -n tensorflow&lt;/code&gt; na linha de comando. Confirme a criação do ambiente digitando y (&lt;em&gt;yes&lt;/em&gt;), seguido de enter. Agora, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;activate tensorflow&lt;/code&gt; para entrar nesse ambiente. Note que a sua linha de comando mudará para incluir &lt;code class=&quot;highlighter-rouge&quot;&gt;(tensorflow)&lt;/code&gt; antes do nome do seu diretório corrente. Para sair do ambiente, basta digitar &lt;code class=&quot;highlighter-rouge&quot;&gt;deactivate&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finalmente, para instalar o TensorFlow, entre no ambiente recém criado e digite:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/windows/cpu/tensorflow-1.2.0-cp36-cp36m-win_amd64.whl
+&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;p&gt;Dica: CTRL+C e CTRL+V não funciona na linha de comando, mas você pode copiar e colar comandos clicando com o botão direito do mouse. Em alguns computadores, na linha de comando, podemos usar CTRL+SHIFT+C para copiar e CTRL+SHITF+V para colar.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/geospace/chunk-5-1.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Na instalação do TensorFlow, usaremos &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt;, que é o gerenciador de pacotes do Python, para instalar o TensorFlow 1.2 para Windows, com suporte para CPU apenas. A instalação com suporte para GPU é mais complicada e varia muito. Caso queira instalá-la, siga as &lt;a href=&quot;https://www.tensorflow.org/install/install_windows&quot;&gt;instruções no site do TensorFlow&lt;/a&gt;. Teste agora sua instalação. Na linha de comando, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt; para iniciar o modo iterativo do Python. Digite &lt;code class=&quot;highlighter-rouge&quot;&gt;import tensorflow as tf&lt;/code&gt;. Se tudo ocorreu bem até aqui, você não verá nenhum erro.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ggplot2&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;instalando-git-&quot;&gt;Instalando Git &lt;a name=&quot;git&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;Unlike tmap, ggplot requires you to provide the database in data.frame format. This can be done through the &lt;code class=&quot;highlighter-rouge&quot;&gt;fortify()&lt;/code&gt; function:&lt;/p&gt;
+&lt;p&gt;Git é um programa de controle de versões. Ele permite que você volte a uma versão anterior do seu código caso escreva algum bug ou alguma coisa que pare o funcionamento do seu programa. Em outras palavras, o Git te permite experimentar novas coisas sem medo de ferrar com o que já foi feito, afinal você sempre poderá restaurar versões passadas do seu código. Além disso, o Git tem uma plataforma online, o &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, que permite colaboração entre programadores, principalmente para códigos abertos. O GitHub também funciona como um currículo do cientista de dados. Por meio dele, é possível compartilhar seus trabalhos de forma que eles sejam completamente reprodutíveis, permitindo que qualquer um possa certificar-se das suas habilidades.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fortify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row.names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Atribui um ID para a base sp 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# ultima checagem antes da junção (os nomes das variáveis precisam ser iguais)
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# juntou pela única variável com nome em comum
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para baixar o Git, va em &lt;a href=&quot;https://git-scm.com/downloads&quot;&gt;https://git-scm.com/downloads&lt;/a&gt; e clique na versão para Windows. Isso iniciará o download de um executável. Quando o download terminar, clique no executável para iniciar a instalação. Aceite todas as configurações padrão, &lt;strong&gt;exceto&lt;/strong&gt; a Configuração de Final de Linha. Nesse caso, mude para &lt;code class=&quot;highlighter-rouge&quot;&gt;Checkout as-is, commit Unix-style line endings&lt;/code&gt;. Isso facilitará muito no momento que você estiver contribuindo com outros projetos via GitHub.&lt;/p&gt;
+
+&lt;p&gt;Recomendo fortemente que você faça &lt;a href=&quot;https://br.udacity.com/course/how-to-use-git-and-github--ud775/&quot;&gt;este pequeno curso online&lt;/a&gt; (e gratuito) sobre como usar controle de versões, Git e GitHub. Não deve te tomar muito tempo.&lt;/p&gt;
+
+&lt;h2 id=&quot;testando-&quot;&gt;Testando &lt;a name=&quot;test&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Vamos fazer um último teste para ver se tudo está funcionando. Abra a linha de comando do Git e digite&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/matheusfacure/DeepArt.git
+&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;p&gt;Isso baixará um repositório meu com uma implementação do &lt;a href=&quot;https://en.wikipedia.org/wiki/DeepDream&quot;&gt;algoritmo de DeepDream&lt;/a&gt;. Por padrão, o a linha de comando do Git também abre no &lt;code class=&quot;highlighter-rouge&quot;&gt;HOME&lt;/code&gt;. Se não for o caso, navega até o Home com &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; e então clone o repositório com o comando acima. Voltando à linha de comando do Windows, você deve estar no Home também. Digite &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; para ver a pasta &lt;code class=&quot;highlighter-rouge&quot;&gt;DeepArt&lt;/code&gt; que baixamos com o Git.&lt;/p&gt;
 
-&lt;p&gt;Now the lnd_f object can be used to create a map with ggplot:&lt;/p&gt;
+&lt;p&gt;Na linha de comando do Windows, digite agora &lt;code class=&quot;highlighter-rouge&quot;&gt;cd DeepArt/&lt;/code&gt; para entrar no diretório baixado. Por fim, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;python deep_dream.py&lt;/code&gt; para executar o programa que fiz. Isso baixará uma rede neural (pode levar alguns minutos) e a utilizará para realizar o algoritmo de DeepDream. Usando o navegador padrão do seu sistema operacional (clicando com o mouse). Vá até o diretório (ou pasta) de DeepArt que acabamos de baixar e veja a imagem criada pelo algoritmo de DeepDream. Caso não saiba onde está essa pasta, na linha de comando do Git, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt; (print working directory) para mostrar o endereço da pasta.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Partic_Per&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_polygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coord_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Easting (m)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Northing (m)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;% Sports\nParticipation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggtitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;London Sports Participation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## trocando as cores
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale_fill_gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;low&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;red&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;high&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;green&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## salvando o grafico com ggsave
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggsave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Sport Participation - London.jpg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;h2 id=&quot;considerações-finais-&quot;&gt;Considerações Finais &lt;a name=&quot;fim&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/geospace/img_ggplot2.jpg&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;interactive-maps-with-leaflet&quot;&gt;&lt;strong&gt;Interactive maps with leaflet&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;The leaflet package allows the creation of interactive maps and acts together with the shiny package, making the online visualization possible. The lnd object is with a Coordinate Reference System (CRS) that is not compatible with the leaflet. The display will be possible after the CRS of the lnd object is changed to the EPSG: 4326, which has been the most used one:&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leaflet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd84&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spTransform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;+init=epsg:4326&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#reprojeta
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leaflet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addTiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addPolygons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lnd84&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/fdb08a2c254288844c6ae4673e4e6e0b/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/london_map.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;This map differs from the others because it allows a similar expirience to the use of googlemaps in the browser.&lt;/p&gt;
-
-&lt;p&gt;Next we have another example of visualization in the leaflet, but now we will use the shapefile of the Federal District, available on the IBGE website. After you download the file and sabe it to your current Working Directory, the first step is to assign the file to a new object, here called &lt;em&gt;df_shp&lt;/em&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_shp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readOGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dsn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;df_setores_censitarios&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;53SEE250GC_SIR&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Criação do mapa com leaflet
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_shp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proj4string&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;+init=epsg:4326&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# reprojeta
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_leaf&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leaflet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_shp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addTiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addPolygons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stroke&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#03F&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addLegend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bottomright&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#03F&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Distrito Federal&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_leaf&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The code above follows the same reasoning of the created for the map of London, but with some more configurations. The .shp file was inserted directly into the leaflet function and the addPolygons function included the fill, weight, stroke and color arguments, which respectively represent whether the interior of the polygons should receive some color, the thickness of the contour line, if the lines of the Polygons should be colored and which color should be chosen. The addLegend function creates a legend for the map. For more details on functions, simply run the following command:?Function-name.&lt;/p&gt;
-
-&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/9f68419b0b05e32b8741861e80c7df02/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;p&gt;Eu testei a execução dos passos desse tutorial algumas vezes e tudo ocorreu sem problemas. No entanto, é possível que alguém encontre alguma dificuldade ou erro no meio do caminho. Se for o caso, por favor comente a sua dificuldade ou erro neste post. Além disso, qualquer sugestão é bem vinda e estarei sempre atualizando este tutorial, tanto para abarcar a resolução dos erros frequentemente encontrados quanto para torná-lo mais compreensível.&lt;/p&gt;
 </content>
 		</entry>
 	
@@ -287,7 +836,7 @@ Inicialmente, é preciso instalar os seguintes pacotes no R:
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/fdb08a2c254288844c6ae4673e4e6e0b/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/london_map.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/ef9dc7c8ca1d4a9c19a697df2c72d1e1/raw/a92f7fdf0ec510d30504c934b3dcecbe8ab67fd3/London_map.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Esse mapa se diferencia dos outros por permitir uma interatividade semelhante à que se tem com a utilização do googlemaps no navegador.&lt;/p&gt;
 
@@ -309,7 +858,7 @@ Inicialmente, é preciso instalar os seguintes pacotes no R:
 
 &lt;p&gt;O código acima segue o mesmo raciocínio do criado para o mapa de Londres, porém com algumas configurações a mais. O arquivo .shp foi inserido diretamente na função leaflet e na função addPolygons foram incluídos os argumentos fill, weight, stroke e color, que representam respectivamente se o interior dos polígonos devem receber alguma cor, a espessura da linha de contorno, se as linhas dos polígonos devem ser coloridas e qual a cor escolhida. A função addLegend cria uma legenda para o mapa. Para mais detalhes sobre funções, basta rodar o seguinte comando: ?nomedafunção.&lt;/p&gt;
 
-&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/9f68419b0b05e32b8741861e80c7df02/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;iframe title=&quot;London Map&quot; width=&quot;700&quot; height=&quot;400&quot; src=&quot;https://cdn.rawgit.com/jadermcs/8d0d9264f8b9845773f69758bcfd0974/raw/b1d9d0394fdd4f724dbc591a14dfa0537baca45e/df_map.html&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 </content>
 		</entry>
 	
@@ -598,49 +1147,6 @@ Aqui, nós estendemos a distribuição gaussiana para o seu caso multivariado, p
 &lt;p&gt;Note que não há limites para a criatividade do pesquisador, e teoricamente poderíamos colocar um número gigantesco de variáveis. Mas à medida que variáveis com menor relevância vão sendo inseridas, chega um momento em que a “variância” introduzida pela nova variável não compensa o &lt;strong&gt;poder explicativo&lt;/strong&gt; que ela agrega ao modelo.&lt;/p&gt;
 
 &lt;p&gt;Saber encontrar o meio-termo ideal entre viés e variância não é uma tarefa fácil, há diversas técnicas para nos ajudar com isso, tais como validação cruzada e redução de dimensionalidade, podemos abordar esses tópicos em posts futuros.&lt;/p&gt;
-</content>
-		</entry>
-	
-		<entry>
-			<title>A Casual Look at the Bias-Variance Dilemma</title>
-			<link href="http://lamfo-unb.github.io/2017/04/29/A-Casual-Look-at-the-Bias-Variance-Dilemma/"/>
-			<updated>2017-04-29T20:59:07-03:00</updated>
-			<id>http://lamfo-unb.github.io/2017/04/29/A-Casual-Look-at-the-Bias-Variance-Dilemma</id>
-			<content type="html">&lt;h1 id=&quot;a-casual-look-at-the-bias-variance-dilemma&quot;&gt;A Casual Look at the Bias-Variance Dilemma&lt;/h1&gt;
-
-&lt;p&gt;Making predictions is one of the main ambitions of the human race. One may have the motivation to forecast almost anything from a sports event to the stock price or his girlfriend’s mood… But the future is a random variable – no one really knows how it’s gonna be, so any prediction is in essence a “guess”. Well, how to guess then? You can simply toss a coin, this is quite convenient, but it certainly does not give the best guess possible. This is where statistics comes to stage, as I define briefly that knowledge field as “the science of guessing”.&lt;/p&gt;
-
-&lt;p&gt;While the future is an inherent mystery, the past is an environment where uncertainty doesn’t exist anymore, so it’s only natural and reasonable trying to predict the future based on what has already happened. Roughly, based on elements (a list of &lt;span&gt;&lt;script type=&quot;math/tex&quot;&gt;x_1,x_2,...,x_k&lt;/script&gt;&lt;/span&gt; independent variables) that may have influence on the variable to be predicted (a dependent variable &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt;), the goal is to try and guess future values of &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt; by collecting new values of the &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt;’s (in machine learning, the jargon for this is “supervised learning”). That is, statistics seek to provide the best guess, conditioned to the available information.&lt;/p&gt;
-
-&lt;p&gt;Think intuitively: even though the future may bring in stuff completely different from anything seen in the past, it’s reasonable to assume that both future and past share certain &lt;strong&gt;patterns&lt;/strong&gt;, connections that make those two temporal instances a manifestation of the same phenomenon. To get good guesses, a very important concept is called &lt;strong&gt;bias-variance dilemma&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;what-does-it-mean-exactly&quot;&gt;What does it mean exactly?&lt;/h4&gt;
-
-&lt;p&gt;Let’s first discuss “bias”. It’s easy to imagine that in order to accurately predict the future, one must first understand the past well. A predictor that fails to map clearly the characteristics of clearly observed data tends not perform badly for the future. What we call “bias” are the deviations between the observed in the past and the predicted by the proposed model – in short, how well the model is &lt;strong&gt;describing&lt;/strong&gt; the observed data.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/chunk-8.png&quot; alt=&quot;alt text&quot; title=&quot;Distribution&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It is natural to think that the better the model describes the sample data, the better it is. But this is not true, since the primary purpose is &lt;strong&gt;not&lt;/strong&gt; to describe the data, but rather to use those to make predictions (or &lt;strong&gt;inferences&lt;/strong&gt;) about the future. This brings us to the “variance” side:&lt;/p&gt;
-
-&lt;p&gt;Our goal here is to be able to predict the variable of interest &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt; based on &lt;strong&gt;some&lt;/strong&gt; elements of the whole population, so we have a major problem from the start, for what we actually see in the sample is only part of the whole phenomenon; so if we simply stick onto describing the already available data, we essencially &lt;strong&gt;hoping that the same pattern will repeat in the future&lt;/strong&gt;, which clearly doesn’t always happens. To be able to &lt;strong&gt;generalize&lt;/strong&gt; what has been observed for future samples – that is, to anticipate something that has not yet happened – one must calibrate the model for it to capture only the “essential” information that actually contributes to a good prediction, instead of fully capturing the patterns of that particular sample, because in doing so, useless information (“&lt;strong&gt;noise&lt;/strong&gt;”) is incorporated at the same time. Basically, by forcing a very accurate description of the sample data, we end up losing in generalization ability, since, in general, the future is &lt;strong&gt;not&lt;/strong&gt; a mere extension of the past.&lt;/p&gt;
-
-&lt;p&gt;Models that describe the data of a sample excessively well tend to introduce a lot of complexity and volatility, thus hindering the generalization ability. In the philosophy of science there is a principle called &lt;strong&gt;Occam’s razor&lt;/strong&gt; (the statisticians know it as the “principle of parsimony”, popular culture has adopted a rather pushy mnemonic:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;em&gt;“KISS – &lt;strong&gt;keep it simple, stupid&lt;/strong&gt;“&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Basically, it means that between models with the same explanatory power, the simplest of them is the best, because it presents the same quality with a lower cost.&lt;/p&gt;
-
-&lt;p&gt;By now, you should have realized that we indeed face a dilemma, as the ideal scenario demands two desirable but contradictory features: we want a model that describes well the available data &lt;strong&gt;AND&lt;/strong&gt; is capable of generalizing for future data. If we fit a model that misrepresents past data (“under-fitting”), the model is kinda unreliable from the start. On the other hand, an over-adjustment (“over-fitting”) ends up assuming that the future will repeat the past, so the model tends to provide a poor prediction even for observations that follow just slightly different trends than the one showed in past data.&lt;/p&gt;
-
-&lt;p&gt;The bias-variance dilemma is very important in the mathematical modelling: the quality of a model depends directly on the variables considered, and the optimal middle ground between incorporating useful variables and discarding useless variables can be quite a challenge. Let’s look at a simple example: Suppose that we want to construct a model to predict a company’s stock price. Is to be expected that the economic performance of that company influences decisively on the stock price, so we can put as variables some indicators like index of profitability and liquidity, the company’s market share, number of subsidiaries, and so on.&lt;/p&gt;
-
-&lt;p&gt;For instance, we could put “CEO’s scholarity” as an explanatory variable; It is to be expected that a manager with a more robust academic background can increase the value of the company, but the relationship doesn’t seem that straightforward… We could insert as a variable whether the CEO is right-handed, left-handed or ambidextrous, but this information tends not to influence the predicted variable at all, and the introduction of this variable would end up polluting the model with an &lt;strong&gt;unnecessary complexity&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that there’re no limits to the researcher’s creativity, and theoretically we could put a gigantic number of variables. But as less relevant variables are inserted, there comes a time when the “variance” introduced by the new variable does not compensate for the &lt;strong&gt;explanatory power&lt;/strong&gt; that it adds to the model.&lt;/p&gt;
-
-&lt;p&gt;Knowing how to find the ideal middle ground between bias and variance is not an easy task, there are several techniques to aid us with this, such as cross-validation and dimensionality reduction, we can address these topics in future posts.&lt;/p&gt;
 </content>
 		</entry>
 	
