@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Modelo Tweedie Poisson Compound para dados de sinistros de veículos
-date: 2017-06-05 16:24:52
+date: 2017-07-05 16:24:52
 tags: [Tweedie Poisson Compound]
 header-img: img/0021.png
 author: Cayan Portela
