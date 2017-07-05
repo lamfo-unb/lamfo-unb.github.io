@@ -194,7 +194,7 @@ Bootstrap!! <img class="emoji" title=":tada:" alt=":tada:" src="https://assets-c
 <p>Pense no caso de uma amostra aleatória de tamanho <em>n</em> , a partir de uma função de distribuição de probabilidade <em>F</em> indefinida:
 <script type="math/tex">X_i=x_i,     X_i</script> <script type="math/tex">\sim</script> <script type="math/tex">F_{ind}</script>, <script type="math/tex">i=1,2,...,n</script>.</p>
 
-<p>Sejam <script type="math/tex">X= (X_1,X_2,...X_n)</script> e <script type="math/tex">x=(x_1,x_2,...,x_n)</script> as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum <em>F</em>. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho <em>n</em>. Denotamos essa estimativa local como $\widehatθ$. Note que <script type="math/tex">\widehatθ</script> é uma função das variáveis aleatórias <script type="math/tex">(X_1,X_2,...X_n)</script> e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por <em>n</em> e <em>F</em>.</p>
+<p>Sejam <script type="math/tex">X= (X_1,X_2,...X_n)</script> e <script type="math/tex">x=(x_1,x_2,...,x_n)</script> as variáveis aleatórias e as observações das variáveis aleatórias independentes, com função de distribuição comum <em>F</em>. Vamos investigar a variabilidade e a distribuição amostral do cálculo da estimativa local a partir da amostra de tamanho <em>n</em>. Denotamos essa estimativa local como <script type="math/tex">\widehatθ</script>. Note que <script type="math/tex">\widehatθ</script> é uma função das variáveis aleatórias <script type="math/tex">(X_1,X_2,...X_n)</script> e, por isso, possui uma distribuição de probabilidade, sua distribuição amostral, que é determinada por <em>n</em> e <em>F</em>.</p>
 
 <p>Com base em Efron and Tibshirani (1993), os passos básicos para criação do Bootstrap são:</p>
 
@@ -210,7 +210,7 @@ Bootstrap!! <img class="emoji" title=":tada:" alt=":tada:" src="https://assets-c
 <p>Calcule para essa reamostragem a estatística de interesse <script type="math/tex">T_n</script>, gerando <script type="math/tex">T_n^*</script>.</p>
 
 <h4 id="passo-4">Passo 4:</h4>
-<p>Repita os passos 2 e 3 <em>B</em> vezes. Para criar <em>B</em> reamostras, <em>B</em> deve ser um valor grande. O tamanho de <em>B</em> depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de $T_n$ é necessária, sugere-se que <em>B</em> seja ao menos igual à 1000.</p>
+<p>Repita os passos 2 e 3 <em>B</em> vezes. Para criar <em>B</em> reamostras, <em>B</em> deve ser um valor grande. O tamanho de <em>B</em> depende de testes a serem realizados com os dados. Quando uma estimativa com intervalo de confiança de <script type="math/tex">T_n</script> é necessária, sugere-se que <em>B</em> seja ao menos igual à 1000.</p>
 
 <h4 id="passo-5">Passo 5:</h4>
 <p>Construa a partir do valor <em>B</em> de <script type="math/tex">T_n</script> a frequência relativa do histograma, atribuindo probabilidade de <script type="math/tex">1/B</script> à cada ponto <script type="math/tex">T_n^1</script>, <script type="math/tex">T_n^2</script>,…, <script type="math/tex">T_n^B</script>.</p>
@@ -286,6 +286,10 @@ Bootstrap!! <img class="emoji" title=":tada:" alt=":tada:" src="https://assets-c
                         <a href="/2017/06/28/Bootstrap-en/" data-toggle="tooltip" data-placement="top" title="Bootstrap">← Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2017/07/05/Modelo-Tweedie-Poisson/" data-toggle="tooltip" data-placement="top" title="Modelo Tweedie Poisson Compound para dados de sinistros de veículos">Next Post →</a>
+                    </li>
                     
                 </ul>
 

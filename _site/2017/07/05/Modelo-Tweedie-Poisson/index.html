@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Modelo Tweedie Poisson Compound para dados de sinistros de veículos - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/07/05/Modelo-Tweedie-Poisson/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/0021.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Modelo Tweedie Poisson Compound para dados de sinistros de veículos</h1>
+                    
+                    <span class="meta">Posted by Cayan Portela on July 5, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos">Modelo Tweedie Poisson Compound para dados de sinistros de veículos</h1>
+
+<p>Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos.</p>
+
+<p>Para as seguradoras, a análise do nível de risco é extremamente importante para se estabelecer preço, tarifas e até o planejamento da empresa, como projeção de receitas e despesas. Desta forma, é essencial que as seguradoras possuam um modelo que apresente quais fatores influenciam o nível de diferentes riscos, como por exemplo, se uma certo tipo de automóvel tende a gerar mais custos de pagamento do que outros, etc.</p>
+
+<p>Ainda utilizando o exemplo dos tipos de carro. Cada tipo de carro apresenta um preço de seguro diferente, isso se deve porque cada tipo de carro é classificado em uma determinada categoria de acordo com seu nível de risco. O nível de risco é definido por um conjunto de fatores, que podem apresentar ou não apresentar diferenças entre si. Logo, carros que apresentem fatores de risco similares, terão um preço igual ou muito próximo, enquanto que carros que possuem fatores de risco mais destoantes entre si terão um preços divergentes.</p>
+
+<p>Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para cálculo do risco; (2) aplicabilidade, utilizando uma base real.</p>
+
+<p>## Modelagem</p>
+
+<p>Para problemas com este tipo interesse (influência de fatores), uma das técnicas mais clássicas é a regressão linear, onde se pode ajustar um modelo para verificar a influência de certas covariáveis (variáveis explicativas) em uma variável de interesse. Entretanto, a regressão linear possui vários pressupostos que frequentemente não são satisfeitos, restringindo sua aplicabilidade. Alguns desses pressupostos são erros independentes e identicamente distribuídos, centrados em zero com distribuição normal, homogeneidade de variância, variáveis explicativas não correlacionadas, entre outros.</p>
+
+<p>Nelder e Wedderburn (1972) propuseram uma classe de modelos de regressão mais flexível, os modelos lineares generalizados. Esta nova classe abrange as distribuições pertencentes à família exponencial (Normal, Gamma, Poisson, Binomial, Normal-Inversa), aumentando a quantidade de problema a serem abordados.  Uma distribuição que pertença à família exponencial pode ser representada da seguinte forma:</p>
+
+<p><script type="math/tex">f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},</script>
+em que <script type="math/tex">\theta_i</script> é o parâmetro canônico; $b(\cdot)$ e $c(\cdot)$ são funções conhecidas. 
+Assim, denota-se $Y_i \sim \mbox{FE}(\mu_i , \phi)$. A média e variância de <script type="math/tex">Y_i</script> são dadas, respectivamente, por: <script type="math/tex">E(Y_i) = b'(\theta_i) = {\mu_i}</script> <script type="math/tex">Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),</script>
+em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script type="math/tex">\mu_i</script>.</p>
+
+<p>Outra classe de modelos importante é a classe dos modelos de dispersão, que inclui distribuições para dados positivos, positivos com massa de probabilidade em zero, contagem e dados na reta real e podem ser classificados como:</p>
+<ul>
+  <li>Modelos de dispersão próprio;</li>
+  <li>Modelos de dispersão exponencial;</li>
+</ul>
+
+<p>Aqui, focaremos no segundo caso.</p>
+
+<p>Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
+<script type="math/tex">f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R</script></p>
+
+<p>com parâmetro canônico $\theta_i$, função adequada $a(\cdot)$ e $k(\theta_i)$ função definida como
+<script type="math/tex">k(\theta) = log  \int  e^{\theta y} \nu dy</script></p>
+
+<p>em que <script type="math/tex">\nu</script> é uma medida finita em <script type="math/tex">R</script>.</p>
+
+<p>Por definição, temos que:</p>
+<ul>
+  <li><script type="math/tex">\mu_i</script> = <script type="math/tex">E(Y_i)</script> = <script type="math/tex">k'(\theta_i)</script></li>
+  <li><script type="math/tex">Var(Y_i)</script> = <script type="math/tex">\frac{1}{\lambda} Var(\mu_i)</script> = <script type="math/tex">\frac{1}{\lambda}k''(\theta_i)</script></li>
+</ul>
+
+<p>Considerando a reparametrização <script type="math/tex">\sigma²</script> = <script type="math/tex">\frac{1}{\lambda}</script>, temos que <script type="math/tex">\sigma²</script> representa o parâmetro de dispersão.</p>
+
+<p>O modelo ED, denotado por $ED(\mu , \sigma²)$, pode ser escrito da seguinte maneira: 
+<script type="math/tex">f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},</script></p>
+
+<p>em que <script type="math/tex">a(\textbf{y};\sigma²) \geq 0</script>, <script type="math/tex">d(\textbf{y};\mu)</script> representa a função deviance, <script type="math/tex">\mu</script> é o parâmetro de locação e <script type="math/tex">\sigma²</script> é o parâmetro de escala (dispersão).</p>
+
+<p>Percebe-se então, a similaridade entre os modelos lineares generalizados e modelos de dispersão exponencial.</p>
+
+<p>Um caso especial dos modelos de dispersão exponencial, são as distribuições Tweedi (Tweedie, 1984). Nessas distribuições, a função de variância definida anteriormente, tem a forma: 
+<script type="math/tex">V(\mu) = \mu^p , \qquad p \notin (0,1)</script></p>
+
+<p>A distribuição Poisson Compound, caracteriza-se no caso <script type="math/tex">% <![CDATA[
+1 < p < 2 %]]></script>. Dentre outros casos particulares, observa-se a distribuição Poisson (<script type="math/tex">p = 1</script>) e a distribuição Gamma (<script type="math/tex">p = 2</script>).</p>
+<h3 id="número-de-sinistros-e-pagamento-total">Número de Sinistros e Pagamento Total</h3>
+
+<p>Os dados referem-se ao número de sinistros e total de pagamento (valores monetários) gerados, por grupo. Desta maneira, um grupo corresponde a uma observação no banco de dados.</p>
+
+<p>Dados referentes a pagamentos pelo total de sinistros por grupo, são contínuos (pois a variável valor de pagamento, geralmente está em unidades de moeda nacional) mas possuem uma massa de probabilidade em zero, vinda dos grupos em que não obtiveram nenhum sinistro no período observado.</p>
+
+<p>Esta característica em particular torna inviável o ajuste de distribuições que já pensaríamos em primeira hipótese em se tratando de dados contínuos à direita, como a distribuição gamma e gaussiana-inversa.</p>
+
+<p>Então como modelar?</p>
+
+<p>Segundo Withers e  Nadarajah (2011), a soma de v.a.’s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.’s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:</p>
+
+<p>Seja $T$ o número de sinistros em determinado grupo e $X_i$ o valor de pagamento do i-ésimo sinistro. Definimos <script type="math/tex">Y</script> como
+<script type="math/tex">Y = \sum_{i=1}^{T} X_i</script></p>
+
+<p>Dado que <script type="math/tex">T \sim Poisson(\lambda)</script> e <script type="math/tex">X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)</script>, temos que <script type="math/tex">Y</script> possui distribuição Poisson Compound..</p>
+
+<h3 id="aplicação">Aplicação</h3>
+
+<p>Para realizar uma aplicação real dos modelos apresentados, faremos um exercício utilizando o banco de dados de sinistros de automóveis na Suécia, no ano de 1977, utilizando o ambiente R de computação estatística.</p>
+
+<p>A base de dados pode ser obtida no link a seguir: <a href="http://www.statsci.org/data/general/motorins.html">StatiSci</a>
+A descrição das variáveis está dispnível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).</p>
+
+<p>Inicialmente, vamos ler os dados e transformar a variável ‘Make’ em fator.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tweedie</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">faraway</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">statmod</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dados</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s2">"http://www.statsci.org/data/general/motorins.txt"</span><span class="p">,</span><span class="w"> 
+                    </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dados</span><span class="o">$</span><span class="n">Make</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">Make</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Filtrando os dados, selecionando apenas valores com ‘Zone’ igual a 1 (maiores cidades) e ‘Make’ diferente de 9 (carros mais ‘raros’).</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">dados</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="w"> </span><span class="n">Zone</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Make</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>  Kilometres Zone Bonus Make Insured Claims Payment
+1          1    1     1    1  455.13    108  392491
+2          1    1     1    2   69.17     19   46221
+3          1    1     1    3   72.88     13   15694
+4          1    1     1    4 1292.39    124  422201
+5          1    1     1    5  191.01     40  119373
+6          1    1     1    6  477.66     57  170913
+&gt; 
+</code></pre>
+</div>
+
+<p>A estimação do parâmetro $p$ é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de <script type="math/tex">p</script>, são calculados os parâmetros <script type="math/tex">\mu</script> e <script type="math/tex">\phi</script> e a log-verossimilhança é observada. Escolhe-se então, o valor de <script type="math/tex">p</script> que  levou à maior log-verosimilhança. Desta maneira, o <script type="math/tex">p</script> estimado foi de <script type="math/tex">1,73</script>.</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">perfil</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tweedie.profile</span><span class="p">(</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Make</span><span class="p">,</span><span class="w">
+                           </span><span class="n">p.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> 
+                           </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"interpolation"</span><span class="p">,</span><span class="w">
+                           </span><span class="n">do.plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w">
+                           </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dados</span><span class="p">)</span><span class="w">
+
+</span><span class="n">perfil</span><span class="o">$</span><span class="n">p.max</span><span class="w">
+</span></code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>[1] 1.736735
+</code></pre>
+</div>
+<p>Ajustamos um modelo simples, onde deseja-se verificar se os diferentes grupos de tipos de carro diferem em valor de pagamento, em relação  à classe de referência. No nosso modelo a classe de referência é Make igual a 1.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">modelo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">glm</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Make</span><span class="p">,</span><span class="w"> 
+              </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tweedie</span><span class="p">(</span><span class="n">var.power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">perfil</span><span class="o">$</span><span class="n">p.max</span><span class="p">),</span><span class="w"> 
+              </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dados</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>Verificando os residuos. O modelo não parece estar mal ajustado.</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">qres.tweedie</span><span class="p">(</span><span class="n">modelo</span><span class="p">)</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p><img src="/img/tweeres.png" alt="" /></p>
+
+<p>Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">modelo</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Call</span><span class="o">:</span><span class="w">
+</span><span class="n">glm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Make</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tweedie</span><span class="p">(</span><span class="n">var.power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">perfil</span><span class="o">$</span><span class="n">p.max</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seguros2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Deviance</span><span class="w"> </span><span class="n">Residuals</span><span class="o">:</span><span class="w"> 
+    </span><span class="n">Min</span><span class="w">       </span><span class="m">1</span><span class="n">Q</span><span class="w">   </span><span class="n">Median</span><span class="w">       </span><span class="m">3</span><span class="n">Q</span><span class="w">      </span><span class="n">Max</span><span class="w">  
+</span><span class="m">-12.771</span><span class="w">   </span><span class="m">-6.329</span><span class="w">   </span><span class="m">-2.474</span><span class="w">    </span><span class="m">1.764</span><span class="w">   </span><span class="m">17.402</span><span class="w">  
+
+</span><span class="n">Coefficients</span><span class="o">:</span><span class="w">
+             </span><span class="n">Estimate</span><span class="w"> </span><span class="n">Std.</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">Pr</span><span class="p">(</span><span class="o">&gt;|</span><span class="n">t</span><span class="o">|</span><span class="p">)</span><span class="w">    
+</span><span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w"> </span><span class="m">1.146e-04</span><span class="w">  </span><span class="m">1.511e-05</span><span class="w">   </span><span class="m">7.583</span><span class="w"> </span><span class="m">5.35e-13</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make2</span><span class="w">       </span><span class="m">1.579e-04</span><span class="w">  </span><span class="m">4.512e-05</span><span class="w">   </span><span class="m">3.500</span><span class="w"> </span><span class="m">0.000544</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make3</span><span class="w">       </span><span class="m">2.024e-04</span><span class="w">  </span><span class="m">5.312e-05</span><span class="w">   </span><span class="m">3.810</span><span class="w"> </span><span class="m">0.000172</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make4</span><span class="w">       </span><span class="m">2.467e-04</span><span class="w">  </span><span class="m">6.143e-05</span><span class="w">   </span><span class="m">4.016</span><span class="w"> </span><span class="m">7.65e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make5</span><span class="w">       </span><span class="m">2.288e-04</span><span class="w">  </span><span class="m">5.803e-05</span><span class="w">   </span><span class="m">3.942</span><span class="w"> </span><span class="m">0.000103</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make6</span><span class="w">       </span><span class="m">1.573e-04</span><span class="w">  </span><span class="m">4.501e-05</span><span class="w">   </span><span class="m">3.494</span><span class="w"> </span><span class="m">0.000555</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make7</span><span class="w">       </span><span class="m">3.678e-04</span><span class="w">  </span><span class="m">8.543e-05</span><span class="w">   </span><span class="m">4.305</span><span class="w"> </span><span class="m">2.33e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">Make8</span><span class="w">       </span><span class="m">5.276e-04</span><span class="w">  </span><span class="m">1.193e-04</span><span class="w">   </span><span class="m">4.423</span><span class="w"> </span><span class="m">1.41e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="o">---</span><span class="w">
+</span><span class="n">Signif.</span><span class="w"> </span><span class="n">codes</span><span class="o">:</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="err">‘</span><span class="o">***</span><span class="err">’</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="err">‘</span><span class="o">**</span><span class="err">’</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="err">‘</span><span class="o">*</span><span class="err">’</span><span class="w"> </span><span class="m">0.05</span><span class="w"> </span><span class="err">‘</span><span class="n">.</span><span class="err">’</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="err">‘</span><span class="w"> </span><span class="err">’</span><span class="w"> </span><span class="m">1</span><span class="w">
+
+</span><span class="p">(</span><span class="n">Dispersion</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Tweedie</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="n">taken</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="m">39.68757</span><span class="p">)</span><span class="w">
+
+    </span><span class="n">Null</span><span class="w"> </span><span class="n">deviance</span><span class="o">:</span><span class="w"> </span><span class="m">14409</span><span class="w">  </span><span class="n">on</span><span class="w"> </span><span class="m">279</span><span class="w">  </span><span class="n">degrees</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">freedom</span><span class="w">
+</span><span class="n">Residual</span><span class="w"> </span><span class="n">deviance</span><span class="o">:</span><span class="w"> </span><span class="m">10958</span><span class="w">  </span><span class="n">on</span><span class="w"> </span><span class="m">272</span><span class="w">  </span><span class="n">degrees</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">freedom</span><span class="w">
+</span><span class="n">AIC</span><span class="o">:</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+
+</span><span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Fisher</span><span class="w"> </span><span class="n">Scoring</span><span class="w"> </span><span class="n">iterations</span><span class="o">:</span><span class="w"> </span><span class="m">7</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Observando as médias por grupo, nota-se que o grupo 1 demonstra possuir uma média de pagamentos maior que os demais, de modo que também seria valido observar o número de sinistros para futuras conclusões.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">tapply</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">Payment</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dados</span><span class="o">$</span><span class="n">Make</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+
+        </span><span class="m">1</span><span class="w">         </span><span class="m">2</span><span class="w">         </span><span class="m">3</span><span class="w">         </span><span class="m">4</span><span class="w">         </span><span class="m">5</span><span class="w">         </span><span class="m">6</span><span class="w">         </span><span class="m">7</span><span class="w">         </span><span class="m">8</span><span class="w"> 
+</span><span class="m">295303.29</span><span class="w">  </span><span class="m">88720.63</span><span class="w">  </span><span class="m">71936.57</span><span class="w">  </span><span class="m">59976.89</span><span class="w">  </span><span class="m">64369.14</span><span class="w">  </span><span class="m">89016.20</span><span class="w">  </span><span class="m">40156.29</span><span class="w">  </span><span class="m">26995.97</span><span class="w"> 
+</span></code></pre>
+</div>
+
+<p>Analogamente, modelos podem ser ajustados incluindo as demais covariáveis, dando suporte na tomada de decisões e precificações de seguros, no caso.</p>
+
+<h3 id="referências">Referências.</h3>
+
+<p>Nelder, J. A., and R. W. Wedderburn. “M (1972) Generalized linear models J Rev.” Stat. Soc 135: 370-383.</p>
+
+<p>Tweedie, M. C. K. “An index which distinguishes between some important exponential families.” Statistics: Applications and new directions: Proc. Indian statistical institute golden Jubilee International conference. Vol. 579. 1984.</p>
+
+<p>Withers, Christopher, and Saralees Nadarajah. “On the compound Poisson-gamma distribution.” Kybernetika 47.1 (2011): 15-37.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/06/28/Bootstrap/" data-toggle="tooltip" data-placement="top" title="Bootstrap">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>
