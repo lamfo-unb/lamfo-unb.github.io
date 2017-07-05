@@ -2,12 +2,12 @@
 
  Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos. 
 
-Para as seguradoras, a análise e quantificação dos riscos de sinistros é peça fundamental para o ajuste de modelos de precificação de tarifas. Desta forma, é necessária saber quais fatores apresentam características com riscos diferentes dentre suas classes. Por exemplo, se uma certo tipo de automóvel tende a gerar mais custos de pagamento do que outros, etc. 
+Para as seguradoras, a análise do nível de risco é extremamente importante para se estabelecer preço, tarifas e até o planejamento da empresa, como projeção de receitas e despesas. Desta forma, é essencial que as seguradoras possuam um modelo que apresente quais fatores influenciam o nível de diferentes riscos, como por exemplo, se uma certo tipo de automóvel tende a gerar mais custos de pagamento do que outros, etc. 
 
-Assim, espera-se que fatores em que não apresentam diferenças de risco entre si, não possuam diferença no preço do seguro. Em contra partida, fatores que possuam diferençsa de risco, apresentam diferentes valores de seguros para suas 'classes'.
+Ainda utilizando o exemplo dos tipos de carro. Cada tipo de carro apresenta um preço de seguro diferente, isso se deve porque cada tipo de carro é classificado em uma determinada categoria de acordo com seu nível de risco. O nível de risco é definido por um conjunto de fatores, que podem apresentar ou não apresentar diferenças entre si. Logo, carros que apresentem fatores de risco similares, terão um preço igual ou muito próximo, enquanto que carros que possuem fatores de risco mais destoantes entre si terão um preços divergentes.
 
-Aqui, iremos analisar um banco de dados de sinistros de automovéis na Suécia no ano de 1977 (http://www.statsci.org/data/general/motorins.html).
- 
+Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para cálculo do risco; (2) aplicabilidade, utilizando uma base real.
+
  ## Modelagem
  
  Para problemas com este tipo interesse (influência de fatores), uma das técnicas mais clássicas é a regressão linear, onde se pode ajustar um modelo para verificar a influência de certas covariáveis (variáveis explicativas) em uma variável de interesse. Entretanto, a regressão linear possui vários pressupostos que frequentemente não são satisfeitos, restringindo sua aplicabilidade. Alguns desses pressupostos são erros independentes e identicamente distribuídos, centrados em zero com distribuição normal, homogeneidade de variância, variáveis explicativas não correlacionadas, entre outros.
@@ -72,7 +72,10 @@ Dado que $T \sim Poisson(\lambda)$ e $X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, 
 
 ### Aplicação
 
-Iremos utilizar o banco de dados de sinistros de automovéis na Suécia no ano de 1977, disponível em http://www.statsci.org/data/general/motorins.html. A descrição das variáveis está dispnível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).
+Para realizar uma aplicação real dos modelos apresentados, faremos um exercício utilizando o banco de dados de sinistros de automóveis na Suécia, no ano de 1977, utilizando o ambiente R de computação estatística.
+
+A base de dados pode ser obtida no link a seguir: http://www.statsci.org/data/general/motorins.html
+A descrição das variáveis está dispnível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).
 
 
 Inicialmente, vamos ler os dados e transformar a variável 'Make' em fator.
@@ -85,7 +88,7 @@ library(statmod)
 
 dados <- read.table("http://www.statsci.org/data/general/motorins.txt", 
                     sep = "\t", head = TRUE)
-                    
+
 dados$Make <- as.factor(dados$Make)
 ```
 
