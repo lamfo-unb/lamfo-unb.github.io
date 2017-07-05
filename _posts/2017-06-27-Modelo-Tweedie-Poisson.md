@@ -63,7 +63,7 @@ Esta característica em particular torna inviável o ajuste de distribuições q
 
 Então como modelar?
 
-Segundo Withers e  Nadarajah (http://www.kybernetika.cz/content/2011/1/15/paper.pdf, 2011), a soma de v.a.'s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.'s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:
+Segundo Withers e  Nadarajah (2011), a soma de v.a.'s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.'s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:
 
 Seja $T$ o número de sinistros em determinado grupo e $X_i$ o valor de pagamento do i-ésimo sinistro. Definimos $Y$ como
 $$Y = \sum_{i=1}^{T} X_i$$
@@ -182,3 +182,12 @@ tapply(dados$Payment , dados$Make , mean)
 ```
 
 Analogamente, modelos podem ser ajustados incluindo as demais covariáveis, dando suporte na tomada de decisões e precificações de seguros, no caso.
+
+
+### Referências.
+
+Nelder, J. A., and R. W. Wedderburn. "M (1972) Generalized linear models J Rev." Stat. Soc 135: 370-383.
+
+Tweedie, M. C. K. "An index which distinguishes between some important exponential families." Statistics: Applications and new directions: Proc. Indian statistical institute golden Jubilee International conference. Vol. 579. 1984.
+
+Withers, Christopher, and Saralees Nadarajah. "On the compound Poisson-gamma distribution." Kybernetika 47.1 (2011): 15-37.
