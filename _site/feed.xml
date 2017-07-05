@@ -4,7 +4,7 @@
 	<title>LAMFO's Blog</title>
 	<link href="/blog/atom.xml" rel="self"/>
 	<link href="/blog"/>
-	<updated>2017-07-05T16:41:43-03:00</updated>
+	<updated>2017-07-05T20:09:55-03:00</updated>
 	<id>http://lamfo-unb.github.io/blog</id>
 	<author>
 		<name>LAMFO</name>
@@ -17,7 +17,7 @@
 			<link href="http://lamfo-unb.github.io/2017/07/05/Modelo-Tweedie-Poisson/"/>
 			<updated>2017-07-05T13:24:52-03:00</updated>
 			<id>http://lamfo-unb.github.io/2017/07/05/Modelo-Tweedie-Poisson</id>
-			<content type="html">&lt;h1 id=&quot;modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos&quot;&gt;Modelo Tweedie Poisson Compound para dados de sinistros de veículos&lt;/h1&gt;
+			<content type="html">&lt;h1 id=&quot;modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos&quot;&gt;Modelo Tweedie Poisson Compound para Dados de Sinistros de Veículos&lt;/h1&gt;
 
 &lt;p&gt;Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos.&lt;/p&gt;
 
@@ -27,16 +27,17 @@
 
 &lt;p&gt;Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para cálculo do risco; (2) aplicabilidade, utilizando uma base real.&lt;/p&gt;
 
-&lt;p&gt;## Modelagem&lt;/p&gt;
+&lt;h2 id=&quot;modelagem&quot;&gt;Modelagem&lt;/h2&gt;
 
 &lt;p&gt;Para problemas com este tipo interesse (influência de fatores), uma das técnicas mais clássicas é a regressão linear, onde se pode ajustar um modelo para verificar a influência de certas covariáveis (variáveis explicativas) em uma variável de interesse. Entretanto, a regressão linear possui vários pressupostos que frequentemente não são satisfeitos, restringindo sua aplicabilidade. Alguns desses pressupostos são erros independentes e identicamente distribuídos, centrados em zero com distribuição normal, homogeneidade de variância, variáveis explicativas não correlacionadas, entre outros.&lt;/p&gt;
 
 &lt;p&gt;Nelder e Wedderburn (1972) propuseram uma classe de modelos de regressão mais flexível, os modelos lineares generalizados. Esta nova classe abrange as distribuições pertencentes à família exponencial (Normal, Gamma, Poisson, Binomial, Normal-Inversa), aumentando a quantidade de problema a serem abordados.  Uma distribuição que pertença à família exponencial pode ser representada da seguinte forma:&lt;/p&gt;
 
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},&lt;/script&gt;
-em que &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt; é o parâmetro canônico; $b(\cdot)$ e $c(\cdot)$ são funções conhecidas. 
-Assim, denota-se $Y_i \sim \mbox{FE}(\mu_i , \phi)$. A média e variância de &lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt; são dadas, respectivamente, por: &lt;script type=&quot;math/tex&quot;&gt;E(Y_i) = b'(\theta_i) = {\mu_i}&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),&lt;/script&gt;
-em que $V(\mu_i)$ é a função de variância, que depende unicamente de &lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt;.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},&lt;/script&gt;
+
+&lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt; é o parâmetro canônico; &lt;script type=&quot;math/tex&quot;&gt;b(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;c(\cdot)&lt;/script&gt; são funções conhecidas. 
+Assim, denota-se &lt;script type=&quot;math/tex&quot;&gt;Y_i \sim \mbox{FE}(\mu_i , \phi)&lt;/script&gt;. A média e variância de &lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt; são dadas, respectivamente, por: &lt;script type=&quot;math/tex&quot;&gt;E(Y_i) = b'(\theta_i) = {\mu_i}&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),&lt;/script&gt;
+em que &lt;script type=&quot;math/tex&quot;&gt;V(\mu_i)&lt;/script&gt; é a função de variância, que depende unicamente de &lt;script type=&quot;math/tex&quot;&gt;\mu_i&lt;/script&gt;.&lt;/p&gt;
 
 &lt;p&gt;Outra classe de modelos importante é a classe dos modelos de dispersão, que inclui distribuições para dados positivos, positivos com massa de probabilidade em zero, contagem e dados na reta real e podem ser classificados como:&lt;/p&gt;
 &lt;ul&gt;
@@ -49,7 +50,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de &lt;scr
 &lt;p&gt;Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
 &lt;script type=&quot;math/tex&quot;&gt;f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R&lt;/script&gt;&lt;/p&gt;
 
-&lt;p&gt;com parâmetro canônico $\theta_i$, função adequada $a(\cdot)$ e $k(\theta_i)$ função definida como
+&lt;p&gt;com parâmetro canônico &lt;script type=&quot;math/tex&quot;&gt;\theta_i&lt;/script&gt;, função adequada &lt;script type=&quot;math/tex&quot;&gt;a(\cdot)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;k(\theta_i)&lt;/script&gt; função definida como
 &lt;script type=&quot;math/tex&quot;&gt;k(\theta) = log  \int  e^{\theta y} \nu dy&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;\nu&lt;/script&gt; é uma medida finita em &lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt;.&lt;/p&gt;
@@ -62,7 +63,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de &lt;scr
 
 &lt;p&gt;Considerando a reparametrização &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; = &lt;script type=&quot;math/tex&quot;&gt;\frac{1}{\lambda}&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; representa o parâmetro de dispersão.&lt;/p&gt;
 
-&lt;p&gt;O modelo ED, denotado por $ED(\mu , \sigma²)$, pode ser escrito da seguinte maneira: 
+&lt;p&gt;O modelo ED, denotado por &lt;script type=&quot;math/tex&quot;&gt;ED(\mu , \sigma²)&lt;/script&gt;, pode ser escrito da seguinte maneira: 
 &lt;script type=&quot;math/tex&quot;&gt;f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;em que &lt;script type=&quot;math/tex&quot;&gt;a(\textbf{y};\sigma²) \geq 0&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;d(\textbf{y};\mu)&lt;/script&gt; representa a função deviance, &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; é o parâmetro de locação e &lt;script type=&quot;math/tex&quot;&gt;\sigma²&lt;/script&gt; é o parâmetro de escala (dispersão).&lt;/p&gt;
@@ -86,7 +87,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de &lt;scr
 
 &lt;p&gt;Segundo Withers e  Nadarajah (2011), a soma de v.a.’s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.’s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:&lt;/p&gt;
 
-&lt;p&gt;Seja $T$ o número de sinistros em determinado grupo e $X_i$ o valor de pagamento do i-ésimo sinistro. Definimos &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; como
+&lt;p&gt;Seja &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; o número de sinistros em determinado grupo e &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; o valor de pagamento do i-ésimo sinistro. Definimos &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; como
 &lt;script type=&quot;math/tex&quot;&gt;Y = \sum_{i=1}^{T} X_i&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;Dado que &lt;script type=&quot;math/tex&quot;&gt;T \sim Poisson(\lambda)&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)&lt;/script&gt;, temos que &lt;script type=&quot;math/tex&quot;&gt;Y&lt;/script&gt; possui distribuição Poisson Compound..&lt;/p&gt;
@@ -95,8 +96,8 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de &lt;scr
 
 &lt;p&gt;Para realizar uma aplicação real dos modelos apresentados, faremos um exercício utilizando o banco de dados de sinistros de automóveis na Suécia, no ano de 1977, utilizando o ambiente R de computação estatística.&lt;/p&gt;
 
-&lt;p&gt;A base de dados pode ser obtida no link a seguir: &lt;a href=&quot;http://www.statsci.org/data/general/motorins.html&quot;&gt;StatiSci&lt;/a&gt;
-A descrição das variáveis está dispnível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).&lt;/p&gt;
+&lt;p&gt;A base de dados pode ser obtida no link a seguir: &lt;a href=&quot;http://www.statsci.org/data/general/motorins.html&quot;&gt;StatiSci&lt;/a&gt;.
+A descrição das variáveis está disponível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).&lt;/p&gt;
 
 &lt;p&gt;Inicialmente, vamos ler os dados e transformar a variável ‘Make’ em fator.&lt;/p&gt;
 
@@ -130,7 +131,7 @@ A descrição das variáveis está dispnível no link, mas aqui utilizaremos ape
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;A estimação do parâmetro $p$ é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt;, são calculados os parâmetros &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; e a log-verossimilhança é observada. Escolhe-se então, o valor de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; que  levou à maior log-verosimilhança. Desta maneira, o &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; estimado foi de &lt;script type=&quot;math/tex&quot;&gt;1,73&lt;/script&gt;.&lt;/p&gt;
+&lt;p&gt;A estimação do parâmetro &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt;, são calculados os parâmetros &lt;script type=&quot;math/tex&quot;&gt;\mu&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; e a log-verossimilhança é observada. Escolhe-se então, o valor de &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; que  levou à maior log-verosimilhança. Desta maneira, o &lt;script type=&quot;math/tex&quot;&gt;p&lt;/script&gt; estimado foi de &lt;script type=&quot;math/tex&quot;&gt;1,73&lt;/script&gt;.&lt;/p&gt;
 &lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;perfil&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tweedie.profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Payment&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
                            &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p.vec&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
                            &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;interpolation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -159,46 +160,46 @@ A descrição das variáveis está dispnível no link, mas aqui utilizaremos ape
 
 &lt;p&gt;Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modelo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;summary(modelo)
 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Call&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formula&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Payment&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;family&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tweedie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var.power&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perfil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p.max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seguros2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+Call:
+glm(formula = Payment ~ Make, family = tweedie(var.power = perfil$p.max), 
+    data = seguros2)
 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Deviance&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Residuals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Q&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Median&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Q&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-12.771&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-6.329&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-2.474&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.764&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;17.402&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-12.771   -6.329   -2.474    1.764   17.402  
 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Coefficients&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-             &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Estimate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Std.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Intercept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.146e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.511e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7.583&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5.35e-13&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.579e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.512e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3.500&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.000544&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2.024e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5.312e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3.810&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.000172&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2.467e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6.143e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.016&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7.65e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2.288e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5.803e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3.942&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.000103&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make6&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.573e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.501e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3.494&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.000555&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3.678e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8.543e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.305&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2.33e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make8&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5.276e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.193e-04&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.423&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.41e-05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Signif.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;codes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+Coefficients:
+             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+(Intercept) 1.146e-04  1.511e-05   7.583 5.35e-13 ***
+Make2       1.579e-04  4.512e-05   3.500 0.000544 ***
+Make3       2.024e-04  5.312e-05   3.810 0.000172 ***
+Make4       2.467e-04  6.143e-05   4.016 7.65e-05 ***
+Make5       2.288e-04  5.803e-05   3.942 0.000103 ***
+Make6       1.573e-04  4.501e-05   3.494 0.000555 ***
+Make7       3.678e-04  8.543e-05   4.305 2.33e-05 ***
+Make8       5.276e-04  1.193e-04   4.423 1.41e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dispersion&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tweedie&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;family&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;taken&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;39.68757&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+(Dispersion parameter for Tweedie family taken to be 39.68757)
 
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14409&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;279&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;degrees&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;freedom&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Residual&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10958&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;272&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;degrees&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;freedom&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AIC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    Null deviance: 14409  on 279  degrees of freedom
+Residual deviance: 10958  on 272  degrees of freedom
+AIC: NA
 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fisher&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scoring&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iterations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+Number of Fisher Scoring iterations: 7
+&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Observando as médias por grupo, nota-se que o grupo 1 demonstra possuir uma média de pagamentos maior que os demais, de modo que também seria valido observar o número de sinistros para futuras conclusões.&lt;/p&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Payment&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dados&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;tapply(dados$Payment , dados$Make , mean)
 
-        &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;295303.29&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;88720.63&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;71936.57&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;59976.89&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64369.14&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;89016.20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;40156.29&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;26995.97&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+        1         2         3         4         5         6         7         8 
+295303.29  88720.63  71936.57  59976.89  64369.14  89016.20  40156.29  26995.97 
+&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Analogamente, modelos podem ser ajustados incluindo as demais covariáveis, dando suporte na tomada de decisões e precificações de seguros, no caso.&lt;/p&gt;

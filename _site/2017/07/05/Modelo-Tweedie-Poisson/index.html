@@ -124,7 +124,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<h1 id="modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos">Modelo Tweedie Poisson Compound para dados de sinistros de veículos</h1>
+				<h1 id="modelo-tweedie-poisson-compound-para-dados-de-sinistros-de-veículos">Modelo Tweedie Poisson Compound para Dados de Sinistros de Veículos</h1>
 
 <p>Situações onde se deseja verificar/quantificar a influência de certos fatores em uma variável de interesse são comuns em problemas estatísticos.</p>
 
@@ -134,16 +134,17 @@
 
 <p>Dividiremos o post nas seguintes etapas: (1) explicaremos os modelos usados para cálculo do risco; (2) aplicabilidade, utilizando uma base real.</p>
 
-<p>## Modelagem</p>
+<h2 id="modelagem">Modelagem</h2>
 
 <p>Para problemas com este tipo interesse (influência de fatores), uma das técnicas mais clássicas é a regressão linear, onde se pode ajustar um modelo para verificar a influência de certas covariáveis (variáveis explicativas) em uma variável de interesse. Entretanto, a regressão linear possui vários pressupostos que frequentemente não são satisfeitos, restringindo sua aplicabilidade. Alguns desses pressupostos são erros independentes e identicamente distribuídos, centrados em zero com distribuição normal, homogeneidade de variância, variáveis explicativas não correlacionadas, entre outros.</p>
 
 <p>Nelder e Wedderburn (1972) propuseram uma classe de modelos de regressão mais flexível, os modelos lineares generalizados. Esta nova classe abrange as distribuições pertencentes à família exponencial (Normal, Gamma, Poisson, Binomial, Normal-Inversa), aumentando a quantidade de problema a serem abordados.  Uma distribuição que pertença à família exponencial pode ser representada da seguinte forma:</p>
 
-<p><script type="math/tex">f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},</script>
-em que <script type="math/tex">\theta_i</script> é o parâmetro canônico; $b(\cdot)$ e $c(\cdot)$ são funções conhecidas. 
-Assim, denota-se $Y_i \sim \mbox{FE}(\mu_i , \phi)$. A média e variância de <script type="math/tex">Y_i</script> são dadas, respectivamente, por: <script type="math/tex">E(Y_i) = b'(\theta_i) = {\mu_i}</script> <script type="math/tex">Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),</script>
-em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script type="math/tex">\mu_i</script>.</p>
+<script type="math/tex; mode=display">f(y_i;\theta_i,\phi) = \mbox{exp}\left\{\phi^{-1} [y_i \theta_i - b(\theta_i)] + c(y_i,\phi)\right\},</script>
+
+<p>em que <script type="math/tex">\theta_i</script> é o parâmetro canônico; <script type="math/tex">b(\cdot)</script> e <script type="math/tex">c(\cdot)</script> são funções conhecidas. 
+Assim, denota-se <script type="math/tex">Y_i \sim \mbox{FE}(\mu_i , \phi)</script>. A média e variância de <script type="math/tex">Y_i</script> são dadas, respectivamente, por: <script type="math/tex">E(Y_i) = b'(\theta_i) = {\mu_i}</script> <script type="math/tex">Var(Y_i) = \phi b''(\theta_i) = \phi V(\mu_i),</script>
+em que <script type="math/tex">V(\mu_i)</script> é a função de variância, que depende unicamente de <script type="math/tex">\mu_i</script>.</p>
 
 <p>Outra classe de modelos importante é a classe dos modelos de dispersão, que inclui distribuições para dados positivos, positivos com massa de probabilidade em zero, contagem e dados na reta real e podem ser classificados como:</p>
 <ul>
@@ -156,7 +157,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script
 <p>Modelos de Dispersão Exponencial (ED) têm função densidade de probabilidade dada por:
 <script type="math/tex">f(y_i;\theta_i,\lambda) = a(y_i,\lambda) \mbox{exp}\left\{\lambda [y_i \theta_i - k(\theta_i)]\right\}, \qquad y_i   \in R</script></p>
 
-<p>com parâmetro canônico $\theta_i$, função adequada $a(\cdot)$ e $k(\theta_i)$ função definida como
+<p>com parâmetro canônico <script type="math/tex">\theta_i</script>, função adequada <script type="math/tex">a(\cdot)</script> e <script type="math/tex">k(\theta_i)</script> função definida como
 <script type="math/tex">k(\theta) = log  \int  e^{\theta y} \nu dy</script></p>
 
 <p>em que <script type="math/tex">\nu</script> é uma medida finita em <script type="math/tex">R</script>.</p>
@@ -169,7 +170,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script
 
 <p>Considerando a reparametrização <script type="math/tex">\sigma²</script> = <script type="math/tex">\frac{1}{\lambda}</script>, temos que <script type="math/tex">\sigma²</script> representa o parâmetro de dispersão.</p>
 
-<p>O modelo ED, denotado por $ED(\mu , \sigma²)$, pode ser escrito da seguinte maneira: 
+<p>O modelo ED, denotado por <script type="math/tex">ED(\mu , \sigma²)</script>, pode ser escrito da seguinte maneira: 
 <script type="math/tex">f(\textbf{y};\mu,\sigma²) = a(\textbf{y},\sigma²)    \mbox{exp}\left\{-\frac{1}{2\sigma²} d(\textbf{y};\mu)\right\},</script></p>
 
 <p>em que <script type="math/tex">a(\textbf{y};\sigma²) \geq 0</script>, <script type="math/tex">d(\textbf{y};\mu)</script> representa a função deviance, <script type="math/tex">\mu</script> é o parâmetro de locação e <script type="math/tex">\sigma²</script> é o parâmetro de escala (dispersão).</p>
@@ -193,7 +194,7 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script
 
 <p>Segundo Withers e  Nadarajah (2011), a soma de v.a.’s com distribuição gamma (valor monetário de cada sinistro) com seu tamanho dado por v.a.’s independentes de distribuição Poisson (número de sinistros observados), resulta na distribuição Poisson-Gamma Composta (Poisson Compound). Então temos que:</p>
 
-<p>Seja $T$ o número de sinistros em determinado grupo e $X_i$ o valor de pagamento do i-ésimo sinistro. Definimos <script type="math/tex">Y</script> como
+<p>Seja <script type="math/tex">T</script> o número de sinistros em determinado grupo e <script type="math/tex">X_i</script> o valor de pagamento do i-ésimo sinistro. Definimos <script type="math/tex">Y</script> como
 <script type="math/tex">Y = \sum_{i=1}^{T} X_i</script></p>
 
 <p>Dado que <script type="math/tex">T \sim Poisson(\lambda)</script> e <script type="math/tex">X_i \stackrel{i.i.d.}{\sim} Gamma(\alpha, \gamma)</script>, temos que <script type="math/tex">Y</script> possui distribuição Poisson Compound..</p>
@@ -202,8 +203,8 @@ em que $V(\mu_i)$ é a função de variância, que depende unicamente de <script
 
 <p>Para realizar uma aplicação real dos modelos apresentados, faremos um exercício utilizando o banco de dados de sinistros de automóveis na Suécia, no ano de 1977, utilizando o ambiente R de computação estatística.</p>
 
-<p>A base de dados pode ser obtida no link a seguir: <a href="http://www.statsci.org/data/general/motorins.html">StatiSci</a>
-A descrição das variáveis está dispnível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).</p>
+<p>A base de dados pode ser obtida no link a seguir: <a href="http://www.statsci.org/data/general/motorins.html">StatiSci</a>.
+A descrição das variáveis está disponível no link, mas aqui utilizaremos apenas: Payment (Pagamento total do grupo), Zone (Zona Geográfica; 1 corresponde às maiores cidades) e Make (tipos de carros, agrupados em classes).</p>
 
 <p>Inicialmente, vamos ler os dados e transformar a variável ‘Make’ em fator.</p>
 
@@ -237,7 +238,7 @@ A descrição das variáveis está dispnível no link, mas aqui utilizaremos ape
 </code></pre>
 </div>
 
-<p>A estimação do parâmetro $p$ é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de <script type="math/tex">p</script>, são calculados os parâmetros <script type="math/tex">\mu</script> e <script type="math/tex">\phi</script> e a log-verossimilhança é observada. Escolhe-se então, o valor de <script type="math/tex">p</script> que  levou à maior log-verosimilhança. Desta maneira, o <script type="math/tex">p</script> estimado foi de <script type="math/tex">1,73</script>.</p>
+<p>A estimação do parâmetro <script type="math/tex">p</script> é dado atraves de uma log-verossimilhança perfilada. Sendo assim, para cada valor fixo de <script type="math/tex">p</script>, são calculados os parâmetros <script type="math/tex">\mu</script> e <script type="math/tex">\phi</script> e a log-verossimilhança é observada. Escolhe-se então, o valor de <script type="math/tex">p</script> que  levou à maior log-verosimilhança. Desta maneira, o <script type="math/tex">p</script> estimado foi de <script type="math/tex">1,73</script>.</p>
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">perfil</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tweedie.profile</span><span class="p">(</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Make</span><span class="p">,</span><span class="w">
                            </span><span class="n">p.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w"> 
                            </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"interpolation"</span><span class="p">,</span><span class="w">
@@ -266,46 +267,46 @@ A descrição das variáveis está dispnível no link, mas aqui utilizaremos ape
 
 <p>Através dos resultados, podemos observar que todas os demais tipos de carro diferem do tipo utilizado como referência no modelo. Tal conclusão auxilia num embasamento para que diferentes tarifas sejam cobradas, por exemplo.</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">modelo</span><span class="p">)</span><span class="w">
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;summary(modelo)
 
-</span><span class="n">Call</span><span class="o">:</span><span class="w">
-</span><span class="n">glm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Make</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tweedie</span><span class="p">(</span><span class="n">var.power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">perfil</span><span class="o">$</span><span class="n">p.max</span><span class="p">),</span><span class="w"> 
-    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seguros2</span><span class="p">)</span><span class="w">
+Call:
+glm(formula = Payment ~ Make, family = tweedie(var.power = perfil$p.max), 
+    data = seguros2)
 
-</span><span class="n">Deviance</span><span class="w"> </span><span class="n">Residuals</span><span class="o">:</span><span class="w"> 
-    </span><span class="n">Min</span><span class="w">       </span><span class="m">1</span><span class="n">Q</span><span class="w">   </span><span class="n">Median</span><span class="w">       </span><span class="m">3</span><span class="n">Q</span><span class="w">      </span><span class="n">Max</span><span class="w">  
-</span><span class="m">-12.771</span><span class="w">   </span><span class="m">-6.329</span><span class="w">   </span><span class="m">-2.474</span><span class="w">    </span><span class="m">1.764</span><span class="w">   </span><span class="m">17.402</span><span class="w">  
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-12.771   -6.329   -2.474    1.764   17.402  
 
-</span><span class="n">Coefficients</span><span class="o">:</span><span class="w">
-             </span><span class="n">Estimate</span><span class="w"> </span><span class="n">Std.</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">Pr</span><span class="p">(</span><span class="o">&gt;|</span><span class="n">t</span><span class="o">|</span><span class="p">)</span><span class="w">    
-</span><span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w"> </span><span class="m">1.146e-04</span><span class="w">  </span><span class="m">1.511e-05</span><span class="w">   </span><span class="m">7.583</span><span class="w"> </span><span class="m">5.35e-13</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make2</span><span class="w">       </span><span class="m">1.579e-04</span><span class="w">  </span><span class="m">4.512e-05</span><span class="w">   </span><span class="m">3.500</span><span class="w"> </span><span class="m">0.000544</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make3</span><span class="w">       </span><span class="m">2.024e-04</span><span class="w">  </span><span class="m">5.312e-05</span><span class="w">   </span><span class="m">3.810</span><span class="w"> </span><span class="m">0.000172</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make4</span><span class="w">       </span><span class="m">2.467e-04</span><span class="w">  </span><span class="m">6.143e-05</span><span class="w">   </span><span class="m">4.016</span><span class="w"> </span><span class="m">7.65e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make5</span><span class="w">       </span><span class="m">2.288e-04</span><span class="w">  </span><span class="m">5.803e-05</span><span class="w">   </span><span class="m">3.942</span><span class="w"> </span><span class="m">0.000103</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make6</span><span class="w">       </span><span class="m">1.573e-04</span><span class="w">  </span><span class="m">4.501e-05</span><span class="w">   </span><span class="m">3.494</span><span class="w"> </span><span class="m">0.000555</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make7</span><span class="w">       </span><span class="m">3.678e-04</span><span class="w">  </span><span class="m">8.543e-05</span><span class="w">   </span><span class="m">4.305</span><span class="w"> </span><span class="m">2.33e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="n">Make8</span><span class="w">       </span><span class="m">5.276e-04</span><span class="w">  </span><span class="m">1.193e-04</span><span class="w">   </span><span class="m">4.423</span><span class="w"> </span><span class="m">1.41e-05</span><span class="w"> </span><span class="o">***</span><span class="w">
-</span><span class="o">---</span><span class="w">
-</span><span class="n">Signif.</span><span class="w"> </span><span class="n">codes</span><span class="o">:</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="err">‘</span><span class="o">***</span><span class="err">’</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="err">‘</span><span class="o">**</span><span class="err">’</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="err">‘</span><span class="o">*</span><span class="err">’</span><span class="w"> </span><span class="m">0.05</span><span class="w"> </span><span class="err">‘</span><span class="n">.</span><span class="err">’</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="err">‘</span><span class="w"> </span><span class="err">’</span><span class="w"> </span><span class="m">1</span><span class="w">
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 1.146e-04  1.511e-05   7.583 5.35e-13 ***
+Make2       1.579e-04  4.512e-05   3.500 0.000544 ***
+Make3       2.024e-04  5.312e-05   3.810 0.000172 ***
+Make4       2.467e-04  6.143e-05   4.016 7.65e-05 ***
+Make5       2.288e-04  5.803e-05   3.942 0.000103 ***
+Make6       1.573e-04  4.501e-05   3.494 0.000555 ***
+Make7       3.678e-04  8.543e-05   4.305 2.33e-05 ***
+Make8       5.276e-04  1.193e-04   4.423 1.41e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-</span><span class="p">(</span><span class="n">Dispersion</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Tweedie</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="n">taken</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="m">39.68757</span><span class="p">)</span><span class="w">
+(Dispersion parameter for Tweedie family taken to be 39.68757)
 
-    </span><span class="n">Null</span><span class="w"> </span><span class="n">deviance</span><span class="o">:</span><span class="w"> </span><span class="m">14409</span><span class="w">  </span><span class="n">on</span><span class="w"> </span><span class="m">279</span><span class="w">  </span><span class="n">degrees</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">freedom</span><span class="w">
-</span><span class="n">Residual</span><span class="w"> </span><span class="n">deviance</span><span class="o">:</span><span class="w"> </span><span class="m">10958</span><span class="w">  </span><span class="n">on</span><span class="w"> </span><span class="m">272</span><span class="w">  </span><span class="n">degrees</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">freedom</span><span class="w">
-</span><span class="n">AIC</span><span class="o">:</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+    Null deviance: 14409  on 279  degrees of freedom
+Residual deviance: 10958  on 272  degrees of freedom
+AIC: NA
 
-</span><span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Fisher</span><span class="w"> </span><span class="n">Scoring</span><span class="w"> </span><span class="n">iterations</span><span class="o">:</span><span class="w"> </span><span class="m">7</span><span class="w">
-</span></code></pre>
+Number of Fisher Scoring iterations: 7
+</code></pre>
 </div>
 
 <p>Observando as médias por grupo, nota-se que o grupo 1 demonstra possuir uma média de pagamentos maior que os demais, de modo que também seria valido observar o número de sinistros para futuras conclusões.</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">tapply</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">Payment</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dados</span><span class="o">$</span><span class="n">Make</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt;tapply(dados$Payment , dados$Make , mean)
 
-        </span><span class="m">1</span><span class="w">         </span><span class="m">2</span><span class="w">         </span><span class="m">3</span><span class="w">         </span><span class="m">4</span><span class="w">         </span><span class="m">5</span><span class="w">         </span><span class="m">6</span><span class="w">         </span><span class="m">7</span><span class="w">         </span><span class="m">8</span><span class="w"> 
-</span><span class="m">295303.29</span><span class="w">  </span><span class="m">88720.63</span><span class="w">  </span><span class="m">71936.57</span><span class="w">  </span><span class="m">59976.89</span><span class="w">  </span><span class="m">64369.14</span><span class="w">  </span><span class="m">89016.20</span><span class="w">  </span><span class="m">40156.29</span><span class="w">  </span><span class="m">26995.97</span><span class="w"> 
-</span></code></pre>
+        1         2         3         4         5         6         7         8 
+295303.29  88720.63  71936.57  59976.89  64369.14  89016.20  40156.29  26995.97 
+</code></pre>
 </div>
 
 <p>Analogamente, modelos podem ser ajustados incluindo as demais covariáveis, dando suporte na tomada de decisões e precificações de seguros, no caso.</p>
