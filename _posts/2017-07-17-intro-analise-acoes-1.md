@@ -130,7 +130,7 @@ ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue")
 + xlab("Data") + ylab("Preço ($)") + theme(plot.title = element_text(hjust = 0.5)) + 
 scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
-<img src="/img/acoes1/image1.png">
+<img src="/img/acoes1/image1.png" height="350" width="550">
 
 Criamos esse gráfico usando o comando `ggplot`. Primeiro utilizamos o objeto `pbr` como a série a ser plotada. Depois indicamos quais elementos serão os eixos: `index(pbr)`, a data no eixo x, e a coluna de preço ajustado, `pbr[,6]`, no eixo y. Em seguida, adicionamos o elemento a ser plotado, no caso, uma linha azul: `geom_line(color = "darkblue")`. 
 
@@ -170,7 +170,7 @@ ggplot(pbr_mm, aes(x = index(pbr_mm))) + geom_line(aes(y = pbr_mm[,6], color = "
 + scale_x_date(date_labels = "%b %y", date_breaks = "3 months") 
 + scale_colour_manual("Séries", values=c("PBR"="gray40", "MM10"="firebrick4", "MM30"="darkcyan"))
 ```
-<img src="/img/acoes1/image2.png">
+<img src="/img/acoes1/image2.png" height="350" width="550">
 
 Para criar o gráfico, plotamos a linha de preços e as linhas das médias móveis. Nesta ocasião, utilizamos de forma diferente a plotagem de cada linha, criando uma espécie de apelido para as cores de cada uma. Em seguida, adicionamos a linha `scale_colour_manual`, indicando a cor de cada apelido para que as cores constassem na legenda de cada série.
 
@@ -243,7 +243,7 @@ ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) + geom_line(color = "deeps
 + theme(plot.title = element_text(hjust = 0.5)) 
 + scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
-<img src="/img/acoes1/image3.png">
+<img src="/img/acoes1/image3.png" height="350" width="550">
 
 Para plotar este último gráfico, utilizamos os mesmos parâmetros do gráfico de preços, alterando apenas a cor da linha.
 
@@ -259,7 +259,7 @@ ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) + geom_line(color = 
 + theme(plot.title = element_text(hjust = 0.5)) 
 + scale_x_date(date_labels = "%b %y", date_breaks = "1 months")
 ```
-<img src="/img/acoes1/image4.png">
+<img src="/img/acoes1/image4.png" height="350" width="550">
 
 ```{r}
 summary(pbr_ret17)
