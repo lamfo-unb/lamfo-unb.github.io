@@ -100,6 +100,7 @@ str(pbr)
 ##  Mean   :2015-03-17   Mean   :10.67   Mean   :10.86   Mean   :10.46  
 ##  3rd Qu.:2016-04-23   3rd Qu.:14.42   3rd Qu.:14.60   3rd Qu.:14.15  
 ##  Max.   :2017-05-31   Max.   :20.83   Max.   :20.94   Max.   :19.96  
+
 ##    PBR.Close        PBR.Volume         PBR.Adjusted   
 ##  Min.   : 2.900   Min.   :  6046400   Min.   : 2.900  
 ##  1st Qu.: 7.005   1st Qu.: 17193900   1st Qu.: 7.005  
