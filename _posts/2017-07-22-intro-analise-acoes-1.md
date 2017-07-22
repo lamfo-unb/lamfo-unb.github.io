@@ -138,7 +138,7 @@ Depois, acrescentamos o título e nomes dos eixos, com os comandos `ggtitle("Sé
 
 Por último, para deixar o eixo temporal com mais informações, colocamos o *tick* de data a cada seis meses e na forma de `mmm aa` utilizando `scale_x_date(date_labels = "%b %y", date_breaks = "6 months")`.
 
-Em [Análise Técnica](https://pt.wikipedia.org/wiki/An%C3%A1lise_t%C3%A9cnica) de ações, uma técnica muito utilizada é a plotagem de médias móveis nos gráficos de preços. Uma média móvel simples é a média aritmética dos últimos \\q dias de uma série \\x_{t} no período de tempo \\t. Assim, a média móvel \\MM^{q}_{t} é dada por:
+Em [Análise Técnica](https://pt.wikipedia.org/wiki/An%C3%A1lise_t%C3%A9cnica) de ações, uma técnica muito utilizada é a plotagem de médias móveis nos gráficos de preços. Uma média móvel simples é a média aritmética dos últimos \\q\\ dias de uma série \\x_{t}\\ no período de tempo \\t\\. Assim, a média móvel \\MM^{q}_{t}\\ é dada por:
 
 $$ MM^{q}_{t}= \frac{1}{q} \sum_{i=0}^{q-1}x_{t-1} $$
 
@@ -154,7 +154,7 @@ pbr_mm$mm10 <- coredata(pbr_mm10)
 pbr_mm$mm30 <- coredata(pbr_mm30)
 ```
 
-Primeiro dividimos a base para dados a partir de 2016 utilizando a função `subset()`. Em seguida, usamos a função `rollmean()`, que toma como argumento a série (\\x_t), no caso o preço ajustado; a janela de períodos (\\q); um argumento opcional de preenchimento, que é utilizado para completar os dias em que ainda não é possível calcular a média móvel, ou seja, quando não se passaram dias suficiente para completar a janela desejada; e, por último, o argumento `align`, que indica se a média móvel deve ser calculada usando os períodos à esquerda, ao centro ou à direita do dia \\t da série. Por último, acrescentamos as médias móveis a duas novas colunas na base inicial.
+Primeiro dividimos a base para dados a partir de 2016 utilizando a função `subset()`. Em seguida, usamos a função `rollmean()`, que toma como argumento a série (\\x_t\\), no caso o preço ajustado; a janela de períodos (\\q\\); um argumento opcional de preenchimento, que é utilizado para completar os dias em que ainda não é possível calcular a média móvel, ou seja, quando não se passaram dias suficiente para completar a janela desejada; e, por último, o argumento `align`, que indica se a média móvel deve ser calculada usando os períodos à esquerda, ao centro ou à direita do dia \\t\\ da série. Por último, acrescentamos as médias móveis a duas novas colunas na base inicial.
 
 Em nosso caso, calculamos utilizando 10 e 30 dias de janela, preenchendo os valores com NA e utilizando os períodos à esquerda do dia em questão. Em seguida, podemos plotar ambas as séries no mesmo gráfico de preços para identificar tendências. Uma teoria existente na Análise Técnica é a de que quando duas médias móveis de janelas de curto e longo prazo se cruzam, há uma indicação de compra ou de venda. Caso a MM de menor período cruze de baixo para cima a MM de maior período, há uma indicação de **compra**. Se o cruzamento for o contrário, é um sinal de **venda**.
 
