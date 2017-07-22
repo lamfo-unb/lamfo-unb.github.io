@@ -9,9 +9,9 @@ header-img: img/0021.png
 comments: true
 ---
 
-A análise de ações e investimentos é um tema que pode ser muito bem explorado na programação. Isso inclui a linguagem R, que já possui vasta literatura, pacotes e funções desenvolvidas no tema. Neste post faremos uma breve introdução ao assunto utilizando o pacote ```quantmod```. e ```ggplot2```. 
+A análise de ações e investimentos é um tema que pode ser muito bem explorado na programação. Isso inclui a linguagem R, que já possui vasta literatura, pacotes e funções desenvolvidas no tema. Neste post faremos uma breve introdução ao assunto utilizando os pacotes ```quantmod``` e ```ggplot2```. 
 
-Para quem está iniciando, o [R](https://www.r-project.org/) é uma linguagem e ambiente de desenvolvimento integrado focado em estatística, mas que possui atualmente aplicações em diferentes áreas. O download do programa pode ser feito [aqui](https://cran.r-project.org/mirrors.html) utilizando qualquer um dos mirrors. Recomendo também a instalação do [RStudio](https://www.rstudio.com/products/rstudio/download3/) que é uma interface com recursos adicionais para o R.
+Para quem está iniciando, o [R](https://www.r-project.org/) é uma linguagem e ambiente de desenvolvimento integrado focado em estatística, mas que possui aplicações em diferentes áreas. O download do programa pode ser feito [aqui](https://cran.r-project.org/mirrors.html) utilizando qualquer um dos *mirrors*. Recomendo também a instalação do [RStudio](https://www.rstudio.com/products/rstudio/download3/) que é uma interface com recursos adicionais para o R.
 
 A ação analisada será a da Petrobras, com dados extraídos do site [Yahoo Finance](https://finance.yahoo.com/) por meio do pacote [quantmod](https://cran.r-project.org/web/packages/quantmod/index.html) que é bastante utilizado para a modelagem quantitativa de dados financeiros. Além disso, o pacote [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html) será utilizado para a visualização dos dados.
 
@@ -50,7 +50,7 @@ Caso a API do Yahoo Finance não esteja funcionando, é possível baixar a base 
 
 <img src="/img/acoes1/screen01.png" align="middle">
 
-Depois, basta selecionar o período desejado e clicar em "Download Data". O arquivo baixado estará no formato `csv`. Agora basta colocá-lo no seu *working directory*, que pode ser descoberto utilizando o comando `getwd()`.
+Depois, basta selecionar o período desejado e clicar em "Download Data". O arquivo baixado estará no formato `csv`. Agora é só colocá-lo no seu *working directory*, que pode ser descoberto utilizando o comando `getwd()`.
 
 Com o arquivo na pasta, basta usar os seguintes comandos para ler a base:
 
@@ -61,7 +61,7 @@ pbr <- xts(pbr)
 pbr <- pbr[,-1]
 ```
 
-O comando `read.csv()` lê o arquivo e o atribui a um objeto. Em seguida, transformamos a primeira coluna da base no formato tipo data. Depois usamos o comando `xts()` para transformar a base do tipo `data frame` em `xts`. Por último, removemos a primeira coluna, de data da base, visto que agora as linhas de preço já estão indexadas pelo dia.
+O comando `read.csv()` lê o arquivo e o atribui a um objeto. Em seguida, transformamos a primeira coluna da base no formato tipo data. Depois usamos o comando `xts()` para transformar a base do tipo `data frame` em `xts`. Por último, removemos a primeira coluna, de data, da base, visto que agora as linhas de preço já estão indexadas pelo dia.
 
 ### Visualização de Preços
 
@@ -74,16 +74,6 @@ summary(pbr)
 str(pbr)
 ```
 ```{r}
-
-##            PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
-## 2017-05-23     8.76     8.91    8.74      8.83   22071200         8.83
-## 2017-05-24     8.95     9.20    8.88      9.08   25863100         9.08
-## 2017-05-25     9.07     9.25    8.81      8.89   30557400         8.89
-## 2017-05-26     8.74     9.03    8.72      8.95   22845300         8.95
-## 2017-05-30     8.85     8.90    8.69      8.70   21082600         8.70
-## 2017-05-31     8.67     8.76    8.44      8.48   23066100         8.48
-```
-```{r}
 ##           PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
 ## 2012-01-03   26.993   28.025  26.939     26.11   12754300     24.54040
 ## 2012-01-04   27.567   28.280  27.567     26.46   12351500     24.86936
@@ -91,6 +81,15 @@ str(pbr)
 ## 2012-01-06   27.929   27.929  27.280     25.69    8532100     24.14565
 ## 2012-01-09   27.748   28.695  27.588     26.88   26046600     25.26411
 ## 2012-01-10   29.078   29.461  28.993     27.45   16966500     25.79985
+```
+```{r}
+##            PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
+## 2017-05-23     8.76     8.91    8.74      8.83   22071200         8.83
+## 2017-05-24     8.95     9.20    8.88      9.08   25863100         9.08
+## 2017-05-25     9.07     9.25    8.81      8.89   30557400         8.89
+## 2017-05-26     8.74     9.03    8.72      8.95   22845300         8.95
+## 2017-05-30     8.85     8.90    8.69      8.70   21082600         8.70
+## 2017-05-31     8.67     8.76    8.44      8.48   23066100         8.48
 ```
 ```{r}
 ##      Index               PBR.Open        PBR.High        PBR.Low     
@@ -121,7 +120,7 @@ str(pbr)
 ##  $ src    : chr "yahoo"
 ##  $ updated: POSIXct[1:1], format: "2017-07-16 20:52:31"
 ```
-Com isso, pelos comandos `head()` e `tail()` podemos ver as primeiras e últimas 6 linhas da base. São 6 colunas com: preço de abertura, preços máximo e mínimo do dia, preço de fechamento, volume de transações e preço ajustado. Pelo comando `summary` verificamos as estatísticas descritivas de cada série de preços e volume. Já o comando `str` fornece a estrutura do objeto. Neste caso, é um objeto [xts](https://cran.r-project.org/web/packages/xts/vignettes/xts.pdf), uma série temporal.
+Pelos comandos `head()` e `tail()` podemos ver as primeiras e últimas 6 linhas da base. São 6 colunas com: preço de abertura, preços máximo e mínimo do dia, preço de fechamento, volume de transações e preço ajustado. Pelo comando `summary` verificamos as estatísticas descritivas de cada série de preços e volume. Já o comando `str` fornece a estrutura do objeto. Neste caso, é um objeto [xts](https://cran.r-project.org/web/packages/xts/vignettes/xts.pdf), uma série temporal.
 
 Vamos agora plotar os preços diários, utilizando a coluna de Preço Ajustado, visto que ela incorpora eventos como [splits](https://pt.wikipedia.org/wiki/Desdobramento_de_a%C3%A7%C3%B5es) e distribuição de dividendos, que podem afetar a série.
 
