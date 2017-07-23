@@ -131,7 +131,7 @@ ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue")
 scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
 ![](/img/acoes1/image1.png){: .center-image}.container img {
-    width: 100%;
+    width: 30%;
     height: auto;
 }
 
