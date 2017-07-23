@@ -48,7 +48,7 @@ Por último, o argumento `auto.assign = FALSE` nos permite nomear o dataset com 
 
 Caso a API do Yahoo Finance não esteja funcionando, é possível baixar a base de preços diretamente do site. Basta buscar pelo tick da ação ou pelo nome da empresa. Na página do ativo, basta clicar em "Historical Data", conforme imagem abaixo:
 
-<img src="/img/acoes1/screen01.png" align="middle">
+![](/img/acoes1/screen01.png){: .center-image }
 
 Depois, basta selecionar o período desejado e clicar em "Download Data". O arquivo baixado estará no formato `csv`. Agora é só colocá-lo no seu *working directory*, que pode ser descoberto utilizando o comando `getwd()`.
 
