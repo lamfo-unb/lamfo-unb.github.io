@@ -131,7 +131,6 @@ ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue")
 scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
 ![](/img/acoes1/image1.png){: .center-image width: 50%; height: auto;}
-<img src="/img/acoes1/image1.png" height="350" width="550" align="middle">
 
 Criamos esse gráfico usando o comando `ggplot`. Primeiro utilizamos o objeto `pbr` como a série a ser plotada. Depois indicamos quais elementos serão os eixos: `index(pbr)`, a data no eixo x, e a coluna de preço ajustado, `pbr[,6]`, no eixo y. Em seguida, adicionamos o elemento a ser plotado, no caso, uma linha azul: `geom_line(color = "darkblue")`. 
 
