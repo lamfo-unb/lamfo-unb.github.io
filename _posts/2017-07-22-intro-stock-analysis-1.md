@@ -17,7 +17,7 @@ The analyzed stock here will be PBR, from the brazilian company Petrobras, with 
 
 ### Preparing the environment
 
-The environment preparation is quite simple, even for those who are beginning or those who aren't used to code. Firstly, whe install and load the necessary packages.
+The environment preparation is quite simple, even for those who are beginning or those who aren't used to code. Firstly, we install and load the necessary packages.
 
 ```{r}
 rm(list=ls())
@@ -39,7 +39,7 @@ Let's do it step by step!
 
 The first argument `PBR` is the symbol in Yahoo Finance of the stock that we're going to analyze. If you want to look for other stock or asset, you can search its symbol [here](https://finance.yahoo.com/lookup/).
 
-The argument `src= "yahoo` indicates the source of the data. We can also use other sources like [Google Finance](https://www.google.com/finance), [FRED](http://research.stlouisfed.org/fred2/), [Oanda](http://www.oanda.com/), local databases, CSVs and many others.
+The argument `src= "yahoo"` indicates the source of the data. We can also use other sources like [Google Finance](https://www.google.com/finance), [FRED](http://research.stlouisfed.org/fred2/), [Oanda](http://www.oanda.com/), local databases, CSVs and many others.
 
 The third and fourth arguments indicate the time period in which the data is going to be extracted, with data in the format "yyyy-mm-dd".
 
@@ -62,7 +62,7 @@ pbr <- xts(pbr)
 pbr <- pbr[,-1]
 ```
 
-The command `read.csv()` reads the file and assigns it to an object. Then, we transform the first column of the base to data format. Next, we use the command `xts()` to transform the base  from `dataframe` type to `xts`. Lastly, we remove the first column (date), since now the price lines are already indexed by day.
+The command `read.csv()` reads the file and assigns it to an object. Then, we transform the first column of the base to date format. Next, we use the command `xts()` to transform the base  from `dataframe` type to `xts`. Lastly, we remove the first column (date), since now the price lines are already indexed by day.
 
 ### Prices Visualization
 
@@ -130,11 +130,11 @@ ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue") + 
 ```
 <img src="/img/acoes1/image1en.png" height="350" width="550" align="middle">
 
-We created this graphic using the command `ggplot`. Fist, we use the object `pbr` as the series to be ploted. Then we indicate which elements will be in the axes: `index(pbr)`, the date in x-axis, and the adjusted price column, `pbr[,6]`, in y-axis. Next, we add the element to be ploted, in this case, a blue line: `geom_line(color = "darkblue")`. 
+We created this graphic using the command `ggplot`. First, we use the object `pbr` as the series to be ploted. Then we indicate which elements will be in the axes: `index(pbr)`, the date in x-axis, and the adjusted price column, `pbr[,6]`, in y-axis. Next, we add the element to be ploted, in this case, a blue line: `geom_line(color = "darkblue")`. 
 
 Afterwards, we include the title and names of the axes, with the commands `ggtitle("Petrobras prices series")`, `xlab("Date")`, `ylab("Price")`. By standard, the graph title is aligned to the left. To centralize it, the command `theme(plot.title = element_text(hjust = 0.5))` is used.
 
-Lastly, to make the temporal axis more informative, we put the date tick at every 6 in the format `mmm aa` using `scale_x_date(date_labels = "%b %y", date_breaks = "6 months")`.
+Lastly, to make the temporal axis more informative, we put the date tick at every 6 months in the format `mmm aa` using `scale_x_date(date_labels = "%b %y", date_breaks = "6 months")`.
 
 
 In stocks [Technical Analysis](https://en.wikipedia.org/wiki/Technical_analysis), a very used technique is the plot of Moving Averages in the prices graphs. A simple moving average is an arithmetic average from the last \\(q\\) days from a \\(x_{t}\\) series in the \\(t\\) time period. So, the moving average \\(MA^{q}_{t}\\) is given by:
@@ -154,9 +154,9 @@ pbr_mm$mm10 <- coredata(pbr_mm10)
 pbr_mm$mm30 <- coredata(pbr_mm30)
 ```
 
-First we subset the base for data since 2016 using the function `subset()`. Then, we use the function `rollmean()`, which takes as argument: the series \\((x_t)\\), in this case the adjusted price; the window of periods \\((q)\\); an optional fill argument, that is used to complete the days where it's not possible to calculate the moving average, since the enough quantity of days hasn't passed; lastly, the argument `align` indicates if the moving average should be calculated using the periods in the left, in the center or in the right of the \\(t\\) day of the series. Lastly, we add the MA to two new columns in the initial database.
+First we subset the base for data since 2016 using the function `subset()`. Then, we use the function `rollmean()`, which takes as argument: the series \\((x_t)\\), in this case the adjusted price; the window of periods \\((q)\\); an optional fill argument, that is used to complete the days where it's not possible to calculate the moving average, since the enough quantity of days hasn't passed; the argument `align` indicates if the moving average should be calculated using the periods in the left, in the center or in the right of the \\(t\\) day of the series. Lastly, we add the MA to two new columns in the initial database.
 
-We calculated the two MA using 10 and 30 days of windows, filling the values with NA and using the periods in the left. Afterwards, we can plot both series in the same graphic of prices to identify trends. An existing theory in Technical Analysis is the one that when two MA of short and long term cross each other, there is an indication of buying or selling the stock. When te short term MA cross the long term upwards, there's a **buy** a signal. When the opposite happens, there's a **sell** signal.
+We calculated the two MA using 10 and 30 days of windows, filling the values with NA and using the periods in the left. Afterwards, we can plot both series in the same graphic of prices to identify trends. An existing theory in Technical Analysis is the one that when two MA of short and long term cross each other, there is an indication of buying or selling the stock. When the short term MA cross the long term upwards, there's a **buy** a signal. When the opposite happens, there's a **sell** signal.
 
 Ploting the prices series and the moving averages for all days since 2016:
 
@@ -173,7 +173,7 @@ ggplot(pbr_mm, aes(x = index(pbr_mm)))
 
 To create the graph, we plot the line of prices and the lines of moving averages. In this case, we plot each line differently, creating a kind of nickname for the color of each one. Then, we add the line `scale_colour_manual`, indicating the color of each nickname in order to make the color visible in the legend of the graph.
 
-Verifying the plot, it's possible to notice that there were 14 point in which the series crossed themselves and 1 point where they overlapped. Following the buy signal, we'd have been successful in 4 of 7 times. Following the sell indication, we'd have done right 5 in 7 times. In total, we'd be 9/14, that is 64% of success with a quite simple indicator. Of course this metric shouldn'd be used alone, many other informations should be considerated.
+Verifying the plot, it's possible to notice that there were 14 points in which the series crossed themselves and 1 point where they overlapped. Following the buy signal, we'd have been successful in 4 of 7 times. Following the sell indication, we'd have done right 5 in 7 times. In total, we'd be 9/14, that is 64% of success with a quite simple indicator. Of course this metric shouldn'd be used alone, many other informations should be considerated.
 
 ### Returns!
 
@@ -244,7 +244,7 @@ ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret))
 ```
 <img src="/img/acoes1/image3en.png" height="350" width="550" align="middle">
 
-To plot this lasth graph, we used the same parameters of the prices graph, changing only the line color.
+To plot this last graph, we used the same parameters of the prices graph, changing only the line color.
 
 Making a brief analysis of the graphic, it's possible to see that the smallest return of the series happened around may. More specifically, in may 18, one day after the news release with recordings of brazilian president Michel Temer. In the audios, he agreed to give payments in exchange of silence from arrested politicians. This fact strongly impacted the stocks market, specially brazilian and public companies, like Petrobras.
 
@@ -280,7 +280,7 @@ sd(pbr_ret17)
 
 We separated in an object all of the returns from 2017, using the function `subset()`. With this, the descriptive statistics still suggest a negative average return. In other hand, the standard deviation is smaller, which indicates smaller risk. Furthermore, this negative return is given by, in majority, by the big fall in the day 18.
 
-### Conclusão
+### Conclusion
 
 That's all for this tutorial, folks. In future posts I pretend to do deeper analysis and also approach portfolio and risk theory. I hope you've liked!
 
