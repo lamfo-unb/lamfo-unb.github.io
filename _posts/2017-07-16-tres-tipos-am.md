@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Os Três Tipos de Aprendizado de Máquina
-header-img: /img/tres-tipos-am/f015.jpg
+header-img: img/tres-tipos-am/f015.jpg
 date: 2017-07-16 16:55:44
 tags: [machine-learning, artificial-intelligence, supervised-learning, unsupervised-learning, reinforcement-learning]
 author: Hugo Honda, Matheus Facure, Peng Yaohao
