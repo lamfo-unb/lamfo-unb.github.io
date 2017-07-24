@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>SVM Tutorial - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/07/13/svm-en/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/0009.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>SVM Tutorial</h1>
+                    
+                    <span class="meta">Posted by Cayan Portela, Fernanda Amorim, Gustavo Monteiro, Jader Martins and Mariana Montenegro on July 13, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="svm-tutorial">SVM Tutorial</h1>
+
+<p>In this tutorial we will present a general introduction of <em>Support Vector Machines</em> (SVM) and a basic application using the package <code class="highlighter-rouge">e1071</code>.</p>
+
+<h2 id="what-is-support-vector-machine"><em>What is Support Vector Machine?</em></h2>
+
+<p>Support Vector Machine was developed in the study of  Boser, Guyon e Vapnik in 1992. It is a supervised learning algorithm that aims to classify a certain set of data points that are mapped to a multidimensional feature space using a kernel function, the approach used to classify problems. In this case, the decision boundary in the input space is represented by a hyperplane in a larger dimension in space (VAPNIK et al., 1997 and SARADHI et al., 2005).</p>
+
+<h3 id="simplifying"><em>Simplifying…</em></h3>
+
+<p>SVM performs the separation of a set of objects with different classes, in other words, it uses the concept of decision plans.</p>
+
+<p>We can analyze the use of SVM with the following example. It is possible to observe in Figure 1 two classes of objects: blue or orange. This line that divide them defines the boundary between the blue dots and the orange dots. When entering new objects in the analysis, these will be classified as oranges if they are to the right and as blue if they are on the left. In this case, we were able to separate, through a line, the set of objects in their respective group, which characterizes a linear classifier.</p>
+
+<p><img src="/img/svm/svm1.jpeg"></p>
+
+<p>However, classification problems are usually more elaborate, and it is necessary to perform optimal separation through more complex structures. The SVM proposes to classify new objects (test) based on available data (training). This can be seen in Figure 2. The optimal separation in this case would occur with the use of a curve.</p>
+
+<p><img src="/img/svm/svm2.jpeg"></p>
+
+<p>On the left of Figure 3 we observe the complexity in separating the original objects. To map them, we use a set of mathematical functions, acknowledged as <em>Kernels</em>. This mapping is known as the process of object reorganization.</p>
+
+<p><img src="/img/svm/svm3.jpeg"></p>
+
+<p>We can observe in the right of Figure 3 that there is a linear separation between objects. Thus, instead of constructing a complex curve, as in the left scheme; the SVM proposes, in this case, an optimum line capable of separating the blue points from the oranges.</p>
+
+<p><a href="">#incredible</a> <a href="">#unforgettable</a></p>
+
+<h2 id="and-now-how-can-i-apply-this-model"><em>And now, how can I apply this model?</em></h2>
+
+<p>First, it is necessary to load the data that will be studied. Luckily, this dataset is already natively available in R. To load it, simply run the following command:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">data</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>After loading the database we will do some explorations:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span><span class="n">tail</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span><span class="n">str</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">summary()</code> command presents some statistics of the <em>dataframe</em> variables, such as mean, median, maximum, minimum and quantiles.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="n">summary</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+  </span><span class="n">Sepal.Length</span><span class="w">    </span><span class="n">Sepal.Width</span><span class="w">     </span><span class="n">Petal.Length</span><span class="w">    </span><span class="n">Petal.Width</span><span class="w">          </span><span class="n">Species</span><span class="w">
+ </span><span class="n">Min.</span><span class="w">   </span><span class="o">:</span><span class="m">4.300</span><span class="w">   </span><span class="n">Min.</span><span class="w">   </span><span class="o">:</span><span class="m">2.000</span><span class="w">   </span><span class="n">Min.</span><span class="w">   </span><span class="o">:</span><span class="m">1.000</span><span class="w">   </span><span class="n">Min.</span><span class="w">   </span><span class="o">:</span><span class="m">0.100</span><span class="w">   </span><span class="n">setosa</span><span class="w">    </span><span class="o">:</span><span class="m">50</span><span class="w">
+ </span><span class="m">1</span><span class="n">st</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">5.100</span><span class="w">   </span><span class="m">1</span><span class="n">st</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">2.800</span><span class="w">   </span><span class="m">1</span><span class="n">st</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">1.600</span><span class="w">   </span><span class="m">1</span><span class="n">st</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">0.300</span><span class="w">   </span><span class="n">versicolor</span><span class="o">:</span><span class="m">50</span><span class="w">
+ </span><span class="n">Median</span><span class="w"> </span><span class="o">:</span><span class="m">5.800</span><span class="w">   </span><span class="n">Median</span><span class="w"> </span><span class="o">:</span><span class="m">3.000</span><span class="w">   </span><span class="n">Median</span><span class="w"> </span><span class="o">:</span><span class="m">4.350</span><span class="w">   </span><span class="n">Median</span><span class="w"> </span><span class="o">:</span><span class="m">1.300</span><span class="w">   </span><span class="n">virginica</span><span class="w"> </span><span class="o">:</span><span class="m">50</span><span class="w">
+ </span><span class="n">Mean</span><span class="w">   </span><span class="o">:</span><span class="m">5.843</span><span class="w">   </span><span class="n">Mean</span><span class="w">   </span><span class="o">:</span><span class="m">3.057</span><span class="w">   </span><span class="n">Mean</span><span class="w">   </span><span class="o">:</span><span class="m">3.758</span><span class="w">   </span><span class="n">Mean</span><span class="w">   </span><span class="o">:</span><span class="m">1.199</span><span class="w">
+ </span><span class="m">3</span><span class="n">rd</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">6.400</span><span class="w">   </span><span class="m">3</span><span class="n">rd</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">3.300</span><span class="w">   </span><span class="m">3</span><span class="n">rd</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">5.100</span><span class="w">   </span><span class="m">3</span><span class="n">rd</span><span class="w"> </span><span class="n">Qu.</span><span class="o">:</span><span class="m">1.800</span><span class="w">
+ </span><span class="n">Max.</span><span class="w">   </span><span class="o">:</span><span class="m">7.900</span><span class="w">   </span><span class="n">Max.</span><span class="w">   </span><span class="o">:</span><span class="m">4.400</span><span class="w">   </span><span class="n">Max.</span><span class="w">   </span><span class="o">:</span><span class="m">6.900</span><span class="w">   </span><span class="n">Max.</span><span class="w">   </span><span class="o">:</span><span class="m">2.500</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">head()</code> and<code class="highlighter-rouge"> tail()</code> commands show the first and the last six lines in this order. The <code class="highlighter-rouge">str()</code> command displays the structure of the variables. For example, if they are quantitative or categorical.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+  </span><span class="n">Sepal.Length</span><span class="w"> </span><span class="n">Sepal.Width</span><span class="w"> </span><span class="n">Petal.Length</span><span class="w"> </span><span class="n">Petal.Width</span><span class="w"> </span><span class="n">Species</span><span class="w">
+</span><span class="m">1</span><span class="w">          </span><span class="m">5.1</span><span class="w">         </span><span class="m">3.5</span><span class="w">          </span><span class="m">1.4</span><span class="w">         </span><span class="m">0.2</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span><span class="m">2</span><span class="w">          </span><span class="m">4.9</span><span class="w">         </span><span class="m">3.0</span><span class="w">          </span><span class="m">1.4</span><span class="w">         </span><span class="m">0.2</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span><span class="m">3</span><span class="w">          </span><span class="m">4.7</span><span class="w">         </span><span class="m">3.2</span><span class="w">          </span><span class="m">1.3</span><span class="w">         </span><span class="m">0.2</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span><span class="m">4</span><span class="w">          </span><span class="m">4.6</span><span class="w">         </span><span class="m">3.1</span><span class="w">          </span><span class="m">1.5</span><span class="w">         </span><span class="m">0.2</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span><span class="m">5</span><span class="w">          </span><span class="m">5.0</span><span class="w">         </span><span class="m">3.6</span><span class="w">          </span><span class="m">1.4</span><span class="w">         </span><span class="m">0.2</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span><span class="m">6</span><span class="w">          </span><span class="m">5.4</span><span class="w">         </span><span class="m">3.9</span><span class="w">          </span><span class="m">1.7</span><span class="w">         </span><span class="m">0.4</span><span class="w">  </span><span class="n">setosa</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>From this, it is possible to have a sense about the data structure and which types of variables we will work with. It is very important to know the data that will be used.</p>
+
+<p>Since we will use the quantitative variables ‘Sepal Length’, ‘Sepal Width’, ‘Petal Length’ and ‘Petal Width’ as predictors for the categorical variable ‘Species’, it is interesting to observe the correlation between the model covariables.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"Sepal.Length"</span><span class="w"> </span><span class="s2">"Sepal.Width"</span><span class="w">  </span><span class="s2">"Petal.Length"</span><span class="w"> </span><span class="s2">"Petal.Width"</span><span class="w">  </span><span class="s2">"Species"</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cor</span><span class="p">(</span><span class="n">iris</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">])</span><span class="w">
+             </span><span class="n">Sepal.Length</span><span class="w"> </span><span class="n">Sepal.Width</span><span class="w"> </span><span class="n">Petal.Length</span><span class="w"> </span><span class="n">Petal.Width</span><span class="w">
+</span><span class="n">Sepal.Length</span><span class="w">    </span><span class="m">1.0000000</span><span class="w">  </span><span class="m">-0.1175698</span><span class="w">    </span><span class="m">0.8717538</span><span class="w">   </span><span class="m">0.8179411</span><span class="w">
+</span><span class="n">Sepal.Width</span><span class="w">    </span><span class="m">-0.1175698</span><span class="w">   </span><span class="m">1.0000000</span><span class="w">   </span><span class="m">-0.4284401</span><span class="w">  </span><span class="m">-0.3661259</span><span class="w">
+</span><span class="n">Petal.Length</span><span class="w">    </span><span class="m">0.8717538</span><span class="w">  </span><span class="m">-0.4284401</span><span class="w">    </span><span class="m">1.0000000</span><span class="w">   </span><span class="m">0.9628654</span><span class="w">
+</span><span class="n">Petal.Width</span><span class="w">     </span><span class="m">0.8179411</span><span class="w">  </span><span class="m">-0.3661259</span><span class="w">    </span><span class="m">0.9628654</span><span class="w">   </span><span class="m">1.0000000</span><span class="w"> 
+</span></code></pre>
+</div>
+
+<h2 id="the-charts-tell-stories">The charts tell stories!</h2>
+
+<p>Charts are an excellent tool to abstract and present your explorations. Studies that reach most spectators are those which use all possible resources to make the information as intelligible as possible. Let’s visualize how each variable is related by a gradient map, defining red (warm color) for greater correlation between the variables and blue (cold color) for lower correlation:</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span><span class="w">
+</span><span class="n">cor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cor</span><span class="p">(</span><span class="n">iris</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">])</span><span class="w">
+</span><span class="n">rgb.palette</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"red"</span><span class="p">),</span><span class="w"> </span><span class="n">space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rgb"</span><span class="p">)</span><span class="w">
+</span><span class="n">levelplot</span><span class="p">(</span><span class="n">cor</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s2">"Correlation Iris Dataset"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">col.regions</span><span class="o">=</span><span class="n">rgb.palette</span><span class="p">(</span><span class="m">120</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+<p><a href="">#voilà</a></p>
+
+<p><img src="/img/svm/svm4.jpeg" width="600"></p>
+
+<p>A nice correlation chart <img class="emoji" title=":sunglasses:" alt=":sunglasses:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f60e.png" height="20" width="20" align="absmiddle">.  First we import the <code class="highlighter-rouge">lattice</code> library which is responsible for generating our graph, store a correlation matrix in a variable and then create a color scheme (an array with a computational definition of these colors) with a <code class="highlighter-rouge">ColorRampPaletter()</code> function, going From blue to red. Finally we give these definitions to the function <code class="highlighter-rouge">levelplot()</code> that will take care of the rest.</p>
+
+<p>Now we will present the definitive chart to understand our data, the three-dimensional scatter chart. We have four variables but only 3 will allow us to see beyond!</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"scatterplot3d"</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">scatterplot3d</span><span class="p">)</span><span class="w">
+</span><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#e41a1c"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#377eb8"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#4daf4a"</span><span class="p">)</span><span class="w">
+</span><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colors</span><span class="p">[</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">)]</span><span class="w">
+</span><span class="n">scatterplot3d</span><span class="p">(</span><span class="n">iris</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">],</span><span class="w"> </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p><img src="/img/svm/svm5.jpeg" width="600"></p>
+
+<p>After installing and loading the <code class="highlighter-rouge">scatterplot3d</code>, we define 3 hexadecimal colors and save in the colors array, so we overwritten this array with an array referring to the species and replacing it by the color. Species 1, color 1, species 2, color 2… Finally, we pass all these parameters to our function that generates our graph. As you can see, a ‘separation’ is clear for our data, so it will not be a difficult job for our machine.</p>
+
+<h2 id="now-the-most-expected-part-letsgo">Now the most expected part… <a href="">#letsgo</a>
+</h2>
+
+<p>To use SVM, you need to install the <em>e1071</em> package using the <code class="highlighter-rouge">install.packages("e1071")</code> command.
+Wait to finish the installation process and let’s separate the data.</p>
+
+<p>First, we will separate 70% of the observations from our dataset to ‘calibrate’ the model and use the other observations to verify the predictive power of the adjusted model.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">150</span><span class="w">   </span><span class="m">5</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">treino</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="m">0.7</span><span class="o">*</span><span class="m">150</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">teste</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">setdiff</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">150</span><span class="p">,</span><span class="n">treino</span><span class="p">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">iris_treino</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">treino</span><span class="p">,]</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">iris_teste</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">teste</span><span class="p">,]</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>In the <code class="highlighter-rouge">e1071</code> package, we use the<code class="highlighter-rouge">svm()</code> function to adjust the support vector machine model. Note that the syntax is quite similar to the <code class="highlighter-rouge">lm()</code> and <code class="highlighter-rouge">glm()</code> functions for linear and generalized linear models. Once we declare the dependent variable (the variable in which we want to make predictions), the function will automatically detect its type (categorical or quantitative) and use the appropriate procedure to fit the model.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">require</span><span class="p">(</span><span class="n">e</span><span class="m">1071</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">modelo1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">svm</span><span class="p">(</span><span class="n">Species</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris_treino</span><span class="p">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">summary</span><span class="p">(</span><span class="n">modelo1</span><span class="p">)</span><span class="w">
+</span><span class="n">Call</span><span class="o">:</span><span class="w">
+</span><span class="n">svm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Species</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris_treino</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">Parameters</span><span class="o">:</span><span class="w">
+   </span><span class="n">SVM</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span><span class="w">  </span><span class="n">C</span><span class="o">-</span><span class="n">classification</span><span class="w"> 
+ </span><span class="n">SVM</span><span class="o">-</span><span class="n">Kernel</span><span class="o">:</span><span class="w">  </span><span class="n">radial</span><span class="w"> 
+       </span><span class="n">cost</span><span class="o">:</span><span class="w">  </span><span class="m">1</span><span class="w"> 
+      </span><span class="n">gamma</span><span class="o">:</span><span class="w">  </span><span class="m">0.25</span><span class="w"> 
+
+</span><span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Support</span><span class="w"> </span><span class="n">Vectors</span><span class="o">:</span><span class="w">  </span><span class="m">49</span><span class="w">
+</span></code></pre>
+</div>
+<p>We used the “radial” kernel in the proposed model, since it is the default (which the function admits if nothing in the argument is informed). The <code class="highlighter-rouge">svm()</code> function accepts the following kernels: radial, linear, polynomial, and sigmoid.</p>
+
+<p>Different kernels fit different models and, consequently, different predicted values. We will then adjust one model for each kernel, aiming to obtain a lower rate of classification error.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">modelo2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">svm</span><span class="p">(</span><span class="n">Species</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"linear"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris_treino</span><span class="p">)</span><span class="w">
+</span><span class="n">modelo3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">svm</span><span class="p">(</span><span class="n">Species</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"polynomial"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris_treino</span><span class="p">)</span><span class="w">
+</span><span class="n">modelo4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">svm</span><span class="p">(</span><span class="n">Species</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sigmoid"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris_treino</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>We now apply the adjusted models in the observations of the ‘test’ base and, through a contingency table, compare the classification proposed by the models with the actual observations classification.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">preditos1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">predict</span><span class="p">(</span><span class="n">modelo1</span><span class="p">,</span><span class="n">iris_teste</span><span class="p">)</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">preditos1</span><span class="p">,</span><span class="n">iris_teste</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+
+</span><span class="n">preditos</span><span class="w">     </span><span class="n">setosa</span><span class="w"> </span><span class="n">versicolor</span><span class="w"> </span><span class="n">virginica</span><span class="w">
+  </span><span class="n">setosa</span><span class="w">         </span><span class="m">11</span><span class="w">          </span><span class="m">0</span><span class="w">         </span><span class="m">0</span><span class="w">
+  </span><span class="n">versicolor</span><span class="w">      </span><span class="m">0</span><span class="w">         </span><span class="m">20</span><span class="w">         </span><span class="m">0</span><span class="w">
+  </span><span class="n">virginica</span><span class="w">       </span><span class="m">0</span><span class="w">          </span><span class="m">1</span><span class="w">        </span><span class="m">13</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>When performing the same procedure for other models, we can use the sum of the elements that don’t belong to the main diagonal as a measure of error, since they correspond to elements that were misclassified.</p>
+
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="n">preditos2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">predict</span><span class="p">(</span><span class="n">modelo2</span><span class="p">,</span><span class="n">iris_teste</span><span class="p">)</span><span class="w">
+</span><span class="n">preditos3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">predict</span><span class="p">(</span><span class="n">modelo3</span><span class="p">,</span><span class="n">iris_teste</span><span class="p">)</span><span class="w">
+</span><span class="n">preditos4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">predict</span><span class="p">(</span><span class="n">modelo4</span><span class="p">,</span><span class="n">iris_teste</span><span class="p">)</span><span class="w">
+
+</span><span class="n">t</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">preditos1</span><span class="p">,</span><span class="n">iris_teste</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span><span class="n">t</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">preditos2</span><span class="p">,</span><span class="n">iris_teste</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span><span class="n">t</span><span class="m">3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">preditos3</span><span class="p">,</span><span class="n">iris_teste</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span><span class="n">t</span><span class="m">4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">preditos4</span><span class="p">,</span><span class="n">iris_teste</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<div class="language-r highlighter-rouge">
+<pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">t</span><span class="m">1</span><span class="p">[</span><span class="n">lower.tri</span><span class="p">(</span><span class="n">t</span><span class="m">1</span><span class="p">)],</span><span class="n">t</span><span class="m">1</span><span class="p">[</span><span class="n">upper.tri</span><span class="p">(</span><span class="n">t</span><span class="m">1</span><span class="p">)]))</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">t</span><span class="m">2</span><span class="p">[</span><span class="n">lower.tri</span><span class="p">(</span><span class="n">t</span><span class="m">2</span><span class="p">)],</span><span class="n">t</span><span class="m">2</span><span class="p">[</span><span class="n">upper.tri</span><span class="p">(</span><span class="n">t</span><span class="m">2</span><span class="p">)]))</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">t</span><span class="m">3</span><span class="p">[</span><span class="n">lower.tri</span><span class="p">(</span><span class="n">t</span><span class="m">3</span><span class="p">)],</span><span class="n">t</span><span class="m">3</span><span class="p">[</span><span class="n">upper.tri</span><span class="p">(</span><span class="n">t</span><span class="m">3</span><span class="p">)]))</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">t</span><span class="m">4</span><span class="p">[</span><span class="n">lower.tri</span><span class="p">(</span><span class="n">t</span><span class="m">4</span><span class="p">)],</span><span class="n">t</span><span class="m">4</span><span class="p">[</span><span class="n">upper.tri</span><span class="p">(</span><span class="n">t</span><span class="m">4</span><span class="p">)]))</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">7</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Thus, we saw that model 1 (kernel = radial) and model 2 (kernel = linear) presented more satisfactory results, since they missed only one classification in the test base.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>The SVM has a wide range of applications in several areas, such as finance, biology, medicine, logistics, among others.</p>
+
+<p>This is due to its application advantages such as: good generalization performance; mathematical treatability; geometric interpretation and the use for the exploitation of unlabeled data (YANG et al., 2002).</p>
+
+<p>This tutorial is only a small demonstration of how this powerful tool can be used. We hope it has been useful to our readers!</p>
+
+<h2 id="references">References</h2>
+
+<p>BOSER, B. E.; GUYON, I. M.; VAPNIK, V. N. A Training Algorithm for Optimal Margin Classifiers. In: ANNUAL WORKSHOP ON COMPUTACIONAL LEARNING, 5, 1992, Pittsburgh. ACM Press. Pittsburgh: Haussler D, jul 1992. p.144-152 .</p>
+
+<p>DRUCKER, H.; BURGES, C. J.; KAUFMAN, L.; SMOLA, A.; VAPNIK, V. Support vector regression machines. Advances in neural information processing systems, Morgan Kaufmann Publishers, p. 155–161, 1997.</p>
+
+<p>SARADHI, V., KAMIK, H., MITRA, P. A Decomposition Method for Support Vector Clustering. In Proc. of the 2nd International Conference on Intelligent Sensing and Information Processing (ICISIP), p. 268-271, 2005.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/07/05/Modelo-Tweedie-Poisson/" data-toggle="tooltip" data-placement="top" title="Modelo Tweedie Poisson Compound para dados de sinistros de veículos">← Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/07/13/svm/" data-toggle="tooltip" data-placement="top" title="Tutorial de SVM">Next Post →</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width="500px"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright © LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js%20"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js%20"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js%20"></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>

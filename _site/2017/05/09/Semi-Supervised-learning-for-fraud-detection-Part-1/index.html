@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Semi-Supervised Learning for Fraud Detection Part 1 - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/05/09/Semi-Supervised-learning-for-fraud-detection-Part-1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/ferdinand-stohr-149422.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Semi-Supervised Learning for Fraud Detection Part 1</h1>
+                    
+                    <span class="meta">Posted by Matheus Facure on May 9, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>Weather to detect fraud in an airplane or nuclear plant, or to notice illicit expenditures by congressman, or even to catch tax evasion. the art of realizing suspect patterns and behaviors can be quite useful in a wide range of scenarios. With that in mind, we made a small list of procedures to carry out this kind of task. Some of them will be incredibly simple and surprisingly effective. Other, not so simple. Anyway, we will focus on <strong>semi-supervised machine learning techniques for anomaly detection</strong>. Don’t worry if this sound confusing at first. Before anything, we will explain what are anomalies and what is semi-supervised machine learning. Next, we will give some intuitive explanations about the techniques here explored, as well as cast light in their advantages and disadvantages. This work is freely inspired in a survey by Chandola et al (2009).</p>
+
+<p>This work does not intent to be extensive nor rigorous; out goal is to be the least complicated we can and the more intuitive as possible. For a more details and technical discussion, please check out our <a href="https://www.kaggle.com/matheusfacure/d/dalpozz/creditcardfraud/semi-supervised-anomaly-detection-survey">implementation of this work on Kaggle</a></p>
+
+<h2 id="what-is-an-anomaly">What is an anomaly?</h2>
+
+<p>“Anomalies are patterns in data that do not conform to a well-defined notion of normal behavior” (Chandola et al, 2009). In other words, they are data are somewhat strange and distinct from normal observations. For example, points in \(O_1\), \(O_2\) in the image bellow are isolated and outside the normal region (\(N_1\) and \(N_2\)), thereby being considered anomalies. The dots in region \(O_3\), although being in a neighborhood, are also anomalies, for that whole region is outside the normal boundaries.</p>
+
+<p><img class="center-block thumbnail img-responsive" src="/img/anomalia/anomaly.png" /></p>
+
+<p>A fairly straightforward approach for anomaly detection would be to simple define the regions in the data where in the normal data lies and then classify everything outside that regions as anomalous. However, this is most easy said than done and there are some quite difficult challenges that arise in anomaly detection problems:</p>
+
+<ul>
+  <li>
+    <p>Modeling a regions that captures all notions of normality is extremely difficult and the frontiers between normal and abnormal are usually blurred;</p>
+  </li>
+  <li>
+    <p>Anomalies can be the result of malicious activities (e.g. frauds). In this case, there is an adversary that is always adapting to make anomalous observations seem normal;</p>
+  </li>
+  <li>
+    <p>What is normal can change, that is, a notion of normality defined today may not be valid in the future;</p>
+  </li>
+  <li>
+    <p>The notion of normality varies a lot from application to application and there is no general enough algorithm to capture them all in an optimized way;</p>
+  </li>
+  <li>
+    <p>Gathering samples from the abnormal behavior is a major challenge in anomaly detection. These samples tend to be very scarce or non existent.</p>
+  </li>
+</ul>
+
+<p>To deal with this problems, we propose a semi-supervised approach, that requires only a small portion of abnormal samples.</p>
+
+<h2 id="what-is-semi-supervised-machine-learning">What is semi-supervised machine learning?</h2>
+
+<p>In rough terms, machine learning is the science that uses computer science and statistical methods to analyze data. Machine learning techniques started in the field of artificial intelligence, as a way to allow for computers acquire their own knowledge from data. Today, machine learning has expanded in its own field and has had success in problems that demand statistical reasoning being our human limitations. In the regimes that machine learning operates on, the most prominent is the supervised one, that focus on predictions tasks: having data on pairs of labels and observations \((x, y)\), the goal is to learn how the labels are associated with the features. This is done by presenting the machine with enough samples of features and its observed labels, to the point where it can learn an association rule between them. Some examples are: identifying the presence of a disease (label), given the patient symptoms (features); identify which person (label) is in a given image (features) or classify a book (features) in a given literary school (label).</p>
+
+<p>One limitation of supervised machine learning is that gathering labels can be costly. For example, consider the problem of prediction the class of an article given its written content. To teach a computer to do such tasks, we first need to collect the articles and label them with the right category. Usually, we need thousands of examples, so labeling such an amount of articles can be very time-consuming. In anomaly detection task, we often have an abundant observations of the normal case, but it is very hard to gather abnormal observations. In some extreme cases, such as nuclear plant failure  detection, it is not only hard to have anomaly examples, but it is undesirable. Therefore, with little or no examples of anomalies, the computer doesn’t have enough information to learn their statistical proprieties, making the problem in detecting them extremely difficult.</p>
+
+<p>One possibility is to use semi-supervised machine learning, where we consider only as small fraction of the data as being labeled and that the majority of the unlabeled data has only normal samples. Thus, we can use unsupervised machine learning techniques (that learn the structure in data) to learn some notion of normality. By the end of this unsupervised stage, the machine will be able so associate each observation with a score that is proportional to the probabilities of that observation being normal. Then, we can use some labeled data to tune a threshold for this score, below which we will consider a sample as being an anomalies.</p>
+
+<p>OK… Maybe this last paragraph has a little too much information, which makes understanding slower. Think this way: first, we teach the machine only to understand how the normal case is, for we do not have (much) anomaly samples; next, we use a little of the few anomaly examples we have to fine tune our machine’s perceptions of normality; lastly, we use the rest of our data - with a few anomalies and lots of normal observations, to produce a final evaluation of our anomaly detection technique. If you still didn’t get it, don’t worry. Soon we will an empirical research with lots of examples showing how to use semi-supervised machine learning for fraud detection.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/05/09/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-1/" data-toggle="tooltip" data-placement="top" title="Aprendizado Semi-Supervisionado para Detecção de Fraudes Parte 1">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/05/11/Aprendizado-Semi-Supervisionado-para-Deteccao-de-Fraudes-Parte-2/" data-toggle="tooltip" data-placement="top" title="Aprendizado Semi-Supervisionado para Detecção de Fraudes Parte 2">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>
