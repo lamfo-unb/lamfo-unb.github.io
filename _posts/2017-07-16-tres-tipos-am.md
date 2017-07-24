@@ -105,7 +105,7 @@ Fazer a máquina ser capaz de encontrar o meio termo ótimo entre "exploration" 
 ## Qual das três abordagens é a melhor?
 
 <p align="center">
-<img src="/img/tres-tipos-am/f001.jpg" width="400"/>
+<img src="/img/tres-tipos-am/f001.jpg" width="500"/>
 </p>
 
 A resposta a essa pergunta vai depender do que você estiver analisando. Cada problema possui suas peculiaridades, e uma maneira de resolução que funcionou bem para o problema **A** pode ser desastroso para um outro problema **B**. Por isso, ao trabalhar com informática, *data science*, computação, *machine learning*, ou máquinas em geral, tenha em mente a seguinte "lei":
