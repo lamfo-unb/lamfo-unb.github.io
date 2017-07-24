@@ -19,7 +19,9 @@ uma **tarefa** $$T$$,  aprendendo a partir de uma **experiência** $$E$$ procura
 
 ### Mas afinal, o que isto quer dizer?
 
-<img src="/img/tres-tipos-am/f002.jpg" width="400"/>
+<p align="center">
+  <img src="/img/tres-tipos-am/f002.jpg" width="400"/>
+</p>
 
 Basicamente, um algoritmo pode aprender a atingir um objetivo a partir de um grande volume de dados - suas **experiências**. Eis um exemplo para ficar mais claro. Suponha que nossa **tarefa** seja prever o resultado de um jogo de futebol. Como podemos fazer isso?
 
