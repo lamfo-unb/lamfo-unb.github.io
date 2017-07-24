@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Os Três Tipos de Aprendizado de Máquina
-header-img: img/3learning/f015.jpg
+header-img: img/tres-tipos-am/f015.jpg
 date: 2017-07-16 16:55:44
 tags: [machine-learning, artificial-intelligence, supervised-learning, unsupervised-learning, reinforcement-learning]
 author: Hugo Honda, Matheus Facure, Peng Yaohao
@@ -19,7 +19,7 @@ uma **tarefa** $$T$$,  aprendendo a partir de uma **experiência** $$E$$ procura
 
 ### Mas afinal, o que isto quer dizer?
 
-<img src="img/3learning/f018.jpg" width="700"/>
+<img src="img/tres-tipos-am/f002.jpg" width="700"/>
 
 Basicamente, um algoritmo pode aprender a atingir um objetivo a partir de um grande volume de dados - suas **experiências**. Eis um exemplo para ficar mais claro. Suponha que nossa **tarefa** seja prever o resultado de um jogo de futebol. Como podemos fazer isso?
 
@@ -44,7 +44,7 @@ Note que a característica básica de sistemas de aprendizado supervisionado é 
 
 Dentre as técnicas mais conhecidas para resolver problemas de aprendizado supervisionado estão regressão linear,  regressão logística, redes neurais artificiais, máquina se suporte vetorial (ou máquinas kernel), árvores de decisão, k-vizinhos mais próximos e Bayes ingênuo. Aprendizado de máquina supervisionado é a área que concentra a maioria das aplicações bem sucedidas e onde a maioria dos problemas já estão bem definidos. 
 
-<img src="img/3learning/f017.png" width="700"/>
+<img src="img/tres-tipos-am/f017.png" width="700"/>
 
 ## Aprendizado Não Supervisionado
 
@@ -62,7 +62,7 @@ Dados Multidimensionais | Dados com dimensão reduzida
 Registros de Compras | Perfil dos consumidores
 Palavras em um texto | Representação matemática das palavras
 
-<img src="img/3learning/f008.png" width="700"/>
+<img src="img/tres-tipos-am/f008.png" width="700"/>
 
 Outros exemplos de aplicações de aprendizado não supervisionados são sistemas de recomendação de filmes ou músicas, detecção de anomalias e visualização de dados. Dentre as técnicas mais conhecidas para resolver problemas de aprendizado não supervisionado estão redes neurais artificiais, Expectativa-Maximização, clusterização k-médias, máquina se suporte vetorial (ou máquinas kernel), Clusterização Hierárquica, *word2vec*, análise de componentes principais, florestas isoladoras, mapas auto-organizados, máquinas de Boltzmann restritas, *eclat*, *apriori*, *t-SNE*. Problemas de aprendizado não supervisionado são consideravelmente mais complicados do que problemas de aprendizado supervisionado, principalmente porque não temos a reposta anotada nos dados. Como consequência, é extremamente complicado e controverso avaliar um modelo de aprendizado não supervisionado e esse tipo de modelo estão na fronteira do conhecimento em aprendizado de máquina.
 
@@ -76,11 +76,11 @@ Essa mesma ideia é vista no aprendizado de máquinas: a máquina observa um "es
 
 Ilustrando com um exemplo bem simples: suponha que você queira adestrar seu cão a se sentar ao seu comando por essa abordagem. De primeira, dificilmente o animal executará o comando requerido, e você responde a isso dando um "reforço negativo" (punição), repreendendo-o verbalmente, com suas expressões faciais ou mesmo com uma pancada de jornal (ou algo mais hostil, a depender do seu temperamento...). Quando o cão se aproxima do que deveria fazer, você pode dar "reforços positivos" como sinais de aprovação ou incentivo. Se o cão de fato sentar após o comando, você lhe dá uma recompensa - um biscoitinho, por exemplo. Com várias repetições desse mesmo experimento, espera-se que, com o tempo, o cão passe a associar a relação de "causa-efeito" entre o comando e a recompensa a ser recebida, e com isso "aprenda" a obedecer a esse comando. O famoso experimento do "cão de Pavlov" ilustra bem esse paradigma de aprendizagem. Ivan Pavlov foi um cientista russo notório por apresentar a ideia do "reflexo condicionado", baseado no seguinte experimento: apresentando um pedaço de carne a um cão, o animal passa a salivar, desejando o alimento. Em vez de apresentar apenas a carne, Pavlov soava uma campainha sempre que isso acontecia; com a repetição, o cão passava a associar os dois "estímulos" (carne e campainha) e salivar assim que ouve a campainha.
 
-<img src="img/3learning/f011.jpg" width="700"/>
+<img src="img/tres-tipos-am/f011.jpg" width="700"/>
 
 Essa ideia é bastante versátil quando a transportamos para o âmbito da ciência de dados: em vez de adestrar cachorros, podemos por exemplo construir uma máquina que monta portfolios no mercado financeiro e que ajusta a combinação de ativos comprados/vendidos a depender da "recompensa" (retorno financeiro) da carteira anterior e da evolução ("estados") do mercado. Ou ainda um automóvel que dirige "sozinho", que toma decisões dependendo do cenário que observa ao redor, recebendo recompensas negativas quando colide com o ambiente ou com outros veículos, e com repetidas etapas, aos poucos "aprenda" a contornar os obstáculos.
 
-<img src="img/3learning/f021.jpg" width="700"/>
+<img src="img/tres-tipos-am/f021.jpg" width="700"/>
 
 Vamos mais além: voltando ao exemplo do adestramento de cães, suponha que, depois de tê-lo ensinado a sentar com sucesso, você queira fazer um teste de obediência - fazer o cão ficar sentado enquanto você anda para trás, até chegar a uma distância de cinco metros dele. Caso o cão se sente, você dá a ele o biscoitinho (assim como antes); mas caso ele não se levante até você ficar a cinco metros dele, você dá a ele uma recompensa maior (um pedaço de bife, por exemplo). Como o cão poderia ganhar a recompensa maior? Note que agora o cão tem uma "escolha difícil": ele pode simplesmente sentar (já que ele já aprendeu essa tarefa) e ganhar sempre o biscoito, assim como pode "explorar" novas possibilidades - no caso, ficar parado mesmo com o dono longe - para ver se eventualmente não há uma recompensa maior ainda. O dono continuará fornecendo reforços positivos e negativos enquanto anda para trás, elogiando-o se ficar parado e repreendendo-o caso saia da posição; mas será que o animal está disposto a abrir mão da recompensa que ele já tem "garantido"?
 
@@ -88,11 +88,11 @@ Essa situação ilustra um *trade-off*: o animal pode escolher por "testar" nova
 
 Fazer a máquina ser capaz de encontrar o meio termo ótimo entre "exploration" e "exploitation" é um dos principais desafios da aprendizagem por reforço, e é bastante pertinente para aplicações mais complicadas, como ensinar uma máquina a jogar xadrez, por exemplo: como é bem sabido, uma estratégia vencedora frequentemente envolve abrir mão de vantagem imediata, ou até mesmo sacrifício de peças, visando ao sucesso a longo prazo - um bom jogador deve ser capaz de levar em consideração as consequências de sua jogada várias rodadas adiante, e sabendo que a resposta do oponente também estará visando a um benefício futuro, e assim por diante.
 
-<img src="img/3learning/f010.jpg" width="700"/>
+<img src="img/tres-tipos-am/f010.jpg" width="700"/>
 
 ## Qual das três abordagens é a melhor?
 
-<img src="img/3learning/f001.jpg" width="700"/>
+<img src="img/tres-tipos-am/f001.jpg" width="700"/>
 
 A resposta a essa pergunta vai depender do que você estiver analisando. Cada problema possui suas peculiaridades, e uma maneira de resolução que funcionou bem para o problema **A** pode ser desastroso para um outro problema **B**. Por isso, ao trabalhar com informática, *data science*, computação, *machine learning*, ou máquinas em geral, tenha em mente a seguinte "lei":
 
@@ -100,4 +100,4 @@ A resposta a essa pergunta vai depender do que você estiver analisando. Cada pr
 
 "Saber mandar" é algo que nenhuma máquina pode fazer por você. Por isso, conhecer bem o problema a ser solucionado é sempre o primeiro passo, pois esse é o passo essencial para que o pesquisador tenha controle sobre a máquina, ao invés do contrário...
 
-<img src="img/3learning/f004.jpg" width="700"/>
+<img src="img/tres-tipos-am/f004.jpg" width="700"/>
