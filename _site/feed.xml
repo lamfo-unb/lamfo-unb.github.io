@@ -4,13 +4,684 @@
 	<title>LAMFO's Blog</title>
 	<link href="/blog/atom.xml" rel="self"/>
 	<link href="/blog"/>
-	<updated>2017-07-19T15:33:19-03:00</updated>
+	<updated>2017-07-24T19:17:16-03:00</updated>
 	<id>http://lamfo-unb.github.io/blog</id>
 	<author>
 		<name>LAMFO</name>
 		<email>lamfo/(at)unb/(dot)br</email>
 	</author>
 
+	
+		<entry>
+			<title>Introduction to Stock Analysis with R</title>
+			<link href="http://lamfo-unb.github.io/2017/07/22/intro-stock-analysis-1/"/>
+			<updated>2017-07-22T00:00:00-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/07/22/intro-stock-analysis-1</id>
+			<content type="html">&lt;p&gt;Stock and investments analysis is a theme that can be deeply explored in programming. This includes R language, which already has a big literature, packages and functions developed in this matter. In this post, we’ll do a brief introduction to the subject using the packages &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For those who are beginning, &lt;a href=&quot;https://www.r-project.org/&quot;&gt;R&lt;/a&gt; is a programming language and integrated enviroment focused in statistics, but with a lot of applications in different areas. The software download can be done &lt;a href=&quot;https://cran.r-project.org/mirrors.html&quot;&gt;here&lt;/a&gt; using your preferred mirror. I also recommend installing &lt;a href=&quot;https://www.rstudio.com/products/rstudio/download3/&quot;&gt;RStudio&lt;/a&gt;, which is an interface with a lot of additional resources for R.&lt;/p&gt;
+
+&lt;p&gt;The analyzed stock here will be PBR, from the brazilian company Petrobras, with data extracted from &lt;a href=&quot;https://finance.yahoo.com/&quot;&gt;Yahoo Finance&lt;/a&gt; using the package &lt;a href=&quot;https://cran.r-project.org/web/packages/quantmod/index.html&quot;&gt;quantmod&lt;/a&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; is a well known package used to quantitave financial modelling. Also, we’ll use the package &lt;a href=&quot;https://cran.r-project.org/web/packages/ggplot2/index.html&quot;&gt;ggplot2&lt;/a&gt; for data visualization.&lt;/p&gt;
+
+&lt;h3 id=&quot;preparing-the-environment&quot;&gt;Preparing the environment&lt;/h3&gt;
+
+&lt;p&gt;The environment preparation is quite simple, even for those who are beginning or those who aren’t used to code. Firstly, we install and load the necessary packages.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rm(list=ls())
+install.packages(&quot;quantmod&quot;)
+install.packages(&quot;ggplot2&quot;)
+library(quantmod)
+library(ggplot2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I think it’s important to highlight that we only install the packages once. In the next times we run the code, it’ll be necessary only to load them using the &lt;code class=&quot;highlighter-rouge&quot;&gt;library&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;After installing and loading the packages, now we’ll download the stock prices series and treat the data in order to get them in the best possible format for the analysis. We download the data using the function &lt;code class=&quot;highlighter-rouge&quot;&gt;getSymbols&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr &amp;lt;- getSymbols(&quot;PBR&quot;, src = &quot;yahoo&quot;, from = &quot;2013-01-01&quot;, to = &quot;2017-06-01&quot;, auto.assign = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s do it step by step!&lt;/p&gt;
+
+&lt;p&gt;The first argument &lt;code class=&quot;highlighter-rouge&quot;&gt;PBR&lt;/code&gt; is the symbol in Yahoo Finance of the stock that we’re going to analyze. If you want to look for other stock or asset, you can search its symbol &lt;a href=&quot;https://finance.yahoo.com/lookup/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The argument &lt;code class=&quot;highlighter-rouge&quot;&gt;src= &quot;yahoo&quot;&lt;/code&gt; indicates the source of the data. We can also use other sources like &lt;a href=&quot;https://www.google.com/finance&quot;&gt;Google Finance&lt;/a&gt;, &lt;a href=&quot;http://research.stlouisfed.org/fred2/&quot;&gt;FRED&lt;/a&gt;, &lt;a href=&quot;http://www.oanda.com/&quot;&gt;Oanda&lt;/a&gt;, local databases, CSVs and many others.&lt;/p&gt;
+
+&lt;p&gt;The third and fourth arguments indicate the time period in which the data is going to be extracted, with data in the format “yyyy-mm-dd”.&lt;/p&gt;
+
+&lt;p&gt;Lastly, the argument &lt;code class=&quot;highlighter-rouge&quot;&gt;auto.assign = FALSE&lt;/code&gt; allows us to name the dataset with the name we want. In case it’s &lt;code class=&quot;highlighter-rouge&quot;&gt;TRUE&lt;/code&gt;, the name automatically will be the symbol we’re looking for, that is, the first argument.&lt;/p&gt;
+
+&lt;h4 id=&quot;addendum&quot;&gt;Addendum&lt;/h4&gt;
+
+&lt;p&gt;If Yahoo Finance API is not working, it’s possible to download the prices straight from the website. You just have to &lt;a href=&quot;https://finance.yahoo.com/lookup/&quot;&gt;search&lt;/a&gt; for the stock tick or company name. In the asset page, click on “Historical Data”, just like the image below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/screen01.png&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, select the desired period and click on “Download Data”. The download file will be in the format &lt;code class=&quot;highlighter-rouge&quot;&gt;csv&lt;/code&gt;. Now, just move it for your &lt;em&gt;working directory&lt;/em&gt;, that can be discovered using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;getwd()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With the file in the folder, use the following commands to read the base:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr &amp;lt;- read.csv(&quot;PBR.csv&quot;)
+pbr[,1] &amp;lt;- as.Date(pbr[,1])
+pbr &amp;lt;- xts(pbr)
+pbr &amp;lt;- pbr[,-1]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The command &lt;code class=&quot;highlighter-rouge&quot;&gt;read.csv()&lt;/code&gt; reads the file and assigns it to an object. Then, we transform the first column of the base to date format. Next, we use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;xts()&lt;/code&gt; to transform the base  from &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe&lt;/code&gt; type to &lt;code class=&quot;highlighter-rouge&quot;&gt;xts&lt;/code&gt;. Lastly, we remove the first column (date), since now the price lines are already indexed by day.&lt;/p&gt;
+
+&lt;h3 id=&quot;prices-visualization&quot;&gt;Prices Visualization&lt;/h3&gt;
+
+&lt;p&gt;Now let’s take a brief look at the data, just to know them better. Run the following lines and analyze each output.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;head(pbr)
+tail(pbr)
+summary(pbr)
+str(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##           PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
+## 2012-01-03   26.993   28.025  26.939     26.11   12754300     24.54040
+## 2012-01-04   27.567   28.280  27.567     26.46   12351500     24.86936
+## 2012-01-05   27.993   28.057  27.525     26.11    8568600     24.54040
+## 2012-01-06   27.929   27.929  27.280     25.69    8532100     24.14565
+## 2012-01-09   27.748   28.695  27.588     26.88   26046600     25.26411
+## 2012-01-10   29.078   29.461  28.993     27.45   16966500     25.79985
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##            PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
+## 2017-05-23     8.76     8.91    8.74      8.83   22071200         8.83
+## 2017-05-24     8.95     9.20    8.88      9.08   25863100         9.08
+## 2017-05-25     9.07     9.25    8.81      8.89   30557400         8.89
+## 2017-05-26     8.74     9.03    8.72      8.95   22845300         8.95
+## 2017-05-30     8.85     8.90    8.69      8.70   21082600         8.70
+## 2017-05-31     8.67     8.76    8.44      8.48   23066100         8.48
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##      Index               PBR.Open        PBR.High        PBR.Low     
+##  Min.   :2013-01-02   Min.   : 2.88   Min.   : 2.97   Min.   : 2.71  
+##  1st Qu.:2014-02-08   1st Qu.: 7.05   1st Qu.: 7.20   1st Qu.: 6.82  
+##  Median :2015-03-18   Median :10.25   Median :10.40   Median :10.08  
+##  Mean   :2015-03-17   Mean   :10.67   Mean   :10.86   Mean   :10.46  
+##  3rd Qu.:2016-04-23   3rd Qu.:14.42   3rd Qu.:14.60   3rd Qu.:14.15  
+##  Max.   :2017-05-31   Max.   :20.83   Max.   :20.94   Max.   :19.96  
+
+##    PBR.Close        PBR.Volume         PBR.Adjusted   
+##  Min.   : 2.900   Min.   :  6046400   Min.   : 2.900  
+##  1st Qu.: 7.005   1st Qu.: 17193900   1st Qu.: 7.005  
+##  Median :10.210   Median : 24066300   Median :10.230  
+##  Mean   :10.657   Mean   : 27527831   Mean   :10.814  
+##  3rd Qu.:14.330   3rd Qu.: 33655150   3rd Qu.:14.615  
+##  Max.   :20.650   Max.   :164885500   Max.   :20.650
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;## An 'xts' object on 2013-01-02/2017-05-31 containing:
+##   Data: num [1:1111, 1:6] 18.9 18.7 19.2 19.2 18.9 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:6] &quot;PBR.Open&quot; &quot;PBR.High&quot; &quot;PBR.Low&quot; &quot;PBR.Close&quot; ...
+##   Indexed by objects of class: [Date] TZ: UTC
+##   xts Attributes:  
+## List of 2
+##  $ src    : chr &quot;yahoo&quot;
+##  $ updated: POSIXct[1:1], format: &quot;2017-07-16 20:52:31&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the commands &lt;code class=&quot;highlighter-rouge&quot;&gt;head()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tail()&lt;/code&gt; we can see the first and last 6 lines of the base. There are 6 columns with: opening price, maximum and minimum prices, closing price, volume of transactions and adjusted price. Using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;summary()&lt;/code&gt; we verify the descriptive statistics of each price series and volume. The command &lt;code class=&quot;highlighter-rouge&quot;&gt;str()&lt;/code&gt; returns the object structure. In this case, it’s a &lt;a href=&quot;https://cran.r-project.org/web/packages/xts/vignettes/xts.pdf&quot;&gt;xts&lt;/a&gt; object, a time series.&lt;/p&gt;
+
+&lt;p&gt;Now let’s plot daily prices, using the Adjusted Price column, since it incorporates events like &lt;a href=&quot;https://en.wikipedia.org/wiki/Stock_split&quot;&gt;splits&lt;/a&gt; and dividends distribution, which can affect the series.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = &quot;darkblue&quot;) + ggtitle(&quot;Petrobras prices series&quot;) + xlab(&quot;Date&quot;) + ylab(&quot;Price&quot;) + theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image1en.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We created this graphic using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;ggplot&lt;/code&gt;. First, we use the object &lt;code class=&quot;highlighter-rouge&quot;&gt;pbr&lt;/code&gt; as the series to be ploted. Then we indicate which elements will be in the axes: &lt;code class=&quot;highlighter-rouge&quot;&gt;index(pbr)&lt;/code&gt;, the date in x-axis, and the adjusted price column, &lt;code class=&quot;highlighter-rouge&quot;&gt;pbr[,6]&lt;/code&gt;, in y-axis. Next, we add the element to be ploted, in this case, a blue line: &lt;code class=&quot;highlighter-rouge&quot;&gt;geom_line(color = &quot;darkblue&quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Afterwards, we include the title and names of the axes, with the commands &lt;code class=&quot;highlighter-rouge&quot;&gt;ggtitle(&quot;Petrobras prices series&quot;)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;xlab(&quot;Date&quot;)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ylab(&quot;Price&quot;)&lt;/code&gt;. By standard, the graph title is aligned to the left. To centralize it, the command &lt;code class=&quot;highlighter-rouge&quot;&gt;theme(plot.title = element_text(hjust = 0.5))&lt;/code&gt; is used.&lt;/p&gt;
+
+&lt;p&gt;Lastly, to make the temporal axis more informative, we put the date tick at every 6 months in the format &lt;code class=&quot;highlighter-rouge&quot;&gt;mmm aa&lt;/code&gt; using &lt;code class=&quot;highlighter-rouge&quot;&gt;scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In stocks &lt;a href=&quot;https://en.wikipedia.org/wiki/Technical_analysis&quot;&gt;Technical Analysis&lt;/a&gt;, a very used technique is the plot of Moving Averages in the prices graphs. A simple moving average is an arithmetic average from the last \(q\) days from a \(x_{t}\) series in the \(t\) time period. So, the moving average \(MA^{q}_{t}\) is given by:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;MA^{q}_{t}= \frac{1}{q} \sum_{i=0}^{q-1}x_{t-1}&lt;/script&gt;
+
+&lt;p&gt;This indicator is interesting because it helps to identify trends and smooths noises from prices. That is, the bigger the days window for the MA calculation, smaller is the MA responsiveness to price variation. The smaller the window, the faster MA adapts itself to changes. Now let’s calculate two moving averages for the stock prices series, one with 10 days window and the other with 30 days:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_mm &amp;lt;- subset(pbr, index(pbr) &amp;gt;= &quot;2016-01-01&quot;)
+
+pbr_mm10 &amp;lt;- rollmean(pbr_mm[,6], 10, fill = list(NA, NULL, NA), align = &quot;right&quot;)
+pbr_mm30 &amp;lt;- rollmean(pbr_mm[,6], 30, fill = list(NA, NULL, NA), align = &quot;right&quot;)
+
+pbr_mm$mm10 &amp;lt;- coredata(pbr_mm10)
+pbr_mm$mm30 &amp;lt;- coredata(pbr_mm30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First we subset the base for data since 2016 using the function &lt;code class=&quot;highlighter-rouge&quot;&gt;subset()&lt;/code&gt;. Then, we use the function &lt;code class=&quot;highlighter-rouge&quot;&gt;rollmean()&lt;/code&gt;, which takes as argument: the series \((x_t)\), in this case the adjusted price; the window of periods \((q)\); an optional fill argument, that is used to complete the days where it’s not possible to calculate the moving average, since the enough quantity of days hasn’t passed; the argument &lt;code class=&quot;highlighter-rouge&quot;&gt;align&lt;/code&gt; indicates if the moving average should be calculated using the periods in the left, in the center or in the right of the \(t\) day of the series. Lastly, we add the MA to two new columns in the initial database.&lt;/p&gt;
+
+&lt;p&gt;We calculated the two MA using 10 and 30 days of windows, filling the values with NA and using the periods in the left. Afterwards, we can plot both series in the same graphic of prices to identify trends. An existing theory in Technical Analysis is the one that when two MA of short and long term cross each other, there is an indication of buying or selling the stock. When the short term MA cross the long term upwards, there’s a &lt;strong&gt;buy&lt;/strong&gt; a signal. When the opposite happens, there’s a &lt;strong&gt;sell&lt;/strong&gt; signal.&lt;/p&gt;
+
+&lt;p&gt;Ploting the prices series and the moving averages for all days since 2016:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr_mm, aes(x = index(pbr_mm))) 
++ geom_line(aes(y = pbr_mm[,6], color = &quot;PBR&quot;)) + ggtitle(&quot;Petrobras prices series&quot;) 
++ geom_line(aes(y = pbr_mm$mm10, color = &quot;MM10&quot;)) 
++ geom_line(aes(y = pbr_mm$mm30, color = &quot;MM30&quot;)) + xlab(&quot;Date&quot;) + ylab(&quot;Price&quot;) 
++ theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) 
++ scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;3 months&quot;) 
++ scale_colour_manual(&quot;Series&quot;, values=c(&quot;PBR&quot;=&quot;gray40&quot;, &quot;MM10&quot;=&quot;firebrick4&quot;, &quot;MM30&quot;=&quot;darkcyan&quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image2en.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To create the graph, we plot the line of prices and the lines of moving averages. In this case, we plot each line differently, creating a kind of nickname for the color of each one. Then, we add the line &lt;code class=&quot;highlighter-rouge&quot;&gt;scale_colour_manual&lt;/code&gt;, indicating the color of each nickname in order to make the color visible in the legend of the graph.&lt;/p&gt;
+
+&lt;p&gt;Verifying the plot, it’s possible to notice that there were 14 points in which the series crossed themselves and 1 point where they overlapped. Following the buy signal, we’d have been successful in 4 of 7 times. Following the sell indication, we’d have done right 5 in 7 times. In total, we’d be 9/14, that is 64% of success with a quite simple indicator. Of course this metric shouldn’d be used alone, many other informations should be considerated.&lt;/p&gt;
+
+&lt;h3 id=&quot;returns&quot;&gt;Returns!&lt;/h3&gt;
+
+&lt;p&gt;We have seen how the stock price has changed over time. Now we’ll verify how the stock return has behaved in the same period. To do this, we first need to create a new object with the calculated returns, using the adjusted prices column:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_ret &amp;lt;- diff(log(pbr[,6]))
+pbr_ret &amp;lt;- pbr_ret[-1,]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we’ve done here was using logarithm properties to calculate the log-return of the stock. We did:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;r_{t} = ln(1+R_t) = ln\bigg(\frac{P_t}{P_{t-1}}\bigg) = ln(P_{t})-ln(P_{t-1}) \approx R_{t}&lt;/script&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt; command calculates the difference of all values in any vector or element. With this, we only apply the difference to natural logarithms of stock prices.&lt;/p&gt;
+
+&lt;p&gt;In addition to this way, it’s possible to calculate returns differently. The package &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; has some interesting functions to do this. Firstly, it’s really simple to select only one column of prices of each stock. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;Op(pbr)
+Cl(pbr)
+Ad(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each line will have as output the opening, closing and adjusted prices, respectively. The same accounts for other columns: &lt;code class=&quot;highlighter-rouge&quot;&gt;Hi()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Lo()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Vo()&lt;/code&gt;, for maximum and minimum prices and volume of transactions.&lt;/p&gt;
+
+&lt;p&gt;For the returns, we simply adapt and define which columns will be used, for example: &lt;code class=&quot;highlighter-rouge&quot;&gt;ClCl()&lt;/code&gt; will give us the returns using the closing prices from two periods; &lt;code class=&quot;highlighter-rouge&quot;&gt;OpCl()&lt;/code&gt; will result in the return from the closing price over the opening price from the same day.&lt;/p&gt;
+
+&lt;p&gt;Another interesting possibility given by &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; is the calculation of returns for different periods. For example, it’s possible to calculate the returns by day, week, month, quarter and year, just by using the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;dailyReturn(pbr)
+weeklyReturn(pbr)
+monthlyReturn(pbr)
+quarterlyReturn(pbr)
+yearlyReturn(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All these commands make the analysis and the calculation much faster and simpler to do.&lt;/p&gt;
+
+&lt;p&gt;Now let’s verify some basic statistics from Petrobras returns.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;summary(pbr_ret)
+
+##      Index             PBR.Adjusted       
+##  Min.   :2013-01-03   Min.   :-0.1852413  
+##  1st Qu.:2014-02-10   1st Qu.:-0.0209915  
+##  Median :2015-03-18   Median :-0.0005999  
+##  Mean   :2015-03-18   Mean   :-0.0007548  
+##  3rd Qu.:2016-04-24   3rd Qu.: 0.0177905  
+##  Max.   :2017-05-31   Max.   : 0.1555103
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sd(pbr_ret)
+
+## [1] 0.03713089
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This indicates that in average the stock hasn’t performed well. Now we can plot the returns and see how they’ve done over time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) 
++ geom_line(color = &quot;deepskyblue4&quot;) 
++ ggtitle(&quot;Petrobras returns series&quot;)
++ xlab(&quot;Date&quot;) + ylab(&quot;Return&quot;) 
++ theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image3en.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To plot this last graph, we used the same parameters of the prices graph, changing only the line color.&lt;/p&gt;
+
+&lt;p&gt;Making a brief analysis of the graphic, it’s possible to see that the smallest return of the series happened around may. More specifically, in may 18, one day after the news release with recordings of brazilian president Michel Temer. In the audios, he agreed to give payments in exchange of silence from arrested politicians. This fact strongly impacted the stocks market, specially brazilian and public companies, like Petrobras.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take a small look at the stock returns in 2017:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_ret17 &amp;lt;- subset(pbr_ret, index(pbr_ret) &amp;gt; &quot;2017-01-01&quot;)
+
+ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) 
++ geom_line(color = &quot;deepskyblue4&quot;) 
++ ggtitle(&quot;Petrobras returns series in 2017&quot;) + xlab(&quot;Date&quot;) + ylab(&quot;Return&quot;) 
++ theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;1 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image4en.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;summary(pbr_ret17)
+
+sd(pbr_ret17)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##      Index             PBR.Adjusted      
+##  Min.   :2017-01-03   Min.   :-0.185241  
+##  1st Qu.:2017-02-08   1st Qu.:-0.014350  
+##  Median :2017-03-17   Median :-0.002689  
+##  Mean   :2017-03-17   Mean   :-0.001707  
+##  3rd Qu.:2017-04-24   3rd Qu.: 0.014977  
+##  Max.   :2017-05-31   Max.   : 0.068795
+
+## [1] 0.03089105
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We separated in an object all of the returns from 2017, using the function &lt;code class=&quot;highlighter-rouge&quot;&gt;subset()&lt;/code&gt;. With this, the descriptive statistics still suggest a negative average return. In other hand, the standard deviation is smaller, which indicates smaller risk. Furthermore, this negative return is given by, in majority, by the big fall in the day 18.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;That’s all for this tutorial, folks. In future posts I pretend to do deeper analysis and also approach portfolio and risk theory. I hope you’ve liked!&lt;/p&gt;
+
+</content>
+		</entry>
+	
+		<entry>
+			<title>Introdução à Análise de Ações com R</title>
+			<link href="http://lamfo-unb.github.io/2017/07/22/intro-analise-acoes-1/"/>
+			<updated>2017-07-22T00:00:00-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/07/22/intro-analise-acoes-1</id>
+			<content type="html">&lt;p&gt;A análise de ações e investimentos é um tema que pode ser muito bem explorado na programação. Isso inclui a linguagem R, que já possui vasta literatura, pacotes e funções desenvolvidas no tema. Neste post faremos uma breve introdução ao assunto utilizando os pacotes &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para quem está iniciando, o &lt;a href=&quot;https://www.r-project.org/&quot;&gt;R&lt;/a&gt; é uma linguagem e ambiente de desenvolvimento integrado focado em estatística, mas que possui aplicações em diferentes áreas. O download do programa pode ser feito &lt;a href=&quot;https://cran.r-project.org/mirrors.html&quot;&gt;aqui&lt;/a&gt; utilizando qualquer um dos &lt;em&gt;mirrors&lt;/em&gt;. Recomendo também a instalação do &lt;a href=&quot;https://www.rstudio.com/products/rstudio/download3/&quot;&gt;RStudio&lt;/a&gt; que é uma interface com recursos adicionais para o R.&lt;/p&gt;
+
+&lt;p&gt;A ação analisada será a da Petrobras, com dados extraídos do site &lt;a href=&quot;https://finance.yahoo.com/&quot;&gt;Yahoo Finance&lt;/a&gt; por meio do pacote &lt;a href=&quot;https://cran.r-project.org/web/packages/quantmod/index.html&quot;&gt;quantmod&lt;/a&gt; que é bastante utilizado para a modelagem quantitativa de dados financeiros. Além disso, o pacote &lt;a href=&quot;https://cran.r-project.org/web/packages/ggplot2/index.html&quot;&gt;ggplot2&lt;/a&gt; será utilizado para a visualização dos dados.&lt;/p&gt;
+
+&lt;h3 id=&quot;preparando-o-ambiente&quot;&gt;Preparando o ambiente&lt;/h3&gt;
+
+&lt;p&gt;A preparação do ambiente é bem simples, mesmo para quem não está acostumado ou que esteja iniciando. Primeiramente, instalamos e carregamos os pacotes necessários.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rm(list=ls())
+install.packages(&quot;quantmod&quot;)
+install.packages(&quot;ggplot2&quot;)
+library(quantmod)
+library(ggplot2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Acho importante ressaltar que instalamos os pacotes apenas uma vez. Nas próximas vezes que executarmos o código, é necessário apenas carregar os pacotes por meio do comando &lt;code class=&quot;highlighter-rouge&quot;&gt;library&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Depois de termos os pacotes instalados e carregados, vamos baixar a série de preços da ação e tratar os dados para que fiquem da melhor forma possível para a realização das análises. Isso é feito por meio do comando &lt;code class=&quot;highlighter-rouge&quot;&gt;getSymbols&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr &amp;lt;- getSymbols(&quot;PBR&quot;, src = &quot;yahoo&quot;, from = &quot;2013-01-01&quot;, to = &quot;2017-06-01&quot;, auto.assign = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Vamos por partes!&lt;/p&gt;
+
+&lt;p&gt;O primeiro argumento &lt;code class=&quot;highlighter-rouge&quot;&gt;PBR&lt;/code&gt; é o símbolo do ativo que queremos analisar no Yahoo Finance. Você pode procurar pelo símbolo de outra ação ou índice que desejar analisar clicando &lt;a href=&quot;https://finance.yahoo.com/lookup/&quot;&gt;aqui&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;O argumento &lt;code class=&quot;highlighter-rouge&quot;&gt;src = &quot;yahoo&quot;&lt;/code&gt; indica a fonte dos dados. Também podemos utilizar outras fontes como o &lt;a href=&quot;https://www.google.com/finance&quot;&gt;Google Finance&lt;/a&gt;, &lt;a href=&quot;http://research.stlouisfed.org/fred2/&quot;&gt;FRED&lt;/a&gt;, &lt;a href=&quot;http://www.oanda.com/&quot;&gt;Oanda&lt;/a&gt;, bancos de dados locais, CSVs e vários outros.&lt;/p&gt;
+
+&lt;p&gt;O terceiro e quarto argumentos indicam o período no qual os dados serão extraídos, com a data no formato “aaaa-mm-dd”.&lt;/p&gt;
+
+&lt;p&gt;Por último, o argumento &lt;code class=&quot;highlighter-rouge&quot;&gt;auto.assign = FALSE&lt;/code&gt; nos permite nomear o dataset com o nome que quisermos. Caso seja &lt;code class=&quot;highlighter-rouge&quot;&gt;TRUE&lt;/code&gt;, o nome será automaticamente o símbolo que estamos buscando, ou seja, o primeiro argumento.&lt;/p&gt;
+
+&lt;h4 id=&quot;adendo&quot;&gt;Adendo&lt;/h4&gt;
+
+&lt;p&gt;Caso a API do Yahoo Finance não esteja funcionando, é possível baixar a base de preços diretamente do site. Basta buscar pelo tick da ação ou pelo nome da empresa. Na página do ativo, basta clicar em “Historical Data”, conforme imagem abaixo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/screen01.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Depois, basta selecionar o período desejado e clicar em “Download Data”. O arquivo baixado estará no formato &lt;code class=&quot;highlighter-rouge&quot;&gt;csv&lt;/code&gt;. Agora é só colocá-lo no seu &lt;em&gt;working directory&lt;/em&gt;, que pode ser descoberto utilizando o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;getwd()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Com o arquivo na pasta, basta usar os seguintes comandos para ler a base:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr &amp;lt;- read.csv(&quot;PBR.csv&quot;)
+pbr[,1] &amp;lt;- as.Date(pbr[,1])
+pbr &amp;lt;- xts(pbr)
+pbr &amp;lt;- pbr[,-1]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;read.csv()&lt;/code&gt; lê o arquivo e o atribui a um objeto. Em seguida, transformamos a primeira coluna da base no formato tipo data. Depois usamos o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;xts()&lt;/code&gt; para transformar a base do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;data frame&lt;/code&gt; em &lt;code class=&quot;highlighter-rouge&quot;&gt;xts&lt;/code&gt;. Por último, removemos a primeira coluna, de data, da base, visto que agora as linhas de preço já estão indexadas pelo dia.&lt;/p&gt;
+
+&lt;h3 id=&quot;visualização-de-preços&quot;&gt;Visualização de Preços&lt;/h3&gt;
+
+&lt;p&gt;Agora vamos dar uma breve olhada nos dados, apenas para conhecê-los melhor. Rode as linhas a seguir e analise cada output.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;head(pbr)
+tail(pbr)
+summary(pbr)
+str(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##           PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
+## 2012-01-03   26.993   28.025  26.939     26.11   12754300     24.54040
+## 2012-01-04   27.567   28.280  27.567     26.46   12351500     24.86936
+## 2012-01-05   27.993   28.057  27.525     26.11    8568600     24.54040
+## 2012-01-06   27.929   27.929  27.280     25.69    8532100     24.14565
+## 2012-01-09   27.748   28.695  27.588     26.88   26046600     25.26411
+## 2012-01-10   29.078   29.461  28.993     27.45   16966500     25.79985
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##            PBR.Open PBR.High PBR.Low PBR.Close PBR.Volume PBR.Adjusted
+## 2017-05-23     8.76     8.91    8.74      8.83   22071200         8.83
+## 2017-05-24     8.95     9.20    8.88      9.08   25863100         9.08
+## 2017-05-25     9.07     9.25    8.81      8.89   30557400         8.89
+## 2017-05-26     8.74     9.03    8.72      8.95   22845300         8.95
+## 2017-05-30     8.85     8.90    8.69      8.70   21082600         8.70
+## 2017-05-31     8.67     8.76    8.44      8.48   23066100         8.48
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##      Index               PBR.Open        PBR.High        PBR.Low     
+##  Min.   :2013-01-02   Min.   : 2.88   Min.   : 2.97   Min.   : 2.71  
+##  1st Qu.:2014-02-08   1st Qu.: 7.05   1st Qu.: 7.20   1st Qu.: 6.82  
+##  Median :2015-03-18   Median :10.25   Median :10.40   Median :10.08  
+##  Mean   :2015-03-17   Mean   :10.67   Mean   :10.86   Mean   :10.46  
+##  3rd Qu.:2016-04-23   3rd Qu.:14.42   3rd Qu.:14.60   3rd Qu.:14.15  
+##  Max.   :2017-05-31   Max.   :20.83   Max.   :20.94   Max.   :19.96  
+
+##    PBR.Close        PBR.Volume         PBR.Adjusted   
+##  Min.   : 2.900   Min.   :  6046400   Min.   : 2.900  
+##  1st Qu.: 7.005   1st Qu.: 17193900   1st Qu.: 7.005  
+##  Median :10.210   Median : 24066300   Median :10.230  
+##  Mean   :10.657   Mean   : 27527831   Mean   :10.814  
+##  3rd Qu.:14.330   3rd Qu.: 33655150   3rd Qu.:14.615  
+##  Max.   :20.650   Max.   :164885500   Max.   :20.650
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;## An 'xts' object on 2013-01-02/2017-05-31 containing:
+##   Data: num [1:1111, 1:6] 18.9 18.7 19.2 19.2 18.9 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:6] &quot;PBR.Open&quot; &quot;PBR.High&quot; &quot;PBR.Low&quot; &quot;PBR.Close&quot; ...
+##   Indexed by objects of class: [Date] TZ: UTC
+##   xts Attributes:  
+## List of 2
+##  $ src    : chr &quot;yahoo&quot;
+##  $ updated: POSIXct[1:1], format: &quot;2017-07-16 20:52:31&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pelos comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;head()&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;tail()&lt;/code&gt; podemos ver as primeiras e últimas 6 linhas da base. São 6 colunas com: preço de abertura, preços máximo e mínimo do dia, preço de fechamento, volume de transações e preço ajustado. Pelo comando &lt;code class=&quot;highlighter-rouge&quot;&gt;summary&lt;/code&gt; verificamos as estatísticas descritivas de cada série de preços e volume. Já o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt; fornece a estrutura do objeto. Neste caso, é um objeto &lt;a href=&quot;https://cran.r-project.org/web/packages/xts/vignettes/xts.pdf&quot;&gt;xts&lt;/a&gt;, uma série temporal.&lt;/p&gt;
+
+&lt;p&gt;Vamos agora plotar os preços diários, utilizando a coluna de Preço Ajustado, visto que ela incorpora eventos como &lt;a href=&quot;https://pt.wikipedia.org/wiki/Desdobramento_de_a%C3%A7%C3%B5es&quot;&gt;splits&lt;/a&gt; e distribuição de dividendos, que podem afetar a série.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = &quot;darkblue&quot;) 
++ ggtitle(&quot;Série de preços da Petrobras&quot;) 
++ xlab(&quot;Data&quot;) + ylab(&quot;Preço ($)&quot;) + theme(plot.title = element_text(hjust = 0.5)) + 
+scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image1.png&quot; height=&quot;350&quot; width=&quot;550&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Criamos esse gráfico usando o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;ggplot&lt;/code&gt;. Primeiro utilizamos o objeto &lt;code class=&quot;highlighter-rouge&quot;&gt;pbr&lt;/code&gt; como a série a ser plotada. Depois indicamos quais elementos serão os eixos: &lt;code class=&quot;highlighter-rouge&quot;&gt;index(pbr)&lt;/code&gt;, a data no eixo x, e a coluna de preço ajustado, &lt;code class=&quot;highlighter-rouge&quot;&gt;pbr[,6]&lt;/code&gt;, no eixo y. Em seguida, adicionamos o elemento a ser plotado, no caso, uma linha azul: &lt;code class=&quot;highlighter-rouge&quot;&gt;geom_line(color = &quot;darkblue&quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Depois, acrescentamos o título e nomes dos eixos, com os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;ggtitle(&quot;Série de preços da Petrobras&quot;)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;xlab(&quot;Data&quot;)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ylab(&quot;Preço ($)&quot;)&lt;/code&gt;. Por padrão, o título do gráfico fica alinhado à esquerda. Para centralizá-lo, utilizamos &lt;code class=&quot;highlighter-rouge&quot;&gt;theme(plot.title = element_text(hjust = 0.5))&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Por último, para deixar o eixo temporal com mais informações, colocamos o &lt;em&gt;tick&lt;/em&gt; de data a cada seis meses e na forma de &lt;code class=&quot;highlighter-rouge&quot;&gt;mmm aa&lt;/code&gt; utilizando &lt;code class=&quot;highlighter-rouge&quot;&gt;scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Em &lt;a href=&quot;https://pt.wikipedia.org/wiki/An%C3%A1lise_t%C3%A9cnica&quot;&gt;Análise Técnica&lt;/a&gt; de ações, uma técnica muito utilizada é a plotagem de médias móveis nos gráficos de preços. Uma média móvel simples é a média aritmética dos últimos \(q\) dias de uma série \(x_{t}\) no período de tempo \(t\). Assim, a média móvel \(MM^{q}_{t}\) é dada por:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;MM^{q}_{t}= \frac{1}{q} \sum_{i=0}^{q-1}x_{t-1}&lt;/script&gt;
+
+&lt;p&gt;Esse indicador é interessante pois ajuda a identificar tendências e suaviza ruídos dos preços. Isto é, quanto maior a janela de dias para o cálculo da média, menor é a responsividade da MM à variação no preço. Quanto menor a janela, mais rápido à média móvel se ajusta às mudanças. Vamos então calcular agora duas médias móveis para a série de preços da Petrobras, uma com janela de 10 dias e outra com janela de 30 dias:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_mm &amp;lt;- subset(pbr, index(pbr) &amp;gt;= &quot;2016-01-01&quot;)
+
+pbr_mm10 &amp;lt;- rollmean(pbr_mm[,6], 10, fill = list(NA, NULL, NA), align = &quot;right&quot;)
+pbr_mm30 &amp;lt;- rollmean(pbr_mm[,6], 30, fill = list(NA, NULL, NA), align = &quot;right&quot;)
+
+pbr_mm$mm10 &amp;lt;- coredata(pbr_mm10)
+pbr_mm$mm30 &amp;lt;- coredata(pbr_mm30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Primeiro dividimos a base para dados a partir de 2016 utilizando a função &lt;code class=&quot;highlighter-rouge&quot;&gt;subset()&lt;/code&gt;. Em seguida, usamos a função &lt;code class=&quot;highlighter-rouge&quot;&gt;rollmean()&lt;/code&gt;, que toma como argumento a série (\(x_t)\), no caso o preço ajustado; a janela de períodos (\(q)\); um argumento opcional de preenchimento, que é utilizado para completar os dias em que ainda não é possível calcular a média móvel, ou seja, quando não se passaram dias suficiente para completar a janela desejada; e, por último, o argumento &lt;code class=&quot;highlighter-rouge&quot;&gt;align&lt;/code&gt;, que indica se a média móvel deve ser calculada usando os períodos à esquerda, ao centro ou à direita do dia \(t\) da série. Por último, acrescentamos as médias móveis a duas novas colunas na base inicial.&lt;/p&gt;
+
+&lt;p&gt;Em nosso caso, calculamos utilizando 10 e 30 dias de janela, preenchendo os valores com NA e utilizando os períodos à esquerda do dia em questão. Em seguida, podemos plotar ambas as séries no mesmo gráfico de preços para identificar tendências. Uma teoria existente na Análise Técnica é a de que quando duas médias móveis de janelas de curto e longo prazo se cruzam, há uma indicação de compra ou de venda. Caso a MM de menor período cruze de baixo para cima a MM de maior período, há uma indicação de &lt;strong&gt;compra&lt;/strong&gt;. Se o cruzamento for o contrário, é um sinal de &lt;strong&gt;venda&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Plotando a série de preços e as médias móveis para todos os dias a partir de 2016, temos:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr_mm, aes(x = index(pbr_mm))) + geom_line(aes(y = pbr_mm[,6], color = &quot;PBR&quot;)) 
++ ggtitle(&quot;Série de preços da Petrobras&quot;) 
++ geom_line(aes(y = pbr_mm$mm10, color = &quot;MM10&quot;)) 
++ geom_line(aes(y = pbr_mm$mm30, color = &quot;MM30&quot;))
++ xlab(&quot;Data&quot;) + ylab(&quot;Preço ($)&quot;) 
++ theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) 
++ scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;3 months&quot;) 
++ scale_colour_manual(&quot;Séries&quot;, values=c(&quot;PBR&quot;=&quot;gray40&quot;, &quot;MM10&quot;=&quot;firebrick4&quot;, &quot;MM30&quot;=&quot;darkcyan&quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image2.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Para criar o gráfico, plotamos a linha de preços e as linhas das médias móveis. Nesta ocasião, utilizamos de forma diferente a plotagem de cada linha, criando uma espécie de apelido para as cores de cada uma. Em seguida, adicionamos a linha &lt;code class=&quot;highlighter-rouge&quot;&gt;scale_colour_manual&lt;/code&gt;, indicando a cor de cada apelido para que as cores constassem na legenda de cada série.&lt;/p&gt;
+
+&lt;p&gt;Verificando o gráfico, é possível notar que foram 14 pontos em que as séries se cruzaram e 1 ponto em que estiveram sobrepostas. Seguindo a indicação de compra, teríamos acertado 4 de 7 vezes. Pelas indicações de venda, seriam 5 acertos em 7 possibilidades. No total, 9/14, ou seja, 64% de acerto com um indicador bastante simples. Claro que essa métrica não deve ser utilizada sozinha, diversas outras informações devem ser consideradas.&lt;/p&gt;
+
+&lt;h3 id=&quot;retornos&quot;&gt;Retornos!&lt;/h3&gt;
+
+&lt;p&gt;Vimos como o preço da ação tem variado ao longo do tempo. Vamos agora verificar como se comportou o retorno da ação no mesmo período. Para isso, precisamos primeiro criar um novo objeto com os retornos calculados, utilizando também a coluna de preço ajustado:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_ret &amp;lt;- diff(log(pbr[,6]))
+pbr_ret &amp;lt;- pbr_ret[-1,]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;O que fizemos aqui foi utilizar as propriedades do logaritmo para calcular o retorno logarítmico da ação. Ou seja, fizemos:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;r_{t} = ln(1+R_t) = ln\bigg(\frac{P_t}{P_{t-1}}\bigg) = ln(P_{t})-ln(P_{t-1}) \approx R_{t}&lt;/script&gt;
+
+&lt;p&gt;O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt; calcula a diferença de todos os valores de algum vetor ou elemento. Com isso, apenas aplicamos a diferença aos logaritmos naturais dos preços da ação.&lt;/p&gt;
+
+&lt;p&gt;Além desse modo, é possível calcular os retornos de forma diferente. O pacote &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; possui algumas funções interessantes para isso. Primeiramente, é bastante fácil selecionar apenas uma coluna de preços de cada ação, por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;Op(pbr)
+Cl(pbr)
+Ad(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cada linha terá como output os preços de abertura, fechamento e ajustados, respectivamente. O mesmo vale para as outras colunas: &lt;code class=&quot;highlighter-rouge&quot;&gt;Hi()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Lo()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Vo()&lt;/code&gt;, para preço máximo, preço mínimo e volume de transações.&lt;/p&gt;
+
+&lt;p&gt;Para os retornos, basta adaptar e definir quais colunas serão utilizadas, por exemplo: &lt;code class=&quot;highlighter-rouge&quot;&gt;ClCl()&lt;/code&gt; fornecerá os retornos utilizando os preços de fechamento de dois períodos; já &lt;code class=&quot;highlighter-rouge&quot;&gt;OpCl()&lt;/code&gt; resultará no retorno do preço de fechamento sobre o preço de abertura do mesmo dia.&lt;/p&gt;
+
+&lt;p&gt;Outra possibilidade interessante fornecida pelo &lt;code class=&quot;highlighter-rouge&quot;&gt;quantmod&lt;/code&gt; é o cálculo de retornos por períodos diferentes. Por exemplo, é possível calcular os retornos por dia, semana, mês, trimestre e ano, basta utilizar os comandos a seguir:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;dailyReturn(pbr)
+weeklyReturn(pbr)
+monthlyReturn(pbr)
+quarterlyReturn(pbr)
+yearlyReturn(pbr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Todos esses comandos tornam a análise e os cálculos muito mais rápidos e fáceis de serem feitos.&lt;/p&gt;
+
+&lt;p&gt;Vamos agora verificar algumas estatísticas básicas dos retornos da Petrobras:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;summary(pbr_ret)
+
+##      Index             PBR.Adjusted       
+##  Min.   :2013-01-03   Min.   :-0.1852413  
+##  1st Qu.:2014-02-10   1st Qu.:-0.0209915  
+##  Median :2015-03-18   Median :-0.0005999  
+##  Mean   :2015-03-18   Mean   :-0.0007548  
+##  3rd Qu.:2016-04-24   3rd Qu.: 0.0177905  
+##  Max.   :2017-05-31   Max.   : 0.1555103
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sd(pbr_ret)
+
+## [1] 0.03713089
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ou seja, em média a ação não tem tido um bom desempenho. Podemos agora plotar um gráfico dos retornos e ver como eles desempenharam ao longo do tempo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) + geom_line(color = &quot;deepskyblue4&quot;) 
++ ggtitle(&quot;Série de retornos da Petrobras&quot;) + xlab(&quot;Data&quot;) + ylab(&quot;Retorno&quot;) 
++ theme(plot.title = element_text(hjust = 0.5)) 
++ scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;6 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image3.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Para plotar este último gráfico, utilizamos os mesmos parâmetros do gráfico de preços, alterando apenas a cor da linha.&lt;/p&gt;
+
+&lt;p&gt;Dando uma breve analisada no gráfico, é possível ver que o menor retorno da série ocorreu por volta de maio. Mais precisamente, no dia 18 de maio, um dia após a divulgação de matéria com trechos da gravação do presidente Michel Temer dando aval para a compra de silêncio de políticos. Esse fato impactou fortemente o mercado de ações, especialmente de empresas brasileiras e públicas, como a Petrobras.&lt;/p&gt;
+
+&lt;p&gt;Vamos fazer agora uma breve checagem dos retornos da ação em 2017:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pbr_ret17 &amp;lt;- subset(pbr_ret, index(pbr_ret) &amp;gt; &quot;2017-01-01&quot;)
+
+ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) + geom_line(color = &quot;deepskyblue4&quot;) 
++ ggtitle(&quot;Série de retornos da Petrobras em 2017&quot;) + xlab(&quot;Data&quot;) + ylab(&quot;Retorno&quot;) 
++ theme(plot.title = element_text(hjust = 0.5)) 
++ scale_x_date(date_labels = &quot;%b %y&quot;, date_breaks = &quot;1 months&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/acoes1/image4.png&quot; height=&quot;350&quot; width=&quot;550&quot; align=&quot;middle&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;summary(pbr_ret17)
+
+sd(pbr_ret17)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;##      Index             PBR.Adjusted      
+##  Min.   :2017-01-03   Min.   :-0.185241  
+##  1st Qu.:2017-02-08   1st Qu.:-0.014350  
+##  Median :2017-03-17   Median :-0.002689  
+##  Mean   :2017-03-17   Mean   :-0.001707  
+##  3rd Qu.:2017-04-24   3rd Qu.: 0.014977  
+##  Max.   :2017-05-31   Max.   : 0.068795
+
+## [1] 0.03089105
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Separamos em um objeto todos os retornos de 2017, utilizando a função &lt;code class=&quot;highlighter-rouge&quot;&gt;subset()&lt;/code&gt;. Com isso, as estatísticas descritivas continuam indicando um retorno médio negativo em 2017. Porém, em 2017 o desvio padrão tem sido menor, o que indica menor risco. Além disso, esse retorno negativo na média se dá em maioria pela grande queda do dia 18.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h3&gt;
+
+&lt;p&gt;Bom, isso é tudo para esse tutorial, pessoal. Em posts futuros pretendo abordar análises mais elaboradas e também análise de portfólio e risco. Espero que tenham gostado. Até a próxima!&lt;/p&gt;
+
+</content>
+		</entry>
+	
+		<entry>
+			<title>Os Três Tipos de Aprendizado de Máquina</title>
+			<link href="http://lamfo-unb.github.io/2017/07/16/tres-tipos-am/"/>
+			<updated>2017-07-16T13:55:44-03:00</updated>
+			<id>http://lamfo-unb.github.io/2017/07/16/tres-tipos-am</id>
+			<content type="html">&lt;h2 id=&quot;aprendizado-de-máquina&quot;&gt;Aprendizado de Máquina&lt;/h2&gt;
+
+&lt;h3 id=&quot;formalmente&quot;&gt;Formalmente:&lt;/h3&gt;
+
+&lt;p&gt;Aprendizado de máquina é definido por um sistema computacional que busca realizar:
+uma &lt;strong&gt;tarefa&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt;,  aprendendo a partir de uma &lt;strong&gt;experiência&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;E&lt;/script&gt; procurando melhorar uma &lt;strong&gt;performance&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;mas-afinal-o-que-isto-quer-dizer&quot;&gt;Mas afinal, o que isto quer dizer?&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f002.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Basicamente, um algoritmo pode aprender a atingir um objetivo a partir de um grande volume de dados - suas &lt;strong&gt;experiências&lt;/strong&gt;. Eis um exemplo para ficar mais claro. Suponha que nossa &lt;strong&gt;tarefa&lt;/strong&gt; seja prever o resultado de um jogo de futebol. Como podemos fazer isso?&lt;/p&gt;
+
+&lt;p&gt;Poderíamos fornecer ao computador dados sobre o técnico, composição do time, formação tática, etc., seguidos dos resultados das partidas. Com um grande volume de dados em formato de pares &lt;strong&gt;(variáveis, resultados)&lt;/strong&gt;,  esperamos que o computador possa aprender quais padrões levam à vitória. Também esperamos que o computador acerte mais conforme lhe apresentamos mais dados, pois ele terá mais exemplos de padrões que pode &lt;strong&gt;generalizar&lt;/strong&gt; para situações ainda não vistas. Assim, quanto mais dados, isto é, quanto mais experiência, melhores serão os resultados, isto é, melhor será a nossa &lt;strong&gt;performance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;aprendizado-supervisionado&quot;&gt;Aprendizado Supervisionado&lt;/h2&gt;
+
+&lt;p&gt;Isto é o que chamamos de &lt;strong&gt;Aprendizado de Máquina Supervisionado&lt;/strong&gt;
+É quando tentamos prever uma &lt;strong&gt;variável dependente&lt;/strong&gt; a partir de uma lista de &lt;strong&gt;variáveis independentes&lt;/strong&gt;. Por exemplo:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Var. Independentes&lt;/th&gt;
+      &lt;th&gt;Var. Dependentes&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Anos de Carreira, Formação, Idade&lt;/td&gt;
+      &lt;td&gt;Salário&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Idade do Carro, Idade do Motorista&lt;/td&gt;
+      &lt;td&gt;Risco de Acidente Automotivo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Texto de um livro&lt;/td&gt;
+      &lt;td&gt;Escola Literária&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Temperatura&lt;/td&gt;
+      &lt;td&gt;Receita de venda de sorvete&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Imagem da Rodovia&lt;/td&gt;
+      &lt;td&gt;Ângulo da direção de um carro autônomo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Histórico escolar&lt;/td&gt;
+      &lt;td&gt;nota no ENEM&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Note que a característica básica de sistemas de aprendizado supervisionado é que os dados que utilizamos para treiná-los &lt;strong&gt;contém a resposta desejada&lt;/strong&gt;, isto é, contém a variável dependente resultante das variáveis independentes observadas. Nesse caso, dizemos que os &lt;strong&gt;dados são anotados&lt;/strong&gt; com as respostas ou classes a serem previstas.&lt;/p&gt;
+
+&lt;p&gt;Dentre as técnicas mais conhecidas para resolver problemas de aprendizado supervisionado estão regressão linear,  regressão logística, redes neurais artificiais, máquina se suporte vetorial (ou máquinas kernel), árvores de decisão, k-vizinhos mais próximos e Bayes ingênuo. Aprendizado de máquina supervisionado é a área que concentra a maioria das aplicações bem sucedidas e onde a maioria dos problemas já estão bem definidos.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f017.png&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;aprendizado-não-supervisionado&quot;&gt;Aprendizado Não Supervisionado&lt;/h2&gt;
+
+&lt;p&gt;Mas nem todos os problemas podem ser resolvidos desta forma. Em alguns casos, conseguir dados anotados é extremamente custoso ou até mesmo impossível. Por exemplo, imagine que você é dono de um comércio e quer conhecer o perfil dos seus consumidores. Pode haver um perfil de consumidor sempre compra vinho e queijo ou que compra carne e carvão ou ainda leite em pó e fralda. Se esse for o caso, colocar esses produtos em prateleiras distantes pode aumentar vendas, já que aumentará o tempo e o percurso do cliente no mercado. No entanto, nesse caso não tamos anotado para cada compra à qual perfil o consumidor pertence. Mais ainda, sequer sabemos quantos perfis de consumidores há.&lt;/p&gt;
+
+&lt;p&gt;Nesse caso, o computador terá que descobrir os perfis sem dados anotados e precisaremos de métodos de aprendizado não supervisionados. Uma opção seria olhar nos registros de compras e ver se existem padrões que se repetem e permitiriam a inferência de um grupo ou perfil de consumidor. Outra opção seria ver diretamente quais produtos são frequentemente comprados juntos e então aprender uma regra associativa entre eles.&lt;/p&gt;
+
+&lt;p&gt;De uma forma geral, com aprendizado não supervisionado queremos achar uma representação mais informativa dos dados que temos. Geralmente, essa representação mais informativa é também mais simples, condensando a informação em pontos mais relevantes.  Alguns exemplos são:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Dados&lt;/th&gt;
+      &lt;th&gt;Forma Representativa&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Transações bancárias&lt;/td&gt;
+      &lt;td&gt;Normalidade da transação&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Registros de Compras&lt;/td&gt;
+      &lt;td&gt;Associação entre produtos&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dados Multidimensionais&lt;/td&gt;
+      &lt;td&gt;Dados com dimensão reduzida&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Registros de Compras&lt;/td&gt;
+      &lt;td&gt;Perfil dos consumidores&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Palavras em um texto&lt;/td&gt;
+      &lt;td&gt;Representação matemática das palavras&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f008.png&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Outros exemplos de aplicações de aprendizado não supervisionados são sistemas de recomendação de filmes ou músicas, detecção de anomalias e visualização de dados. Dentre as técnicas mais conhecidas para resolver problemas de aprendizado não supervisionado estão redes neurais artificiais, Expectativa-Maximização, clusterização k-médias, máquina se suporte vetorial (ou máquinas kernel), Clusterização Hierárquica, &lt;em&gt;word2vec&lt;/em&gt;, análise de componentes principais, florestas isoladoras, mapas auto-organizados, máquinas de Boltzmann restritas, &lt;em&gt;eclat&lt;/em&gt;, &lt;em&gt;apriori&lt;/em&gt;, &lt;em&gt;t-SNE&lt;/em&gt;. Problemas de aprendizado não supervisionado são consideravelmente mais complicados do que problemas de aprendizado supervisionado, principalmente porque não temos a reposta anotada nos dados. Como consequência, é extremamente complicado e controverso avaliar um modelo de aprendizado não supervisionado e esse tipo de modelo estão na fronteira do conhecimento em aprendizado de máquina.&lt;/p&gt;
+
+&lt;h2 id=&quot;aprendizagem-por-reforço&quot;&gt;Aprendizagem por reforço&lt;/h2&gt;
+
+&lt;p&gt;A terceira abordagem de aprendizagem de máquinas é a chamada “aprendizagem por reforço”, no qual a máquina tenta aprender qual é a melhor ação a ser tomada, dependendo das circunstâncias na qual essa ação será executada.&lt;/p&gt;
+
+&lt;p&gt;O futuro é uma variável aleatória: como não se sabe a priori o que irá acontecer, é desejável uma abordagem que leve em consideração essa incerteza, e consiga incorporar as eventuais mudanças no ambiente no processo de tomada da melhor decisão. Essa ideia de fato deriva do conceito de “aprendizagem por reforço” da psicologia, no qual uma &lt;strong&gt;recompensa&lt;/strong&gt; ou &lt;strong&gt;punição&lt;/strong&gt; é dada a um agente, dependendo da decisão tomada; com o tempo e a repetição dos experimentos, espera-se que o agente consiga associar as ações que geram maior recompensa para cada situação que o ambiente apresenta, e passe a evitar as ações que geram punição ou recompensa menor. Na psicologia, essa abordagem é chama de &lt;em&gt;behaviorismo&lt;/em&gt; e tem B. F. Skinner como um dos principais expoentes, um famoso psicólogo que, dentre outros experimentos, usou a ideia de recompensas e punições para treinar pombos para conduzir mísseis na Segunda Guerra Mundial.&lt;/p&gt;
+
+&lt;p&gt;Essa mesma ideia é vista no aprendizado de máquinas: a máquina observa um “estado da natureza” dentre o conjunto de cenários futuros possíveis, e com base nisso, escolhe uma ação a se tomar e recebe a recompensa associada a essa ação específica e nesse estado específico, obtendo assim a informação dessa combinação específica. O processo se repete até que a máquina seja capaz de escolher a melhor ação a se tomar para cada um dos cenários possíveis a serem observados no futuro.&lt;/p&gt;
+
+&lt;p&gt;Ilustrando com um exemplo bem simples: suponha que você queira adestrar seu cão a se sentar ao seu comando por essa abordagem. De primeira, dificilmente o animal executará o comando requerido, e você responde a isso dando um “reforço negativo” (punição), repreendendo-o verbalmente, com suas expressões faciais ou mesmo com uma pancada de jornal (ou algo mais hostil, a depender do seu temperamento…). Quando o cão se aproxima do que deveria fazer, você pode dar “reforços positivos” como sinais de aprovação ou incentivo. Se o cão de fato sentar após o comando, você lhe dá uma recompensa - um biscoitinho, por exemplo. Com várias repetições desse mesmo experimento, espera-se que, com o tempo, o cão passe a associar a relação de “causa-efeito” entre o comando e a recompensa a ser recebida, e com isso “aprenda” a obedecer a esse comando. O famoso experimento do “cão de Pavlov” ilustra bem esse paradigma de aprendizagem. Ivan Pavlov foi um cientista russo notório por apresentar a ideia do “reflexo condicionado”, baseado no seguinte experimento: apresentando um pedaço de carne a um cão, o animal passa a salivar, desejando o alimento. Em vez de apresentar apenas a carne, Pavlov soava uma campainha sempre que isso acontecia; com a repetição, o cão passava a associar os dois “estímulos” (carne e campainha) e salivar assim que ouve a campainha.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f011.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Essa ideia é bastante versátil quando a transportamos para o âmbito da ciência de dados: em vez de adestrar cachorros, podemos por exemplo construir uma máquina que monta portfolios no mercado financeiro e que ajusta a combinação de ativos comprados/vendidos a depender da “recompensa” (retorno financeiro) da carteira anterior e da evolução (“estados”) do mercado. Ou ainda um automóvel que dirige “sozinho”, que toma decisões dependendo do cenário que observa ao redor, recebendo recompensas negativas quando colide com o ambiente ou com outros veículos, e com repetidas etapas, aos poucos “aprenda” a contornar os obstáculos.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f021.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vamos mais além: voltando ao exemplo do adestramento de cães, suponha que, depois de tê-lo ensinado a sentar com sucesso, você queira fazer um teste de obediência - fazer o cão ficar sentado enquanto você anda para trás, até chegar a uma distância de cinco metros dele. Caso o cão se sente, você dá a ele o biscoitinho (assim como antes); mas caso ele não se levante até você ficar a cinco metros dele, você dá a ele uma recompensa maior (um pedaço de bife, por exemplo). Como o cão poderia ganhar a recompensa maior? Note que agora o cão tem uma “escolha difícil”: ele pode simplesmente sentar (já que ele já aprendeu essa tarefa) e ganhar sempre o biscoito, assim como pode “explorar” novas possibilidades - no caso, ficar parado mesmo com o dono longe - para ver se eventualmente não há uma recompensa maior ainda. O dono continuará fornecendo reforços positivos e negativos enquanto anda para trás, elogiando-o se ficar parado e repreendendo-o caso saia da posição; mas será que o animal está disposto a abrir mão da recompensa que ele já tem “garantido”?&lt;/p&gt;
+
+&lt;p&gt;Essa situação ilustra um &lt;em&gt;trade-off&lt;/em&gt;: o animal pode escolher por “testar” novas combinações de ações ótimas em uma sequência de “estados” não realizadas anteriormente em busca de uma recompensa maior, mas não imediata (o chamado &lt;strong&gt;“exploration”&lt;/strong&gt;); ou simplesmente se ater à recompensa que se obtém através de uma ação já conhecida (o chamado &lt;strong&gt;“exploitation”&lt;/strong&gt;). Veja como essa ideia pode se estender facilmente para outros contextos; em finanças, por exemplo, reflete bem o &lt;em&gt;grau de aversão ao risco&lt;/em&gt; de um agente econômico - o quanto ele está disposto a correr mais riscos em busca de retornos maiores, ou está disposto a correr menos risco e obter um retorno menor, porém mais seguro.&lt;/p&gt;
+
+&lt;p&gt;Fazer a máquina ser capaz de encontrar o meio termo ótimo entre “exploration” e “exploitation” é um dos principais desafios da aprendizagem por reforço, e é bastante pertinente para aplicações mais complicadas, como ensinar uma máquina a jogar xadrez, por exemplo: como é bem sabido, uma estratégia vencedora frequentemente envolve abrir mão de vantagem imediata, ou até mesmo sacrifício de peças, visando ao sucesso a longo prazo - um bom jogador deve ser capaz de levar em consideração as consequências de sua jogada várias rodadas adiante, e sabendo que a resposta do oponente também estará visando a um benefício futuro, e assim por diante.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f010.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;qual-das-três-abordagens-é-a-melhor&quot;&gt;Qual das três abordagens é a melhor?&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f001.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A resposta a essa pergunta vai depender do que você estiver analisando. Cada problema possui suas peculiaridades, e uma maneira de resolução que funcionou bem para o problema &lt;strong&gt;A&lt;/strong&gt; pode ser desastroso para um outro problema &lt;strong&gt;B&lt;/strong&gt;. Por isso, ao trabalhar com informática, &lt;em&gt;data science&lt;/em&gt;, computação, &lt;em&gt;machine learning&lt;/em&gt;, ou máquinas em geral, tenha em mente a seguinte “lei”:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A MÁQUINA NÃO FAZ O QUE VOCÊ QUER: ELA FAZ O QUE VOCÊ MANDA!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;“Saber mandar” é algo que nenhuma máquina pode fazer por você. Por isso, conhecer bem o problema a ser solucionado é sempre o primeiro passo, pois esse é o passo essencial para que o pesquisador tenha controle sobre a máquina, ao invés do contrário…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tres-tipos-am/f004.jpg&quot; width=&quot;700&quot; /&gt;&lt;/p&gt;
+</content>
+		</entry>
 	
 		<entry>
 			<title>Tutorial de SVM</title>
