@@ -32,7 +32,7 @@ Poderíamos fornecer ao computador dados sobre o técnico, composição do time,
 Isto é o que chamamos de **Aprendizado de Máquina Supervisionado**
 É quando tentamos prever uma **variável dependente** a partir de uma lista de **variáveis independentes**. Por exemplo:
 
-<p align="center">
+<center>
 Var. Independentes | Var. Dependentes
 ------------ | -------------
 Anos de Carreira, Formação, Idade | Salário
@@ -41,7 +41,7 @@ Texto de um livro | Escola Literária
 Temperatura | Receita de venda de sorvete
 Imagem da Rodovia | Ângulo da direção de um carro autônomo
 Histórico escolar | nota no ENEM
-</p>
+</center>
 
 Note que a característica básica de sistemas de aprendizado supervisionado é que os dados que utilizamos para treiná-los **contém a resposta desejada**, isto é, contém a variável dependente resultante das variáveis independentes observadas. Nesse caso, dizemos que os **dados são anotados** com as respostas ou classes a serem previstas. 
 
@@ -59,7 +59,7 @@ Nesse caso, o computador terá que descobrir os perfis sem dados anotados e prec
 
 De uma forma geral, com aprendizado não supervisionado queremos achar uma representação mais informativa dos dados que temos. Geralmente, essa representação mais informativa é também mais simples, condensando a informação em pontos mais relevantes.  Alguns exemplos são:
 
-<p align="center">
+<center>
 Dados | Forma Representativa
 ------------ | -------------
 Transações bancárias | Normalidade da transação
@@ -67,7 +67,7 @@ Registros de Compras | Associação entre produtos
 Dados Multidimensionais | Dados com dimensão reduzida
 Registros de Compras | Perfil dos consumidores
 Palavras em um texto | Representação matemática das palavras
-</p>
+</center>
 
 <p align="center">
 <img src="/img/tres-tipos-am/f008.png" width="600"/>
