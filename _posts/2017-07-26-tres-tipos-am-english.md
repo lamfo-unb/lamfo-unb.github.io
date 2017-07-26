@@ -15,7 +15,7 @@ comments: true
 
 Machine learning can be defined as a computacional system Machine learning and defined by a computational system that seeks to perform a **task** $$T$$, learning from an **experience** $$E$$ seeking to optimize a **performance** $$P$$ 
 
-### Well, but what does it exactly mean?
+### Well, but what does that exactly mean?
 
 <p align="center">
   <img src="/img/tres-tipos-am/f002.jpg" width="400"/>
