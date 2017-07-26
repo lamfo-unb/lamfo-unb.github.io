@@ -6,7 +6,6 @@ date: 2017-07-16 16:55:44
 tags: [machine-learning, artificial-intelligence, supervised-learning, unsupervised-learning, reinforcement-learning]
 author: Hugo Honda, Matheus Facure, Peng Yaohao
 lang: pt
-header-img:
 comments: true
 ---
 
