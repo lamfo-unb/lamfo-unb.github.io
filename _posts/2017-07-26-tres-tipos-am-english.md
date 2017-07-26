@@ -38,7 +38,7 @@ Temperature | Ice Cream Sales Revenue
 Image of a Highway | Steering angle of a self-driving car
 School Records | SAT Score
 
-It should be noted that a basic structure of supervised learning systems is that the data we use to train them **contains a desired response**, that is, it contains a dependent variable resulting from the observed independent variables. In this case, we say that **data is annotated** as answers or lessons to be predicted.
+It should be noted that a basic structure of supervised learning systems is that the data we use to train them **contains a desired response**, that is, it contains a dependent variable resulting from the observed independent variables. In this case, we say that **data are labelled** as answers or lessons to be predicted.
 
 Among the best-known techniques for solving supervised learning problems are linear regression, logistic regression, artificial neural networks, kernel machines and devices, decision trees, k-neighbors, and naive Bayes. Supervised machine learning is an area that concentrates most successful applications and where a majority of problems are already well defined.
 
@@ -48,9 +48,9 @@ Among the best-known techniques for solving supervised learning problems are lin
 
 ## Unsupervised Learning
 
-But not all problems can be solved in this way. In some cases, getting annotated data is extremely costly or even impossible. For example, imagine that you own a business and want to know the profile of your consumers. There may be a consumer profile that always buys wine and cheese, or meat and charcoal, or milk powder and diaper. If this is the case, putting these products on distant shelves can increase sales, since it will increase the time and the customer's path in the market. However, in this case we are not "annotating" for each purchase to which profile the consumer belongs. Furthermore, we don't even know how many consumer profiles there are.
+But not all problems can be solved in this way. In some cases, getting labelled data is extremely costly or even impossible. For example, imagine that you own a business and want to know the profile of your consumers. There may be a consumer profile that always buys wine and cheese, or meat and charcoal, or milk powder and diaper. If this is the case, putting these products on distant shelves can increase sales, since it will increase the time and the customer's path in the market. However, in this case we are not "labelled" for each purchase to which profile the consumer belongs. Furthermore, we don't even know how many consumer profiles there are.
 
-In this case, the computer will have to find out the profiles without any annotated data and we will need unsupervised learning methods. One option would be to look whether there are repeated patterns in the purchase records that would allow the inference of a consumer group or profile. Another option would be to directly see which products are often bought together and then learn an associative rule between them.
+In this case, the computer will have to find out the profiles without any labelled data and we will need unsupervised learning methods. One option would be to look whether there are repeated patterns in the purchase records that would allow the inference of a consumer group or profile. Another option would be to directly see which products are often bought together and then learn an associative rule between them.
 
 In general, with unsupervised learning we want to find a more informative representation of the data we have. Generally, this more informative representation is also simpler, condensing the information into more relevant points. Some examples are:
 
@@ -66,7 +66,7 @@ Words in a text | Mathematical representation of words
 <img src="/img/tres-tipos-am/f008.png" width="600"/>
 </p>
 
-Other examples of unsupervised learning applications are movie or music recommendation systems, anomaly detection, and data visualization. Among the best known techniques to solve unsupervised learning problems are artificial neural networks, Expectation-Maximization, k-medium clusters, support vector machines (kernel machines), Hierarchical Clustering, *word2vec*, principal components analysis, insulation forests , Self-organized maps, restricted Boltzmann machines, *eclat*, *apriori*, *t-SNE*. Unsupervised learning problems are considerably more complicated than supervised learning problems, mainly because we do not have the annotated answer in the data. As a consequence, it is extremely complicated and controversial to evaluate an unsupervised learning model and this type of model is at the frontier of knowledge in machine learning.
+Other examples of unsupervised learning applications are movie or music recommendation systems, anomaly detection, and data visualization. Among the best known techniques to solve unsupervised learning problems are artificial neural networks, Expectation-Maximization, k-medium clusters, support vector machines (kernel machines), Hierarchical Clustering, *word2vec*, principal components analysis, insulation forests , Self-organized maps, restricted Boltzmann machines, *eclat*, *apriori*, *t-SNE*. Unsupervised learning problems are considerably more complicated than supervised learning problems, mainly because we do not have the labelled answer in the data. As a consequence, it is extremely complicated and controversial to evaluate an unsupervised learning model and this type of model is at the frontier of knowledge in machine learning.
 
 ## Reinforcement learning
 
