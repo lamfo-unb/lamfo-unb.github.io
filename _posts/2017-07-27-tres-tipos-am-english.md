@@ -2,7 +2,7 @@
 layout: post
 title: The three types of machine learning
 header-img: img/tres-tipos-am/f015.jpg
-date: 2017-07-26 12:42:09
+date: 2017-07-27 12:42:09
 tags: [machine-learning, artificial-intelligence, supervised-learning, unsupervised-learning, reinforcement-learning]
 author: Hugo Honda, Matheus Facure, Peng Yaohao
 lang: en
