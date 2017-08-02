@@ -11,18 +11,23 @@ comments: true
 <link href='https://fonts.googleapis.com/css?family=Rock Salt' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
 
+#################################################
+Antes de introduzir o teorema em si, acho que seria interessante comentar um pouco a ideia de probabilidade condicional - como a probabilidade de um evento pode mudar com a adição de novas informações; basicamente, a diferença entre P(A) e P(A|B)
+#################################################
+
 # Teorema de Bayes
 
 O teorema de bayes estabelece a seguinte relação entre dois eventos A e B, com probabilidades, respectivamente, P(A) e P(B):
 
 $$P(A|B) = \frac{P(A \cap B) }{P(B)}$$
 
-
-
 Utilizando o conceito de permutabilidade definido no Teorema de Finetti, o termo $P(A \cap B)$ é igual a $P( B \cap A )$ e, dessa forma, pode ser escrita como:
 
 $$P( B  \cap A ) = P( B | A)P(A)$$
 
+#################################################
+Acho que o teorema de De Finetti não é tão "amigável" para quem não tem já alguma bagagem estatística... tente ver um jeito mais noob de explicar que a interseção é comutativa, usando diagramas de conjuntos, talvez
+#################################################
 
 Por fim, tem-se a seguinte relação:
 $$P(A|B) = \frac{P( B | A) }{P(B)}P(A)$$
@@ -31,7 +36,7 @@ Nesse caso, o probabilidade $P(A)$ é denominada probabilidade a *priori*, isto 
 
 Para compreender com mais detalhes o Teorema de Bayes é necessário entender a **regra da probabilidade total (RPT)**, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos. 
 
-Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento $A$, vide (a). Considere agora que seja possível particionar o espaço $\Omega$ em partes $B_i$ sem intersecções entre si, vide (b). A probabilidade $A$ pode ser determina, pela intersecção entre o evento $A$ e cada partição $B_i$, vide (c) e (d).
+Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento $A$, vide (a). Considere agora que seja possível particionar o espaço $\Omega$ em partes $B_i$ sem intersecções entre si, vide (b). A probabilidade $A$ pode ser determinada pela intersecção entre o evento $A$ e cada partição $B_i$, vide (c) e (d).
 
 
 Nos espaços amostrais $\Omega$ formados pela união de partes $B_i$ disjuntas (mutuamente exclusivas) a probabilidade de qualquer evento de $\Omega$ é:
@@ -112,4 +117,12 @@ P(A|B) = &   47.36\%  \nonumber
 Dessa forma, após saber que ele não pagou o boleto do banco, a probabilidade de ser bom pagador a *posteriori* reduz em quase a metade da *priori*. Dessa forma, a nova taxa de juros é $\frac{1}{0.4736} - 1 = 111.111\%$, fazendo com que o valor cobrado seja de R\$$2.111,11$.
 
 Esse é uma versão introdutória do Teorema de Bayes e serve para motivação para posts futuros que exigirão mais pré requisitos em teoria de probabilidades.
+
+#################################################
+Apresente algumas aplicações do teorema em situações mais complicadas, aonde mais pode se aplicar essa ideia
+#################################################
+
+#################################################
+Tenho a impressão que o 'math mode' no markdown é sempre '$$texto$$', com '$texto$" não sei se funciona, dê uma verificada nisso. As aspas também são normais "texto", não precisa de ``texto'', como no latex.
+#################################################
 
