@@ -136,18 +136,18 @@ $(document).ready(function () {
 <p>Dito isso, vamos defir como <span class="math inline">\(P(A)\)</span> a probabilidade de ocorrer o evento <span class="math inline">\(A\)</span> em um determinado conjunto de valores possívels <span class="math inline">\(\Omega\)</span>. Antes de tudo vamos aquecer o cérebro compreendendo os importantes conceitos de <strong>independência</strong> e <strong>permutabilidade</strong> para o estudo de probabilidade.</p>
 <div id="independencia" class="section level2">
 <h2>Independência</h2>
-<p>Seja uma caixa contendo <strong>3 bolas brancas</strong> e <strong>2 pretas</strong>. Considere o experimento da retirada aleatória e observância da cor da bolas, com representação <span class="math inline">\(X_1\)</span> de eventos <strong>Bernoulli</strong>:</p>
+<p>Seja uma caixa contendo <strong>2 bolas brancas</strong> e <strong>3 pretas</strong>. Considere o experimento da retirada aleatória e observância da cor da bolas, com representação <span class="math inline">\(X_1\)</span> de eventos <strong>Bernoulli</strong>:</p>
 <ul>
 <li><p><span class="math inline">\(X_1 = 0\)</span> caso a bola retirada seja branca</p></li>
 <li><p><span class="math inline">\(X_1 = 1\)</span> caso a bola retirada seja preta</p></li>
 </ul>
-<p>Pela abordagem clássica, a probabilidade da bola ser branca é <span class="math inline">\(P(X_1 = 1) = \frac{3}{5}\)</span> e de ser preta <span class="math inline">\(P(X_1 = 0) = \frac{2}{5}\)</span>.</p>
+<p>Pela abordagem clássica, a probabilidade da bola ser branca é <span class="math inline">\(P(X_1 = 0) = \frac{2}{5}\)</span> e de ser preta <span class="math inline">\(P(X_1 = 1) = \frac{3}{5}\)</span>.</p>
 <p>Após a primeira retirada, e sem reposição, você retira mais uma bola. Qual a probabilidade da segunda bola ser branca?</p>
-<p>A resposta mais intuitiva é <strong>DEPENDE</strong>. De fato, a probabilidade desse evento no segundo lançamento está <strong>condicionada</strong> ao resultado do primeiro lançamento. Perceba, caso a primeira seja branca, restam mais <span class="math inline">\(1\)</span> branca e as demais <span class="math inline">\(3\)</span> pretas, e, com isso, a probabilidade de da segunda retirada branca é <span class="math inline">\(\frac{1}{4}\)</span>. Caso a primeira tenha sido preta, seria <span class="math inline">\(\frac{2}{4}\)</span>.</p>
+<p>A resposta mais intuitiva é <strong>DEPENDE</strong>. De fato, a probabilidade desse evento no segundo lançamento está <strong>condicionada</strong> ao resultado do primeiro lançamento. Perceba, caso a primeira seja branca, restam mais <span class="math inline">\(1\)</span> branca e as demais <span class="math inline">\(3\)</span> pretas, e, nesse caso, a probabilidade de da segunda retirada branca é <span class="math inline">\(\frac{1}{4}\)</span>. Caso a primeira tenha sido preta, seria <span class="math inline">\(\frac{2}{4}\)</span>.</p>
 <p>A probabilidade do evento <span class="math inline">\(B\)</span> condicionada ao evento <span class="math inline">\(A\)</span> é representada por <span class="math inline">\(P(B|A)\)</span>. Nesse caso, temos que:</p>
 <ul>
-<li><p><span class="math inline">\(P(X_2 = 1|X_1 = 1) = \frac{1}{4}\)</span></p></li>
-<li><p><span class="math inline">\(P(X_2 = 1|X_1 = 0) = \frac{2}{4}\)</span></p></li>
+<li><p><span class="math inline">\(P(X_2 = 0|X_1 = 0) = \frac{1}{4}\)</span></p></li>
+<li><p><span class="math inline">\(P(X_2 = 0|X_1 = 1) = \frac{2}{4}\)</span></p></li>
 </ul>
 <p>Dessa forma, dizemos que o evento <span class="math inline">\(X_2\)</span> é <strong>dependente</strong> do evento <span class="math inline">\(X_1\)</span>.</p>
 <p>A probabilidade conjunta dos eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> é expressa pela regra do produto: <span class="math display">\[P( B \cap A)   = P(B|A) P(A)\]</span> que também pode ser expressa por <span class="math inline">\(P( B \cap A) = P( B , A)\)</span>.</p>
@@ -161,25 +161,38 @@ $(document).ready(function () {
 <p>Dizemos que <span class="math inline">\(X_2\)</span> é <strong>independente</strong> de <span class="math inline">\(X_1\)</span>, e nesse caso, temos que a regra do produto é:</p>
 <span class="math display">\[\begin{eqnarray}
 P(X_2  , X_1 ) &amp; = P(X_2|X_1) P(X_1) \nonumber \\
- &amp; = P(X_2)P(X_1 ) \nonumber
+ P(X_2  , X_1 ) &amp; = P(X_2)P(X_1 ) \nonumber
 \end{eqnarray}\]</span>
 </div>
 <div id="permutabilidade" class="section level2">
 <h2>Permutabilidade</h2>
-<p>A permutabilidade é a propriedade de alterar a ordem de uma sequência de eventos sem que a probabilidade conjunta seja alterada. É importante notar que a independência dos eventes garante a permutabilidade, mas a permutabilidade não garante a independência.</p>
-<p>O teorema de De Finetti utiliza a permutabilidade e a independência.</p>
-<p>Dessa forma, a sequência de resultados <strong>cara, coroa, cara, cara, coroa</strong> pode ser representada pela sequência numérica <span class="math inline">\((1,0,0,1,0)\)</span>.</p>
+<p>Permutabilidade de uma sequência de evento é a propriedade de qualquer alteração no ordenamento de realizações de uma sequência de eventos sem que a probabilidade conjunta seja alterada.</p>
+<p>Considere o lançamento de <span class="math inline">\(5\)</span> moedas não viciadas, com representação semelhante a apresentada anteriormente, sendo observado o seguinte resultado <span class="math inline">\((1,0,1,1,0)\)</span>, isto é, (cara,coroa,cara,cara,cora). Sabemos que os lançamentos são <strong>independentes</strong> e que a probabilidade conjunta desse evento é <span class="math inline">\(P(1,0,1,1,0) = P(X_5 = 1) \times P(X_4 = 0)\times P(X_3 = 1)\times P(X_2 = 1)\times P(X_1 = 0) = \frac{1}{2^5}\)</span>.</p>
+<p>Nessa situação, caso fosse observado o evento <span class="math inline">\((1,1,1,0,0)\)</span>, a probabilidade não seria alterada, pois <span class="math inline">\(P(1,0,1,1,0) = P(1,1,1,0,0) =\frac{1}{2^5}\)</span>. Dessa forma, a ordem da ocorrências dos resultados cara não altera a probabilidade conjunta, desde que seja a mesma quantidade de resultados de “sucesso”. Esse é uma versão não rigora do Teorema de De Finetti.</p>
+<p>De maneira geral, a independência de uma sequência de eventos garante a permutabilidade da mesma.</p>
+<p>No entanto, a permutabililidade não é condição necessária para a permutabilidade, apenas suficiente. Isto é, ainda que não uma sequência não seja independente, é possível que se permutável.</p>
+<p>Considere a mesma representação do exemplo da caixa com bolas apresentado anteriormente na retirada de <span class="math inline">\(5\)</span> bolas sem reposição. Como visto, esses eventos não são <strong>independentes</strong>, pois a probabilidade de um determinado evento na sequência, depende do resultado observado no evento anterior.</p>
+<p>Dessa forma, vamos verificar se o evento <span class="math inline">\((1,0,1,1,0)\)</span> é permutável. Inicialmente, vamos calcular a probabilidade <span class="math inline">\(P(1,0,1,1,0)\)</span>:</p>
+<span class="math display">\[\begin{eqnarray}
+P(1,0,1,1,0)  = &amp;  P(X_1 = 1)\times P(X_2 = 0 | X_1 = 1) &amp; \times P(X_3 = 1 |X_2 = 0 , X_1 = 1) \times \nonumber \\
+&amp; P(X_4 = 1|X_3 = 1 ,X_2 = 0 , X_1 = 1) &amp; \times P(X_5 = 0|X_4 = 1 , X_3 = 1 ,X_2 = 0 , X_1 = 1)   \nonumber \\
+P(1,0,1,1,0)  =  &amp; \frac{3}{5} \times \frac{2}{4}  \times \frac{2}{3} \times  \frac{1}{2}  \times \frac{1}{1} &amp; = \frac{1}{10}\nonumber 
+\end{eqnarray}\]</span>
+<p>Agora, vamos calcular a probabilidade <span class="math inline">\(P(1,1,1,0,0)\)</span>, alterando o resultado do segundo evento com o quarto:</p>
+<span class="math display">\[\begin{eqnarray}
+P(1,1,1,0,0)  = &amp;  P(X_1 = 1)\times P(X_2 = 1 | X_1 = 1) &amp; \times P(X_3 = 1 |X_2 = 1 , X_1 = 1) \times \nonumber \\
+&amp; P(X_4 = 0|X_3 = 1 ,X_2 = 1 , X_1 = 1) &amp; \times P(X_5 = 0|X_4 = 0 , X_3 = 1 ,X_2 = 1 , X_1 = 1)   \nonumber \\
+P(1,1,1,0,0)  =  &amp; \frac{3}{5} \times \frac{2}{4}  \times \frac{1}{3} \times  \frac{2}{2}  \times \frac{1}{1} &amp; = \frac{1}{10}\nonumber 
+\end{eqnarray}\]</span>
+<p>Dessa forma, embora essa sequência seja formada por eventos dependentes, a ordem desses eventos não altera a probabilidade conjunta, tornando-a permutável.</p>
 </div>
 </div>
 <div id="teorema-de-bayes" class="section level1">
 <h1>Teorema de Bayes</h1>
 <p>O teorema de bayes estabelece a seguinte relação entre dois eventos A e B, com probabilidades, respectivamente, P(A) e P(B):</p>
 <p><span class="math display">\[P(A|B) = \frac{P( B | A) }{P(B)}P(A)\]</span></p>
-<p>Utilizando o conceito de permutabilidade definido no Teorema de Finetti, o termo <span class="math inline">\(P(A \cap B)\)</span> é igual a <span class="math inline">\(P( B \cap A )\)</span> e, dessa forma, pode ser escrita como:</p>
+<p>Utilizando o conceito de permutabilidade definido no Teorema de De Finetti, o termo <span class="math inline">\(P(A \cap B)\)</span> é igual a <span class="math inline">\(P( B \cap A )\)</span> e, dessa forma, pode ser escrita como:</p>
 <p><span class="math display">\[P( B  \cap A ) = P( B | A)P(A)\]</span></p>
-<div id="section" class="section level49">
-<p></p>
-<p>Acho que o teorema de De Finetti não é tão “amigável” para quem não tem já alguma bagagem estatística… tente ver um jeito mais noob de explicar que a interseção é comutativa, usando diagramas de conjuntos, talvez #################################################</p>
 <p>Por fim, tem-se a seguinte relação: <span class="math display">\[P(A|B) = \frac{P( B | A) }{P(B)}P(A)\]</span></p>
 <p>Nesse caso, o probabilidade <span class="math inline">\(P(A)\)</span> é denominada probabilidade a <em>priori</em>, isto é, a informação sobre o evento <span class="math inline">\(A\)</span> antes que se soubesse algo sobre o evento <span class="math inline">\(B\)</span>. Mais adiante, quando se tenha conhecimento sobre <span class="math inline">\(B\)</span>, a probabilidade relacionada ao evento <span class="math inline">\(A\)</span> deve ser atualizada pela probabilidade do evento <span class="math inline">\(B\)</span>. A probabilidade <span class="math inline">\(P(A|B)\)</span> é agora denominada probabilidade a <em>posteriori</em>. Sendo a razão <span class="math inline">\(\frac{P(B|A) }{P(B)}\)</span> o fator de atualização das informações sobre o evento <span class="math inline">\(A\)</span>.</p>
 <p>Para compreender com mais detalhes o Teorema de Bayes é necessário entender a <strong>regra da probabilidade total (RPT)</strong>, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos.</p>
@@ -193,7 +206,11 @@ P(A) = &amp; P(A | B_1)P(B_1)+P(A | B_2)P(B_2) + ... + P(A | B_N)P(B_N)
 <span class="math display">\[\begin{equation}
 P(A) = \sum_{i=1}^N P(A | B_i)P(B_i)
 \end{equation}\]</span>
-<p> Esssa pergunta pergunta pode ser respondida com o seguinte problema…</p>
+<p></p>
+</div>
+<div id="exemplo" class="section level1">
+<h1>Exemplo</h1>
+<p>Esssa pergunta pergunta pode ser respondida com o seguinte problema.</p>
 <p>Um amigo muito próximo lhe pediu <span class="math inline">\(R\$ 1.000,00\)</span> emprestado (<span class="math inline">\(V_{emprestado}\)</span>) para solução financeira de uma emergência. Você é um investidor nato e não suporta a ideia de perder seu patrimônio conquistado. Você decide ajudar seu amigo e cobrará juros <span class="math inline">\(T_{juros}\)</span> sobre o montante inicial, mas está preocupado com o <strong>risco</strong> do não pagamento do empréstimo<span class="math inline">\(V_{devolvido}\)</span>:</p>
 <span class="math display">\[\begin{eqnarray}
 V_{devolvido} = V_{emprestado} \times (1 + T_{juros}) \nonumber 
@@ -201,8 +218,8 @@ V_{devolvido} = V_{emprestado} \times (1 + T_{juros}) \nonumber
 <p>Você percebeu que o <strong>valor devolvido</strong> (<span class="math inline">\(V_{devolvido}\)</span>) do seu “investimento” ao final do período de empréstimo está sujeito às “variações do mercado”, que, nesse caso, estão relacionadas a um evento  do não pagamento da dívida. Com isso, você define o <strong>valor esperado</strong> (<span class="math inline">\(V_{esperado}\)</span>) como o valor recebido ao final do período considerando tal incerteza.</p>
 <p>Considere <span class="math inline">\(A\)</span> o evento indicativo do pagamento do seu amigo, então, o valor esperado (<span class="math inline">\(V_{esperado}\)</span>) ao final do período de empréstimo é a média ponderada entre as possibilidades de valores devolvidos, <span class="math inline">\(V_{devolvido}\)</span> e <span class="math inline">\(0\)</span>, e suas respectivas probabilidades, <span class="math inline">\(P(A)\)</span> e <span class="math inline">\(1 - P(A)\)</span>. Dessa forma, o <span class="math inline">\(V_{esperado}\)</span> do investimento é:</p>
 <span class="math display">\[\begin{eqnarray}
-V_{esperado}  = &amp;  V_{devolvido} \times P(A)                    &amp; + 0 \times (1 - P(A)) \nonumber \\
- = &amp;  [V_{emprestado} \times (1 + T_{juros})] \times P(A)  &amp; + 0 \times (1 - P(A)) \nonumber \\
+V_{esperado}  = &amp;  V_{devolvido} \times P(A)                    &amp; + 0 \times [1 - P(A)] \nonumber \\
+ = &amp;  [V_{emprestado} \times (1 + T_{juros})] \times P(A)  &amp; + 0 \times [1 - P(A)] \nonumber \\
  = &amp;  [V_{emprestado} \times (1 + T_{juros})] \times P(A)   
 \end{eqnarray}\]</span>
 <p>Você decide que o valor dos juros será determinado de maneira que o valor esperado seja igual ao investimento inicial, isto é, <span class="math inline">\(V_{esperado}=V_{emprestado}\)</span>. Dessa forma, a taxa de juros utilizada será:</p>
@@ -229,7 +246,7 @@ Dito isso, utilizando a taxa de juros que você deve adotar é:
 <li>Atraso no pagamento dos mal pagadores: evento <span class="math inline">\(B|A^{c}\)</span>. Sendo <span class="math inline">\(P(B|A^{c})=\frac{2}{4}\)</span>.</li>
 <li>Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. <span class="math inline">\(P(A|B)=\)</span>?.</li>
 </ul>
-Utilizando o Teorema de Bayes e a regra da probabilidade total em <span class="math inline">\(P(B)\)</span>, tem-se que:
+Utilizando o Teorema de Bayes e a RPT em <span class="math inline">\(P(B)\)</span>, tem-se que:
 <span class="math display">\[\begin{eqnarray}
 P(A|B) = &amp;  \frac{P( B | A) }{P(B)}P(A) \nonumber \\
 P(A|B) = &amp; \left[ \frac{P( B | A) }{P(B | A)P(A)+P(B | A^{c})P(A^{c})}\right]P(A) \nonumber \\
@@ -240,9 +257,80 @@ P(A|B) = &amp;   47.36\%  \nonumber
 <p>Dessa forma, após saber que ele não pagou o boleto do banco, a probabilidade de ser bom pagador a <em>posteriori</em> reduz em quase a metade da <em>priori</em>. Dessa forma, a nova taxa de juros é <span class="math inline">\(\frac{1}{0.4736} - 1 = 111.111\%\)</span>, fazendo com que o valor cobrado seja de R$ <span class="math inline">\(2.111,11\)</span>.</p>
 <p>Esse é uma versão introdutória do Teorema de Bayes e serve para motivação para posts futuros que exigirão mais pré requisitos em teoria de probabilidades.</p>
 </div>
-<div id="section-1" class="section level49">
-<p></p>
-<p>Apresente algumas aplicações do teorema em situações mais complicadas, aonde mais pode se aplicar essa ideia #################################################</p>
+<div id="modelos-de-espacos-de-estados" class="section level1">
+<h1>Modelos de Espaços de Estados</h1>
+<p>Os modelos de Espaços de Estados são uma classe de modelos utilizados para estudar e conhecer séries temporais, conjunto de valores observados ao longo de instantes no tempo, podendo ser representado por <span class="math inline">\((Y_t)_{(t&gt;0)}\)</span>, sendo <span class="math inline">\(t=1,2,\cdots,T\)</span> o indexador que representa o instante de mensuração da quantidade.</p>
+<p>Considere a seguinte estrura simples de dependência para a série temporal:</p>
+<p><span class="math display">\[Y_t  = \theta + \epsilon_t\]</span></p>
+<p>É importante notar que a <span class="math inline">\(Y_1,Y_2,....,Y_T\)</span> é <strong>condicionamente independente</strong> por meio do do parâmetro <span class="math inline">\(\theta\)</span>. Em outras palavras, as informações em <span class="math inline">\(t\)</span> são independentes das em <span class="math inline">\(t-1\)</span>, condicionadas a informação de <span class="math inline">\(\theta\)</span>. Como exemplo, para <span class="math inline">\(t=2\)</span>, essa relação é determinada pela relação <span class="math inline">\(P(Y_2|Y_1,\theta) = P(Y_2|\theta)\)</span>. Para um <span class="math inline">\(t\)</span> qualquer, tem-se que <span class="math inline">\(P(Y_t|Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t|\theta)\)</span>.</p>
+<p>Essa propriedade características permite que a distribuição conjunta dessa série possa ser rescrita por:</p>
+<span class="math display">\[\begin{eqnarray}
+P(Y_T,....,Y_1|\theta)  = &amp; \frac{P(Y_T,....,Y_1,\theta)}{P(\theta)} \\
+P(Y_T,....,Y_1|\theta)  = &amp; \frac{P(Y_T|Y_{T-1},....,Y_2,Y_1,\theta)P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)} \\
+P(Y_T,....,Y_1|\theta)  = &amp; P(Y_T|\theta)\frac{P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)} \\
+\end{eqnarray}\]</span>
+<p>Replicando esse procedimento para a série inteira, não é difícil chegar a seguinte distribuição conjunta :</p>
+<p><span class="math display">\[P(Y_T,....,Y_1|\theta) = \prod^T_{t=1} P(Y_t|\theta)P(\theta)\]</span></p>
+<p>Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação <span class="math inline">\(Y_t\)</span> por meio da distribuição condicional <span class="math inline">\(P(Y_t|\theta)\)</span>. Dessa relação, é possível obter <strong>atualizações</strong> sobre <span class="math inline">\(\theta\)</span>. Vamos entender esse conceito com estudo de um caso.</p>
+</div>
+<div id="modelos-gaussianos" class="section level1">
+<h1>Modelos Gaussianos</h1>
+<p>Um investidor esteja interessado em obter informações sobre os retornos mensais do Índice Ibovespa utilizando a estrutura simples de dependência apresentada anteriormente:</p>
+<p><span class="math display">\[Y_t  = \theta + \epsilon_t\]</span></p>
+<p>Com <span class="math inline">\(\epsilon_t \sim N(0,\sigma^2)\)</span>, sendo <span class="math inline">\(\sigma^2\)</span> conhecida e igual a <span class="math inline">\(5\)</span>. Nesse caso, a temos a dependência condicional:</p>
+<p><span class="math display">\[ Y_1,Y_2,...,Y_T|\theta \sim N(\theta,\sigma^2)  \]</span></p>
+<p>Conversando com os funcionários mais antigos ele obteve a <strong>informação inicial</strong> de que o comportamento da média dos retornos mensais (<span class="math inline">\(\theta\)</span>) tem distribuição Normal como média <span class="math inline">\(\eta_0=2\%\)</span> e desvio-padrão <span class="math inline">\(\phi_0 = 2\%\)</span>. Essa é a informação a <em>priori</em> do parâmetro da série temporal de interesse. Com base nessa informação, o investidor pretende observar os índices ao final de cada mês e <strong>atualizar</strong> o conhecimento sobre <span class="math inline">\(\theta\)</span>, a distribuição a <em>posteriori</em>, a medida que novas observações da série do índice mensal do Ibovespa <span class="math inline">\(Y_t\)</span> estejam disponíveis.</p>
+<p>Se que o valor do índice Ibovespa para janeiro foi <a href="http://www.bmfbovespa.com.br/pt_br/servicos/market-data/historico/mercado-a-vista/series-historicas/"><span class="math inline">\(Y_1=7.38\)</span></a>, qual é a distribuição e os parâmetros da <em>posteiriori</em> <span class="math inline">\(P(\theta|Y_1)\)</span>?.</p>
+<p>Ao final do primeiro mês o investidor pretende obter a distribuição <span class="math inline">\(P(\theta|Y_1)\)</span> e para isso utiliza o Teorema de Bayes, chegando a seguinte relação:</p>
+<p><span class="math display">\[P(\theta|Y_1) = \frac{P(Y_1,\theta)}{p(Y_1)} = \frac{P(Y_1|\theta) P(\theta)}{\int P(Y_1|\theta) P(\theta)}\]</span></p>
+<p>O desafio, nesse ponto, é obter a distribuição conjunta <span class="math inline">\(P(Y_1,\theta)\)</span> por meio do produto entre a probabilidades distribuição da série, <span class="math inline">\(P(Y_1|\theta)\)</span>, e a <em>priori</em> do parâmetro <span class="math inline">\(\theta\)</span>, <span class="math inline">\(P(\theta)\)</span>. Utilizando informaçõe das distribuições normais informadas, temos que:</p>
+<span class="math display">\[\begin{eqnarray}
+P(Y_1,\theta) &amp; =  P(Y_1|\theta) P(\theta) \\
+
+P(Y_1,\theta) &amp; = (2 \sigma^2)^{-\frac{1}{2}}e^{[-(2\sigma^2)^{-1}(y_1 - \theta)^2]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta - \eta_0)^2]} \\
+
+
+P(Y_1,\theta) &amp;  =  (2 \sigma^2)^{-\frac{1}{2}} e^{[-(2\sigma^2)^{-1}(y_1^2 - 2y\theta + \theta^2)]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0 + \eta_0^2)]} \\
+
+P(Y_1,\theta) &amp;  =  \left[(2 \sigma^2)^{-\frac{1}{2}}(2\phi_0^2)^{-\frac{1}{2}}\right]\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]\times\left[ e^{[-(2\sigma^2)^{-1}(y^2)]}  e^{[-(2\phi_0^2)^{-1}(\eta_0^2)]}\right]\\
+
+P(Y_1,\theta) &amp;  =  c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]\\
+
+P(Y_1,\theta) &amp;  =  c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]\\
+
+
+P(Y_1,\theta) &amp;  =  c3\times\left[ e^{[-(2)^{-1}( \theta^2 (\sigma^{-2} + \phi_0^{-2}) - 2\theta(y_1\sigma^{-2} + \eta_0 \phi_0^{-2}) )]} \right]\\
+
+P(Y_1,\theta) &amp;  =  c3\times\left[ e^{[-(2)^{-1}(\sigma^{-2} + \phi_0^{-2})( \theta^2 - 2\theta\frac{(y_1\sigma^{-2} + \eta_0 \phi_0^{-2})}{(\sigma^{-2} + \phi_0^{-2})} )]} \right]\\
+
+\end{eqnarray}\]</span>
+<p>Perceba que, a menos de constantes, essa distribuição conjunta tem o núcleo de uma distribuição normal com média:</p>
+<p><span class="math display">\[\frac{(y\sigma^{-2} + \eta \phi^{-2})}{(\sigma^{-2} + \phi^{-2})} = \frac{y_1\phi^2 + \eta \sigma^2}{\sigma^2 + \eta^2} = \frac{7.38 \times 2 + 2 \times 5}{2 + 5} = 3.53 \]</span></p>
+<p>e variância</p>
+<p><span class="math display">\[\frac{1}{\sigma^{-2} + \phi^{-2}} = \frac{1}{5^{-1} + 2^{-1}} = 1.42\]</span></p>
+<p>Perceba que o denominador é a integração dessa distribuição conjunta (numerador) com relação a <span class="math inline">\(\theta\)</span> e, com um pouco de esforço algébrico, é a <strong>constante normalizadora</strong>. Dessa forma, temos que <span class="math inline">\(\theta|Y_1 \sim N(3.53,1.42)\)</span>.</p>
+<p>Essa é a distribuição a <strong>posteriori</strong> de <span class="math inline">\(\theta\)</span> com relação a informação <span class="math inline">\(Y_1\)</span>. O gráfico a seguir apresenta a comparação entre as distribuições:</p>
+<p>Os parâmetros da distribuição a <em>posteriori</em> tem seus parâmetros <span class="math inline">\(\eta_t\)</span> e <span class="math inline">\(\phi_t\)</span> atualizados em <span class="math inline">\(t\)</span> a medida que se tenha acesso a novas informações da série temporal. Em todos esses instantes, a <em>posteriori</em> obtida no passo <span class="math inline">\(t\)</span> é a nova <em>priori</em> para a estimação em <span class="math inline">\(t+1\)</span>.</p>
+<p>A repetição do processo de estimação em um instante <span class="math inline">\(t\)</span> qualquer fornece o seguinte resultado:</p>
+<p><span class="math display">\[\theta|Y_1,Y_2,...Y_t \sim N(\eta_t,\phi_t)\]</span></p>
+<p>Sendo <span class="math inline">\(\eta_t\)</span> a média entre a o valor inical <span class="math inline">\(\eta_0\)</span> e a média da série <span class="math inline">\(Y_1,...,Y_t\)</span> ponderados pelas variâncias do processo:</p>
+<p><span class="math display">\[\eta_t =  \frac{\frac{\sum_{i=1}^t y_i}{t} \phi_0^2 + \eta_0 \frac{\sigma^2}{t}}{\frac{\sigma^2}{t} + \eta_0^2}\]</span></p>
+<p>e a variância</p>
+<p><span class="math display">\[\phi_t = t\sigma^{-2} + \phi_0^{-2}\]</span></p>
+<p>O conteúdo do post, embora simples, apresenta as principais vantagens do uso da Teoria Bayesiana para modelos de séries temporais, a possibilidade de atualização do conhecimento a medida que se tenha acesso a novas informações.</p>
+<p>Esses modelos podem ser aprimorados em três pontos de destaque:</p>
+<ul>
+<li><p>estrutura de dependência temporal que incorpore tendência, sazonalidade</p></li>
+<li><p>relações não gaussianas e não-lineares.</p></li>
+<li><p>aumentar número de parâmetros estimados o parâmetro <span class="math inline">\(\sigma^2\)</span></p></li>
+</ul>
+<p>O aumento da complexidade requer a utilização de técnicas estatísticas e computacionais mais sofisticadas para lidar com o processo de estimação. É comum encontrar distribuições que não tenham formas fechadas ou situações com alta dimensão devido a quantidade de parâmetros e tamanho da série temporal. Nesses casos, técnicas como <a href="https://lamfo-unb.github.io/2017/06/28/Bootstrap/">Bootstrap</a>, MCMC, Gibbs Sampler e Filtro de Partículas podem ser adotadas.</p>
+<p>Mais detalhes dos processo podem ser consultados em Petris et al (2009).</p>
+<div id="referencias" class="section level2">
+<h2>Referências</h2>
+<p>Todhunter, Isaac (1873). History of the Mathematical Theories of Attraction and Figure of the Earth from Newton to Laplace.</p>
+<p>David, F. N. (1962). Games, gods and gambling.</p>
+<p>Petris, Giovanni, Sonia Petrone, and Patrizia Campagnoli. (2009). Dynamic Linear Models With R.</p>
 </div>
 </div>
 
