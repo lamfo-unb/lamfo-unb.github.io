@@ -118,6 +118,7 @@ $$P( B  \cap A ) = P( B | A)P(A)$$
 
 
 Por fim, tem-se a seguinte relação:
+
 $$P(A|B) = \frac{P( B | A) }{P(B)}P(A)$$
 
 Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, isto é, a informação sobre o evento $$A$$ antes que se soubesse algo sobre o evento $$B$$. Mais adiante, quando se tenha conhecimento sobre $$B$$, a probabilidade relacionada ao evento $$A$$ deve ser atualizada pela probabilidade do evento $$B$$. A probabilidade $$P(A|B)$$ é agora denominada probabilidade a *posteriori*. Sendo a razão  $$\frac{P(B|A)}{P(B)}$$ o fator de atualização das informações sobre o evento $$A$$.
@@ -126,13 +127,18 @@ Para compreender com mais detalhes o Teorema de Bayes é necessário entender a 
 
 Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento $$A$$, vide (a). Considere agora que seja possível particionar o espaço $$\Omega$$ em partes $$B_i$$ sem intersecções entre si, vide (b). A probabilidade $$A$$ pode ser determinada pela intersecção entre o evento $$A$$ e cada partição $$B_i$$, vide (c) e (d).
 
+
 ![alt text](/img/bayes/rpt_1.png "Evento $A$ (a)")
+
 
 ![alt text](/img/bayes/rpt_2.png "Partições $B_i$ em $\Omega$ (b)")
 
+
 ![alt text](/img/bayes/rpt_3.png "Intersecções entre $A$ e as partições $B_i$ (c)")
 
+
 ![alt text](/img/bayes/rpt_4.png "Calculando a probabilidade em $A$ (d)")
+
 
 Nos espaços amostrais $$\Omega$$ formados pela união de partes $$B_i$$ disjuntas (mutuamente exclusivas) a probabilidade de qualquer evento de $$\Omega$$ é:
 
@@ -143,9 +149,9 @@ $$
 
 Dessa forma, a probabilidade do evento $$A$$ pode ser representado por:
 
-\begin{equation}
+$$
 P(A) = \sum_{i=1}^N P(A | B_i)P(B_i)
-\end{equation}
+$$
 
 
 \textbf{Qual a importância desse resultado?}
