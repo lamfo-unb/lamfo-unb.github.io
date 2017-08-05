@@ -44,9 +44,12 @@ A resposta mais intuitiva é **DEPENDE**. De fato, a probabilidade da segunda re
 
 De maneira geral, a probabilidade do evento $$B$$ condicionada ao evento $$A$$ é representada por $$P(B|A)$$. Nesse caso, temos que:
 
+
 - $$P(X_2 = 0|X_1 = 0) = \frac{1}{4}$$
 
+
 - $$P(X_2 = 0|X_1 = 1) = \frac{2}{4}$$
+
 
 Dessa forma, dizemos que o evento $$X_2$$ é **dependente** do evento $$X_1$$. 
 
@@ -210,8 +213,8 @@ O Teorema de Bayes responde diretamente essa pergunta. Antes disso, vamos modela
 - Ser bom pagador: evento $$A$$. Sendo $$P(A)=\frac{9}{10}$$.
 - Ser mal pagador: evento $$A^{c}$$. Sendo $$P(A^{c})=1-P(A)=\frac{1}{10}$$.
 - Atraso no pagamento: evento $$B$$. Sendo $$P(B)=$$ não informado.
-- Atraso no pagamento dos bons pagadores: evento $$B|A$$. Sendo $$P(B|A)=\frac{1}{20}$$.
-- Atraso no pagamento dos mal pagadores: evento $$B|A^{c}$$. Sendo $$P(B|A^{c})=\frac{2}{4}$$.
+- Atraso no pagamento dos bons pagadores: evento $$B\|A$$. Sendo $$P(B|A)=\frac{1}{20}$$.
+- Atraso no pagamento dos mal pagadores: evento $$B\|A^{c}$$. Sendo $$P(B|A^{c})=\frac{2}{4}$$.
 - Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A|B)=$$?.
 
 Utilizando o Teorema de Bayes e a  RPT em $$P(B)$$, tem-se que:
@@ -236,7 +239,7 @@ Considere a seguinte estrutura de dependência para a série temporal $$Y_t$$:
 
 $$Y_t  = \theta + \epsilon_t$$
 
-É importante notar que a $$Y_1,Y_2,....,Y_T$$ é **condicionamente independente** por meio do do parâmetro $$\theta$$. Em outras palavras, as informações em $$t$$ são independentes das em $$t-1$$, condicionadas a informação de $$\theta$$. Como exemplo, para $$t=2$$, essa relação é determinada pelo resultado $$P(Y_2|Y_1,\theta) = P(Y_2|\theta)$$. Para um $$t$$ qualquer, tem-se que $$P(Y_t|Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t|\theta)$$.
+É importante notar que a $$Y_1,Y_2,....,Y_T$$ é **condicionamente independente** por meio do do parâmetro $$\theta$$. Em outras palavras, as informações em $$t$$ são independentes das em $$t-1$$, condicionadas a informação de $$\theta$$. Como exemplo, para $$t=2$$, essa relação é determinada pelo resultado $$P(Y_2\|Y_1,\theta) = P(Y_2\|\theta)$$. Para um $$t$$ qualquer, tem-se que $$P(Y_t\|Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t\|\theta)$$.
 
 Essa propriedade permite que a distribuição conjunta dessa série possa ser reescrita por:
 
