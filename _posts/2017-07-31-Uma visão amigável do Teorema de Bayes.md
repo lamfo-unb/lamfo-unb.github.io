@@ -42,7 +42,7 @@ Após a primeira retirada, e sem reposição, você retira mais uma bola. Qual a
 
 A resposta mais intuitiva é **DEPENDE**. De fato, a probabilidade da segunda retirada ($$X_2$$) está **condicionada** ao resultado da primeira. Perceba, caso a primeira seja branca, restam mais $$1$$ branca e as demais $$3$$ pretas, e, nesse caso, a probabilidade de uma segunda retirada branca é $$\frac{1}{4}$$. Caso a primeira tenha sido preta, seria $$\frac{2}{4}$$.
 
-De maneira geral, a probabilidade do evento $$B$$ condicionada ao evento $$A$$ é representada por $$P(B|A)$$. Nesse caso, temos que:
+De maneira geral, a probabilidade do evento $$B$$ condicionada ao evento $$A$$ é representada por $$P(B\|A)$$. Nesse caso, temos que:
 
 
 - $$P(X_2 = 0|X_1 = 0) = \frac{1}{4}$$
@@ -124,7 +124,7 @@ Por fim, tem-se a seguinte relação:
 
 $$P(A|B) = \frac{P( B | A) }{P(B)}P(A)$$
 
-Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, isto é, a informação sobre o evento $$A$$ antes que se soubesse algo sobre o evento $$B$$. Mais adiante, quando se tenha conhecimento sobre $$B$$, a probabilidade relacionada ao evento $$A$$ deve ser atualizada pela probabilidade do evento $$B$$. A probabilidade $$P(A|B)$$ é agora denominada probabilidade a *posteriori*. Sendo a razão  $$\frac{P(B|A)}{P(B)}$$ o fator de atualização das informações sobre o evento $$A$$.
+Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, isto é, a informação sobre o evento $$A$$ antes que se soubesse algo sobre o evento $$B$$. Mais adiante, quando se tenha conhecimento sobre $$B$$, a probabilidade relacionada ao evento $$A$$ deve ser atualizada pela probabilidade do evento $$B$$. A probabilidade $$P(A\|B)$$ é agora denominada probabilidade a *posteriori*. Sendo a razão  $$\frac{P(B\|A)}{P(B)}$$ o fator de atualização das informações sobre o evento $$A$$.
 
 Para compreender com mais detalhes o Teorema de Bayes é necessário entender a **regra da probabilidade total (RPT)**, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos. 
 
@@ -157,7 +157,7 @@ P(A) = \sum_{i=1}^N P(A | B_i)P(B_i)
 $$
 
 
-\textbf{Qual a importância desse resultado?}
+**Qual a importância desse resultado?**
 
 
 # Aplicação simples
@@ -213,9 +213,9 @@ O Teorema de Bayes responde diretamente essa pergunta. Antes disso, vamos modela
 - Ser bom pagador: evento $$A$$. Sendo $$P(A)=\frac{9}{10}$$.
 - Ser mal pagador: evento $$A^{c}$$. Sendo $$P(A^{c})=1-P(A)=\frac{1}{10}$$.
 - Atraso no pagamento: evento $$B$$. Sendo $$P(B)=$$ não informado.
-- Atraso no pagamento dos bons pagadores: evento $$B\|A$$. Sendo $$P(B|A)=\frac{1}{20}$$.
-- Atraso no pagamento dos mal pagadores: evento $$B\|A^{c}$$. Sendo $$P(B|A^{c})=\frac{2}{4}$$.
-- Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A|B)=$$?.
+- Atraso no pagamento dos bons pagadores: evento $$B\|A$$. Sendo $$P(B\|A)=\frac{1}{20}$$.
+- Atraso no pagamento dos mal pagadores: evento $$B\|A^{c}$$. Sendo $$P(B\|A^{c})=\frac{2}{4}$$.
+- Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A\|B)=$$?.
 
 Utilizando o Teorema de Bayes e a  RPT em $$P(B)$$, tem-se que:
 $$
