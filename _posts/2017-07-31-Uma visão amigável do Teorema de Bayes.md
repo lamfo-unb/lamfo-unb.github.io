@@ -320,6 +320,12 @@ e a variância
 
 $$\phi_t = t\sigma^{-2} + \phi_0^{-2}$$
 
+O gráfico a seguir apresenta os retornos mensais do Ibovespa durante 2017 e o valor médio a *posteriori* do parâmetro $\theta$.
+
+
+![alt text](/img/bayes/update.png "Estimativas a posteriori em 2017 para o retornos mensais Ibovespa")
+
+
 # Considerações finais
 
 O conteúdo do post, embora simples, apresenta de que maneira a Teoria Bayesiana é usada para modelos de séries temporais, permitindo que haja a atualização do conhecimento a medida que se tenha acesso a novas informações. 
