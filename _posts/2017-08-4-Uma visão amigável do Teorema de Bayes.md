@@ -3,7 +3,7 @@ layout: post
 title: Uma visão amigável do Teorema de Bayes
 lang: pt
 header-img: img/bayes/juskteez-vu-1041.jpg
-date: 2017-07-31 10:00:00
+date: 2017-08-04 10:00:00
 tags: [estatística,finanças,probabilidade]
 author: Igor Nascimento
 comments: true
@@ -219,15 +219,19 @@ $$Y_t  = f(\theta) + \epsilon_t$$
 
 Essa propriedade permite que a distribuição conjunta dessa série possa ser reescrita por:
 
+
 $$P(Y_T,....,Y_1|\theta)  =  \frac{P(Y_T,....,Y_1,\theta)}{P(\theta)}$$
+
 $$P(Y_T,....,Y_1|\theta)  =  \frac{P(Y_T|Y_{T-1},....,Y_2,Y_1,\theta)P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)}$$
+
 $$P(Y_T,....,Y_1|\theta)  =  P(Y_T|\theta)\frac{P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)}$$
+
 
 Replicando esse procedimento para a série inteira, não é difícil chegar a seguinte resultado:
 
 $$P(Y_T,....,Y_1|\theta) = \prod^T_{t=1} P(Y_t|\theta)P(\theta)$$
 
-Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação $$Y_t$$ por meio da distribuição condicional $$P(Y_t|\theta)$$. Dessa relação, é possível obter **atualizações** sobre $$\theta$$. Vamos entender esse conceito com o estudo de um caso.
+Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação $$Y_t$$ por meio da distribuição condicional $$P(Y_t\|\theta)$$. Dessa relação, é possível obter **atualizações** sobre $$\theta$$. Vamos entender esse conceito com o estudo de um caso.
 
 # Modelos Gaussianos
 
