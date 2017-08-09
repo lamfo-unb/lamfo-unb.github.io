@@ -78,3 +78,10 @@ A coluna de datas também pode ser alterada de forma conter uma contagem de dias
 dataset['date'] = pd.to_datetime(dataset['date'])
 dataset['date'] = (dataset['date'] - dataset['date'].min()) / np.timedelta64(1,'D')
 ```
+
+As colunas de preços também devem ter o cifrão removido
+
+```python
+dataset = dataset.replace({'\$':''}, regex = True)
+```
+Percebemos com este processamento, o intervalo de uma semana 
