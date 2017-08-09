@@ -42,7 +42,7 @@ Após a primeira retirada, e sem reposição, você retira mais uma bola. Qual a
 
 A resposta mais intuitiva é **DEPENDE**. De fato, a probabilidade da segunda retirada ($$X_2$$) está **condicionada** ao resultado da primeira. Perceba, caso a primeira seja branca, restam mais $$1$$ branca e as demais $$3$$ pretas, e, nesse caso, a probabilidade de uma segunda retirada branca é $$\frac{1}{4}$$. Caso a primeira tenha sido preta, seria $$\frac{2}{4}$$.
 
-De maneira geral, a probabilidade do evento $$B$$ condicionada ao evento $$A$$ é representada por $$P(B|A)$$. Nesse caso, temos que:
+De maneira geral, a probabilidade do evento $$B$$ condicionada ao evento $$A$$ é representada por $$P(B/A)$$. Nesse caso, temos que:
 
 
 - $$P(X_2 = 0|X_1 = 0) = \frac{1}{4}$$
@@ -118,7 +118,7 @@ Por fim, tem-se a seguinte relação:
 
 $$P(A|B) = \frac{P( B | A) }{P(B)}P(A)$$
 
-Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, isto é, a informação sobre o evento $$A$$ antes que se soubesse algo sobre o evento $$B$$. Mais adiante, quando se tenha conhecimento sobre $$B$$, a probabilidade relacionada ao evento $$A$$ deve ser atualizada pela probabilidade do evento $$B$$. A probabilidade $$P(A|B)$$ é agora denominada probabilidade a *posteriori*. Sendo a razão  $$\frac{P(B|A)}{P(B)}$$ o fator de atualização das informações sobre o evento $$A$$.
+Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, isto é, a informação sobre o evento $$A$$ antes que se soubesse algo sobre o evento $$B$$. Mais adiante, quando se tenha conhecimento sobre $$B$$, a probabilidade relacionada ao evento $$A$$ deve ser atualizada pela probabilidade do evento $$B$$. A probabilidade $$P(A/B)$$ é agora denominada probabilidade a *posteriori*. Sendo a razão  $$\frac{P(B/A)}{P(B)}$$ o fator de atualização das informações sobre o evento $$A$$.
 
 Para compreender com mais detalhes o Teorema de Bayes é necessário entender a **regra da probabilidade total (RPT)**, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos. 
 
@@ -191,16 +191,23 @@ O Teorema de Bayes responde diretamente essa pergunta. Antes disso, vamos modela
 - Ser bom pagador: evento $$A$$. Sendo $$P(A)=\frac{9}{10}$$.
 - Ser mal pagador: evento $$A^{c}$$. Sendo $$P(A^{c})=1-P(A)=\frac{1}{10}$$.
 - Atraso no pagamento: evento $$B$$. Sendo $$P(B)=$$ não informado.
-- Atraso no pagamento dos bons pagadores: evento $$B|A$$. Sendo $$P(B|)=\frac{1}{20}$$.
-- Atraso no pagamento dos mal pagadores: evento $$B|A^{c}$$. Sendo $$P(B|A^{c})=\frac{2}{4}$$.
-- Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A|B)=$$?.
+- Atraso no pagamento dos bons pagadores: evento $$B/A$$. Sendo $$P(B|A)=\frac{1}{20}$$.
+- Atraso no pagamento dos mal pagadores: evento $$B|A^{c}$$. Sendo $$P(B/A^{c})=\frac{2}{4}$$.
+- Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A/B)=$$?.
 
 Utilizando o Teorema de Bayes e a  RPT em $$P(B)$$, tem-se que:
-$$P(A|B) =   \frac{P( B | A) }{P(B)}P(A)$$
+
+$$P(A|B) =\frac{P( B|A) }{P(B)}P(A)$$
+
 $$P(A|B) =  \left[ \frac{P( B | A) }{P(B | A)P(A)+P(B | A^{c})P(A^{c})}\right]P(A)$$
+
+
 $$P(A|B) =   \left[ \frac{\frac{1}{20}}{\frac{1}{20}\frac{9}{10}+\frac{2}{4}\frac{1}{10}}\right]\frac{9}{10}$$
+
 $$P(A|B) =   \left[ \frac{38}{20}\right]\frac{9}{10}$$
+
 $$P(A|B) =    47.36\%$$
+
 
 Dessa forma, após saber que ele não pagou o boleto do banco, a probabilidade de ser bom pagador a *posteriori* reduz em quase a metade da *priori*. Dessa forma, a nova taxa de juros é $$\frac{1}{0.4736} - 1 = 111.111\%$$, fazendo com que o valor cobrado seja de R\$ $$2.111,11$$.
 
@@ -215,7 +222,7 @@ Considere a seguinte estrutura de dependência para a série temporal $$Y_t$$:
 
 $$Y_t  = f(\theta) + \epsilon_t$$
 
-É importante notar que a $$Y_1,Y_2,....,Y_T$$ é **condicionamente independente** por meio de uma função do parâmetro $$\theta$$. Em outras palavras, as informações em $$t$$ são independentes das em $$t-1$$, condicionadas a informação de $$\theta$$. Como exemplo, para $$t=2$$, essa relação é determinada pelo resultado $$P(Y_2|Y_1,\theta) = P(Y_2|\theta)$$. Para $$t$$ qualquer, tem-se que $$P(Y_t|Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t|\theta)$$.
+É importante notar que a $$Y_1,Y_2,....,Y_T$$ é **condicionamente independente** por meio de uma função do parâmetro $$\theta$$. Em outras palavras, as informações em $$t$$ são independentes das em $$t-1$$, condicionadas a informação de $$\theta$$. Como exemplo, para $$t=2$$, essa relação é determinada pelo resultado $$P(Y_2/Y_1,\theta) = P(Y_2/\theta)$$. Para $$t$$ qualquer, tem-se que $$P(Y_t/Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t/\theta)$$.
 
 Essa propriedade permite que a distribuição conjunta dessa série possa ser reescrita por:
 
@@ -231,7 +238,7 @@ Replicando esse procedimento para a série inteira, não é difícil chegar a se
 
 $$P(Y_T,....,Y_1|\theta) = \prod^T_{t=1} P(Y_t|\theta)P(\theta)$$
 
-Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação $$Y_t$$ por meio da distribuição condicional $$P(Y_t\|\theta)$$. Dessa relação, é possível obter **atualizações** sobre $$\theta$$. Vamos entender esse conceito com o estudo de um caso.
+Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação $$Y_t$$ por meio da distribuição condicional $$P(Y_t/\theta)$$. Dessa relação, é possível obter **atualizações** sobre $$\theta$$. Vamos entender esse conceito com o estudo de um caso.
 
 # Modelos Gaussianos
 
@@ -239,18 +246,18 @@ Um investidor está interessado em conhecer melhor o comportamento dos retornos 
 
 $$Y_t  = \theta + \epsilon_t$$
 
-Com $$\epsilon_t \sim N(0,\sigma^2)$$, sendo $$\sigma^2$$ conhecido e igual a $$5$$. Nesse caso, temos a dependência condicional $$Y_1,Y_2,...,Y_T|\theta \sim N(\theta,\sigma^2)$$
+Com $$\epsilon_t \sim N(0,\sigma^2)$$, sendo $$\sigma^2$$ conhecido e igual a $$5$$. Nesse caso, temos a dependência condicional $$Y_1,Y_2,...,Y_T/\theta \sim N(\theta,\sigma^2)$$
 
 
 Conversando com colegas ele obteve a **informação inicial** de que o comportamento da média dos retornos mensais ($$\theta$$)  tem distribuição Normal como média $$\eta_0=2$$ e variância $$\phi_0^2 = 2$$. Essa é a informação a *priori* do parâmetro da série temporal de interesse. Com base nessa informação, o investidor pretende observar os índices ao final de cada mês e **atualizar** o conhecimento sobre $$\theta$$, a distribuição a *posteriori*, a medida que novas observações da série do índice mensal do Ibovespa $$Y_t$$ estejam disponíveis. 
 
-Sabendo que o valor do índice Ibovespa para janeiro de 2017 foi [$$Y_1=7.38$$](http://www.bmfbovespa.com.br/pt_br/servicos/market-data/historico/mercado-a-vista/series-historicas/), qual é a distribuição e os parâmetros da *posteriori* $$P(\theta|Y_1)$$?
+Sabendo que o valor do índice Ibovespa para janeiro de 2017 foi [$$Y_1=7.38$$](http://www.bmfbovespa.com.br/pt_br/servicos/market-data/historico/mercado-a-vista/series-historicas/), qual é a distribuição e os parâmetros da *posteriori* $$P(\theta/Y_1)$$?
 
-Ao final do primeiro mês o investidor pretende obter a distribuição $$P(\theta|Y_1)$$ e para isso utiliza o Teorema de Bayes, chegando a seguinte relação:
+Ao final do primeiro mês o investidor pretende obter a distribuição $$P(\theta/Y_1)$$ e para isso utiliza o Teorema de Bayes, chegando a seguinte relação:
 
 $$P(\theta|Y_1) = \frac{P(Y_1,\theta)}{p(Y_1)} = \frac{P(Y_1|\theta) P(\theta)}{\int P(Y_1|\theta) P(\theta)}$$
 
-O desafio, nesse ponto, é obter a distribuição conjunta $$P(Y_1,\theta)$$ por meio do produto entre a probabilidade da série $$Y_1$$, $$P(Y_1|\theta)$$, e a *priori* do parâmetro $$\theta$$, $$P(\theta)$$. Utilizando informaçõe das distribuições normais informadas, temos que:
+O desafio, nesse ponto, é obter a distribuição conjunta $$P(Y_1,\theta)$$ por meio do produto entre a probabilidade da série $$Y_1$$, $$P(Y_1/\theta)$$, e a *priori* do parâmetro $$\theta$$, $$P(\theta)$$. Utilizando informaçõe das distribuições normais informadas, temos que:
 
 $$P(Y_1,\theta)  =  P(Y_1|\theta) P(\theta)$$
 $$P(Y_1,\theta)  = (2 \sigma^2)^{-\frac{1}{2}}e^{[-(2\sigma^2)^{-1}(y_1 - \theta)^2]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta - \eta_0)^2]}$$
@@ -273,7 +280,7 @@ $$\frac{1}{\sigma^{-2} + \phi^{-2}} = \frac{1}{5^{-1} + 2^{-1}} = 1.42$$
 
 Perceba que o denominador é a integração dessa distribuição conjunta (numerador) com relação a $$\theta$$ e, com um pouco de esforço algébrico, é a **constante normalizadora**. Mais detalhes dos processo podem ser consultados em Petris et al (2009).
 
-Dessa forma, temos que $$\theta|Y_1 \sim N(3.53,1.42)$$. Essa é a distribuição a *posteriori* de $$\theta$$ com relação a informação $$Y_1$$. O gráfico a seguir apresenta a comparação entre as distribuições *priori* e *posteriori*.
+Dessa forma, temos que $$\theta/Y_1 \sim N(3.53,1.42)$$. Essa é a distribuição a *posteriori* de $$\theta$$ com relação a informação $$Y_1$$. O gráfico a seguir apresenta a comparação entre as distribuições *priori* e *posteriori*.
 
 ![alt text](/img/bayes/priori.png "Comparação entre priori e posteriori")
 
