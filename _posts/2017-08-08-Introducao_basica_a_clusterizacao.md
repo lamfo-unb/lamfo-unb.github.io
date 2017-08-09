@@ -26,26 +26,20 @@ Para que possamos testar o algorítmo utilizaremos a **linguagem Python** e algu
 
 #### 1. Importando as bibliotecas
 
----
 ```python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from sklearn.cluster import KMeans
-from sklearn import datasets
 ```
----
+
 #### 2. Lendo o Dataset
 
 A leitura dos dados é feita a partir da biblioteca Pandas e os dados estão organizados no formato csv (*comma-separated values*) apesar da extensão *'.data'*. Chamaremos o dataset completo de *full_dataset*
 
----
 ```python
 full_dataset = pd.read_csv("./dow_jones_index/dow_jones_index.data")
 ```
-
----
 
 Trecho do Dataset:
 
@@ -63,23 +57,9 @@ Podemos perceber que cada coluna é referente a um parâmetro que descreverá aq
 
 #### 3. Pré-processando os dados
 
-Para simplificar nosso exemplo ficar mais simples e trabalharmos com dados numéricos, podemos excluir algumas colunas do conjunto de dados completo:
-
----
-```python
-dataset = full_dataset.drop(['quarter', 'stock'], 1)
-```
-
----
-
 A coluna de datas também pode ser alterada de forma conter uma contagem de dias para melhor processamento:
 
----
 ```python
 dataset['date'] = pd.to_datetime(dataset['date'])
 dataset['date'] = (dataset['date'] - dataset['date'].min()) / np.timedelta64(1,'D')
 ```
-
----
-
-
