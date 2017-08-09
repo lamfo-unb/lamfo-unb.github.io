@@ -84,4 +84,3 @@ As colunas de preços também devem ter o cifrão removido
 ```python
 dataset = dataset.replace({'\$':''}, regex = True)
 ```
-Percebemos com este processamento, o intervalo de uma semana 
