@@ -311,7 +311,62 @@ e a variância
 
 $$\phi_t = t\sigma^{-2} + \phi_0^{-2}$$
 
+A programação em R a seguir calcula os valores a *posteriori* a cada nova observação do índice Ibovespa para o ano 2017. Note que em cada período são utilizadas as informações acumuladas até o instante de análise, determinado pelo comando "y[1:i]".
+
+```R
+## IBOV time series 2017
+y <- c(7.38,3.08,-2.52,0.64,-4.12,0.3,4.8)
+
+## parameters      
+sigma <- 5
+eta   <- 2
+phi   <- 2
+
+## posteriori eta
+etat <- function(y,sigma,eta,phi){
+  t <- length(y)
+  return((mean(y)*phi + eta*sigma/t)/(phi + sigma/t))
+}
+
+## posteriori phit
+phit <- function(y,sigma,phi){
+  t <- length(y)
+  return((phi *sigma)/(t*phi +sigma ))
+}
+
+
+## storing posteriori values 
+mus <- NULL
+ss <- NULL
+
+for(i in 1:length(y)){
+  mus <- c(mus,etat(y[1:i],sigma,eta,phi))
+  ss  <- c(ss,phit(y[1:i],sigma,phi))
+}
+
+```
+
+
 O gráfico a seguir apresenta os retornos mensais do Ibovespa durante 2017 e o valor médio a *posteriori* do parâmetro $$\theta$$.
+
+```R
+## first axis eta
+plot(mus, type="o",main = "Ibovespa 2017",
+     ylab=expression(eta),xlab = "t",xaxt='n',col  = "red")
+
+axis(side = 1, at =1:7,
+     labels = c("Jan","Feb","Mar","Apr","May","Jun","Jul"))
+
+legend(x = 5.5,y= 3.6,
+       legend=c(expression(eta), expression(Y[t])),
+       lty=c(1,2), pch=c(1, 16), col=c("red", "black"),box.col=0,cex = .75)
+
+## second axis ibov time series
+par(new = T)
+plot(y = y,x = (1:7)/8, type="o", pch=16, lty=2, axes=F, xlab=NA, ylab=NA, cex=1.2)
+axis(side = 4)
+mtext(side = 4, line = 3, expression(y_t))
+```
 
 
 ![alt text](/img/bayes/update.png "Estimativas a posteriori em 2017 para o retornos mensais Ibovespa")
