@@ -2,7 +2,9 @@
 
 ## O que é Clusterização?
 
-Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados. Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters* **. 
+Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados. Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
+
+Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico separar mamíferos de aves ou de répteis mas sem "contar" ao algorítmo sobre estas classificações. Ou seja, a partir dos dados
 
 Muitas vezes, a similaridade entre os dados é encontrada por métricas de distância. Um dos algorítmos mais básicos para Clusterização chama-se **K-Means**.
 
@@ -10,10 +12,17 @@ Muitas vezes, a similaridade entre os dados é encontrada por métricas de dist�
 
 O algorítmo se chama assim pois **encontra k *clusters* diferentes** no conjunto de dados. O **centro de cada *cluster* será chamado centróide** e terá a média dos valores neste cluster.
 
-A tarefa do algorítmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo.
+A tarefa do algorítmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo. Em caso de sucesso, os **dados são separados organicamente** podendo assim ser rotulados e **centróides viram referência** para classificar novos dados.
 
 Para o exemplo utilizaremos o [*Dow Jones Index Data Set*](http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index#) do *UCI Machine Learning Repository*. A partir da flutuação de preços de ações ao longo de um certo período, podemos tentar clusterizar empresas de acordo com seu comportamento no mercado. Com noções deste comportamento e similaridades entre empresas, a clusterização pode contribuir com uma composição e diversificação de uma carteira de ações.
 
+### Passo a passo do algorítmo
+
+O Κ-means aprimora de forma iterativa seus resultados até alcançar um resultado final. O algoritmo recebe o número de clusters Κ e o conjunto de dados sob análise. Em seguida são estabelecidas estimativas iniciais para os K centróides, que podem ser gerados aleatoriamente ou selecionados aleatoriamente dentro conjunto de dados. O algoritmo faz a iteração entre dois passos:
+
+- **Associação de cada instância a um centróide** - cada centróide define um cluster, então cada instância será associada a seu cluster mais semelhante (centróide mais próximo). A distância será calculada por alguma métrica de distância, em geral utiliza-se a distância euclidiana entre as duas instâncias.
+
+- **Atualização dos centróides** - centróides dos clusters são recalculados, refazendo a média entre todos as instâncias associadas àquele cluster.
 
 ### Na prática com Python
 
@@ -45,7 +54,7 @@ Trecho do Dataset:
 
 quarter | stock | date | open | high | low | close | volume | percent_change_price | percent_change_volume_over_last_wk | previous_weeks_volume | next_weeks_open | next_weeks_close | percent_change_next_weeks_price | days_to_next_dividend | percent_return_next_dividend
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-1 | AA | 1/7/2011 | 15.82 | 16.72 | 15.78 | 16.42 | 239655616 | 3.79267 | NaN | NaN | 16.71 | 15.97 | -4.42849 | 26 | 0.182704 |
+1 | AA | 1/7/2011 | 15.82 | 16.72 | 15.78 | 16.42 | 239655616 | 3.79267 | NaN | NaN | 16.71 | 15.97 | -4.42849 | 26 | 0.182704
 1 | AA | 1/14/2011 | 16.71 | 16.71 | 15.64 | 15.97 | 242963398 | -4.42849 | 1.380223028 | 239655616 | 16.19 | 15.79 | -2.47066 | 19 | 0.187852
 1 | AA | 1/21/2011 | 16.19 | 16.38 | 15.60 | 15.79 | 138428495 | -2.47066 | -43.02495926 | 242963398 | 15.87 | 16.13 | 1.63831 | 12 | 0.189994
 | ... |
@@ -56,6 +65,12 @@ quarter | stock | date | open | high | low | close | volume | percent_change_pri
 Podemos perceber que cada coluna é referente a um parâmetro que descreverá aquela ação numa certa data.
 
 #### 3. Pré-processando os dados
+
+Para simplificar nosso exemplo, podemos excluir algumas a coluna 'quarter' que não é relevante para o comportamento das ações no conjunto de dados completo:
+
+```python
+dataset = full_dataset.drop('quarter', 1)
+```
 
 A coluna de datas também pode ser alterada de forma conter uma contagem de dias para melhor processamento:
 
