@@ -20,9 +20,9 @@ Para o exemplo utilizaremos o [*Dow Jones Index Data Set*](http://archive.ics.uc
 
 O Κ-means aprimora de forma iterativa seus resultados até alcançar um resultado final. O algoritmo recebe o número de clusters Κ e o conjunto de dados sob análise. Em seguida são estabelecidas estimativas iniciais para os K centróides, que podem ser gerados aleatoriamente ou selecionados aleatoriamente dentro conjunto de dados. O algoritmo faz a iteração entre dois passos:
 
-- **Associação de cada instância a um centróide** - cada centróide define um cluster, então cada instância será associada a seu cluster mais semelhante (centróide mais próximo). A distância será calculada por alguma métrica de distância, em geral utiliza-se a distância euclidiana entre as duas instâncias.
+- **Associação de cada instância a um centróide** - cada centróide define um cluster, então cada instância será associada a seu cluster mais semelhante (centróide mais próximo). A distância será calculada por alguma métrica de distância, em geral utiliza-se a distância euclidiana entre as duas instâncias;
 
-- **Atualização dos centróides** - centróides dos clusters são recalculados, refazendo a média entre todos as instâncias associadas àquele cluster.
+- **Atualização dos centróides** - centróides dos clusters são recalculados, a partir da média entre todas as instâncias associadas àquele cluster.
 
 ### Na prática com Python
 
@@ -79,7 +79,7 @@ dataset['date'] = pd.to_datetime(dataset['date'])
 dataset['date'] = (dataset['date'] - dataset['date'].min()) / np.timedelta64(1,'D')
 ```
 
-As colunas de preços também devem ter o cifrão removido
+As colunas que contém preços também devem ter o cifrão removido:
 
 ```python
 dataset = dataset.replace({'\$':''}, regex = True)
