@@ -15,7 +15,7 @@ comments: true
 # Eventos, Probabilidade e Condicionalidade
 
 
-No livro *The History of Probability* o autor Todhunter relata de forma cronológica considerações de aspectos elementares da Teoria da Probabilidade de alguns notáveis personagens da história. No entanto, os primórdios da probabilidade está relatado nas correspondências entre Pierre De Fermat e Blaise Pascal sobre um problema de jogos em lançamento de dados no século XVII, citados em *Games, Gods \& Gambling*.
+No livro *The History of Probability* o autor Todhunter relata de forma cronológica considerações de aspectos elementares da Teoria da Probabilidade de alguns notáveis personagens da história. No entanto, os primórdios da probabilidade está relatado nas correspondências entre Pierre De Fermat e Blaise Pascal sobre um problema de jogos em lançamento de dados no século XVII, citados em *Games, Gods & Gambling*.
 
 Probabilidade é a área da matemática responsável por mensurar aquilo que não é determinístico. Os resultados dos lançamentos de dados ou moedas são considerados **experimentos de probabilidade**, pois estão sujeitos ao acaso.
 
@@ -122,13 +122,18 @@ Nesse caso, o probabilidade $$P(A)$$ é denominada probabilidade a *priori*, ist
 
 Para compreender com mais detalhes o Teorema de Bayes é necessário entender a **regra da probabilidade total (RPT)**, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos. 
 
-Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento $$A$$, vide (a). Considere agora que seja possível particionar o espaço $$\Omega$$ em partes $$B_i$$ sem intersecções entre si, vide (b). A probabilidade $$A$$ pode ser determinada pela intersecção entre o evento $$A$$ e cada partição $$B_i$$, vide \(c\) e (d).
+Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento $$A$$.
 
 
 ![alt text](/img/bayes/rpt_1.png "Evento $A$ (a)")
 
 
+Considere agora que seja possível particionar o espaço $$\Omega$$ em partes $$B_i$$ sem intersecções entre si. Note que a união das partes $$B_i$$ formam $$\Omega$$.
+
 ![alt text](/img/bayes/rpt_2.png "Partições $B_i$ em $\Omega$ (b)")
+
+
+A probabilidade $$A$$ pode ser determinada pela intersecção entre o evento $$A$$ e cada partição $$B_i$$.
 
 
 ![alt text](/img/bayes/rpt_3.png "Intersecções entre $A$ e as partições $B_i$ (c)")
@@ -191,8 +196,8 @@ O Teorema de Bayes responde diretamente essa pergunta. Antes disso, vamos modela
 - Ser bom pagador: evento $$A$$. Sendo $$P(A)=\frac{9}{10}$$.
 - Ser mal pagador: evento $$A^{c}$$. Sendo $$P(A^{c})=1-P(A)=\frac{1}{10}$$.
 - Atraso no pagamento: evento $$B$$. Sendo $$P(B)=$$ não informado.
-- Atraso no pagamento dos bons pagadores: evento $$B/A$$. Sendo $$P(B|A)=\frac{1}{20}$$.
-- Atraso no pagamento dos mal pagadores: evento $$B|A^{c}$$. Sendo $$P(B/A^{c})=\frac{2}{4}$$.
+- Atraso no pagamento dos bons pagadores: evento $$B/A$$. Sendo $$P(B/A)=\frac{1}{20}$$.
+- Atraso no pagamento dos mal pagadores: evento $$B/A^{c}$$. Sendo $$P(B/A^{c})=\frac{2}{4}$$.
 - Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. $$P(A/B)=$$?.
 
 Utilizando o Teorema de Bayes e a  RPT em $$P(B)$$, tem-se que:
@@ -260,13 +265,20 @@ $$P(\theta|Y_1) = \frac{P(Y_1,\theta)}{p(Y_1)} = \frac{P(Y_1|\theta) P(\theta)}{
 O desafio, nesse ponto, é obter a distribuição conjunta $$P(Y_1,\theta)$$ por meio do produto entre a probabilidade da série $$Y_1$$, $$P(Y_1/\theta)$$, e a *priori* do parâmetro $$\theta$$, $$P(\theta)$$. Utilizando informaçõe das distribuições normais informadas, temos que:
 
 $$P(Y_1,\theta)  =  P(Y_1|\theta) P(\theta)$$
+
+
 $$P(Y_1,\theta)  = (2 \sigma^2)^{-\frac{1}{2}}e^{[-(2\sigma^2)^{-1}(y_1 - \theta)^2]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta - \eta_0)^2]}$$
+
 $$P(Y_1,\theta)   =  (2 \sigma^2)^{-\frac{1}{2}} e^{[-(2\sigma^2)^{-1}(y_1^2 - 2y\theta + \theta^2)]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0 + \eta_0^2)]}$$
 
 $$P(Y_1,\theta)   =  \left[(2 \sigma^2)^{-\frac{1}{2}}(2\phi_0^2)^{-\frac{1}{2}}\right]\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]\times\left[ e^{[-(2\sigma^2)^{-1}(y^2)]}  e^{[-(2\phi_0^2)^{-1}(\eta_0^2)]}\right]$$
+
 $$P(Y_1,\theta)   =   c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]$$
+
 $$P(Y_1,\theta)   =  c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]$$
+
 $$P(Y_1,\theta)   =   c3\times\left[ e^{[-(2)^{-1}( \theta^2 (\sigma^{-2} + \phi_0^{-2}) - 2\theta(y_1\sigma^{-2} + \eta_0 \phi_0^{-2}) )]} \right]$$
+
 $$P(Y_1,\theta)   =   c3\times\left[ e^{[-(2)^{-1}(\sigma^{-2} + \phi_0^{-2})( \theta^2 - 2\theta\frac{(y_1\sigma^{-2} + \eta_0 \phi_0^{-2})}{(\sigma^{-2} + \phi_0^{-2})} )]} \right]$$
 
 Perceba que, a menos de constantes, essa distribuição conjunta tem o núcleo de uma distribuição normal com média:
@@ -307,18 +319,18 @@ O gráfico a seguir apresenta os retornos mensais do Ibovespa durante 2017 e o v
 
 # Considerações finais
 
-O conteúdo do post, embora simples, apresenta de que maneira a Teoria Bayesiana é usada para modelos de séries temporais, permitindo que haja a atualização do conhecimento a medida que se tenha acesso a novas informações. 
+O conteúdo do post, embora simples, apresenta de que maneira a Teoria Bayesiana é utlizada para modelos de séries temporais, permitindo que haja a atualização do conhecimento a medida que se tenha acesso a novas informações. 
 
-Por fim, é possível destacar três pontos de destaque em estudos nessa área:
+Por fim, é possível destacar três avanços em estudo nessa área:
 
-- estrutura de dependência temporal que incorpore tendência, sazonalidade
+- estrutura de dependência temporal que incorpore tendência e sazonalidade
 
 - relações não gaussianas e não-lineares.
 
 - aumentar número de parâmetros desconhecidos ( ex.: $$\sigma^2$$) 
 
 
-O aumento da complexidade requer a utilização de técnicas estatísticas e computacionais mais sofisticadas para lidar com o processo de estimação. É comum encontrar distribuições que não tenham formas fechadas ou situações com alta dimensão devido a quantidade de parâmetros e tamanho da série temporal. Nesses casos, técnicas como [Bootstrap](https://lamfo-unb.github.io/2017/06/28/Bootstrap/), MCMC, Gibbs Sampler e Filtro de Partículas podem ser adotadas.
+O aumento da complexidade requer a utilização de técnicas estatísticas e computacionais mais sofisticadas para lidar com o processo de estimação. É comum encontrar distribuições a *posteriori* que não tenham formas fechadas ou situações com alta dimensão em virtudo da quantidade de parâmetros e tamanho da série temporal. Nesses casos, técnicas como [Bootstrap](https://lamfo-unb.github.io/2017/06/28/Bootstrap/), MCMC, Gibbs Sampler e Filtro de Partículas podem ser adotadas.
 
 
 ## Referências
