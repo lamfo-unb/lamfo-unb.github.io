@@ -133,11 +133,191 @@ Para aceitarmos os resultados, é preciso que o P-Valor do modelo esteja dentro 
 
 A aplicação do Teste de Eventos será realizada utilizando o R, com adicionais de alguns pacotes como:
 * quantmod : coletar os dados de retorno das empresas escolhidas.
-
-A fim de demonstrar o modelo padrão, usaremos o Modelo de Mercado para mensurar os retornor anormais para um evento econômico e um evento político. 
-
-*Existe disponível no R um pacote para realizar o Teste de Eventos, o EventStudy. Para fins didáticos, escreveremos o código passo a passo para entender o que é feito.*
+* eventstudies: pacote específico para utilizar o teste de eventos automaticamente.
+* zoo: tratamento dos dados da série financeira.
+* xts: tratamento de dados de séries temporais sem ajustes.
 
 ::: info
 Estouro da Bolha Imobiliaria nos EUA (2008)
 :::
+
+Usaremos o pacote de Teste de Eventos já existente no R e depois calcularemos o impacto do evento de maneira manual. Como analisamos um evento de caráter econômico e ligado ao setor imobiliário, procuraremos empresas que sejam cotadas na bolsa de valores brasileira (BM&FBOVESPA) e que atuem no setor. Selecionamos para análise as empresas Gafisa e Cyrela e como parâmetro para o modelo de mercado o índice IBOVESPA.
+
+### Teste de Eventos utilizando o pacote *eventstudies*
+O pacote é dividido em etapas, a primeiro delas é estabelecer o nome das empresas e a data em que o evento aconteceu. Como o evento é o mesmo para ambas, colocaremos a data "2008-03-13" referente aproximadamente ao dia em que a notícia da bolha veio a público. 
+
+```R
+#Passo 1: Listar os ativos e datas dos eventos
+eventosDatas<-data.frame("name"=c("BVSP","GAFISA","CYRELA"),
+                         "when"=c("2008-03-13","2008-03-13","2008-03-13"))
+
+#Passo 2: Converter para texto
+eventosDatas$name<-as.character(eventosDatas$name)
+eventosDatas$when<-as.character(eventosDatas$when)
+
+#Passo 3: Lista de retornos
+BVSP<- read.csv("^BVSP.csv")
+BVSP<-BVSP[,c(1,6)]
+colnames(BVSP)<-c("Data","BVSP")
+
+GAFISA<- read.csv("GFSA3.SA.csv")
+GAFISA<-GAFISA[,c(1,6)]
+colnames(GAFISA)<-c("Data","GAFISA")
+
+CYRELA<- read.csv("CYRE3.SA.csv")
+CYRELA<-CYRELA[,c(1,6)]
+colnames(CYRELA)<-c("Data","CYRELA")
+
+#Passo 4: Junta as bases de dados
+dados<-merge(BVSP,GAFISA,by="Data",all=T)
+dados<-merge(dados,CYRELA,by="Data",all=T)
+
+#Passo 5: Calcula o retorno
+dados$BVSP <- c(NA,diff(log(as.numeric(dados$BVSP)), lag=1))
+dados$GAFISA <- c(NA,diff(log(as.numeric(dados$GAFISA)), lag=1))
+dados$CYRELA <- c(NA,diff(log(as.numeric(dados$CYRELA)), lag=1))
+
+#Passo 6: Converte em objeto zoo
+dados.zoo<-read.zoo(dados)
+
+#Passo 7: Teste de Eventos Market Model
+es.mm <- eventstudy(firm.returns = dados.zoo,   #Base de retornos
+                     event.list = eventosDatas, #Datas dos eventos
+                     event.window = 5,          #Tamanho da janela   
+                     type = "marketModel",      #Modelo utilizado
+                     to.remap = TRUE,           #Recalculado os retornos usando cumsum
+                     remap = "cumsum",          #Testa o evento para o retorno acumulado
+                     inference = TRUE,          #Inferência acerca do evento
+                     inference.strategy = "bootstrap",   #Boostrap para avaliar o erro-padrão
+                     model.args = list(market.returns=dados$BVSP))  #Adiciona a base do índice do mercado IBOVESPA
+#Passo 8: Plotar gráfico
+plot(es.mm)
+
+#Passo 9: Obersrevar resultados
+summary(es.mm)
+
+```
+Como resultado temos:
+Event outcome has 3 successful outcomes out of 3 events: 
+[1] "success" "success" "success"
+
+Aparentemente o estouro da bolha nos EUA apresnetou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.
+
+<img src="lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png">
+
+Como podemos observar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas), porém dentro da janela de 5 dias os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não é comprovado estatísticamente.
+
+Agora vamos comprarar o resultado com cálculos a mão!
+
+### Teste de Eventos calculado manualmente
+
+```R
+rm(list=ls())
+library(quantmod)
+GFSA<-read.csv("GFSA3.SA.csv")
+CYRE<-read.csv("CYRE3.SA.csv")
+BVSP<-read.csv("^BVSP.csv")
+
+#Converte para data
+GFSA$Date<-as.character(GFSA$Date)
+GFSA$Date<-as.Date(GFSA$Date,format="%Y-%m-%d")
+GFSA <- xts(GFSA[,-1], order.by=GFSA[,1])
+
+CYRE$Date<-as.character(CYRE$Date)
+CYRE$Date<-as.Date(CYRE$Date,format="%Y-%m-%d")
+CYRE <- xts(CYRE[,-1], order.by=CYRE[,1])
+
+BVSP$Date<-as.character(BVSP$Date)
+BVSP$Date<-as.Date(BVSP$Date,format="%Y-%m-%d")
+BVSP <- xts(BVSP[,-1], order.by=BVSP[,1])
+
+#Estouro da bolha imobiliária em 2008
+startEvent = as.Date("2008-03-13") 
+
+#Estabelecido intervalo da janela do evento
+endEvent = as.Date("2008-03-18") 
+
+#Início da série
+startDate<-as.Date("2008-01-01")
+
+#Plota a série temporal dos preços de fechamento ajustado
+plot.xts(GFSA$Close,major.format="%b/%d/%Y",
+         main="GAFISA",ylab="Adj.Close price.",xlab="Time")
+
+plot.xts(CYRE$Close,major.format="%b/%d/%Y",
+         main="CYRELA",ylab="Adj.Close price.",xlab="Time")
+
+#Calcula o log-retorno.
+diffGFSA<-diff(log(GFSA$Adj.Close))
+diffCYRE<-diff(log(CYRE$Adj.Close))
+
+#Plota a série temporal dos preços de fechamento ajustado
+plot.xts(diffGFSA,major.format="%b/%d/%Y",
+         main="GAFISA",ylab="Log-return Adj.Close price.",xlab="Time")
+
+plot.xts(diffCYRE,major.format="%b/%d/%Y",
+         main="CYRELA",ylab="Log-return Adj.Close price.",xlab="Time")
+```
+<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas GAFISA.png">
+<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas cyrela.png">
+
+```R
+#Janela de estimação
+GFSASubset<-  window(diffGFSA, start = startDate, end = startEvent-1)
+CYRESubset<-  window(diffCYRE, start = startDate, end = startEvent-1)
+
+#BVSP
+diffBVSP<-diff(log(BVSP$Adj.Close))
+BVSPSubset<-window(diffBVSP, start = startDate, end = startEvent-1)
+
+#Estima o modelo de mercado
+MarketModel<-lm(GFSASubset$Adj.Close~BVSPSubset$Adj.Close)
+summary(MarketModel)
+
+MarketModel2<-lm(CYRESubset$Adj.Close~BVSPSubset$Adj.Close)
+summary(MarketModel2)
+
+#Aplica o Market Model
+epsilon<-diffGFSA-coef(MarketModel)[1]-coef(MarketModel)[2]*diffBVSP
+
+epsilon2<-diffCYRE-coef(MarketModel2)[1]-coef(MarketModel2)[2]*diffBVSP
+
+#Encontra a variância do epsilon
+BVSPSubset1<-na.omit(window(diffBVSP, start = startDate+1,
+                           end = startEvent-1))
+
+X<-as.matrix(cbind(rep(1,length(BVSPSubset1$Adj.Close)),BVSPSubset1$Adj.Close))
+
+BVSPSubset2<-window(diffBVSP, start = startEvent, end = endEvent)
+
+Xstar<-as.matrix(cbind(rep(1,length(BVSPSubset2$Adj.Close)),BVSPSubset2$Adj.Close))
+
+#Calculo para GAFISA
+V<-(diag(nrow(X))*var(residuals(MarketModel)))+
+  ((X%*%solve(t(Xstar)%*%Xstar)%*%t(X))*var(residuals(MarketModel)))
+
+epsilonStar<-window(epsilon, start = startEvent, end = endEvent)
+CAR<-sum(epsilonStar$Adj.Close)
+SCAR<-CAR/sqrt(sum(V))
+
+#Calculo para CYRELA
+V2<-(diag(nrow(X))*var(residuals(MarketModel2)))+
+  ((X%*%solve(t(Xstar)%*%Xstar)%*%t(X))*var(residuals(MarketModel2)))
+
+epsilonStar2<-window(epsilon2, start = startEvent, end = endEvent)
+CAR2<-sum(epsilonStar2$Adj.Close)
+SCAR2<-CAR2/sqrt(sum(V2))
+
+#Valor crítico da distribuição T
+alpha<-0.05
+df<-length(GFSASubset$Adj.Close)-2
+qt(alpha/2,df)
+qt(1-(alpha/2),df)
+
+df2<-length(CYRESubset$Adj.Close)-2
+qt(alpha/2,df)
+qt(1-(alpha/2),df)
+```
+O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não atinge a área de significância de 5% o evento não apresenta validade estatística.
+
+Assim concluímos nosso exercício sobre teste de eventos! Em caso de qualquer dúvida entre contato com o LAMFO!
