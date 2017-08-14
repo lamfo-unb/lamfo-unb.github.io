@@ -130,10 +130,183 @@ To validate the results, look the P-VALOR of the model and the $$R^2$$. Both of 
 This exercise will be done using R, the following packages are recommended:
 * quantmod : colect financial data from companies.
 * eventstudies : automatic package to this methodology
-* zoo : data base treatment
-
-In order to demonstrate the usual practice, we will use the Market Model to estimate the abnormal returns for an economic event.
+* zoo : data base treatment.
+* xts: treatment of temporal data without ajusts.
 
 :::info
 Housing Bubble in USA (2008) effects on Brazilian Companies
 :::
+
+We will use the package of Event Study already created in R and after compare the results with the manual estimation of event study. Once we are analysing an economic event in housing sector, we will look for companies with stocks listed in the market (BM&FBOVESPA) and are in the sector. Since this is a simple exercise, we got two companies: Gafisa and Cyrela, and as a parameter for the Market Model the index IBOVESPA.
+
+### Event Study using the package *eventstudies*
+The package is divided in steps, the first one is stabilish the name and the date that the event occured. Since the event is the same for both of them, we will input "2008-03-13" that is the approximently the date that the event came public.
+
+```R
+#Step 1: List the assets and the date of the event
+eventsDates<-data.frame("name"=c("BVSP","GAFISA","CYRELA"),
+                         "when"=c("2008-03-13","2008-03-13","2008-03-13"))
+
+#Step 2: Convert the text
+eventsDates$name<-as.character(eventsDates$name)
+eventsDates$when<-as.character(eventsDates$when)
+
+#Step 3: Return Lists
+BVSP<- read.csv("^BVSP.csv")
+BVSP<-BVSP[,c(1,6)]
+colnames(BVSP)<-c("Date","BVSP")
+
+GAFISA<- read.csv("GFSA3.SA.csv")
+GAFISA<-GAFISA[,c(1,6)]
+colnames(GAFISA)<-c("Date","GAFISA")
+
+CYRELA<- read.csv("CYRE3.SA.csv")
+CYRELA<-CYRELA[,c(1,6)]
+colnames(CYRELA)<-c("Date","CYRELA")
+
+#Step 4: Merge the data bases
+data<-merge(BVSP,GAFISA,by="Date",all=T)
+data<-merge(dados,CYRELA,by="Date",all=T)
+
+#Step 5: Calculate the return
+data$BVSP <- c(NA,diff(log(as.numeric(data$BVSP)), lag=1))
+data$GAFISA <- c(NA,diff(log(as.numeric(data$GAFISA)), lag=1))
+data$CYRELA <- c(NA,diff(log(as.numeric(data$CYRELA)), lag=1))
+
+#Step 6: Convert into zoo objects
+data.zoo<-read.zoo(data)
+
+#Step 7: Event Study Market Model
+es.mm <- eventstudy(firm.returns = data.zoo,    #Returns base
+                     event.list = eventsDatas,  #Event Dates
+                     event.window = 5,          #Safety Window size   
+                     type = "marketModel",      #Abnormal return model
+                     to.remap = TRUE,           #Recalculate the return using cumsum
+                     remap = "cumsum",          #Accumulative return
+                     inference = TRUE,          #Inference of the event
+                     inference.strategy = "bootstrap",   #Boostrap to standert error
+                     model.args = list(market.returns=dados$BVSP))  #Data base with the index IBOVESPA
+#Step 8: Plot event study
+plot(es.mm)
+
+#Step 9: Results
+summary(es.mm)
+
+```
+As results we have:
+Event outcome has 3 successful outcomes out of 3 events: 
+[1] "success" "success" "success"
+
+Aparently the bubble in USA has effected the return in Brazilian companies, but the result is significant? Let's look into the graphic:
+
+<img src="lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png">
+
+The blue line represent the companies' return, and since is inside the abnormal area (doted lines) it shows the anormality of the series. However, the five days windw presents results equal zero, this mean that even if the event appears to cause disturbance in the series, it isn't statistic significant.
+
+Now, let's calculate withou the package!
+
+### Event Study by hand
+
+```R
+rm(list=ls())
+library(quantmod)
+GFSA<-read.csv("GFSA3.SA.csv")
+CYRE<-read.csv("CYRE3.SA.csv")
+BVSP<-read.csv("^BVSP.csv")
+
+#Convert the date
+GFSA$Date<-as.character(GFSA$Date)
+GFSA$Date<-as.Date(GFSA$Date,format="%Y-%m-%d")
+GFSA <- xts(GFSA[,-1], order.by=GFSA[,1])
+
+CYRE$Date<-as.character(CYRE$Date)
+CYRE$Date<-as.Date(CYRE$Date,format="%Y-%m-%d")
+CYRE <- xts(CYRE[,-1], order.by=CYRE[,1])
+
+BVSP$Date<-as.character(BVSP$Date)
+BVSP$Date<-as.Date(BVSP$Date,format="%Y-%m-%d")
+BVSP <- xts(BVSP[,-1], order.by=BVSP[,1])
+
+#Bubble in 2008
+startEvent = as.Date("2008-03-13") 
+
+#Stabilish the window
+endEvent = as.Date("2008-03-18") 
+
+#Start of the series
+startDate<-as.Date("2008-01-01")
+
+#Calculate the log-retorn.
+diffGFSA<-diff(log(GFSA$Adj.Close))
+diffCYRE<-diff(log(CYRE$Adj.Close))
+
+#Plot the adjusted close series
+plot.xts(diffGFSA,major.format="%b/%d/%Y",
+         main="GAFISA",ylab="Log-return Adj.Close price.",xlab="Time")
+
+plot.xts(diffCYRE,major.format="%b/%d/%Y",
+         main="CYRELA",ylab="Log-return Adj.Close price.",xlab="Time")
+```
+<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas GAFISA.png">
+<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas cyrela.png">
+
+```R
+#Estimation Window
+GFSASubset<-  window(diffGFSA, start = startDate, end = startEvent-1)
+CYRESubset<-  window(diffCYRE, start = startDate, end = startEvent-1)
+
+#BVSP
+diffBVSP<-diff(log(BVSP$Adj.Close))
+BVSPSubset<-window(diffBVSP, start = startDate, end = startEvent-1)
+
+#Market Model
+MarketModel<-lm(GFSASubset$Adj.Close~BVSPSubset$Adj.Close)
+summary(MarketModel)
+
+MarketModel2<-lm(CYRESubset$Adj.Close~BVSPSubset$Adj.Close)
+summary(MarketModel2)
+
+#Using Market Model
+epsilon<-diffGFSA-coef(MarketModel)[1]-coef(MarketModel)[2]*diffBVSP
+
+epsilon2<-diffCYRE-coef(MarketModel2)[1]-coef(MarketModel2)[2]*diffBVSP
+
+#Find epsilon's variance
+BVSPSubset1<-na.omit(window(diffBVSP, start = startDate+1,
+                           end = startEvent-1))
+
+X<-as.matrix(cbind(rep(1,length(BVSPSubset1$Adj.Close)),BVSPSubset1$Adj.Close))
+
+BVSPSubset2<-window(diffBVSP, start = startEvent, end = endEvent)
+
+Xstar<-as.matrix(cbind(rep(1,length(BVSPSubset2$Adj.Close)),BVSPSubset2$Adj.Close))
+
+#GAFISA calculus
+V<-(diag(nrow(X))*var(residuals(MarketModel)))+
+  ((X%*%solve(t(Xstar)%*%Xstar)%*%t(X))*var(residuals(MarketModel)))
+
+epsilonStar<-window(epsilon, start = startEvent, end = endEvent)
+CAR<-sum(epsilonStar$Adj.Close)
+SCAR<-CAR/sqrt(sum(V))
+
+#CYRELA calculus
+V2<-(diag(nrow(X))*var(residuals(MarketModel2)))+
+  ((X%*%solve(t(Xstar)%*%Xstar)%*%t(X))*var(residuals(MarketModel2)))
+
+epsilonStar2<-window(epsilon2, start = startEvent, end = endEvent)
+CAR2<-sum(epsilonStar2$Adj.Close)
+SCAR2<-CAR2/sqrt(sum(V2))
+
+#Critical value of T distribution
+alpha<-0.05
+df<-length(GFSASubset$Adj.Close)-2
+qt(alpha/2,df)
+qt(1-(alpha/2),df)
+
+df2<-length(CYRESubset$Adj.Close)-2
+qt(alpha/2,df)
+qt(1-(alpha/2),df)
+```
+The results for both companies are -2.012896 e 2.012896. Since it doesn't get into the critical area of 5%, the event doesn't shows signficance or is statistic valid.
+
+Finished this quick exercise about event study, in case of any doubt or for more info contact the LAMFO team!
