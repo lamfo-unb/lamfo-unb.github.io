@@ -196,7 +196,7 @@ Event outcome has 3 successful outcomes out of 3 events:
 
 Aparentemente o estouro da bolha nos EUA apresnetou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.
 
-[[lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png]]
+![](lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png)
 
 Como podemos observar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas), porém dentro da janela de 5 dias os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não é comprovado estatísticamente.
 
@@ -251,8 +251,8 @@ plot.xts(diffGFSA,major.format="%b/%d/%Y",
 plot.xts(diffCYRE,major.format="%b/%d/%Y",
          main="CYRELA",ylab="Log-return Adj.Close price.",xlab="Time")
 ```
-<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas GAFISA.png">
-<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas cyrela.png">
+![] (lamfo-unb.github.io/img/teste_eventos/ações ajustadas GAFISA.png)
+![](lamfo-unb.github.io/img/teste_eventos/ações ajustadas cyrela.png)
 
 ```R
 #Janela de estimação
