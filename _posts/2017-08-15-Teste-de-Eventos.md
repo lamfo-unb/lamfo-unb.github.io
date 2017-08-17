@@ -73,9 +73,9 @@ Como já teríamos a base com os retornos da empresa de $$T_0$$ a $$T_2$$, preci
 3. Modelo de Mercado
 4. Modelos Econômicos
 
-:::info
-Retorno Ajustado a Média
-:::
+
+#### Retorno Ajustado a Média
+
 
 O retorno normal esperado aqui será definido pela média simples dos retornos reais da janela de estimação ($$T_0$$ a $$T_1$$).
 
@@ -83,17 +83,14 @@ $$Ra_{i,t}=R_{i,t} - \overline R_i$$
 
 Uma crítica a esse modelo é que se assume que os retornos terão retornos médios constantes ao longo do tempo. Dependendo da unidade temporal escolhida, este pressuposto por si só já apresenta uma grande margem de erro.
 
-:::info
-Retorno Ajustado ao Mercado
-:::
+#### Retorno Ajustado ao Mercado
 
 Neste caso, o retorno normal será definido como o retorno da cateira de mercado ($$Rm$$). Neste método será necessário obter uma base de dado com os retornos na mesma unidade temporal do ativo referência do mercado (*benchmark*).
 
 $$Ra_{i,t}=R_{i,t} -  Rm_i$$ 
 
-:::info
-Modelo de Mercado
-:::
+#### Modelo de Mercado
+
 A abordagem do Modelo de Mercado possui sua base na estatística, aprimorando as estimativas realizadas anteriormente pelos demais modelos.
 
 Diferente do Modelo de Retorno Ajustado ao Mercado, o Modelo de Mercado não utiliza o retorno de uma carteira referência, mas sim índices como S&P500 para análises norte-americanas ou IBOVESPA para ações nacionais, sendo definido por:
@@ -104,9 +101,7 @@ No qual o retorno anormal ($$Ra_{i,t}$$) é definido pelo retorno real do ativo 
 
 Por utilizar regressão linear, o ganho e previsão do modelo depende do R$$^2$$. Quanto maior for este indicador, menor será a variância do do retorno anormal, garantindo uma maior estabilidade ao modelo.
 
-:::info
-Modelos Econômicos
-:::
+#### Modelos Econômicos
 
 Com base nas práticas do mercado, se desejamos estimar um valor para o retorno futuro de um ativo existem duas metodologias utilizadas (1) *Capital Asset Pricing Model* (CAPM) e (2) *Arbitrage Pricing Theory* (APT). Ambos podem ser utilizados para estimar o retorno normal, porém é preciso ficar atento para os requisitos de cada um assim como o período da janela de estimação.
 
@@ -137,9 +132,7 @@ A aplicação do Teste de Eventos será realizada utilizando o R, com adicionais
 * zoo: tratamento dos dados da série financeira.
 * xts: tratamento de dados de séries temporais sem ajustes.
 
-::: info
-Estouro da Bolha Imobiliaria nos EUA (2008)
-:::
+### Estouro da Bolha Imobiliaria nos EUA (2008)
 
 Usaremos o pacote de Teste de Eventos já existente no R e depois calcularemos o impacto do evento de maneira manual. Como analisamos um evento de caráter econômico e ligado ao setor imobiliário, procuraremos empresas que sejam cotadas na bolsa de valores brasileira (BM&FBOVESPA) e que atuem no setor. Selecionamos para análise as empresas Gafisa e Cyrela e como parâmetro para o modelo de mercado o índice IBOVESPA.
 
@@ -203,7 +196,7 @@ Event outcome has 3 successful outcomes out of 3 events:
 
 Aparentemente o estouro da bolha nos EUA apresnetou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.
 
-<img src="lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png">
+[[lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png]]
 
 Como podemos observar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas), porém dentro da janela de 5 dias os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não é comprovado estatísticamente.
 
@@ -318,6 +311,6 @@ df2<-length(CYRESubset$Adj.Close)-2
 qt(alpha/2,df)
 qt(1-(alpha/2),df)
 ```
-O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não atinge a área de significância de 5% o evento não apresenta validade estatística.
+O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula.
 
 Assim concluímos nosso exercício sobre teste de eventos! Em caso de qualquer dúvida entre contato com o LAMFO!
