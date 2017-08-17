@@ -5,7 +5,7 @@ lang: en
 header-img: lamfo-unb.github.io/img/teste_eventos/wooden-table-texture_4460x4460.jpg
 date: 2017-08-15 10:00:00
 tags: [econometrics, finance]
-author: Ana Julia Akaishi Padula
+author: Ana Julia Akaishi Padula, Pedro Albuquerque
 comments: true
 ---
 # Event Study
@@ -22,7 +22,7 @@ The author Campbell, Lo and Mackinley (1997) were the firsts to define and write
 
 Here are four simple steps to start an Event Study!
 
-### Step 1: Difine the Event
+### Step 1: Define the Event
 
 *But what kind of event are we talking about?*
 
@@ -184,8 +184,11 @@ summary(es.mm)
 
 ```
 As results we have:
+
+```R
 Event outcome has 3 successful outcomes out of 3 events: 
 [1] "success" "success" "success"
+```
 
 Aparently the bubble in USA has effected the return in Brazilian companies, but the result is significant? Let's look into the graphic:
 
