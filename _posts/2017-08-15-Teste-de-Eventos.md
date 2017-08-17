@@ -12,21 +12,21 @@ comments: true
 
 Olá pessoal! Essa semana o LAMFO traz para vocês a metodologia conhecida como Teste de Eventos, com uma breve introdução, referencial teórico e um exercício prático utilizando R.
 
-Durante o dia, não é incomum ouvirmos ou lermos alguma notícia sobre acontecimentos ou mudanças no país e no mundo. A todo momento recebemos atualizações, novas informações e opiniões a respeito dos mais diversos temas que refletem em nosso comportamento e até planejamento para o futuro, mas e o mercado? Será que ele também é afetado pela repercursão desses eventos?
+Durante o dia, é comum ouvirmos ou lermos alguma notícia sobre acontecimentos ou mudanças no país e no mundo. A todo momento recebemos atualizações, novas informações e opiniões a respeito dos mais diversos temas que refletem em nosso comportamento e até planejamento para o futuro, mas e o mercado? Será que ele também é afetado pela repercursão desses eventos?
 
 Para responder essa pergunta, foi criado o Teste de Evento (*Event Study*).
 
 ## Metodologia
 
-Os autores Campbell, Lo e Mackinley (1997) foram os primeiros a definirem e escreverem sobre esta metodologia. A idéia básica é observar se o valor de uma empresa é alterado com o aparecimento de um evento, ou seja, se o "retorno normal" esperado sofre alguma "anormalidade". O desenvolvimento do Teste de Eventos tem como base a Teoria dos Mercados Eficientes de Fama (1970), no qual acredita-se que o mercado absorve as informações públicas disponíveis e realiza o ajuste do preço dos ativos.
+Os autores Campbell, Lo e Mackinley (1997) foram os primeiros a definir e escrever sobre esta metodologia. A idéia básica é observar se o valor de uma empresa é alterado com o aparecimento de um evento, ou seja, se o "retorno normal" esperado sofre alguma "anormalidade". O desenvolvimento do Teste de Eventos tem como base a Teoria dos Mercados Eficientes de Fama (1970), em que se acredita que o mercado absorve as informações públicas disponíveis e realiza o ajuste do preço dos ativos.
 
 Apresentaremos quatro passos simples para começar nosso Teste de Eventos!
 
-### Passo 1: Difinição do Evento
+### Passo 1: Definição do Evento
 
 *Mas de que tipo de evento estamos falando?*
 
-Podemos estudar qualquer tipo de evento, contanto que tenhamos dados o suficiente e que o evento seja publicamente conhecido. Temos por exemplo eventos como:
+Podemos estudar qualquer tipo de evento, contanto que tenhamos suficientes dados e que ele seja publicamente conhecido. Temos por exemplo eventos como:
 1. Distribuição de dividendos; 
 2. Fusão e aquisições de outras empresas; 
 3. Recompra de ações;
@@ -39,21 +39,21 @@ Uma vez escolhido o evento, é preciso definir uma linha do tempo e as janelas d
 ![](https://i.imgur.com/QJzEnPH.png)
 
 
-**Janela de estimação:** representa o período em que os retornos normais do ativo serão padronizados, de $$T_0$$ a $$T_1$$. Dessa forma, teremos uma base de comparação de retornos que não foram "contaminados" pelo aparecimento evento.
+**Janela de estimação:** representa o período em que os retornos normais do ativo serão padronizados, de $$T_0$$ a $$T_1$$. Dessa forma, teremos uma base de comparação de retornos que não foram "contaminados" pelo aparecimento do evento.
 
 **Janela do Evento:** intervalo de tempo em que o evento em questão apareceu. A data que o evento ocorreu é determinada como momento zero ($$0$$) e a partir desse marco é estabelecido um "intervalo de segurança" para verificar se houve vazamento de informações privilegiadas antes do acontecimento, $$T_1$$ a $$0$$, e para englobar o período de absorção do evento pelo mercado, de $$0$$ a $$T_2$$.
 
-Um detalhe importante é que não existe um número fixo para esta janela. Podemos por exemplo ter três meses antes e depois do evento ou até mesmo quinze dias antes e depois para compor a janela, uma saída seria realizar uma modelagem e avaliar o erro estatístico.
+Um detalhe importante é que não existe um número fixo para esta janela. Podemos, por exemplo, ter três meses antes e depois do evento ou até mesmo quinze dias antes e depois para compor a janela. Uma saída seria realizar uma modelagem e avaliar o erro estatístico.
 
-**Janela Pós-Evento:** momento após o acontecimento do evento e eventuais movimentações do mercado. É possível observar o impacto a longo prazo do acontecimento.
+**Janela Pós-Evento:** momento após o acontecimento do evento e eventuais movimentações do mercado. É possível observar o impacto do acontecimento a longo prazo.
 
 ### Passo 2: Empresas
 
-Com as datas determinadas, agora precisamos selecionar quais empresas farão parte do estudo e porque. Normalmente o primeiro filtro é se a empresa que se deseja estudar possui ações na bolsa de valores, uma vez que utilizamos o retorno para nossos calculos. 
+Com as datas determinadas, agora precisamos selecionar quais empresas farão parte do estudo e porque. Normalmente o primeiro filtro é se a empresa que se deseja estudar possui ações na bolsa de valores, uma vez que utilizamos o retorno para nossos cálculos. 
 
-Uma ideia para o segundo filtro seria o setor de empresas, por exemplo se usassemos o Teste de Eventos para verificar o impacto de novas leis ambientais, seria interessante selecionar empresas do setor de mineração e petróleo.
+Uma ideia para o segundo filtro seria o setor de empresas, por exemplo, se usassemos o Teste de Eventos para verificar o impacto de novas leis ambientais. Nesse caso, seria interessante selecionar empresas do setor de mineração e petróleo.
 
-Agora é preciso coletar os dados dos retornos da empresa ou empresas selecionadas. É importante ressaltar que a unidade temporal dos dados deve ser a mesma, por exemplo se o evento estudado for registrado em um dia, as oberservações de retorno também devem ser diárias. 
+Agora é preciso coletar os dados dos retornos da empresa ou empresas selecionadas. É importante ressaltar que a unidade temporal dos dados deve ser a mesma, por exemplo, se o evento estudado for registrado em um dia, as oberservações de retorno também devem ser diárias. 
 
 ### Passo 3: Estabelecendo Retornos Normais e Anormais
 
@@ -97,20 +97,20 @@ Diferente do Modelo de Retorno Ajustado ao Mercado, o Modelo de Mercado não uti
 
 $$Ra_{i,t}=R_{i,t} - \widehat \alpha_i - \widehat \beta_iR_{m,t}$$ 
 
-No qual o retorno anormal ($$Ra_{i,t}$$) é definido pelo retorno real do ativo em um período ***t*** menos os os parâmetros alpha ($$\alpha$$) e beta ($$\beta$$) estimados por uma regressão linear da janela de estimação para o índice de mercado.
+No qual o retorno anormal ($$Ra_{i,t}$$) é definido pelo retorno real do ativo em um período ***t*** menos os parâmetros alpha ($$\alpha$$) e beta ($$\beta$$) estimados por uma regressão linear da janela de estimação para o índice de mercado.
 
 Por utilizar regressão linear, o ganho e previsão do modelo depende do R$$^2$$. Quanto maior for este indicador, menor será a variância do do retorno anormal, garantindo uma maior estabilidade ao modelo.
 
 #### Modelos Econômicos
 
-Com base nas práticas do mercado, se desejamos estimar um valor para o retorno futuro de um ativo existem duas metodologias utilizadas (1) *Capital Asset Pricing Model* (CAPM) e (2) *Arbitrage Pricing Theory* (APT). Ambos podem ser utilizados para estimar o retorno normal, porém é preciso ficar atento para os requisitos de cada um assim como o período da janela de estimação.
+Com base nas práticas do mercado, se desejamos estimar um valor para o retorno futuro de um ativo existem duas metodologias utilizadas (1) *Capital Asset Pricing Model* (CAPM) e (2) *Arbitrage Pricing Theory* (APT). Ambos podem ser utilizados para estimar o retorno normal, porém é preciso ficar atento para os requisitos de cada um, assim como o período da janela de estimação.
 
 
 1. *Capital Asset Princing Model* (CAPM)
 
 $$Ra_{i,t} = R_i - Rf_i - \beta (Rm_i - Rf_i)$$
 
-No qual o retorno anormal é identificado pela diferença do retorno real com o retorno estipulado considerando a sensibilidade do ativo e elementos como retorno de mercado ($$Rm$$) e de ativos livre de risco ($$Rf$$).
+Em que o retorno anormal é identificado pela diferença do retorno real com o retorno estipulado considerando a sensibilidade do ativo e elementos como retorno de mercado ($$Rm$$) e de ativos livre de risco ($$Rf$$).
 
 2. *Arbitrage Pricing Theory* (APT)
 
@@ -120,7 +120,7 @@ Neste modelo temos um prêmio pelo risco para fatores diferentes, considerando a
 
 ### Passo 4: Mensuração e Análise dos Retornos Anormais
 
-Com o modelo definido, agora devemos agora calcular o comportamento dos retornos. Normalmente, usamos duas métricas para os retornos anormais, o retorno anormal médio da amostra e o retorno anormal acumulado.
+Com o modelo definido, agora devemos calcular o comportamento dos retornos. Normalmente, usamos duas métricas para os retornos anormais, o retorno anormal médio da amostra e o retorno anormal acumulado.
 
 Para aceitarmos os resultados, é preciso que o P-Valor do modelo esteja dentro da margem de aceitação ou que o $$R^2$$ seja o maior possível.
 
@@ -137,7 +137,7 @@ A aplicação do Teste de Eventos será realizada utilizando o R, com adicionais
 Usaremos o pacote de Teste de Eventos já existente no R e depois calcularemos o impacto do evento de maneira manual. Como analisamos um evento de caráter econômico e ligado ao setor imobiliário, procuraremos empresas que sejam cotadas na bolsa de valores brasileira (BM&FBOVESPA) e que atuem no setor. Selecionamos para análise as empresas Gafisa e Cyrela e como parâmetro para o modelo de mercado o índice IBOVESPA.
 
 ### Teste de Eventos utilizando o pacote *eventstudies*
-O pacote é dividido em etapas, a primeiro delas é estabelecer o nome das empresas e a data em que o evento aconteceu. Como o evento é o mesmo para ambas, colocaremos a data "2008-03-13" referente aproximadamente ao dia em que a notícia da bolha veio a público. 
+O pacote é dividido em etapas, a primeira delas é estabelecer o nome das empresas e a data em que o evento aconteceu. Como o evento é o mesmo para ambas, colocaremos a data "2008-03-13" referente aproximadamente ao dia em que a notícia da bolha veio a público. 
 
 ```R
 #Passo 1: Listar os ativos e datas dos eventos
@@ -191,16 +191,18 @@ summary(es.mm)
 
 ```
 Como resultado temos:
+```R
 Event outcome has 3 successful outcomes out of 3 events: 
 [1] "success" "success" "success"
+```
 
-Aparentemente o estouro da bolha nos EUA apresnetou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.
+Aparentemente o estouro da bolha nos EUA apresentou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.
 
 ![](/img/teste_eventos/GAFISA+CYRELA.png){:align="middle"}
 
-Como podemos observar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas), porém dentro da janela de 5 dias os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não é comprovado estatísticamente.
+Como podemos constatar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas). Porém dentro da janela de 5 dias, os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não há comprovação estatística.
 
-Agora vamos comprarar o resultado com cálculos a mão!
+Agora vamos comparar o resultado com cálculos a mão!
 
 ### Teste de Eventos calculado manualmente
 
@@ -312,6 +314,6 @@ df2<-length(CYRESubset$Adj.Close)-2
 qt(alpha/2,df)
 qt(1-(alpha/2),df)
 ```
-O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula.
+O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula, o evento não possui efeito no retorno dos ativos.
 
-Assim concluímos nosso exercício sobre teste de eventos! Em caso de qualquer dúvida entre contato com o LAMFO!
+Assim concluímos nosso exercício sobre teste de eventos! Em caso de dúvidas entre contato com o LAMFO!
