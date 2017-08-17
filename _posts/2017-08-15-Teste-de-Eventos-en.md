@@ -72,25 +72,19 @@ Once we already had the base with companies return from $$T_0$$ to $$T_2$$, we m
 3. Market Model
 4. Economic Model
 
-:::	info
-Constant Mean Return Model
-:::
+#### Constant Mean Return Model
 The expected normal return is defined by a simple mean of the real return in the estimation window ($$T_0$$ a $$T_1$$).
 
 $$Ra_{i,t}=R_{i,t} - \overline R_i$$ 
 
 One critic to this model is that the assumption that the returns will be constants with the pass of time. In some time formats, where the volatility is high, this characteristic alrady has a problem.
 
-:::info
-Adjusted Market Return
-:::
+#### Adjusted Market Return
 This case, the normal return will be difined by the return of the market portfolio ($$Rm$$). This method will require a new data base, in the same time format, from a benchmark.
 
 $$Ra_{i,t}=R_{i,t} -  Rm_i$$
 
-:::info
-Market Model
-:::
+#### Market Model
 The Market Model has it base on statistic, representing an upgrade from the previous model.
 
 Different from the Adjusted Market Return, the Market Model don't set as default a market portfolio, but it uses an index such as S&P500 for north-america analysis or IBOVESPA for Brazilian stocks, been defined by:
@@ -101,9 +95,7 @@ The abnormal return ($$Ra_{i,t}$$) is defined by the difference from the real re
 
 Using the linear regression in this model represent a big step in forecasting, since it depends on $$R^2$$. The bigger the $$R^2$$, less variance the abnormal return will have and more accurate the model will be.
 
-:::info
-Economic Models
-:::
+#### Economic Models
 
 Based on the market actions and since our objective is to etimate the stock future return, there are two methodologies available: (1) Capital Asset Pricing Model (CAPM) and (2)Arbitrage Princing Theory (APT). Both of them may be used to the calculus of normal returns, but with their requisits.
 
@@ -133,9 +125,7 @@ This exercise will be done using R, the following packages are recommended:
 * zoo : data base treatment.
 * xts: treatment of temporal data without ajusts.
 
-:::info
-Housing Bubble in USA (2008) effects on Brazilian Companies
-:::
+#### Housing Bubble in USA (2008) effects on Brazilian Companies
 
 We will use the package of Event Study already created in R and after compare the results with the manual estimation of event study. Once we are analysing an economic event in housing sector, we will look for companies with stocks listed in the market (BM&FBOVESPA) and are in the sector. Since this is a simple exercise, we got two companies: Gafisa and Cyrela, and as a parameter for the Market Model the index IBOVESPA.
 
@@ -199,7 +189,7 @@ Event outcome has 3 successful outcomes out of 3 events:
 
 Aparently the bubble in USA has effected the return in Brazilian companies, but the result is significant? Let's look into the graphic:
 
-<img src="lamfo-unb.github.io/img/teste_eventos/GAFISA+CYRELA.png">
+![](/img/teste_eventos/GAFISA+CYRELA.png)
 
 The blue line represent the companies' return, and since is inside the abnormal area (doted lines) it shows the anormality of the series. However, the five days windw presents results equal zero, this mean that even if the event appears to cause disturbance in the series, it isn't statistic significant.
 
@@ -247,8 +237,8 @@ plot.xts(diffGFSA,major.format="%b/%d/%Y",
 plot.xts(diffCYRE,major.format="%b/%d/%Y",
          main="CYRELA",ylab="Log-return Adj.Close price.",xlab="Time")
 ```
-<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas GAFISA.png">
-<img src="lamfo-unb.github.io/img/teste_eventos/ações ajustadas cyrela.png">
+![](/img/teste_eventos/ações ajustadas GAFISA.png)
+![](/img/teste_eventos/ações ajustadas cyrela.png)
 
 ```R
 #Estimation Window
@@ -307,6 +297,6 @@ df2<-length(CYRESubset$Adj.Close)-2
 qt(alpha/2,df)
 qt(1-(alpha/2),df)
 ```
-The results for both companies are -2.012896 e 2.012896. Since it doesn't get into the critical area of 5%, the event doesn't shows signficance or is statistic valid.
+The results for both companies are -2.012896 e 2.012896. Since wasn't found any evidence in favor to reject the null hypothesis, the event has no significant impact over the compnies.
 
 Finished this quick exercise about event study, in case of any doubt or for more info contact the LAMFO team!
