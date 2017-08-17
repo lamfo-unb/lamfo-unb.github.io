@@ -314,6 +314,6 @@ df2<-length(CYRESubset$Adj.Close)-2
 qt(alpha/2,df)
 qt(1-(alpha/2),df)
 ```
-O resultados para ambas as empresas é de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula, o evento não possui efeito no retorno dos ativos.
+Os resultados para ambas as empresas são de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula, o evento não possui efeito no retorno dos ativos.
 
 Assim concluímos nosso exercício sobre teste de eventos! Em caso de dúvidas entre contato com o LAMFO!
