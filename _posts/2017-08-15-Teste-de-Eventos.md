@@ -12,7 +12,7 @@ comments: true
 
 Olá pessoal! Essa semana o LAMFO traz para vocês a metodologia conhecida como Teste de Eventos, com uma breve introdução, referencial teórico e um exercício prático utilizando R.
 
-Durante o dia, é comum ouvirmos ou lermos alguma notícia sobre acontecimentos ou mudanças no país e no mundo. A todo momento recebemos atualizações, novas informações e opiniões a respeito dos mais diversos temas que refletem em nosso comportamento e até planejamento para o futuro, mas e o mercado? Será que ele também é afetado pela repercursão desses eventos?
+Durante o dia, é comum ouvirmos ou lermos alguma notícia sobre acontecimentos ou mudanças no país e no mundo. A todo momento recebemos atualizações, novas informações e opiniões a respeito dos mais diversos temas que refletem em nosso comportamento e até planejamento para o futuro. Mas e o mercado? Será que ele também é afetado pela repercursão desses eventos?
 
 Para responder essa pergunta, foi criado o Teste de Evento (*Event Study*).
 
