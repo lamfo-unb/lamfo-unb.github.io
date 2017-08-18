@@ -3,7 +3,7 @@ layout: post
 title: Teste de Eventos
 lang: pt
 header-img: lamfo-unb.github.io/img/teste_eventos/wooden-table-texture_4460x4460.jpg
-date: 2017-08-15 10:00:00
+date: 2017-08-17 10:00:00
 tags: [econometria, finanças]
 author: Ana Julia Akaishi Padula, Pedro Albuquerque
 comments: true
