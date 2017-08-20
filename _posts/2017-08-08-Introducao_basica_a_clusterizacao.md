@@ -6,6 +6,8 @@ Clusterização é o agrupamento automático de instâncias similares, uma **cla
 
 Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre "está mais próximo" de um leão do que de uma garça.
 
+As imagens a seguir ilustram uma clusterização bem simples de dados com apenas duas dimensões (duas "características"):
+
 Dados |  Dados agrupados em clusters 
 :-------------------------:|:-------------------------:
 ![](/img/clustering/01-clustering.png)  |  ![](/img/clustering/02-clustering.png)
@@ -89,5 +91,6 @@ As colunas que contém preços também devem ter o cifrão removido:
 ```python
 dataset = dataset.replace({'\$':''}, regex = True)
 ```
+
 
 
