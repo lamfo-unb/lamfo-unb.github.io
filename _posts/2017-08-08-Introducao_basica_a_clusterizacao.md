@@ -6,6 +6,10 @@ Clusterização é o agrupamento automático de instâncias similares, uma **cla
 
 Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre "está mais próximo" de um leão do que de uma garça.
 
+Dados |  Dados agrupados em clusters 
+:-------------------------:|:-------------------------:
+![](/img/clustering/01-clustering.png)  |  ![](/img/clustering/02-clustering.png)
+
 Muitas vezes, a similaridade entre os dados é encontrada por métricas de distância. Um dos algorítmos mais básicos para Clusterização chama-se **K-Means**.
 
 ## K-Means
@@ -15,6 +19,7 @@ O algorítmo se chama assim pois **encontra k *clusters* diferentes** no conjunt
 A tarefa do algorítmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo. Em caso de sucesso, os **dados são separados organicamente** podendo assim ser rotulados e **centróides viram referência** para classificar novos dados.
 
 Para o exemplo utilizaremos o [*Dow Jones Index Data Set*](http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index#) do *UCI Machine Learning Repository*. A partir da flutuação de preços de ações ao longo de um certo período, podemos tentar clusterizar empresas de acordo com seu comportamento no mercado. Com noções deste comportamento e similaridades entre empresas, a clusterização pode contribuir com uma composição e diversificação de uma carteira de ações.
+
 
 ### Passo a passo do algorítmo
 
@@ -54,13 +59,13 @@ Trecho do Dataset:
 
 quarter | stock | date | open | high | low | close | volume | percent_change_price | percent_change_volume_over_last_wk | previous_weeks_volume | next_weeks_open | next_weeks_close | percent_change_next_weeks_price | days_to_next_dividend | percent_return_next_dividend
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-1 | AA | 1/7/2011 | 15.82 | 16.72 | 15.78 | 16.42 | 239655616 | 3.79267 | NaN | NaN | 16.71 | 15.97 | -4.42849 | 26 | 0.182704
-1 | AA | 1/14/2011 | 16.71 | 16.71 | 15.64 | 15.97 | 242963398 | -4.42849 | 1.380223028 | 239655616 | 16.19 | 15.79 | -2.47066 | 19 | 0.187852
-1 | AA | 1/21/2011 | 16.19 | 16.38 | 15.60 | 15.79 | 138428495 | -2.47066 | -43.02495926 | 242963398 | 15.87 | 16.13 | 1.63831 | 12 | 0.189994
+1 | AA | 1/7/2011 | $15.82 | $16.72 | $15.78 | $16.42 | 239655616 | 3.79267 | NaN | NaN | 16.71 | 15.97 | -4.42849 | 26 | 0.182704
+1 | AA | 1/14/2011 | $16.71 | $16.71 | $15.64 | $15.97 | 242963398 | -4.42849 | 1.380223028 | 239655616 | 16.19 | 15.79 | -2.47066 | 19 | 0.187852
+1 | AA | 1/21/2011 | $16.19 | $16.38 | $15.60 | $15.79 | 138428495 | -2.47066 | -43.02495926 | 242963398 | 15.87 | 16.13 | 1.63831 | 12 | 0.189994
 | ... |
-2 | XOM | 6/10/2011 | 80.93 | 81.87 | 79.72 | 79.78 | 92380844 | -1.42098 | 17.50851907 | 78616295 | 80.00 | 79.02 | -1.225 | 61 | 0.58912
-2 | XOM | 6/17/2011 | 80.00 | 80.82 | 78.33 | 79.02 | 100521400 | -1.225 | 8.8119524 | 92380844 | 78.65 | 76.78 | -2.37762 | 54 | 0.594786
-2 | XOM | 6/24/2011 | 78.65 | 81.12 | 76.78 | 76.78 | 118679791 | -2.37762 | 18.06420424 | 100521400 | 76.88 | 82.01 | 6.67274 | 47 | 0.612139
+2 | XOM | 6/10/2011 | $80.93 | $81.87 | $79.72 | $79.78 | 92380844 | -1.42098 | 17.50851907 | 78616295 | 80.00 | 79.02 | -1.225 | 61 | 0.58912
+2 | XOM | 6/17/2011 | $80.00 | $80.82 | $78.33 | $79.02 | 100521400 | -1.225 | 8.8119524 | 92380844 | 78.65 | 76.78 | -2.37762 | 54 | 0.594786
+2 | XOM | 6/24/2011 | $78.65 | $81.12 | $76.78 | $76.78 | 118679791 | -2.37762 | 18.06420424 | 100521400 | 76.88 | 82.01 | 6.67274 | 47 | 0.612139
 
 Podemos perceber que cada coluna é referente a um parâmetro que descreverá aquela ação numa certa data.
 
@@ -84,3 +89,5 @@ As colunas que contém preços também devem ter o cifrão removido:
 ```python
 dataset = dataset.replace({'\$':''}, regex = True)
 ```
+
+
