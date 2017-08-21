@@ -45,8 +45,13 @@ Para que possamos testar o algorítmo utilizaremos a **linguagem Python** e algu
 ```python
 import numpy as np
 import pandas as pd
+
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import Imputer
+from sklearn.preprocessing import StandardScaler
 ```
 
 #### 2. Lendo o Dataset
@@ -92,5 +97,31 @@ As colunas que contém preços também devem ter o cifrão removido:
 dataset = dataset.replace({'\$':''}, regex = True)
 ```
 
+Os campos numéricos inválidos podem ser substituídos pela média de valores de sua coluna de forma que tenhamos um conjunto de dados completo para testes:
 
+```python
+imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
+imputer = imputer.fit(dataset.iloc[:, 1:])
+dataset.iloc[:, 1:] = imputer.transform(dataset.iloc[:, 1:])
+```
 
+E por último normalizaremos os dados pré-processados:
+
+```python
+dataset = StandardScaler().fit_transform(dataset)
+```
+
+```python
+X = dataset.iloc[:, 2:7]
+y = dataset.iloc[:, 0]
+
+kmeans = KMeans(n_clusters=3, random_state=0).fit(X)
+X_clustered = kmeans.fit_predict(X)
+
+LABEL_COLOR_MAP = {0 : 'red', 1 : 'blue', 2 : 'green'}
+label_color = [LABEL_COLOR_MAP[l] for l in X_clustered]
+
+plt.figure(figsize = (12,12))
+plt.scatter(X.iloc[:,4],dataset.iloc[:,1], c= label_color, alpha=0.3) 
+plt.show()
+```
