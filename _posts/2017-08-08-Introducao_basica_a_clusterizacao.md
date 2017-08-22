@@ -20,7 +20,7 @@ O algorítmo se chama assim pois **encontra k *clusters* diferentes** no conjunt
 
 A tarefa do algorítmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo. Em caso de sucesso, os **dados são separados organicamente** podendo assim ser rotulados e **centróides viram referência** para classificar novos dados.
 
-Para o exemplo utilizaremos o [*Dow Jones Index Data Set*](http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index#) do *UCI Machine Learning Repository*. A partir da flutuação de preços de ações ao longo de um certo período, podemos tentar clusterizar empresas de acordo com seu comportamento no mercado. Com noções deste comportamento e similaridades entre empresas, a clusterização pode contribuir com uma composição e diversificação de uma carteira de ações.
+Para o exemplo utilizaremos o [*Iris Data Set*](https://archive.ics.uci.edu/ml/datasets/iris) do *UCI Machine Learning Repository*. Este é um dos conjuntos de dados mais conhecidos e utilizados para exemplos simples de reconhecimento de padrões. O conjunto de dados contém 3 classes de 50 instâncias cada, onde cada classe se refere a um tipo de planta Iris.
 
 
 ### Passo a passo do algorítmo
@@ -37,91 +37,142 @@ Para que possamos testar o algorítmo utilizaremos a **linguagem Python** e algu
 
 - Se você ainda não tem Python em sua máquina, dê uma olhada no nosso post [Instalando Python para Aprendizado de Máquina](https://lamfo-unb.github.io/2017/06/10/Instalando-Python/);
 - Crie um diretório de trabalho em sua máquina, uma pasta que conterá seu programa e os dados utilizados. Decidi chamar meu diretório de *'learn-clustering'*;
-- Faça download do [*dow_jones_index.zip*](http://archive.ics.uci.edu/ml/machine-learning-databases/00312/) no seu novo diretório e descompacte lá mesmo, gerando uma pasta que conterá o arquivo de dados *'dow_jones_index.data'*;
-- Crie um novo arquivo python chamado *'k-means-dji.py'* onde escreveremos nosso programa no mesmo diretório principal. Os trechos de código a seguir devem ser codificados dentro do novo arquivo criado.
+- Faça download do [*iris.data*](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/) no seu novo diretório;
+- Crie um novo arquivo python onde escreveremos nosso programa no mesmo diretório principal ou um Jupyter Notebook. Os trechos de código a seguir devem ser codificados dentro do novo arquivo criado.
 
-#### 1. Importando as bibliotecas
+#### 1. Importando as pacotes
+
+Usaremos:
+1. NumPy (pacote básico para computação científica e matemática, com diversas funções e operações sofisticadas)
+2. Pandas (pacote para manipulação e estruturação de dados)
+3. Matplotlib (pacote para plotagens gráficas em 2D)
+4. sklearn (pacote de Machine Learning contendo a ferramento do algorítmo KMeans pronta)
 
 ```python
-import numpy as np
-import pandas as pd
-
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import Imputer
-from sklearn.preprocessing import StandardScaler
+import numpy as np # 1
+import pandas as pd # 2
+import matplotlib.pyplot as plt # 3
+from sklearn.cluster import KMeans # 4
 ```
 
 #### 2. Lendo o Dataset
 
-A leitura dos dados é feita a partir da biblioteca Pandas e os dados estão organizados no formato csv (*comma-separated values*) apesar da extensão *'.data'*. Chamaremos o dataset completo de *full_dataset*
+A leitura dos dados é feita a partir da biblioteca Pandas e os dados estão organizados no formato csv (*comma-separated values*) apesar da extensão *'.data'*. Chamaremos o dataset completo de *dataset*
 
 ```python
-full_dataset = pd.read_csv("./dow_jones_index/dow_jones_index.data")
+headers = ['sepal length', 'sepal width', 'petal length', 'class']
+dataset = pd.read_csv("./iris.data", encoding = "ISO-8859-1", decimal=",", header=None, names=headers)
 ```
+
+Os dados não têm indicação dos nomes das colunas, utilizaremos o *array 'headers'* para nomeá-las corretamente.
+A variável *'dataset'* recebe os dados lidos, *'header=None'* indica que os dados no têm cabeçalho e *'names=headers'* faz com que os cabeçalhos deste dataset sejam os definidos na variável *'headers'*
 
 Trecho do Dataset:
 
-quarter | stock | date | open | high | low | close | volume | percent_change_price | percent_change_volume_over_last_wk | previous_weeks_volume | next_weeks_open | next_weeks_close | percent_change_next_weeks_price | days_to_next_dividend | percent_return_next_dividend
---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-1 | AA | 1/7/2011 | $15.82 | $16.72 | $15.78 | $16.42 | 239655616 | 3.79267 | NaN | NaN | 16.71 | 15.97 | -4.42849 | 26 | 0.182704
-1 | AA | 1/14/2011 | $16.71 | $16.71 | $15.64 | $15.97 | 242963398 | -4.42849 | 1.380223028 | 239655616 | 16.19 | 15.79 | -2.47066 | 19 | 0.187852
-1 | AA | 1/21/2011 | $16.19 | $16.38 | $15.60 | $15.79 | 138428495 | -2.47066 | -43.02495926 | 242963398 | 15.87 | 16.13 | 1.63831 | 12 | 0.189994
-| ... |
-2 | XOM | 6/10/2011 | $80.93 | $81.87 | $79.72 | $79.78 | 92380844 | -1.42098 | 17.50851907 | 78616295 | 80.00 | 79.02 | -1.225 | 61 | 0.58912
-2 | XOM | 6/17/2011 | $80.00 | $80.82 | $78.33 | $79.02 | 100521400 | -1.225 | 8.8119524 | 92380844 | 78.65 | 76.78 | -2.37762 | 54 | 0.594786
-2 | XOM | 6/24/2011 | $78.65 | $81.12 | $76.78 | $76.78 | 118679791 | -2.37762 | 18.06420424 | 100521400 | 76.88 | 82.01 | 6.67274 | 47 | 0.612139
+sepal length | sepal width | petal length | class
+-- | -- | -- | --
+3.5 | 1.4 | 0.2 | Iris-setosa
+3.0 | 1.4 | 0.2 | Iris-setosa
+3.2 | 1.3 | 0.2 | Iris-setosa
+...
+2.8 | 4.7 | 1.2 | Iris-versicolor
+2.9 | 4.3 | 1.3 | Iris-versicolor
+3.0 | 4.4 | 1.4 | Iris-versicolor
+...
+3.0 | 5.2 | 2.0 | Iris-virginica
+3.4 | 5.4 | 2.3 | Iris-virginica
+3.0 | 5.1 | 1.8 | Iris-virginica
 
-Podemos perceber que cada coluna é referente a um parâmetro que descreverá aquela ação numa certa data.
+Podemos perceber que cada coluna é referente uma característica daquele espécime de planta. Ou seja, cada caso específico de flor produz uma instância diferente, que têm dados próprios.
 
 #### 3. Pré-processando os dados
 
-Para simplificar nosso exemplo, podemos excluir algumas a coluna 'quarter' que não é relevante para o comportamento das ações no conjunto de dados completo:
+Para garantirmos dados numéricos, vamos garantir que as colunas sejam do tipo float:
 
 ```python
-dataset = full_dataset.drop('quarter', 1)
+for col in  dataset.columns[0:3]:
+    dataset[col] = dataset[col].astype(float)
 ```
 
-A coluna de datas também pode ser alterada de forma conter uma contagem de dias para melhor processamento:
+Podemos confirmar os tipos de cada coluna do dataset com o 'dtypes'
 
 ```python
-dataset['date'] = pd.to_datetime(dataset['date'])
-dataset['date'] = (dataset['date'] - dataset['date'].min()) / np.timedelta64(1,'D')
+dataset.dtypes
+
+      sepal length    float64
+      sepal width     float64
+      petal length    float64
+      class            object
+      dtype: object
 ```
 
-As colunas que contém preços também devem ter o cifrão removido:
+Agora deve ser realizada a divisão dos dados entre variáveis dependentes ( X ) e independente ( y ). Uma definição de variáveis dependentes e independentes pode ser encontrada no nosso post [Os Três Tipos de Aprendizado de Máquina](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/)
 
 ```python
-dataset = dataset.replace({'\$':''}, regex = True)
+X = dataset.iloc[:, 0:3]
+y = dataset.iloc[:, 3]
 ```
 
-Os campos numéricos inválidos podem ser substituídos pela média de valores de sua coluna de forma que tenhamos um conjunto de dados completo para testes:
-
+Agora vamos aplicar o kmeans no conjunto de variáveis dependentes - ou seja, não estamos 'contando' ao algorítmo quais são as classes de cada instância de flor, estamos apenas apresentando os dados que cada instância tem. Definimos o número de clusters - k - como 3, uma situação ideal. Existem técnicas para encontrar o melhor k que serão abordadadas em um próximo post.
+ 
 ```python
-imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
-imputer = imputer.fit(dataset.iloc[:, 1:])
-dataset.iloc[:, 1:] = imputer.transform(dataset.iloc[:, 1:])
-```
-
-E por último normalizaremos os dados pré-processados:
-
-```python
-dataset = StandardScaler().fit_transform(dataset)
-```
-
-```python
-X = dataset.iloc[:, 2:7]
-y = dataset.iloc[:, 0]
-
 kmeans = KMeans(n_clusters=3, random_state=0).fit(X)
 X_clustered = kmeans.fit_predict(X)
+```
+Existem várias formas de checar a clusterização realizada, uma bem simples é criando uma tabela de resultados contendo a coluna das classes esperadas e a coluna dos clusters criados:
 
-LABEL_COLOR_MAP = {0 : 'red', 1 : 'blue', 2 : 'green'}
+```python
+results = dataset[['class']].copy()
+results['clusterNumber'] = X_clustered
+results
+```
+
+Tabela *'results'*
+
+class	| clusterNumber
+-- | --
+Iris-setosa |	0
+Iris-setosa |	0
+Iris-setosa |	0
+...
+Iris-versicolor |	1
+Iris-versicolor |	1
+Iris-versicolor |	1
+...
+Iris-virginica |	2
+Iris-virginica |	2
+Iris-virginica |	2
+
+Neste pequeno dataset é simples visualizar que atingimos a clusterização esperada. Podemos agora testar uma abordagem mais gráfica. Primeiramente vamos definir cores para os diferentes tipos de clusters e 'pintar' pontos em clusteres diferentes de cores diferentes:
+
+```python
+LABEL_COLOR_MAP = {0 : 'red', 1 : 'blue', 2: 'green'}
 label_color = [LABEL_COLOR_MAP[l] for l in X_clustered]
+```
 
+Agora podemos plotar um gráfico que compare duas características em duas dimensões. A lógica a seguir é apenas para que possamos plotar dinamicamente mudando apenas os valores de *'c1'* e *'c2'* que serão características diferente comparadas e dispostas nos eixos do gráfico.
+
+```python
+c1 = 0
+c2 = 1
+labels = ['sepal length', 'sepal width', 'petal length']
+c1label = labels[c1]
+c2label = labels[c12]
+title = xlabel + ' x ' + ylabel
+```
+
+Em seguida plotamos o gráfico com Matplotlib:
+
+```python
 plt.figure(figsize = (12,12))
-plt.scatter(X.iloc[:,4],dataset.iloc[:,1], c= label_color, alpha=0.3) 
+plt.scatter(X.iloc[:, c1],X.iloc[:, c2], c=label_color, alpha=0.3) 
+plt.xlabel(c1label, fontsize=18)
+plt.ylabel(c2label, fontsize=18)
+plt.suptitle(title, fontsize=20)
+plt.savefig(title + '.jpg')
 plt.show()
 ```
+
+
+
+Nem todo resultado será ideal como este conjunto de dados
