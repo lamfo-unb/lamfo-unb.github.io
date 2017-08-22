@@ -178,5 +178,4 @@ sepal length X sepal width |  sepal length X petal length | sepal width X petal 
 ![](/img/clustering/03-clustering.jpg)  |  ![](/img/clustering/04-clustering.jpg)  |  ![](/img/clustering/05-clustering.jpg)
 
 
-
-Nem todo resultado será ideal como este conjunto de dados
+Neste exemplo fica clara a divisão entre classes de flor diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Nem todo resultado terão dados ideais como este conjunto
