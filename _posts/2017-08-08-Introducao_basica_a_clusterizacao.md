@@ -153,7 +153,7 @@ label_color = [LABEL_COLOR_MAP[l] for l in X_clustered]
 Agora podemos plotar um gráfico que compare duas características em duas dimensões. A lógica a seguir é apenas para que possamos plotar dinamicamente mudando apenas os valores de *'c1'* e *'c2'* que serão características diferente comparadas e dispostas nos eixos do gráfico.
 
 ```python
-c1 = 0
+c1 = 0 # índice da coluna
 c2 = 1
 labels = ['sepal length', 'sepal width', 'petal length']
 c1label = labels[c1]
@@ -172,6 +172,10 @@ plt.suptitle(title, fontsize=20)
 plt.savefig(title + '.jpg')
 plt.show()
 ```
+
+sepal length X sepal width |  sepal length X petal length | sepal width X petal length
+:-------------------------:|:-------------------------:|:-------------------------:
+![](/img/clustering/03-clustering.png)  |  ![](/img/clustering/04-clustering.png)  |  ![](/img/clustering/05-clustering.png)
 
 
 
