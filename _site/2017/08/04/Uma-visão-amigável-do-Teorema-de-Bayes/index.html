@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Uma visão amigável do Teorema de Bayes - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/08/04/Uma-vis%C3%A3o-amig%C3%A1vel-do-Teorema-de-Bayes/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/bayes/juskteez-vu-1041.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Uma visão amigável do Teorema de Bayes</h1>
+                    
+                    <span class="meta">Posted by Igor Nascimento on August 4, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<link href="https://fonts.googleapis.com/css?family=Rock Salt" rel="stylesheet" />
+
+<link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet" />
+
+<h1 id="eventos-probabilidade-e-condicionalidade">Eventos, Probabilidade e Condicionalidade</h1>
+
+<p>No livro <em>The History of Probability</em> o autor Todhunter relata de forma cronológica considerações de aspectos elementares da Teoria da Probabilidade de alguns notáveis personagens da história. No entanto, os primórdios da probabilidade está relatado nas correspondências entre Pierre De Fermat e Blaise Pascal sobre um problema de jogos em lançamento de dados no século XVII, citados em <em>Games, Gods &amp; Gambling</em>.</p>
+
+<p>Probabilidade é a área da matemática responsável por mensurar aquilo que não é determinístico. Os resultados dos lançamentos de dados ou moedas são considerados <strong>experimentos de probabilidade</strong>, pois estão sujeitos ao acaso.</p>
+
+<p>Para o cálculo de probabilidades, considere as seguintes abordagens:</p>
+
+<ul>
+  <li>
+    <p><strong>Clássica</strong>: “Suponha que dentre <script type="math/tex">n</script> resultados possíveis e equiprováveis <script type="math/tex">m</script> sejam favoráveis. A probabilidade de um evento favorável é <script type="math/tex">p = \frac{m}{n}</script>.”  Essa abordagem é o resultado das correspondências entre Fermat e Pascal.</p>
+  </li>
+  <li>
+    <p><strong>Frequentista</strong>: “Foram realizados <script type="math/tex">n</script> experimentos dos quais <script type="math/tex">m</script> eram favoráveis. A frequência relativa da ocorrência de um evento favorável é <script type="math/tex">\frac{m}{n}</script>.” Jakob Bernoulli, em seu livro <em>Ars Conjectandi</em>, provou a convergência entre a frequência relativa de ocorrência e a probabilidade <script type="math/tex">p</script> clássica a medida que aumenta-se o número de experimentos <script type="math/tex">n</script>.</p>
+  </li>
+</ul>
+
+<p>Dito isso, vamos definir como <script type="math/tex">P(A)</script> a probabilidade de ocorrer o evento <script type="math/tex">A</script> em um determinado conjunto de valores possíveis <script type="math/tex">\Omega</script>. Antes de tudo vamos aquecer o cérebro compreendendo os importantes conceitos de <strong>independência</strong> e <strong>permutabilidade</strong> para o estudo de probabilidade.</p>
+
+<h2 id="independência">Independência</h2>
+
+<p>Seja uma caixa contendo <strong>2 bolas brancas</strong> e <strong>3 pretas</strong>. Considere o experimento da retirada aleatória e observância da cor da bolas, com representação <strong>Bernoulli</strong> (<script type="math/tex">X_1</script>) de ocorrência:</p>
+
+<ul>
+  <li>
+    <p><script type="math/tex">X_1 = 0</script> caso a bola retirada seja branca</p>
+  </li>
+  <li>
+    <p><script type="math/tex">X_1 = 1</script> caso a bola retirada seja preta</p>
+  </li>
+</ul>
+
+<p>Pela abordagem clássica, a probabilidade da bola ser branca é <script type="math/tex">P(X_1 = 0) = \frac{2}{5}</script> e de ser preta <script type="math/tex">P(X_1 = 1) = \frac{3}{5}</script>.</p>
+
+<p>Após a primeira retirada, e sem reposição, você retira mais uma bola. Qual a probabilidade da segunda bola ser branca?</p>
+
+<p>A resposta mais intuitiva é <strong>DEPENDE</strong>. De fato, a probabilidade da segunda retirada (<script type="math/tex">X_2</script>) está <strong>condicionada</strong> ao resultado da primeira. Perceba, caso a primeira seja branca, restam mais <script type="math/tex">1</script> branca e as demais <script type="math/tex">3</script> pretas, e, nesse caso, a probabilidade de uma segunda retirada branca é <script type="math/tex">\frac{1}{4}</script>. Caso a primeira tenha sido preta, seria <script type="math/tex">\frac{2}{4}</script>.</p>
+
+<p>De maneira geral, a probabilidade do evento <script type="math/tex">B</script> condicionada ao evento <script type="math/tex">A</script> é representada por <script type="math/tex">P(B/A)</script>. Nesse caso, temos que:</p>
+
+<ul>
+  <li>
+    <script type="math/tex; mode=display">P(X_2 = 0|X_1 = 0) = \frac{1}{4}</script>
+  </li>
+  <li>
+    <script type="math/tex; mode=display">P(X_2 = 0|X_1 = 1) = \frac{2}{4}</script>
+  </li>
+</ul>
+
+<p>Dessa forma, dizemos que o evento <script type="math/tex">X_2</script> é <strong>dependente</strong> do evento <script type="math/tex">X_1</script>.</p>
+
+<p>A probabilidade conjunta dos eventos <script type="math/tex">A</script> e <script type="math/tex">B</script> é expressa pela regra do produto:
+<script type="math/tex">P( B \cap A)   = P(B|A) P(A)</script>
+que também pode ser expressa por <script type="math/tex">P( B \cap A) = P( B , A)</script>.</p>
+
+<p>Considere agora um outro experimento, o lançamento de uma <strong>moeda honesta</strong> e a observância da face virada para cima. Considere a representação <strong>Bernoulli</strong> (<script type="math/tex">X_1</script>) de ocorrência:</p>
+
+<ul>
+  <li>
+    <p><script type="math/tex">0</script> caso o resultado do lançamento seja coroa</p>
+  </li>
+  <li>
+    <p><script type="math/tex">1</script> caso o resultado do lançamento seja cara</p>
+  </li>
+</ul>
+
+<p>Por ser justa, a probabilidade do resultado cara é <script type="math/tex">P(X_1 = 1) = \frac{1}{2}</script> e o de coroa é <script type="math/tex">P(X_1 = 0) = \frac{1}{2}</script>.</p>
+
+<p>Em seguida, a moeda é lançada novamente e o resultado representado por <script type="math/tex">X_2</script>. Perceba que nesse caso, a probabilidade da ocorrência de cara no segundo lançamento também é igual a <script type="math/tex">P(X_2 = 1) = \frac{1}{2}</script> por não ser afetado pelo resultado do primeiro lançamento.</p>
+
+<p>Dizemos que <script type="math/tex">X_2</script> é <strong>independente</strong> de <script type="math/tex">X_1</script>, e nesse caso, temos que a regra do produto é:</p>
+
+<script type="math/tex; mode=display">P(X_2  , X_1 )  = P(X_2|X_1) P(X_1)</script>
+
+<script type="math/tex; mode=display">P(X_2  , X_1 )  = P(X_2)P(X_1 )</script>
+
+<h2 id="permutabilidade">Permutabilidade</h2>
+
+<p>Permutabilidade é a propriedade da alteração no ordenamento de realizações em uma sequência de eventos sem que a probabilidade conjunta seja alterada.</p>
+
+<p>Considere o lançamento de <script type="math/tex">5</script> moedas não viciadas, com representação semelhante a apresentada anteriormente, sendo observado o seguinte resultado <script type="math/tex">(1,0,1,1,0)</script>, isto é, (cara,coroa,cara,cara,cora). Sabemos que os lançamentos são <strong>independentes</strong> e que a probabilidade conjunta desse evento é <script type="math/tex">P(1,0,1,1,0) = P(X_5 = 1) \times P(X_4 = 0)\times P(X_3 = 1)\times P(X_2 = 1)\times P(X_1 = 0) = \frac{1}{2^5}</script>.</p>
+
+<p>Nessa situação, caso fosse observado o evento <script type="math/tex">(1,1,1,0,0)</script>, a probabilidade não seria alterada, pois <script type="math/tex">P(1,0,1,1,0) = P(1,1,1,0,0)   =\frac{1}{2^5}</script>. Dessa forma, a ordem da ocorrências dos resultados cara não altera a probabilidade conjunta, desde que seja a mesma quantidade de resultados de “sucesso”. Esse é uma versão não rigorosa do Teorema de De Finetti.</p>
+
+<p>De maneira geral, a independência de uma sequência de eventos garante a permutabilidade da mesma.</p>
+
+<p>No entanto, a permutabililidade não é condição necessária para a permutabilidade, apenas suficiente. Isto é, ainda que uma sequência não seja formada por eventos independente, é possível que sejam permutáveis.</p>
+
+<p>Considere a mesma representação do exemplo da caixa com bolas apresentado anteriormente para o caso da retirada de <script type="math/tex">5</script> bolas sem reposição. Como visto, esses eventos não são <strong>independentes</strong>, pois a probabilidade de um determinado evento na sequência, depende do resultado observado nos eventos anteriores.</p>
+
+<p>Dessa forma, vamos verificar se o evento <script type="math/tex">(1,0,1,1,0)</script> é permutável. Inicialmente, vamos calcular a probabilidade <script type="math/tex">P(1,0,1,1,0)</script>:</p>
+
+<p><script type="math/tex">P(1,0,1,1,0)  =   P(X_1 = 1)\times P(X_2 = 0 | X_1 = 1)  \times P(X_3 = 1 |X_2 = 0 , X_1 = 1) \times P(X_4 = 1|X_3 = 1 ,X_2 = 0 , X_1 = 1)  \times P(X_5 = 0|X_4 = 1 , X_3 = 1 ,X_2 = 0 , X_1 = 1)</script>
+<script type="math/tex">P(1,0,1,1,0)  =   \frac{3}{5} \times \frac{2}{4}  \times \frac{2}{3} \times  \frac{1}{2}  \times \frac{1}{1}  = \frac{1}{10}</script></p>
+
+<p>Agora, vamos calcular a probabilidade <script type="math/tex">P(1,1,1,0,0)</script>, alterando o resultado do segundo e o quarto evento:</p>
+
+<script type="math/tex; mode=display">P(1,1,1,0,0)  =   P(X_1 = 1)\times P(X_2 = 1 | X_1 = 1)  \times P(X_3 = 1 |X_2 = 1 , X_1 = 1) \times P(X_4 = 0|X_3 = 1 ,X_2 = 1 , X_1 = 1)  \times P(X_5 = 0|X_4 = 0 , X_3 = 1 ,X_2 = 1 , X_1 = 1)</script>
+
+<script type="math/tex; mode=display">P(1,1,1,0,0)  =   \frac{3}{5} \times \frac{2}{4}  \times \frac{1}{3} \times  \frac{2}{2}  \times \frac{1}{1}  = \frac{1}{10}</script>
+
+<p>Dessa forma, embora essa sequência seja formada por eventos dependentes, a ordem desses eventos não altera a probabilidade conjunta, tornando-a permutável.</p>
+
+<h1 id="teorema-de-bayes">Teorema de Bayes</h1>
+
+<p>O teorema de bayes estabelece a seguinte relação entre dois eventos A e B, com probabilidades, respectivamente, P(A) e P(B):</p>
+
+<script type="math/tex; mode=display">P(A|B) = \frac{P( B | A) }{P(B)}P(A)</script>
+
+<p>Considerando os eventos <script type="math/tex">A</script> e <script type="math/tex">B</script> permutáveis, o termo <script type="math/tex">P(A \cap B)</script> é igual a <script type="math/tex">P( B \cap A )</script> e, dessa forma, pode ser escrita como:</p>
+
+<script type="math/tex; mode=display">P( B  \cap A ) = P( B | A)P(A)</script>
+
+<p>Por fim, tem-se a seguinte relação:</p>
+
+<script type="math/tex; mode=display">P(A|B) = \frac{P( B | A) }{P(B)}P(A)</script>
+
+<p>Nesse caso, o probabilidade <script type="math/tex">P(A)</script> é denominada probabilidade a <em>priori</em>, isto é, a informação sobre o evento <script type="math/tex">A</script> antes que se soubesse algo sobre o evento <script type="math/tex">B</script>. Mais adiante, quando se tenha conhecimento sobre <script type="math/tex">B</script>, a probabilidade relacionada ao evento <script type="math/tex">A</script> deve ser atualizada pela probabilidade do evento <script type="math/tex">B</script>. A probabilidade <script type="math/tex">P(A/B)</script> é agora denominada probabilidade a <em>posteriori</em>. Sendo a razão  <script type="math/tex">\frac{P(B/A)}{P(B)}</script> o fator de atualização das informações sobre o evento <script type="math/tex">A</script>.</p>
+
+<p>Para compreender com mais detalhes o Teorema de Bayes é necessário entender a <strong>regra da probabilidade total (RPT)</strong>, que expressa a probabilidade total de um resultado por meio de vários eventos disjuntos.</p>
+
+<p>Inicialmente, considere o problema em encontrar o valor para a probabilidade do evento <script type="math/tex">A</script>.</p>
+
+<p><img src="/img/bayes/rpt_1.png" alt="alt text" title="Evento $A$ (a)" /></p>
+
+<p>Considere agora que seja possível particionar o espaço <script type="math/tex">\Omega</script> em partes <script type="math/tex">B_i</script> sem intersecções entre si. Note que a união das partes <script type="math/tex">B_i</script> formam <script type="math/tex">\Omega</script>.</p>
+
+<p><img src="/img/bayes/rpt_2.png" alt="alt text" title="Partições $B_i$ em $\Omega$ (b)" /></p>
+
+<p>A probabilidade <script type="math/tex">A</script> pode ser determinada pela intersecção entre o evento <script type="math/tex">A</script> e cada partição <script type="math/tex">B_i</script>.</p>
+
+<p><img src="/img/bayes/rpt_3.png" alt="alt text" title="Intersecções entre $A$ e as partições $B_i$ (c)" /></p>
+
+<p><img src="/img/bayes/rpt_4.png" alt="alt text" title="Calculando a probabilidade em $A$ (d)" /></p>
+
+<p>Nos espaços amostrais <script type="math/tex">\Omega</script> formados pela união de partes <script type="math/tex">B_i</script> disjuntas (mutuamente exclusivas) a probabilidade de qualquer evento de <script type="math/tex">\Omega</script> é:</p>
+
+<p><script type="math/tex">P(A) =  P(A \cap B_1) + P(A \cap B_2) + ... + P(A \cap B_N)</script>
+<script type="math/tex">P(A) =  P(A | B_1)P(B_1)+P(A | B_2)P(B_2) + ... + P(A | B_N)P(B_N)</script></p>
+
+<p>Dessa forma, a probabilidade do evento <script type="math/tex">A</script> pode ser representado por:</p>
+
+<script type="math/tex; mode=display">P(A) = \sum_{i=1}^N P(A | B_i)P(B_i)</script>
+
+<p><strong>Qual a importância desse resultado?</strong></p>
+
+<h1 id="aplicação-simples">Aplicação simples</h1>
+
+<p>Um amigo muito próximo lhe pediu <script type="math/tex">R\$ 1.000,00</script> emprestado (<script type="math/tex">V_{emprestado}</script>) para solução financeira de uma emergência. Você é um investidor nato e não suporta a ideia de perder o patrimônio conquistado. Embora você decida ajudar seu amigo, você está preocupado com o <strong>risco</strong> do não pagamento do empréstimo e, por isso, cobrará juros <script type="math/tex">T_{juros}</script> sobre o montante inicial emprestado:</p>
+
+<script type="math/tex; mode=display">V_{devolvido} = V_{emprestado} \times (1 + T_{juros})</script>
+
+<p>Você percebeu que o <strong>valor devolvido</strong> (<script type="math/tex">V_{devolvido}</script>) do seu “investimento” ao final do período de empréstimo está sujeito às “variações do mercado”, que, nesse caso, estão relacionadas a um evento \textbf{incerto} do não pagamento da dívida. Com isso, você define o <strong>valor esperado</strong> (<script type="math/tex">V_{esperado}</script>) como o valor recebido ao final do período considerando tal incerteza.</p>
+
+<p>Seja <script type="math/tex">A</script> o evento indicativo do pagamento do seu amigo, então o valor esperado  (<script type="math/tex">V_{esperado}</script>) ao final do período de empréstimo é a média ponderada entre as possibilidades de valores devolvidos, <script type="math/tex">V_{devolvido}</script> e <script type="math/tex">0</script>, e suas respectivas probabilidades, <script type="math/tex">P(A)</script> e <script type="math/tex">1 - P(A)</script>:</p>
+
+<p><script type="math/tex">V_{esperado}  =   V_{devolvido} \times P(A)                     + 0 \times [1 - P(A)]</script>
+<script type="math/tex">V_{esperado}  =   [V_{emprestado} \times (1 + T_{juros})] \times P(A)   + 0 \times [1 - P(A)]</script>
+<script type="math/tex">V_{esperado} =   [V_{emprestado} \times (1 + T_{juros})] \times P(A)</script></p>
+
+<p>Da relação anterior, é possível obter a a taxa de juros adotada:</p>
+
+<script type="math/tex; mode=display">T_{juros} =  \frac{V_{esperado}}{V_{emprestado} \times P(A)} - 1</script>
+
+<p>Você decide que o valor dos juros  será determinado de maneira que o valor esperado seja igual ao investimento inicial, isto é, <script type="math/tex">V_{esperado}=V_{emprestado}</script>. Dessa forma, a taxa de juros utilizada será:</p>
+
+<script type="math/tex; mode=display">T_{juros} =  \frac{1000}{1000 \times P(A)} - 1 = \frac{1}{P(A)} - 1</script>
+
+<p>Você utilizará uma <em>proxy</em> o evento <script type="math/tex">A</script> baseado no cadastro nacional de bons ou maus pagador. Infelizmente, você não tem acesso à esse cadastro. No entanto, você sabe que, assim como você, seu amigo possui conta no banco ABC, que regularmente publica informações agregadas sobre as operações com os clientes.</p>
+
+<p>Tal banco realizou um levantamento informando que <script type="math/tex">1</script> em cada <script type="math/tex">10</script> clientes possuem registo ativo no cadastro nacional de maus pagadores.  Dessa forma, a probabilidade do pagamento do seu amigo se concretizar é de <script type="math/tex">P(A)=\frac{9}{10} = 90\%</script>.</p>
+
+<p>Dito isso, utilizando a taxa de juros que você deve adotar é:
+<script type="math/tex">T_{juros} =  \frac{1}{0.9} - 1 = 11.111\%</script></p>
+
+<p>Dessa forma, a <em>priori</em>, seu amigo deveria lhe pagar R$ <script type="math/tex">1.111,11</script> ao final do período para garantir que, em média e desconsiderando inflação, seu investimento inicial seja recuperado.</p>
+
+<p>Nos informativos do banco também consta que <script type="math/tex">2</script> em cada <script type="math/tex">4</script> maus pagadores atrasam o pagamento do boleto, enquanto dentre os bons pagadores, apenas <script type="math/tex">1</script> a cada <script type="math/tex">20</script> atrasam suas obrigações.</p>
+
+<p>Durante a conversa, seu amigo te informou que possui boletos atrasados nesse banco. Baseado nessa <strong>nova informação</strong>, qual a probabilidade do seu amigo ser mau pagador dado que atrasou o pagamento? Qual a nova taxa de juros que você deve adotar para proteger seu “investimento”?</p>
+
+<p>O Teorema de Bayes responde diretamente essa pergunta. Antes disso, vamos modelar os eventos e identificar suas probabilidades. Considere o evento <script type="math/tex">A</script> o cliente ser um bom pagador e o evento <script type="math/tex">B</script> o atraso do pagamento de um boleto da obrigação financeira nesse banco.</p>
+
+<ul>
+  <li>Ser bom pagador: evento <script type="math/tex">A</script>. Sendo <script type="math/tex">P(A)=\frac{9}{10}</script>.</li>
+  <li>Ser mal pagador: evento <script type="math/tex">A^{c}</script>. Sendo <script type="math/tex">P(A^{c})=1-P(A)=\frac{1}{10}</script>.</li>
+  <li>Atraso no pagamento: evento <script type="math/tex">B</script>. Sendo <script type="math/tex">P(B)=</script> não informado.</li>
+  <li>Atraso no pagamento dos bons pagadores: evento <script type="math/tex">B/A</script>. Sendo <script type="math/tex">P(B/A)=\frac{1}{20}</script>.</li>
+  <li>Atraso no pagamento dos mal pagadores: evento <script type="math/tex">B/A^{c}</script>. Sendo <script type="math/tex">P(B/A^{c})=\frac{2}{4}</script>.</li>
+  <li>Probabilidade do seu amigo ser bom pagadores caso tenha atrasado o pagamento. <script type="math/tex">P(A/B)=</script>?.</li>
+</ul>
+
+<p>Utilizando o Teorema de Bayes e a  RPT em <script type="math/tex">P(B)</script>, tem-se que:</p>
+
+<script type="math/tex; mode=display">P(A|B) =\frac{P( B|A) }{P(B)}P(A)</script>
+
+<script type="math/tex; mode=display">P(A|B) =  \left[ \frac{P( B | A) }{P(B | A)P(A)+P(B | A^{c})P(A^{c})}\right]P(A)</script>
+
+<script type="math/tex; mode=display">P(A|B) =   \left[ \frac{\frac{1}{20}}{\frac{1}{20}\frac{9}{10}+\frac{2}{4}\frac{1}{10}}\right]\frac{9}{10}</script>
+
+<script type="math/tex; mode=display">P(A|B) =   \left[ \frac{38}{20}\right]\frac{9}{10}</script>
+
+<script type="math/tex; mode=display">P(A|B) =    47.36\%</script>
+
+<p>Dessa forma, após saber que ele não pagou o boleto do banco, a probabilidade de ser bom pagador a <em>posteriori</em> reduz em quase a metade da <em>priori</em>. Dessa forma, a nova taxa de juros é <script type="math/tex">\frac{1}{0.4736} - 1 = 111.111\%</script>, fazendo com que o valor cobrado seja de R$ <script type="math/tex">2.111,11</script>.</p>
+
+<p>Esse é uma versão introdutória do Teorema de Bayes e serve para motivação para posts futuros que exigirão mais pré requisitos em teoria de probabilidades. Enquanto isso, vamos ver uma aplicação me modelos de séries temporais das propriedades do Teorema de Bayes.</p>
+
+<h1 id="modelos-de-espaços-de-estados">Modelos de Espaços de Estados</h1>
+
+<p>Os modelos de Espaços de Estados são uma classe de modelos utilizados para estudar e conhecer séries temporais, conjunto de valores observados ao longo de instantes no tempo, podendo ser representado por <script type="math/tex">(Y_t)_{(t>0)}</script>, sendo <script type="math/tex">t=1,2,\cdots,T</script> o indexador que representa o instante de mensuração da quantidade.</p>
+
+<p>Considere a seguinte estrutura de dependência para a série temporal <script type="math/tex">Y_t</script>:</p>
+
+<script type="math/tex; mode=display">Y_t  = f(\theta) + \epsilon_t</script>
+
+<p>É importante notar que a <script type="math/tex">Y_1,Y_2,....,Y_T</script> é <strong>condicionamente independente</strong> por meio de uma função do parâmetro <script type="math/tex">\theta</script>. Em outras palavras, as informações em <script type="math/tex">t</script> são independentes das em <script type="math/tex">t-1</script>, condicionadas a informação de <script type="math/tex">\theta</script>. Como exemplo, para <script type="math/tex">t=2</script>, essa relação é determinada pelo resultado <script type="math/tex">P(Y_2/Y_1,\theta) = P(Y_2/\theta)</script>. Para <script type="math/tex">t</script> qualquer, tem-se que <script type="math/tex">P(Y_t/Y_1,Y_2,...,Y_{t-1},\theta) = P(Y_t/\theta)</script>.</p>
+
+<p>Essa propriedade permite que a distribuição conjunta dessa série possa ser reescrita por:</p>
+
+<script type="math/tex; mode=display">P(Y_T,....,Y_1|\theta)  =  \frac{P(Y_T,....,Y_1,\theta)}{P(\theta)}</script>
+
+<script type="math/tex; mode=display">P(Y_T,....,Y_1|\theta)  =  \frac{P(Y_T|Y_{T-1},....,Y_2,Y_1,\theta)P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)}</script>
+
+<script type="math/tex; mode=display">P(Y_T,....,Y_1|\theta)  =  P(Y_T|\theta)\frac{P(Y_{T-1},....,Y_2,Y_1,\theta)}{P(\theta)}</script>
+
+<p>Replicando esse procedimento para a série inteira, não é difícil chegar a seguinte resultado:</p>
+
+<script type="math/tex; mode=display">P(Y_T,....,Y_1|\theta) = \prod^T_{t=1} P(Y_t|\theta)P(\theta)</script>
+
+<p>Dessa forma, a distribuição conjunta dessa série é incrementada sequêncialmente a cada nova informação <script type="math/tex">Y_t</script> por meio da distribuição condicional <script type="math/tex">P(Y_t/\theta)</script>. Dessa relação, é possível obter <strong>atualizações</strong> sobre <script type="math/tex">\theta</script>. Vamos entender esse conceito com o estudo de um caso.</p>
+
+<h1 id="modelos-gaussianos">Modelos Gaussianos</h1>
+
+<p>Um investidor está interessado em conhecer melhor o comportamento dos retornos mensais do Índice Ibovespa utilizando a estrutura de dependência apresentada anteriormente:</p>
+
+<script type="math/tex; mode=display">Y_t  = \theta + \epsilon_t</script>
+
+<p>Com <script type="math/tex">\epsilon_t \sim N(0,\sigma^2)</script>, sendo <script type="math/tex">\sigma^2</script> conhecido e igual a <script type="math/tex">5</script>. Nesse caso, temos a dependência condicional <script type="math/tex">Y_1,Y_2,...,Y_T/\theta \sim N(\theta,\sigma^2)</script></p>
+
+<p>Conversando com colegas ele obteve a <strong>informação inicial</strong> de que o comportamento da média dos retornos mensais (<script type="math/tex">\theta</script>)  tem distribuição Normal como média <script type="math/tex">\eta_0=2</script> e variância <script type="math/tex">\phi_0^2 = 2</script>. Essa é a informação a <em>priori</em> do parâmetro da série temporal de interesse. Com base nessa informação, o investidor pretende observar os índices ao final de cada mês e <strong>atualizar</strong> o conhecimento sobre <script type="math/tex">\theta</script>, a distribuição a <em>posteriori</em>, a medida que novas observações da série do índice mensal do Ibovespa <script type="math/tex">Y_t</script> estejam disponíveis.</p>
+
+<p>Sabendo que o valor do índice Ibovespa para janeiro de 2017 foi <a href="http://www.bmfbovespa.com.br/pt_br/servicos/market-data/historico/mercado-a-vista/series-historicas/"><script type="math/tex">Y_1=7.38</script></a>, qual é a distribuição e os parâmetros da <em>posteriori</em> <script type="math/tex">P(\theta/Y_1)</script>?</p>
+
+<p>Ao final do primeiro mês o investidor pretende obter a distribuição <script type="math/tex">P(\theta/Y_1)</script> e para isso utiliza o Teorema de Bayes, chegando a seguinte relação:</p>
+
+<script type="math/tex; mode=display">P(\theta|Y_1) = \frac{P(Y_1,\theta)}{p(Y_1)} = \frac{P(Y_1|\theta) P(\theta)}{\int P(Y_1|\theta) P(\theta)}</script>
+
+<p>O desafio, nesse ponto, é obter a distribuição conjunta <script type="math/tex">P(Y_1,\theta)</script> por meio do produto entre a probabilidade da série <script type="math/tex">Y_1</script>, <script type="math/tex">P(Y_1/\theta)</script>, e a <em>priori</em> do parâmetro <script type="math/tex">\theta</script>, <script type="math/tex">P(\theta)</script>. Utilizando informaçõe das distribuições normais informadas, temos que:</p>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)  =  P(Y_1|\theta) P(\theta)</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)  = (2 \sigma^2)^{-\frac{1}{2}}e^{[-(2\sigma^2)^{-1}(y_1 - \theta)^2]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta - \eta_0)^2]}</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =  (2 \sigma^2)^{-\frac{1}{2}} e^{[-(2\sigma^2)^{-1}(y_1^2 - 2y\theta + \theta^2)]} \times  (2\phi_0^2)^{-\frac{1}{2}}e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0 + \eta_0^2)]}</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =  \left[(2 \sigma^2)^{-\frac{1}{2}}(2\phi_0^2)^{-\frac{1}{2}}\right]\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]\times\left[ e^{[-(2\sigma^2)^{-1}(y^2)]}  e^{[-(2\phi_0^2)^{-1}(\eta_0^2)]}\right]</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =   c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y_1\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =  c3\times\left[ e^{[-(2\sigma^2)^{-1}( \theta^2 - 2y\theta )]} \times  e^{[-(2\phi_0^2)^{-1}(\theta^2 - 2\theta\eta_0)]}  \right]</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =   c3\times\left[ e^{[-(2)^{-1}( \theta^2 (\sigma^{-2} + \phi_0^{-2}) - 2\theta(y_1\sigma^{-2} + \eta_0 \phi_0^{-2}) )]} \right]</script>
+
+<script type="math/tex; mode=display">P(Y_1,\theta)   =   c3\times\left[ e^{[-(2)^{-1}(\sigma^{-2} + \phi_0^{-2})( \theta^2 - 2\theta\frac{(y_1\sigma^{-2} + \eta_0 \phi_0^{-2})}{(\sigma^{-2} + \phi_0^{-2})} )]} \right]</script>
+
+<p>Perceba que, a menos de constantes, essa distribuição conjunta tem o núcleo de uma distribuição normal com média:</p>
+
+<script type="math/tex; mode=display">\frac{(y\sigma^{-2} + \eta \phi^{-2})}{(\sigma^{-2} + \phi^{-2})} = \frac{y_1\phi^2 + \eta \sigma^2}{\sigma^2 + \eta^2} = \frac{7.38 \times 2 + 2 \times 5}{2 + 5} = 3.53</script>
+
+<p>e variância</p>
+
+<script type="math/tex; mode=display">\frac{1}{\sigma^{-2} + \phi^{-2}} = \frac{1}{5^{-1} + 2^{-1}} = 1.42</script>
+
+<p>Perceba que o denominador é a integração dessa distribuição conjunta (numerador) com relação a <script type="math/tex">\theta</script> e, com um pouco de esforço algébrico, é a <strong>constante normalizadora</strong>. Mais detalhes dos processo podem ser consultados em Petris et al (2009).</p>
+
+<p>Dessa forma, temos que <script type="math/tex">\theta/Y_1 \sim N(3.53,1.42)</script>. Essa é a distribuição a <em>posteriori</em> de <script type="math/tex">\theta</script> com relação a informação <script type="math/tex">Y_1</script>. O gráfico a seguir apresenta a comparação entre as distribuições <em>priori</em> e <em>posteriori</em>.</p>
+
+<p><img src="/img/bayes/priori.png" alt="alt text" title="Comparação entre priori e posteriori" /></p>
+
+<p>A distribuição a <em>posteriori</em> tem seus parâmetros <script type="math/tex">\eta_t</script> e <script type="math/tex">\phi_t</script> atualizados no instante <script type="math/tex">t</script> a medida que se tenha acesso a novas informações da série temporal. Em todos esses instantes, a <em>posteriori</em> obtida no passo <script type="math/tex">t</script> é a nova <em>priori</em> para a estimação em <script type="math/tex">t+1</script>.</p>
+
+<p>A repetição do processo de estimação em um instante <script type="math/tex">t</script> qualquer fornece o seguinte resultado:</p>
+
+<script type="math/tex; mode=display">\theta|Y_1,Y_2,...Y_t \sim N(\eta_t,\phi_t)</script>
+
+<p>Sendo <script type="math/tex">\eta_t</script> a média entre a o valor inical <script type="math/tex">\eta_0</script> e a média da série <script type="math/tex">Y_1,...,Y_t</script> ponderados pelas variâncias do processo:</p>
+
+<script type="math/tex; mode=display">\eta_t =  \frac{\frac{\sum_{i=1}^t y_i}{t} \phi_0^2 + \eta_0 \frac{\sigma^2}{t}}{\frac{\sigma^2}{t} + \eta_0^2}</script>
+
+<p>e a variância</p>
+
+<script type="math/tex; mode=display">\phi_t = t\sigma^{-2} + \phi_0^{-2}</script>
+
+<p>A programação em R a seguir calcula os valores a <em>posteriori</em> a cada nova observação do índice Ibovespa para o ano 2017. Note que em cada período são utilizadas as informações acumuladas até o instante de análise, determinado pelo comando “y[1:i]”.</p>
+
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="c1">## IBOV time series 2017
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">7.38</span><span class="p">,</span><span class="m">3.08</span><span class="p">,</span><span class="m">-2.52</span><span class="p">,</span><span class="m">0.64</span><span class="p">,</span><span class="m">-4.12</span><span class="p">,</span><span class="m">0.3</span><span class="p">,</span><span class="m">4.8</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## parameters      
+</span><span class="n">sigma</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="n">eta</span><span class="w">   </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="n">phi</span><span class="w">   </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span><span class="w">
+
+</span><span class="c1">## posteriori eta
+</span><span class="n">etat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">eta</span><span class="p">,</span><span class="n">phi</span><span class="p">){</span><span class="w">
+  </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
+  </span><span class="nf">return</span><span class="p">((</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">phi</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">eta</span><span class="o">*</span><span class="n">sigma</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">phi</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sigma</span><span class="o">/</span><span class="n">t</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">## posteriori phit
+</span><span class="n">phit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">phi</span><span class="p">){</span><span class="w">
+  </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
+  </span><span class="nf">return</span><span class="p">((</span><span class="n">phi</span><span class="w"> </span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">phi</span><span class="w"> </span><span class="o">+</span><span class="n">sigma</span><span class="w"> </span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span><span class="c1">## storing posteriori values 
+</span><span class="n">mus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NULL</span><span class="w">
+</span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NULL</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">y</span><span class="p">)){</span><span class="w">
+  </span><span class="n">mus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">mus</span><span class="p">,</span><span class="n">etat</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="n">i</span><span class="p">],</span><span class="n">sigma</span><span class="p">,</span><span class="n">eta</span><span class="p">,</span><span class="n">phi</span><span class="p">))</span><span class="w">
+  </span><span class="n">ss</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span><span class="n">phit</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="n">i</span><span class="p">],</span><span class="n">sigma</span><span class="p">,</span><span class="n">phi</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+</div>
+
+<p>O gráfico a seguir apresenta os retornos mensais do Ibovespa durante 2017 e o valor médio a <em>posteriori</em> do parâmetro <script type="math/tex">\theta</script>.</p>
+
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="c1">## first axis eta
+</span><span class="n">plot</span><span class="p">(</span><span class="n">mus</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Ibovespa 2017"</span><span class="p">,</span><span class="w">
+     </span><span class="n">ylab</span><span class="o">=</span><span class="nf">expression</span><span class="p">(</span><span class="n">eta</span><span class="p">),</span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"t"</span><span class="p">,</span><span class="n">xaxt</span><span class="o">=</span><span class="s1">'n'</span><span class="p">,</span><span class="n">col</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">axis</span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">7</span><span class="p">,</span><span class="w">
+     </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Jan"</span><span class="p">,</span><span class="s2">"Feb"</span><span class="p">,</span><span class="s2">"Mar"</span><span class="p">,</span><span class="s2">"Apr"</span><span class="p">,</span><span class="s2">"May"</span><span class="p">,</span><span class="s2">"Jun"</span><span class="p">,</span><span class="s2">"Jul"</span><span class="p">))</span><span class="w">
+
+</span><span class="n">legend</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5.5</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="w"> </span><span class="m">3.6</span><span class="p">,</span><span class="w">
+       </span><span class="n">legend</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="nf">expression</span><span class="p">(</span><span class="n">eta</span><span class="p">),</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">t</span><span class="p">])),</span><span class="w">
+       </span><span class="n">lty</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">16</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"black"</span><span class="p">),</span><span class="n">box.col</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">cex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.75</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## second axis ibov time series
+</span><span class="n">par</span><span class="p">(</span><span class="n">new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">7</span><span class="p">)</span><span class="o">/</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">1.2</span><span class="p">)</span><span class="w">
+</span><span class="n">axis</span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">mtext</span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">y_t</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/img/bayes/update.png" alt="alt text" title="Estimativas a posteriori em 2017 para o retornos mensais Ibovespa" /></p>
+
+<h1 id="considerações-finais">Considerações finais</h1>
+
+<p>O conteúdo do post, embora simples, apresenta de que maneira a Teoria Bayesiana é utlizada para modelos de séries temporais, permitindo que haja a atualização do conhecimento a medida que se tenha acesso a novas informações.</p>
+
+<p>Por fim, é possível destacar três avanços em estudo nessa área:</p>
+
+<ul>
+  <li>
+    <p>estrutura de dependência temporal que incorpore tendência e sazonalidade</p>
+  </li>
+  <li>
+    <p>relações não gaussianas e não-lineares.</p>
+  </li>
+  <li>
+    <p>aumentar número de parâmetros desconhecidos ( ex.: <script type="math/tex">\sigma^2</script>)</p>
+  </li>
+</ul>
+
+<p>O aumento da complexidade requer a utilização de técnicas estatísticas e computacionais mais sofisticadas para lidar com o processo de estimação. É comum encontrar distribuições a <em>posteriori</em> que não tenham formas fechadas ou situações com alta dimensão em virtudo da quantidade de parâmetros e tamanho da série temporal. Nesses casos, técnicas como <a href="https://lamfo-unb.github.io/2017/06/28/Bootstrap/">Bootstrap</a>, MCMC, Gibbs Sampler e Filtro de Partículas podem ser adotadas.</p>
+
+<h2 id="referências">Referências</h2>
+
+<p>Todhunter, Isaac (1873). History of the Mathematical Theories of Attraction and Figure of the Earth from Newton to Laplace.</p>
+
+<p>David, F. N. (1962). Games, gods and gambling.</p>
+
+<p>Petris, Giovanni, Sonia Petrone, and Patrizia Campagnoli. (2009). Dynamic Linear Models With R.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/07/31/Uma_vis%C3%A3o_amig%C3%A1vel_do_Teorema_de_Bayes/" data-toggle="tooltip" data-placement="top" title="Uma_visão_amigável_do_teorema_de_bayes">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/08/08/Introducao_basica_a_clusterizacao/" data-toggle="tooltip" data-placement="top" title="Introducao_basica_a_clusterizacao">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>

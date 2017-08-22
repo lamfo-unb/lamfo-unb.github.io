@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>Teste de Eventos - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/08/17/Teste-de-Eventos/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/lamfo-unb.github.io/img/teste_eventos/wooden-table-texture_4460x4460.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Teste de Eventos</h1>
+                    
+                    <span class="meta">Posted by Ana Julia Akaishi Padula, Pedro Albuquerque on August 17, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="teste-de-eventos">Teste de Eventos</h1>
+
+<p>Olá pessoal! Essa semana o LAMFO traz para vocês a metodologia conhecida como Teste de Eventos, com uma breve introdução, referencial teórico e um exercício prático utilizando R.</p>
+
+<p>Durante o dia, é comum ouvirmos ou lermos alguma notícia sobre acontecimentos ou mudanças no país e no mundo. A todo momento recebemos atualizações, novas informações e opiniões a respeito dos mais diversos temas que refletem em nosso comportamento e até planejamento para o futuro. Mas e o mercado? Será que ele também é afetado pela repercurssão desses eventos?</p>
+
+<p>Para responder essa pergunta, foi criado o Teste de Evento (<em>Event Study</em>).</p>
+
+<h2 id="metodologia">Metodologia</h2>
+
+<p>Os autores Campbell, Lo e Mackinley (1997) foram os primeiros a definir e escrever sobre esta metodologia. A idéia básica é observar se o valor de uma empresa é alterado com o aparecimento de um evento, ou seja, se o “retorno normal” esperado sofre alguma “anormalidade”. O desenvolvimento do Teste de Eventos tem como base a Teoria dos Mercados Eficientes de Fama (1970), em que se acredita que o mercado absorve as informações públicas disponíveis e realiza o ajuste do preço dos ativos.</p>
+
+<p>Apresentaremos quatro passos simples para começar nosso Teste de Eventos!</p>
+
+<h3 id="passo-1-definição-do-evento">Passo 1: Definição do Evento</h3>
+
+<p><em>Mas de que tipo de evento estamos falando?</em></p>
+
+<p>Podemos estudar qualquer tipo de evento, contanto que tenhamos suficientes dados e que ele seja publicamente conhecido. Temos por exemplo eventos como:</p>
+<ol>
+  <li>Distribuição de dividendos;</li>
+  <li>Fusão e aquisições de outras empresas;</li>
+  <li>Recompra de ações;</li>
+  <li>Novas leis e regulamentações;</li>
+  <li>Privatização ou estatização;</li>
+  <li>Escândalos políticos.</li>
+</ol>
+
+<p>Uma vez escolhido o evento, é preciso definir uma linha do tempo e as janelas de análise.</p>
+
+<p><img src="https://i.imgur.com/QJzEnPH.png" alt="" /></p>
+
+<p><strong>Janela de estimação:</strong> representa o período em que os retornos normais do ativo serão padronizados, de <script type="math/tex">T_0</script> a <script type="math/tex">T_1</script>. Dessa forma, teremos uma base de comparação de retornos que não foram “contaminados” pelo aparecimento do evento.</p>
+
+<p><strong>Janela do Evento:</strong> intervalo de tempo em que o evento em questão apareceu. A data que o evento ocorreu é determinada como momento zero (<script type="math/tex">0</script>) e a partir desse marco é estabelecido um “intervalo de segurança” para verificar se houve vazamento de informações privilegiadas antes do acontecimento, <script type="math/tex">T_1</script> a <script type="math/tex">0</script>, e para englobar o período de absorção do evento pelo mercado, de <script type="math/tex">0</script> a <script type="math/tex">T_2</script>.</p>
+
+<p>Um detalhe importante é que não existe um número fixo para esta janela. Podemos, por exemplo, ter três meses antes e depois do evento ou até mesmo quinze dias antes e depois para compor a janela. Uma saída seria realizar uma modelagem e avaliar o erro estatístico.</p>
+
+<p><strong>Janela Pós-Evento:</strong> momento após o acontecimento do evento e eventuais movimentações do mercado. É possível observar o impacto do acontecimento a longo prazo.</p>
+
+<h3 id="passo-2-empresas">Passo 2: Empresas</h3>
+
+<p>Com as datas determinadas, agora precisamos selecionar quais empresas farão parte do estudo e porque. Normalmente o primeiro filtro é se a empresa que se deseja estudar possui ações na bolsa de valores, uma vez que utilizamos o retorno para nossos cálculos.</p>
+
+<p>Uma ideia para o segundo filtro seria o setor de empresas, por exemplo, se usassemos o Teste de Eventos para verificar o impacto de novas leis ambientais. Nesse caso, seria interessante selecionar empresas do setor de mineração e petróleo.</p>
+
+<p>Agora é preciso coletar os dados dos retornos da empresa ou empresas selecionadas. É importante ressaltar que a unidade temporal dos dados deve ser a mesma, por exemplo, se o evento estudado for registrado em um dia, as oberservações de retorno também devem ser diárias.</p>
+
+<h3 id="passo-3-estabelecendo-retornos-normais-e-anormais">Passo 3: Estabelecendo Retornos Normais e Anormais</h3>
+
+<p>Como estabelecido na linha do tempo, primeiro estimamos o retorno normal do ativo para depois analisarmos a anormalidade.</p>
+
+<p>Uma base de dado com os retornos da empresa escolhida é o suficiente para iniciar a composição da base de retornos normais. O importante é que a unidade temporal seja a mesma e que as observações se iniciem em <script type="math/tex">T_0</script> e terminem em, pelo menos, em <script type="math/tex">T_2</script>.</p>
+
+<p>Para verificar se existem ou não retornos anormais, usaremos a seguinte equação base:</p>
+
+<script type="math/tex; mode=display">Ra_{i,t}=R_{i,t} - \mathbb E[R_i|X_t ]</script>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Sendo <script type="math/tex">Ra_{i,t}</script> o retorno anormal, uma vez que será a diferença do retorno real em t (<script type="math/tex">R_{i,t}</script>) e do retorno normal esperado em determinado período ($$E[R_i</td>
+      <td>X_t ]$$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Como já teríamos a base com os retornos da empresa de <script type="math/tex">T_0</script> a <script type="math/tex">T_2</script>, precisamos escolher qual o melhor modelo para se estabelecer o retorno padrão:</p>
+<ol>
+  <li>Retorno Ajustado a Média</li>
+  <li>Retorno Ajustado ao Mercado</li>
+  <li>Modelo de Mercado</li>
+  <li>Modelos Econômicos</li>
+</ol>
+
+<h4 id="retorno-ajustado-a-média">Retorno Ajustado a Média</h4>
+
+<p>O retorno normal esperado aqui será definido pela média simples dos retornos reais da janela de estimação (<script type="math/tex">T_0</script> a <script type="math/tex">T_1</script>).</p>
+
+<script type="math/tex; mode=display">Ra_{i,t}=R_{i,t} - \overline R_i</script>
+
+<p>Uma crítica a esse modelo é que se assume que os retornos terão retornos médios constantes ao longo do tempo. Dependendo da unidade temporal escolhida, este pressuposto por si só já apresenta uma grande margem de erro.</p>
+
+<h4 id="retorno-ajustado-ao-mercado">Retorno Ajustado ao Mercado</h4>
+
+<p>Neste caso, o retorno normal será definido como o retorno da cateira de mercado (<script type="math/tex">Rm</script>). Neste método será necessário obter uma base de dado com os retornos na mesma unidade temporal do ativo referência do mercado (<em>benchmark</em>).</p>
+
+<script type="math/tex; mode=display">Ra_{i,t}=R_{i,t} -  Rm_i</script>
+
+<h4 id="modelo-de-mercado">Modelo de Mercado</h4>
+
+<p>A abordagem do Modelo de Mercado possui sua base na estatística, aprimorando as estimativas realizadas anteriormente pelos demais modelos.</p>
+
+<p>Diferente do Modelo de Retorno Ajustado ao Mercado, o Modelo de Mercado não utiliza o retorno de uma carteira referência, mas sim índices como S&amp;P500 para análises norte-americanas ou IBOVESPA para ações nacionais, sendo definido por:</p>
+
+<script type="math/tex; mode=display">Ra_{i,t}=R_{i,t} - \widehat \alpha_i - \widehat \beta_iR_{m,t}</script>
+
+<p>No qual o retorno anormal (<script type="math/tex">Ra_{i,t}</script>) é definido pelo retorno real do ativo em um período <strong><em>t</em></strong> menos os parâmetros alpha (<script type="math/tex">\alpha</script>) e beta (<script type="math/tex">\beta</script>) estimados por uma regressão linear da janela de estimação para o índice de mercado.</p>
+
+<p>Por utilizar regressão linear, o ganho e previsão do modelo depende do R<script type="math/tex">^2</script>. Quanto maior for este indicador, menor será a variância do do retorno anormal, garantindo uma maior estabilidade ao modelo.</p>
+
+<h4 id="modelos-econômicos">Modelos Econômicos</h4>
+
+<p>Com base nas práticas do mercado, se desejamos estimar um valor para o retorno futuro de um ativo existem duas metodologias utilizadas (1) <em>Capital Asset Pricing Model</em> (CAPM) e (2) <em>Arbitrage Pricing Theory</em> (APT). Ambos podem ser utilizados para estimar o retorno normal, porém é preciso ficar atento para os requisitos de cada um, assim como o período da janela de estimação.</p>
+
+<ol>
+  <li><em>Capital Asset Princing Model</em> (CAPM)</li>
+</ol>
+
+<script type="math/tex; mode=display">Ra_{i,t} = R_i - Rf_i - \beta (Rm_i - Rf_i)</script>
+
+<p>Em que o retorno anormal é identificado pela diferença do retorno real com o retorno estipulado considerando a sensibilidade do ativo e elementos como retorno de mercado (<script type="math/tex">Rm</script>) e de ativos livre de risco (<script type="math/tex">Rf</script>).</p>
+
+<ol>
+  <li><em>Arbitrage Pricing Theory</em> (APT)</li>
+</ol>
+
+<script type="math/tex; mode=display">Ra_{i,t} = R_i - R_f + \beta_1 R_1 + \beta_2 R_2 + \beta_n R_n</script>
+
+<p>Neste modelo temos um prêmio pelo risco para fatores diferentes, considerando a sensibilidade do ativo ao fator específico. Para adquirir o Beta (<script type="math/tex">\beta_n</script>) será preciso realizar uma regressão linear para cada fator e o ativo.</p>
+
+<h3 id="passo-4-mensuração-e-análise-dos-retornos-anormais">Passo 4: Mensuração e Análise dos Retornos Anormais</h3>
+
+<p>Com o modelo definido, agora devemos calcular o comportamento dos retornos. Normalmente, usamos duas métricas para os retornos anormais, o retorno anormal médio da amostra e o retorno anormal acumulado.</p>
+
+<p>Para aceitarmos os resultados, é preciso que o P-Valor do modelo esteja dentro da margem de aceitação ou que o <script type="math/tex">R^2</script> seja o maior possível.</p>
+
+<h2 id="aplicando-o-modelo">Aplicando o modelo</h2>
+
+<p>A aplicação do Teste de Eventos será realizada utilizando o R, com adicionais de alguns pacotes como:</p>
+<ul>
+  <li>quantmod : coletar os dados de retorno das empresas escolhidas.</li>
+  <li>eventstudies: pacote específico para utilizar o teste de eventos automaticamente.</li>
+  <li>zoo: tratamento dos dados da série financeira.</li>
+  <li>xts: tratamento de dados de séries temporais sem ajustes.</li>
+</ul>
+
+<h3 id="estouro-da-bolha-imobiliaria-nos-eua-2008">Estouro da Bolha Imobiliaria nos EUA (2008)</h3>
+
+<p>Usaremos o pacote de Teste de Eventos já existente no R e depois calcularemos o impacto do evento de maneira manual. Como analisamos um evento de caráter econômico e ligado ao setor imobiliário, procuraremos empresas que sejam cotadas na bolsa de valores brasileira (BM&amp;FBOVESPA) e que atuem no setor. Selecionamos para análise as empresas Gafisa e Cyrela e como parâmetro para o modelo de mercado o índice IBOVESPA.</p>
+
+<h3 id="teste-de-eventos-utilizando-o-pacote-eventstudies">Teste de Eventos utilizando o pacote <em>eventstudies</em></h3>
+<p>O pacote é dividido em etapas, a primeira delas é estabelecer o nome das empresas e a data em que o evento aconteceu. Como o evento é o mesmo para ambas, colocaremos a data “2008-03-13” referente aproximadamente ao dia em que a notícia da bolha veio a público.</p>
+
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="c1">#Passo 1: Listar os ativos e datas dos eventos
+</span><span class="n">eventosDatas</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="s2">"name"</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"BVSP"</span><span class="p">,</span><span class="s2">"GAFISA"</span><span class="p">,</span><span class="s2">"CYRELA"</span><span class="p">),</span><span class="w">
+                         </span><span class="s2">"when"</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"2008-03-13"</span><span class="p">,</span><span class="s2">"2008-03-13"</span><span class="p">,</span><span class="s2">"2008-03-13"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Passo 2: Converter para texto
+</span><span class="n">eventosDatas</span><span class="o">$</span><span class="n">name</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">eventosDatas</span><span class="o">$</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span><span class="n">eventosDatas</span><span class="o">$</span><span class="n">when</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">eventosDatas</span><span class="o">$</span><span class="n">when</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Passo 3: Lista de retornos
+</span><span class="n">BVSP</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"^BVSP.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">BVSP</span><span class="o">&lt;-</span><span class="n">BVSP</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">6</span><span class="p">)]</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">BVSP</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span><span class="s2">"BVSP"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">GAFISA</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"GFSA3.SA.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">GAFISA</span><span class="o">&lt;-</span><span class="n">GAFISA</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">6</span><span class="p">)]</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">GAFISA</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span><span class="s2">"GAFISA"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">CYRELA</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"CYRE3.SA.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">CYRELA</span><span class="o">&lt;-</span><span class="n">CYRELA</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">6</span><span class="p">)]</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">CYRELA</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span><span class="s2">"CYRELA"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Passo 4: Junta as bases de dados
+</span><span class="n">dados</span><span class="o">&lt;-</span><span class="n">merge</span><span class="p">(</span><span class="n">BVSP</span><span class="p">,</span><span class="n">GAFISA</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s2">"Data"</span><span class="p">,</span><span class="n">all</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">dados</span><span class="o">&lt;-</span><span class="n">merge</span><span class="p">(</span><span class="n">dados</span><span class="p">,</span><span class="n">CYRELA</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s2">"Data"</span><span class="p">,</span><span class="n">all</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Passo 5: Calcula o retorno
+</span><span class="n">dados</span><span class="o">$</span><span class="n">BVSP</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">BVSP</span><span class="p">)),</span><span class="w"> </span><span class="n">lag</span><span class="o">=</span><span class="m">1</span><span class="p">))</span><span class="w">
+</span><span class="n">dados</span><span class="o">$</span><span class="n">GAFISA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">GAFISA</span><span class="p">)),</span><span class="w"> </span><span class="n">lag</span><span class="o">=</span><span class="m">1</span><span class="p">))</span><span class="w">
+</span><span class="n">dados</span><span class="o">$</span><span class="n">CYRELA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">dados</span><span class="o">$</span><span class="n">CYRELA</span><span class="p">)),</span><span class="w"> </span><span class="n">lag</span><span class="o">=</span><span class="m">1</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Passo 6: Converte em objeto zoo
+</span><span class="n">dados.zoo</span><span class="o">&lt;-</span><span class="n">read.zoo</span><span class="p">(</span><span class="n">dados</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Passo 7: Teste de Eventos Market Model
+</span><span class="n">es.mm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">eventstudy</span><span class="p">(</span><span class="n">firm.returns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dados.zoo</span><span class="p">,</span><span class="w">   </span><span class="c1">#Base de retornos
+</span><span class="w">                     </span><span class="n">event.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventosDatas</span><span class="p">,</span><span class="w"> </span><span class="c1">#Datas dos eventos
+</span><span class="w">                     </span><span class="n">event.window</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w">          </span><span class="c1">#Tamanho da janela   
+</span><span class="w">                     </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marketModel"</span><span class="p">,</span><span class="w">      </span><span class="c1">#Modelo utilizado
+</span><span class="w">                     </span><span class="n">to.remap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">           </span><span class="c1">#Recalculado os retornos usando cumsum
+</span><span class="w">                     </span><span class="n">remap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"cumsum"</span><span class="p">,</span><span class="w">          </span><span class="c1">#Testa o evento para o retorno acumulado
+</span><span class="w">                     </span><span class="n">inference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">          </span><span class="c1">#Inferência acerca do evento
+</span><span class="w">                     </span><span class="n">inference.strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bootstrap"</span><span class="p">,</span><span class="w">   </span><span class="c1">#Boostrap para avaliar o erro-padrão
+</span><span class="w">                     </span><span class="n">model.args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">market.returns</span><span class="o">=</span><span class="n">dados</span><span class="o">$</span><span class="n">BVSP</span><span class="p">))</span><span class="w">  </span><span class="c1">#Adiciona a base do índice do mercado IBOVESPA
+#Passo 8: Plotar gráfico
+</span><span class="n">plot</span><span class="p">(</span><span class="n">es.mm</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Passo 9: Obersrevar resultados
+</span><span class="n">summary</span><span class="p">(</span><span class="n">es.mm</span><span class="p">)</span><span class="w">
+
+</span></code></pre>
+</div>
+<p>Como resultado temos:</p>
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">Event</span><span class="w"> </span><span class="n">outcome</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">successful</span><span class="w"> </span><span class="n">outcomes</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="n">events</span><span class="o">:</span><span class="w"> 
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"success"</span><span class="w"> </span><span class="s2">"success"</span><span class="w"> </span><span class="s2">"success"</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Aparentemente o estouro da bolha nos EUA apresentou um impacto no retorno das empresas brasileiras, mas será que o resultado é significante? Para isso vamos observar o gráfico gerado pelo pacote.</p>
+
+<p><img src="/img/teste_eventos/GAFISA+CYRELA.png" alt="" align="middle" /></p>
+
+<p>Como podemos constatar, a linha azul (que representa o retorno das ações) está dentro da área de anormalidade (linhas pontilhadas). Porém dentro da janela de 5 dias, os resultados encontram-se diversas vezes em zero. Isso significa que mesmo que o evento aparentemente cause uma anormalidade no retorno, não há comprovação estatística.</p>
+
+<p>Agora vamos comparar o resultado com cálculos a mão!</p>
+
+<h3 id="teste-de-eventos-calculado-manualmente">Teste de Eventos calculado manualmente</h3>
+
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="n">ls</span><span class="p">())</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">quantmod</span><span class="p">)</span><span class="w">
+</span><span class="n">GFSA</span><span class="o">&lt;-</span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"GFSA3.SA.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">CYRE</span><span class="o">&lt;-</span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"CYRE3.SA.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">BVSP</span><span class="o">&lt;-</span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"^BVSP.csv"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Converte para data
+</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Date</span><span class="p">)</span><span class="w">
+</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="n">as.Date</span><span class="p">(</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Date</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s2">"%Y-%m-%d"</span><span class="p">)</span><span class="w">
+</span><span class="n">GFSA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">xts</span><span class="p">(</span><span class="n">GFSA</span><span class="p">[,</span><span class="m">-1</span><span class="p">],</span><span class="w"> </span><span class="n">order.by</span><span class="o">=</span><span class="n">GFSA</span><span class="p">[,</span><span class="m">1</span><span class="p">])</span><span class="w">
+
+</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Date</span><span class="p">)</span><span class="w">
+</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="n">as.Date</span><span class="p">(</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Date</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s2">"%Y-%m-%d"</span><span class="p">)</span><span class="w">
+</span><span class="n">CYRE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">xts</span><span class="p">(</span><span class="n">CYRE</span><span class="p">[,</span><span class="m">-1</span><span class="p">],</span><span class="w"> </span><span class="n">order.by</span><span class="o">=</span><span class="n">CYRE</span><span class="p">[,</span><span class="m">1</span><span class="p">])</span><span class="w">
+
+</span><span class="n">BVSP</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">BVSP</span><span class="o">$</span><span class="n">Date</span><span class="p">)</span><span class="w">
+</span><span class="n">BVSP</span><span class="o">$</span><span class="n">Date</span><span class="o">&lt;-</span><span class="n">as.Date</span><span class="p">(</span><span class="n">BVSP</span><span class="o">$</span><span class="n">Date</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s2">"%Y-%m-%d"</span><span class="p">)</span><span class="w">
+</span><span class="n">BVSP</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">xts</span><span class="p">(</span><span class="n">BVSP</span><span class="p">[,</span><span class="m">-1</span><span class="p">],</span><span class="w"> </span><span class="n">order.by</span><span class="o">=</span><span class="n">BVSP</span><span class="p">[,</span><span class="m">1</span><span class="p">])</span><span class="w">
+
+</span><span class="c1">#Estouro da bolha imobiliária em 2008
+</span><span class="n">startEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"2008-03-13"</span><span class="p">)</span><span class="w"> 
+
+</span><span class="c1">#Estabelecido intervalo da janela do evento
+</span><span class="n">endEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"2008-03-18"</span><span class="p">)</span><span class="w"> 
+
+</span><span class="c1">#Início da série
+</span><span class="n">startDate</span><span class="o">&lt;-</span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"2008-01-01"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Plota a série temporal dos preços de fechamento ajustado
+</span><span class="n">plot.xts</span><span class="p">(</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Close</span><span class="p">,</span><span class="n">major.format</span><span class="o">=</span><span class="s2">"%b/%d/%Y"</span><span class="p">,</span><span class="w">
+         </span><span class="n">main</span><span class="o">=</span><span class="s2">"GAFISA"</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Adj.Close price."</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Time"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plot.xts</span><span class="p">(</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Close</span><span class="p">,</span><span class="n">major.format</span><span class="o">=</span><span class="s2">"%b/%d/%Y"</span><span class="p">,</span><span class="w">
+         </span><span class="n">main</span><span class="o">=</span><span class="s2">"CYRELA"</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Adj.Close price."</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Time"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Calcula o log-retorno.
+</span><span class="n">diffGFSA</span><span class="o">&lt;-</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">GFSA</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">))</span><span class="w">
+</span><span class="n">diffCYRE</span><span class="o">&lt;-</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">CYRE</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Plota a série temporal dos preços de fechamento ajustado
+</span><span class="n">plot.xts</span><span class="p">(</span><span class="n">diffGFSA</span><span class="p">,</span><span class="n">major.format</span><span class="o">=</span><span class="s2">"%b/%d/%Y"</span><span class="p">,</span><span class="w">
+         </span><span class="n">main</span><span class="o">=</span><span class="s2">"GAFISA"</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Log-return Adj.Close price."</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Time"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plot.xts</span><span class="p">(</span><span class="n">diffCYRE</span><span class="p">,</span><span class="n">major.format</span><span class="o">=</span><span class="s2">"%b/%d/%Y"</span><span class="p">,</span><span class="w">
+         </span><span class="n">main</span><span class="o">=</span><span class="s2">"CYRELA"</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Log-return Adj.Close price."</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Time"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p><img src="/img/teste_eventos/ações ajustadas GAFISA.png" alt="" align="middle" /></p>
+
+<p><img src="/img/teste_eventos/ações ajustadas cyrela.png" alt="" align="middle" /></p>
+
+<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="c1">#Janela de estimação
+</span><span class="n">GFSASubset</span><span class="o">&lt;-</span><span class="w">  </span><span class="n">window</span><span class="p">(</span><span class="n">diffGFSA</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="m">-1</span><span class="p">)</span><span class="w">
+</span><span class="n">CYRESubset</span><span class="o">&lt;-</span><span class="w">  </span><span class="n">window</span><span class="p">(</span><span class="n">diffCYRE</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="m">-1</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#BVSP
+</span><span class="n">diffBVSP</span><span class="o">&lt;-</span><span class="n">diff</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">BVSP</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">))</span><span class="w">
+</span><span class="n">BVSPSubset</span><span class="o">&lt;-</span><span class="n">window</span><span class="p">(</span><span class="n">diffBVSP</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="m">-1</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Estima o modelo de mercado
+</span><span class="n">MarketModel</span><span class="o">&lt;-</span><span class="n">lm</span><span class="p">(</span><span class="n">GFSASubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="o">~</span><span class="n">BVSPSubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="w">
+</span><span class="n">summary</span><span class="p">(</span><span class="n">MarketModel</span><span class="p">)</span><span class="w">
+
+</span><span class="n">MarketModel2</span><span class="o">&lt;-</span><span class="n">lm</span><span class="p">(</span><span class="n">CYRESubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="o">~</span><span class="n">BVSPSubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="w">
+</span><span class="n">summary</span><span class="p">(</span><span class="n">MarketModel2</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Aplica o Market Model
+</span><span class="n">epsilon</span><span class="o">&lt;-</span><span class="n">diffGFSA</span><span class="o">-</span><span class="n">coef</span><span class="p">(</span><span class="n">MarketModel</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="o">-</span><span class="n">coef</span><span class="p">(</span><span class="n">MarketModel</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="o">*</span><span class="n">diffBVSP</span><span class="w">
+
+</span><span class="n">epsilon2</span><span class="o">&lt;-</span><span class="n">diffCYRE</span><span class="o">-</span><span class="n">coef</span><span class="p">(</span><span class="n">MarketModel2</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="o">-</span><span class="n">coef</span><span class="p">(</span><span class="n">MarketModel2</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="o">*</span><span class="n">diffBVSP</span><span class="w">
+
+</span><span class="c1">#Encontra a variância do epsilon
+</span><span class="n">BVSPSubset1</span><span class="o">&lt;-</span><span class="n">na.omit</span><span class="p">(</span><span class="n">window</span><span class="p">(</span><span class="n">diffBVSP</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startDate</span><span class="m">+1</span><span class="p">,</span><span class="w">
+                           </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="m">-1</span><span class="p">))</span><span class="w">
+
+</span><span class="n">X</span><span class="o">&lt;-</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">cbind</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">BVSPSubset1</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)),</span><span class="n">BVSPSubset1</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">))</span><span class="w">
+
+</span><span class="n">BVSPSubset2</span><span class="o">&lt;-</span><span class="n">window</span><span class="p">(</span><span class="n">diffBVSP</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">endEvent</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Xstar</span><span class="o">&lt;-</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">cbind</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">BVSPSubset2</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)),</span><span class="n">BVSPSubset2</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Calculo para GAFISA
+</span><span class="n">V</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">nrow</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">*</span><span class="n">var</span><span class="p">(</span><span class="n">residuals</span><span class="p">(</span><span class="n">MarketModel</span><span class="p">)))</span><span class="o">+</span><span class="w">
+  </span><span class="p">((</span><span class="n">X</span><span class="o">%*%</span><span class="n">solve</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">Xstar</span><span class="p">)</span><span class="o">%*%</span><span class="n">Xstar</span><span class="p">)</span><span class="o">%*%</span><span class="n">t</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">*</span><span class="n">var</span><span class="p">(</span><span class="n">residuals</span><span class="p">(</span><span class="n">MarketModel</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">epsilonStar</span><span class="o">&lt;-</span><span class="n">window</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">endEvent</span><span class="p">)</span><span class="w">
+</span><span class="n">CAR</span><span class="o">&lt;-</span><span class="nf">sum</span><span class="p">(</span><span class="n">epsilonStar</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="w">
+</span><span class="n">SCAR</span><span class="o">&lt;-</span><span class="n">CAR</span><span class="o">/</span><span class="nf">sqrt</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Calculo para CYRELA
+</span><span class="n">V</span><span class="m">2</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">nrow</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">*</span><span class="n">var</span><span class="p">(</span><span class="n">residuals</span><span class="p">(</span><span class="n">MarketModel2</span><span class="p">)))</span><span class="o">+</span><span class="w">
+  </span><span class="p">((</span><span class="n">X</span><span class="o">%*%</span><span class="n">solve</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">Xstar</span><span class="p">)</span><span class="o">%*%</span><span class="n">Xstar</span><span class="p">)</span><span class="o">%*%</span><span class="n">t</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">*</span><span class="n">var</span><span class="p">(</span><span class="n">residuals</span><span class="p">(</span><span class="n">MarketModel2</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">epsilonStar2</span><span class="o">&lt;-</span><span class="n">window</span><span class="p">(</span><span class="n">epsilon2</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startEvent</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">endEvent</span><span class="p">)</span><span class="w">
+</span><span class="n">CAR2</span><span class="o">&lt;-</span><span class="nf">sum</span><span class="p">(</span><span class="n">epsilonStar2</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="w">
+</span><span class="n">SCAR2</span><span class="o">&lt;-</span><span class="n">CAR2</span><span class="o">/</span><span class="nf">sqrt</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">V</span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Valor crítico da distribuição T
+</span><span class="n">alpha</span><span class="o">&lt;</span><span class="m">-0.05</span><span class="w">
+</span><span class="n">df</span><span class="o">&lt;-</span><span class="nf">length</span><span class="p">(</span><span class="n">GFSASubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="m">-2</span><span class="w">
+</span><span class="n">qt</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span><span class="n">qt</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="m">2</span><span class="p">),</span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df2</span><span class="o">&lt;-</span><span class="nf">length</span><span class="p">(</span><span class="n">CYRESubset</span><span class="o">$</span><span class="n">Adj.Close</span><span class="p">)</span><span class="m">-2</span><span class="w">
+</span><span class="n">qt</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span><span class="n">qt</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="m">2</span><span class="p">),</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>Os resultados para ambas as empresas são de -2.012896 e 2.012896. Como não foram observadas evidências em favor da rejeição da hipótese nula, o evento não possui efeito no retorno dos ativos.</p>
+
+<p>Assim concluímos nosso exercício sobre teste de eventos! Em caso de dúvidas entre contato com o LAMFO!</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/08/08/Introducao_basica_a_clusterizacao/" data-toggle="tooltip" data-placement="top" title="Introducao_basica_a_clusterizacao">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/08/17/Teste-de-Eventos-en/" data-toggle="tooltip" data-placement="top" title="Event Study">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>

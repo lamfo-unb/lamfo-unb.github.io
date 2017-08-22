@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Laboratório de Aprendizado de Máquina Aplicado a Finanças e Organizações">
+
+    <title>The three types of machine learning - LAMFO</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/07/27/tres-tipos-am-english/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="LAMFO" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://lamfo.unb.br">LAMFO</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+		<li>
+                    <a href="https://lamfo-unb.github.io/about/">Sobre</a>
+                </li>
+		
+		<!-- https://lamfo-unb.github.io/contact/-->
+		
+		<!--    
+		 
+		
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/contact/">Contact</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/data/">Data</a>
+                </li>
+				
+                
+				
+                <li>
+                    <a href="/projects/">Projects</a>
+                </li>
+				
+                
+		-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/tres-tipos-am/f015.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>The three types of machine learning</h1>
+                    
+                    <span class="meta">Posted by Hugo Honda, Matheus Facure, Peng Yaohao on July 27, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h2 id="machine-learning">Machine learning</h2>
+
+<h3 id="formally">Formally:</h3>
+
+<p>Machine learning can be defined as a computacional system Machine learning and defined by a computational system that seeks to perform a <strong>task</strong> <script type="math/tex">T</script>, learning from an <strong>experience</strong> <script type="math/tex">E</script> seeking to optimize a <strong>performance</strong> <script type="math/tex">P</script></p>
+
+<h3 id="well-but-what-does-that-exactly-mean">Well, but what does that exactly mean?</h3>
+
+<p align="center">
+  <img src="/img/tres-tipos-am/f002.jpg" width="400" />
+</p>
+
+<p>Basically, an algorithm can learn a goal, based on a large volume of data - its <strong>experiences</strong>. Here’s an example to make it clearer: Suppose our <strong>task</strong> is to predict the outcome of a football game. How can we do that?</p>
+
+<p>We could provide the computer with data about the manager, the squad composition, tactical line-ups, etc., followed by the match results. With a large volume of data in pairs like <strong>(variables, results)</strong>, we expect the computer to learn tha patterns that lead to victory. We also expect the computer get more accurate predictions as we feed it more datato, as it will have more examples of patterns that can <strong>generalize</strong> for situations not yet seen. Thus, the more data that is, the more experience the computer gets, and the better are the results, that is, the better our <strong>performance</strong></p>
+
+<h2 id="supervised-learning">Supervised learning</h2>
+
+<p>This is what we call <strong>Supervised Machine Learning</strong>: When we try to predict a <strong>dependent variable</strong> from a list of <strong>independent variables</strong>. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Independent variables</th>
+      <th>Dependent variables</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Years of experience, Training background, Age</td>
+      <td>Salary</td>
+    </tr>
+    <tr>
+      <td>Age of Car, Driver Age</td>
+      <td>Risk of Automotive Accident</td>
+    </tr>
+    <tr>
+      <td>Text of a book</td>
+      <td>Literary Style</td>
+    </tr>
+    <tr>
+      <td>Temperature</td>
+      <td>Ice Cream Sales Revenue</td>
+    </tr>
+    <tr>
+      <td>Image of a Highway</td>
+      <td>Steering angle of a self-driving car</td>
+    </tr>
+    <tr>
+      <td>School Records</td>
+      <td>SAT Score</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>It should be noted that a basic structure of supervised learning systems is that the data we use to train them <strong>contains a desired response</strong>, that is, it contains a dependent variable resulting from the observed independent variables. In this case, we say that <strong>data are labelled</strong> as answers or lessons to be predicted.</p>
+
+<p>Among the best-known techniques for solving supervised learning problems are linear regression, logistic regression, artificial neural networks, kernel machines and devices, decision trees, k-neighbors, and naive Bayes. Supervised machine learning is an area that concentrates most successful applications and where a majority of problems are already well defined.</p>
+
+<p align="center">
+  <img src="/img/tres-tipos-am/f017.png" width="400" />
+</p>
+
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+
+<p>But not all problems can be solved in this way. In some cases, getting labelled data is extremely costly or even impossible. For example, imagine that you own a business and want to know the profile of your consumers. There may be a consumer profile that always buys wine and cheese, or meat and charcoal, or milk powder and diaper. If this is the case, putting these products on distant shelves can increase sales, since it will increase the time and the customer’s path in the market. However, in this case we are not “labelled” for each purchase to which profile the consumer belongs. Furthermore, we don’t even know how many consumer profiles there are.</p>
+
+<p>In this case, the computer will have to find out the profiles without any labelled data and we will need unsupervised learning methods. One option would be to look whether there are repeated patterns in the purchase records that would allow the inference of a consumer group or profile. Another option would be to directly see which products are often bought together and then learn an associative rule between them.</p>
+
+<p>In general, with unsupervised learning we want to find a more informative representation of the data we have. Generally, this more informative representation is also simpler, condensing the information into more relevant points. Some examples are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Representative form</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Banking transactions</td>
+      <td>Normality of the transaction</td>
+    </tr>
+    <tr>
+      <td>Purchase Records</td>
+      <td>Association between products</td>
+    </tr>
+    <tr>
+      <td>Multidimensional Data</td>
+      <td>Data with reduced size</td>
+    </tr>
+    <tr>
+      <td>Purchase Records</td>
+      <td>Consumer profile</td>
+    </tr>
+    <tr>
+      <td>Words in a text</td>
+      <td>Mathematical representation of words</td>
+    </tr>
+  </tbody>
+</table>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f008.png" width="600" />
+</p>
+
+<p>Other examples of unsupervised learning applications are movie or music recommendation systems, anomaly detection, and data visualization. Among the best known techniques to solve unsupervised learning problems are artificial neural networks, Expectation-Maximization, k-medium clusters, support vector machines (kernel machines), Hierarchical Clustering, <em>word2vec</em>, principal components analysis, insulation forests , Self-organized maps, restricted Boltzmann machines, <em>eclat</em>, <em>apriori</em>, <em>t-SNE</em>. Unsupervised learning problems are considerably more complicated than supervised learning problems, mainly because we do not have the labelled answer in the data. As a consequence, it is extremely complicated and controversial to evaluate an unsupervised learning model and this type of model is at the frontier of knowledge in machine learning.</p>
+
+<h2 id="reinforcement-learning">Reinforcement learning</h2>
+
+<p>The third approach to machine learning is called “reinforcement learning”, in which the machine tries to learn the best action to take, depending on the circumstances in which this action will be performed.</p>
+
+<p>The future is a random variable: since we do not know a priori what will happen, an approach that takes this uncertainty into account is desirable and can incorporate any changes in the environment of the decision making process. This idea indeed derives from the concept of “learning by reinforcement” from psychology, in which a <strong>reward</strong> or <strong>punishment</strong> is given to an agent, depending on the decision made; through the repetition of the experiments, the agent is expected to be able to associate the actions that generate the greatest reward for each situation that the environment presents, and to avoid actions that generate less punishment or reward. In psychology, this approach is called “behaviorism” and has B. F. Skinner as a leading exponent, a famous psychologist who, among other experiments, used the idea of ​​rewards and punishments to train pigeons to conduct missiles in World War II.</p>
+
+<p>This same idea is seen in machine learning: the machine observes a “state of nature” from the set of possible future scenarios and, based on this, chooses an action to take and receives the reward associated with that specific action and in that state, thus obtaining the information of this specific combination. The process is repeated until the machine is able to choose the best action to take for each of the possible scenarios to be observed in the future.</p>
+
+<p>Illustrating with a very simple example: suppose you want to train your dog to sit at your command using this approach. At first, your pet will hardly perform the required command, and you respond by giving a “negative reinforcement” (punishment), scolding it verbally, with your facial expressions or even hitting it with a newspaper (or something more hostile, depending upon your temperament …). When the dog gets close to what it should do, you can give “positive reinforcements” as signs of approval or encouragement. If the dog does sit down after the command, you give him a reward - a cookie, for instance. With several repetitions of this same experiment, it is expected that, over time, the dog will associate the cause-effect relationship between the command and the reward to be received, and thereby “learn” to obey this command. The famous “Pavlov’s Dog” experiment illustrates this learning paradigm well. Ivan Pavlov was a Russian scientist notorious for presenting the idea of “conditioned reflex”, based on the following experiment: presenting a piece of meat to a dog, the animal starts to salivate, wishing for food. Instead of presenting only the meat, Pavlov always rang a bell at same time; through repetition, the dog would associate the two “stimuli” (meat and bell) and salivate as soon as the bell rings.</p>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f011.jpg" width="450" />
+</p>
+
+<p>This idea is quite versatile when we move it into the realm of data science: instead of training puppies, we could build a machine that makes portfolios in the financial market and adjusts the combination of long/short assets depending on the “reward” (Financial return) of the previous portfolio and the evolution (“states”) of the market. Or a car that drives “by itself”, making decisions depending on the scenery it sees around, receiving negative rewards when it collides with the environment or with other vehicles, and with repeated steps, gradually “learns” to get round the obstacles.</p>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f021.jpg" width="500" />
+</p>
+
+<p>Let’s go further: by going back to the example of dog training, suppose that you’ve successfully taught him to sit down, and now you want to do an obedience test - make the dog sit as you walk backwards, until you reach a five feet distance from it. If the dog sits down, you give it the cookie (as before); But if it does not get up until you’re five feet away from it, you give it a bigger reward (a piece of steak, for example). How could the dog earn the bigger reward? Note that now the dog has a “tough choice”: it can simply sit (since it has already learned this task) and always win the cookie, just as it can “explore” new possibilities - in the case, standing still with the owner away - to see if there is possibly a even greater reward. The owner will continue to provide positive and negative reinforcements as he walks backwards, praising the pet if it sits still and reproaching it if it leaves the position; But is the animal willing to give up the reward he already has “guaranteed”?</p>
+
+<p>This situation illustrates a trade-off: the animal may choose to “test” new combinations of optimal actions in a sequence of previously unrealized “states” in pursuit of a larger but not immediate reward (the so-called <strong>“exploration”</strong>); Or simply to stick to the reward that is obtained through an already known action (the so-called <strong>exploitation</strong>). Note how this idea can easily extend to other contexts: In finance, for example, this reflects well the <em>risk aversion degree</em> of an economic agent - how willing he is to take more risks in search of larger returns, or is willing to take less risk and get a smaller, but safer return.</p>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f010.jpg" width="350" />
+</p>
+
+<p>Making the machine being able to find the optimal middle ground between “exploration” and “exploitation” is one of the main challenges of reinforcement learning, and is quite relevant for more complicated applications, such as teaching a machine to play chess, for example: As is well known, a winning strategy often involves giving up immediate advantage, or even sacrifice pieces, aiming for long-term success - a good player should be able to take into account his moves’ consequences several rounds ahead, knowing that the opponent’s response will also be aimed at a future benefit, and so on.</p>
+
+<h2 id="which-one-of-those-three-approaches-is-the-best">Which one of those three approaches is the best?</h2>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f001.jpg" width="500" />
+</p>
+
+<p>The answer to this question depends on what you are analyzing. Each problem has its peculiarities, and a solving method that worked well for the problem <strong>A</strong> can be disastrous for another problem <strong>B</strong>. Therefore, when working with computing, data science, machine learning, or machines in general, keep in mind the following “law”:</p>
+
+<p><strong>THE MACHINE DOESN’T DO WHAT YOU WANT: IT DOES WHAT YOU COMMAND!</strong></p>
+
+<p>The machine is, above all, an instrument of convenience; The performance of artificial intelligence is entirely conditioned to the human intelligence of who trained it. Issues such as the <a href="https://lamfo-unb.github.io/2017/04/29/A-Casual-Look-at-the-Bias-Variance-Dilemma" title="Bias-Variance Dilemma">bias-variance dilemma</a> require careful attention from the researcher in order for the machine to actually provide the required results. Regularization and cross-validation techniques are also important mechanisms to “guide” the machine and guarantee a compromise between accuracy in the sample and generalization power. “Knowing how to command” is something that no machine can do for you. So knowing well the problem to be solved is always the first step, because this is the essential step for the researcher to have control over the machine, instead of the opposite…</p>
+
+<p align="center">
+<img src="/img/tres-tipos-am/f004.jpg" width="700" />
+</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/07/22/intro-stock-analysis-1/" data-toggle="tooltip" data-placement="top" title="Introduction to Stock Analysis with R">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/07/27/tres-tipos-am/" data-toggle="tooltip" data-placement="top" title="Os Três Tipos de Aprendizado de Máquina">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<div id="disqusbox">
+    <div id="disqus_thread" width=500px></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://lamfo.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://www.facebook.com/lamfounb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://github.com/lamfo-unb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:lamfo@unb.br">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; LAMFO - UNB 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97417743-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML,Safe"></script>
+
+</body>
+
+</html>
