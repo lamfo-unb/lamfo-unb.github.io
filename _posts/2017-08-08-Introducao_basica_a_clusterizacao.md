@@ -2,7 +2,7 @@
 
 ## O que é Clusterização?
 
-Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados. Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
+Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia "Dilema Viés-Variância")). Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
 
 Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre "está mais próximo" de um leão do que de uma garça.
 
@@ -178,4 +178,12 @@ sepal length X sepal width |  sepal length X petal length | sepal width X petal 
 ![](/img/clustering/03-clustering.jpg)  |  ![](/img/clustering/04-clustering.jpg)  |  ![](/img/clustering/05-clustering.jpg)
 
 
-Neste exemplo fica clara a divisão entre classes diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Nem todo resultado terão dados ideais como este conjunto e assim como qualquer algorítmo ele funcionará para uma finalidade específica. Por isso conhecer bem o problema, pré-processar os dados corretamente e aplicar técnicas diferentes certamente trarão resultados melhores. Agora com esta introdução você já poderá compreender um próximo post em que abordaremos técnicas mais avançadas de clusterização aplicadas sobre dados mais complexos.
+Neste exemplo fica clara a divisão entre classes diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Aplicações possíveis da clusterização incluem:
+
+* Marketing: Pesquisa e segmentação de mercado para determinar potenciais grupos homogêneos de consumidores para melhor definir a disposição de produtos que uma estratégia corporativa;
+* Análise de redes sociais: Dentro de um grande grupo de pesoas, reconhecer comunidades que compartilhem de alguma preferência ou opinião;
+* Reconhecimento de imagens: Clusterização pode ser aplicado para se reconhecer uma pessoa ou um objeto numa foto; os *clusters* seriam as regiões da imagem que contenham rostos, paisagem, vestimentas, etc.;
+* Detecção de anomalias: A análise de clusters pode ser adaptada para a detecção de *outliers* que destoem da maioria dos outros elementos baseada em alguma métrica de similaridade;
+* Finanças: clusterização pode ser utilizado para agrupar empresas por similaridade, o que pode ser bem útil para a construção de portfólios, cuja teoria clássica preconiza que o risco do investidor pode ser diversificado quando se aplica em empresas pouco correlacionadas. A clusterização ainda pode ser usada para a identificação de períodos de alta e baixa volatilidade, o que por sua vez pode subsidiar a construção de estratégias de *trading* e de gestão do risco.
+
+Nem todo resultado terão dados ideais como este conjunto e assim como qualquer algorítmo ele funcionará para uma finalidade específica. Por isso, como sempre, conhecer bem o problema, pré-processar os dados corretamente e aplicar técnicas diferentes certamente trarão resultados melhores.
