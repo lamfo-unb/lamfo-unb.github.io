@@ -2,7 +2,7 @@
 
 ## O que é Clusterização?
 
-Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia "Dilema Viés-Variância")). Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
+Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/ "Os Três Tipos de Aprendizado de Máquina")). Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
 
 Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre "está mais próximo" de um leão do que de uma garça.
 
