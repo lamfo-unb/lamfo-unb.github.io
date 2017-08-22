@@ -150,10 +150,10 @@ LABEL_COLOR_MAP = {0 : 'red', 1 : 'blue', 2: 'green'}
 label_color = [LABEL_COLOR_MAP[l] for l in X_clustered]
 ```
 
-Agora podemos plotar um gráfico que compare duas características em duas dimensões. A lógica a seguir é apenas para que possamos plotar dinamicamente mudando apenas os valores de *'c1'* e *'c2'* que serão características diferente comparadas e dispostas nos eixos do gráfico.
+Agora podemos plotar um gráfico que compare duas características em duas dimensões. A lógica a seguir é apenas para que possamos plotar dinamicamente mudando apenas os valores de *'c1'* e *'c2'* que serão características diferentes a serem comparadas e dispostas nos eixos do gráfico.
 
 ```python
-c1 = 0 # índice da coluna
+c1 = 0 # valor do índice da coluna, pode ser 0, 1 ou 2
 c2 = 1
 labels = ['sepal length', 'sepal width', 'petal length']
 c1label = labels[c1]
@@ -161,7 +161,7 @@ c2label = labels[c12]
 title = xlabel + ' x ' + ylabel
 ```
 
-Em seguida plotamos o gráfico com Matplotlib:
+Com as características escolhidas, plotamos o gráfico com Matplotlib:
 
 ```python
 plt.figure(figsize = (12,12))
@@ -178,4 +178,4 @@ sepal length X sepal width |  sepal length X petal length | sepal width X petal 
 ![](/img/clustering/03-clustering.jpg)  |  ![](/img/clustering/04-clustering.jpg)  |  ![](/img/clustering/05-clustering.jpg)
 
 
-Neste exemplo fica clara a divisão entre classes de flor diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Nem todo resultado terão dados ideais como este conjunto
+Neste exemplo fica clara a divisão entre classes diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Nem todo resultado terão dados ideais como este conjunto e assim como qualquer algorítmo ele funcionará para uma finalidade específica. Por isso conhecer bem o problema, pré-processar os dados corretamente e aplicar té
