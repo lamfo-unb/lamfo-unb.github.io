@@ -175,7 +175,7 @@ plt.show()
 
 sepal length X sepal width |  sepal length X petal length | sepal width X petal length
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/img/clustering/03-clustering.png)  |  ![](/img/clustering/04-clustering.png)  |  ![](/img/clustering/05-clustering.png)
+![](/img/clustering/03-clustering.jpg)  |  ![](/img/clustering/04-clustering.jpg)  |  ![](/img/clustering/05-clustering.jpg)
 
 
 
