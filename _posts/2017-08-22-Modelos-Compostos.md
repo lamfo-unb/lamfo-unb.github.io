@@ -8,12 +8,13 @@ tags: [regressão, modelos-compostos]
 author: Jader Martins
 comments: true
 ---
+
 # Modelos Regressivos Compostos para Estimativas de Preço
 
-Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performace preditiva de modelos compostos comparados a modelos puros tem sido notável nas mais diversas áreas[1] e nessa postagem buscarei aprensentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de imóveis em Boston.
+Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performace preditiva de modelos compostos comparados a modelos simples tem sido notável nas mais diversas áreas[1], modelos simples são aqueles que usam [algoritmos puros do aprendizado de máquina](https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina#Abordagens), já modelos compostos combinam as predições de dois ou mais algoritmos na tentativa de melhorar a predição. Nessa postagem buscarei aprensentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de metro quadrado de imóveis em Boston.
 
 ### Preparando os Dados
-Aqui usarei um dataset famoso de preços de casa, mas a técnica aqui abordada pode ser estendida para precificação de quase qualquer coisa. Primeiro importarei e carregarei meu conjunto de dados na variavel boston utilizando o pandas.
+Aqui usarei um dataset famoso de preços de casa, mas a técnica aqui abordada pode ser estendida para precificação de quase qualquer coisa. Primeiro importarei e carregarei meu conjunto de dados na variavel boston utilizando o Pandas, modulo do Python famoso por seus dataframes voltado a analise em finanças. O conjunto de dados advém do modulo scikit-learn que usaremos no decorrer desse post para trabalhar com AM, ele forneça ferramentas desde o tratamento dos dados até uma _pipeline_ de aprendizado de máquina. Também usaremos o modulo Numpy.
 
 
 ```python
@@ -160,8 +161,10 @@ df.head()
 
 
 
+Aqui carrego meus dados na variável df e mostro as 5 primeiras linhas com o comando head.
+
 Temos informações como criminalidade da região, idade média da população, etc..
-Embora não seja o foco dessa postagem, a distribuição dos nossos dados poderá causar grande dificuldade para nosso regressor modela-la, sendo assim aplicarei uma "feature engineering" simples para tornar nossa distribuição mais normal, em posts futuros explicarei em detalhes o que é feature engineering e como utiliza-la para melhorar suas predições. Primeiro vamos ver como está a distribuição que queremos prever ao lado da distribuição "normalizada" por f.log(x+1), (acrescentar um ao valor nos evita ter problemas com zeros).
+Embora não seja o foco dessa postagem, a distribuição dos nossos dados poderá causar grande dificuldade para nosso regressor modela-la, sendo assim aplicarei uma "feature engineering" simples para tornar nossa distribuição mais normal, em posts futuros será explicado em detalhes o que é feature engineering e como utiliza-la para melhorar suas predições. Primeiro vamos ver como está a distribuição que queremos prever ao lado da distribuição "normalizada" por f.log(x+1), (acrescentar um ao valor nos evita ter problemas com zeros).
 
 
 ```python
@@ -169,6 +172,24 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set(style="whitegrid", palette="coolwarm")
 ```
+
+
+```python
+df.plot.box(figsize=(12,6), patch_artist=True)
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f4ab6772cf8>
+
+
+
+
+![png](/img/ensemble/output_6_1.png)
+
+
+Primeiro carrego as bibliotecas de gráfico que utilizarei no decorrer do texto, seto configurações como estilo e paleta de cores para o gráfico, em seguida monto um dataframe _prices_ para receber duas colunas de valores, uma com o preço sem transformação, outra com o preço tranformado pela função log1p (f.log(x+1)).
 
 
 ```python
@@ -181,15 +202,15 @@ plt.ylabel("Quantidade")
 
 
 
-    <matplotlib.text.Text at 0x7f93a58cf908>
+    <matplotlib.text.Text at 0x7f4ab6535e10>
 
 
 
 
-![png](/img/ensemble/output_5_1.png)
+![png](/img/ensemble/output_8_1.png)
 
 
-Podemos ver que nossa distribuição ficou menos espaçada e um pouco mais próxima de uma distribuição normal, mas o python conta com uma função estatística que nos ajuda avaliar se isso será necessário ou não, através do teste de skewness.
+Podemos ver que nossa distribuição ficou menos espaçada e um pouco mais próxima de uma distribuição normal, mas o python conta com uma função estatística que nos ajuda avaliar se isso será necessário ou não, através do teste de Box-Cox que terá indicios com o grau de Obliquidade (Skewness).
 
 
 ```python
@@ -211,7 +232,7 @@ for col in df.keys():
 
 
 #### Um Pouco de Feature Engeneering
-O teste de boxcox nos diz que um skew acima de 0.75 pode ser linearizado pela função log(x+1), vamos olhar o antes e depois de aplicar essa função a nossas distribuições. (Suprimi algumas variáveis para não encher demais o gráfico).
+O teste de Box-Cox nos diz que um skew acima de 0.75 pode ser linearizado pela função log(x+1), fazendo a distribuição ficar mais normalizada, abaixo disso posso manter o valor como estava sem necessidades de modificação, vamos olhar o antes e depois de aplicar essa função a nossas distribuições. (Suprimi algumas variáveis para não poluir demais o gráfico).
 
 
 ```python
@@ -226,12 +247,12 @@ plt.ylabel("Quantidade")
 
 
 
-    <matplotlib.text.Text at 0x7f93a5663e80>
+    <matplotlib.text.Text at 0x7f4ab63bfe80>
 
 
 
 
-![png](/img/ensemble/output_9_1.png)
+![png](/img/ensemble/output_12_1.png)
 
 
 
@@ -255,20 +276,20 @@ plt.ylabel("Quantidade")
 
 
 
-    <matplotlib.text.Text at 0x7f93a5530ac8>
+    <matplotlib.text.Text at 0x7f4ab62d1240>
 
 
 
 
-![png](/img/ensemble/output_11_1.png)
+![png](/img/ensemble/output_14_1.png)
 
 
 Vemos que as distribuições ficaram muito mais centradas e tendendo a distribuição gaussiana, o que será excelente para o ajuste dos nossos estimadores. Sendo a função logaritimica e a função f.x+1 bijetoras, poderemos retornar ao nosso valor original assim que acabarmos o ajuste do modelo.
 
-#### Correlações?
 
--defender PCA aqui-
-Por isso aumentar linearidade(?) irá nos ajudar a prever melhor nossos valores. Variáveis distorcidas, tendem a piorar nosso modelo, por isso elas também devem ser controladas.
+#### Simplificando nossos dados
+
+Nossos dados ainda podem estar muito complexos, a escala em que se encontram e talvez um excesso de informação necessária podem impossibilitar que nosso modelo atinja a perfeição. Aqui iremos aplicar duas tecnicas, a primeira e escalonamento de variaveis pelo máximo-minimo, transformação que também é reversivel é poderá ser desfeita ao preço final, bastando eu guardar as variaveis da minha transformação.
 
 
 ```python
@@ -296,48 +317,65 @@ df.std()
 
 
 
+É visivel que algumas variaveis estão extremamente dispersas, podemos mudar isso com a seguinte formula 
+
+%%%% COLOCAR FORMULA AQUI
+
+Assim nossas variaveis estarão entre zero e um, ficando mais simplificada a predição.
+
 
 ```python
-corr = df.corr()
-
-mask = np.zeros_like(corr, dtype=np.bool)
-mask[np.triu_indices_from(mask)] = True
-
-# Set up the matplotlib figure
-f, ax = plt.subplots(figsize=(11, 9))
-
-# Generate a custom diverging colormap
-cmap = sns.diverging_palette(220, 10, as_cmap=True)
-
-# Draw the heatmap with the mask and correct aspect ratio
-sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
-            square=True, linewidths=.5, cbar_kws={"shrink": .5})
+dfmin, dfmax = df.min(), df.max()
+df = (df - df.min())/(df.max()-df.min())
+df.std()
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f93acdd4240>
+    CRIM       0.227050
+    ZN         0.351200
+    INDUS      0.251479
+    CHAS       0.253994
+    NOX        0.238431
+    RM         0.134627
+    AGE        0.289896
+    DIS        0.227300
+    RAD        0.297672
+    TAX        0.321636
+    PTRATIO    0.230313
+    B          0.230205
+    LSTAT      0.202759
+    MEDV       0.180819
+    dtype: float64
 
 
 
+Excelente!!
 
-![png](/img/ensemble/output_14_1.png)
+#### Tudo Pronto
 
-
-explicar pq precisamos do pca segundo a variavel que obtemos
+Finalizado nosso ajuste nos dados após tanto trabalho vamos agora para o ajuste dos nossos modelos, acostume-se, tratar os dados é o que lhe consumirá mais tempo em um processo de aprendizado de máquina. Mas por fim vamos dar uma olhada final em como eles ficaram distribuidos. Usarei a função interna do pandas boxplot, se tem duvida do que esse gráfico representa, veja [aqui](https://pt.wikipedia.org/wiki/Diagrama_de_caixa).
 
 
 ```python
-#fazer pca
+df.plot.box(figsize=(12,6), patch_artist=True)
 ```
 
 
-```python
 
-```
 
-Como já discutido, devemos separar os dados em um conjunto de treino e teste, para treinar nosso modelo e para saber quão bem nosso modelo ira prever para casos desconhecidos.
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f4ab60049b0>
+
+
+
+
+![png](/img/ensemble/output_20_1.png)
+
+
+Como já discutido em outras postagens, devemos separar os dados em um conjunto de treino e teste, para treinar nosso modelo e para saber quão bem nosso modelo ira prever para casos desconhecidos. Leia [essa publicação](/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia/) para entender melhor.
+
+Aqui usamos a função interna do scikit-learn para separar os dados, para informações adicionais sobre todas as variáveis das funções abaixo sugiro consultar a [documentação oficial](http://scikit-learn.org/stable/documentation.html). Como primeiro argumento passo meu X, atributos, e segundo argumento meu y, valor que eu desejo prever, por fim passo um inteiro para tornar meus resultados reprodutiveis, tornando os processos aleátorios das funções não-aleatórios.
 
 
 ```python
@@ -346,7 +384,7 @@ xtrain, xtest, ytrain, ytest =\
     train_test_split(df.drop('MEDV',1).values, df['MEDV'].values, random_state=201)
 ```
 
-Agora importaremos nossos dois modelos, o primeiro é o XGBoost, algoritmo que vem se demonstrando extremamente eficiente e o Ridge famoso algoritmo regressor. Iremos avaliar nossos modelos pelo r2_score.
+Agora importaremos nossos dois modelos, o primeiro é o XGBoost, algoritmo que vem se demonstrando extremamente eficiente em competições e o Ridge famoso algoritmo regressor. Iremos avaliar nossos modelos pelo [erro médio quadrático](https://pt.wikipedia.org/wiki/Erro_quadr%C3%A1tico_m%C3%A9dio).
 
 
 ```python
@@ -356,7 +394,7 @@ from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error
 ```
 
-Aqui executo uma pequena melhoria nos hiperparametros com o GridSearchCV.
+Aqui executo uma pequena melhoria nos hiperparametros com o GridSearchCV para buscar a combinação dos hiperparametros que me dará uma melhor predição, em seguida ajusto meu modelo aos dados e tendo ele treinando, prevejo para dados que ele desconhece, em seguida avalio o desempenho do modelo como dito.
 
 
 ```python
@@ -373,7 +411,7 @@ err1 = mean_squared_error(linpred, ytest)
 print(err1)
 ```
 
-    0.0335608501413
+    0.00736161092505
 
 
 
@@ -390,10 +428,11 @@ err2 = mean_squared_error(xgbpred, ytest)
 print(err2)
 ```
 
-    0.0238186511358
+    0.00526337776169
 
 
-Vamos analisar se nossas predições tem baixa correlação
+Resultados muito bons, mas será que podemos deixa-los ainda melhor?!
+Vamos analisar se nossas predições tem baixa correlação.
 
 
 ```python
@@ -404,12 +443,12 @@ predictions.plot(x = "XGBoost", y = "Ridge", kind = "scatter", color="#85C8DD")
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f93ae0c8828>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f4ab32e67b8>
 
 
 
 
-![png](/img/ensemble/output_26_1.png)
+![png](/img/ensemble/output_30_1.png)
 
 
 Como já explicado, uma baixa correlação tende a melhorar significativamente nossa predição, visualmente temos algo significante, vamos olhar agora isso em números
@@ -421,10 +460,10 @@ _, _, r_value, _, std_err = stats.linregress(np.expm1(xgbpred),np.expm1(linpred)
 print(r_value, std_err)
 ```
 
-    0.917257969067 0.0348655371974
+    0.923252641379 0.0321275120299
 
 
-Devido nosso r-valor não ser muito alto, podemos nos beneficiar da combinação das estimativas.
+Devido nosso r-valor não ser muito alto (<.98), podemos nos beneficiar da combinação das estimativas. Chegamos a parte da motivação inicial combinar os modelos para aumentar o desempenho preditivo. Testarei 3 combinações das predições, média ponderada, media simples e média harmonica.
 
 
 ```python
@@ -434,8 +473,10 @@ err5 = mean_squared_error(stats.hmean([xgbpred, linpred]), ytest)# media harmoni
 print(err3, err4, err5)
 ```
 
-    0.0227898468751 0.0240377959853 0.0237927935853
+    0.00499853754395 0.00524298328056 0.00517761354333
 
+
+Excelente, ouve uma melhora significativa, mas o quão significativa?
 
 
 ```python
@@ -445,24 +486,19 @@ print(err3, err4, err5)
 
 
 
-    0.043193220925209719
+    0.050317539369457931
 
 
 
-Está ai, quase 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples!
+Está ai, 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples, e isso poderia nos ajudar a ganhar algumas centenas de milhares de dolares[2].
 
-https://seaborn.pydata.org/examples/pointplot_anova.html
+### Concluindo
 
-https://seaborn.pydata.org/examples/many_facets.html
-
-https://seaborn.pydata.org/examples/jitter_stripplot.html
-
-https://seaborn.pydata.org/examples/anscombes_quartet.html
-
-http://matplotlib.org/examples/statistics/boxplot_color_demo.html
+O objetivo principal dessa publicação era demonstrar a que uma combinação simples entre dois modelos podem impactar significamente na sua predição, mas durante esse processo fiz alguns tratamentos nos dados que irão te impressionar sobre o impacto na redução do nosso erro, experimente avaliar os modelos sem realizar alguns dos tratamentos que dei aos dados... Em publicações futuras, será explicado mais sobre cada tecnica vista aqui.
 
 #### Referências
 [1] Polikar, R. (2006). "Ensemble based systems in decision making". IEEE Circuits and Systems Magazine. 6 (3): 21–45. doi:10.1109/MCAS.2006.1688199
+[2] https://www.kaggle.com/c/zillow-prize-1
 
 https://stats.stackexchange.com/questions/298/in-linear-regression-when-is-it-appropriate-to-use-the-log-of-an-independent-va
 
@@ -476,7 +512,4 @@ https://en.wikipedia.org/wiki/Bootstrap_aggregating
 
 https://www.kaggle.com/apapiu/regularized-linear-models
 
-
-```python
-
-```
+https://pt.wikipedia.org/wiki/An%C3%A1lise_de_componentes_principais
