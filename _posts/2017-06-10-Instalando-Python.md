@@ -22,7 +22,7 @@ UPDATE: 18/06/2017
 
 ## Requisitos computacionais <a name="req"></a>
 
-Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente descente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (*quad core*).
+Para seguir com esse tutorial de instalação, você precisa de um computador com Windows 64 bits e pelo menos 4 GB de RAM. Mas mais do que isso, se você planeja seguir adiante com estudos ou aplicações de aprendizado de máquina, é recomendável ter pelo menos 8 GB de RAM e um processador minimamente decente, como um Intel i5 ou outro processador com pelo menos quatro núcleos (*quad core*).
 
 ## Instalando Python <a name="python"></a>
 
