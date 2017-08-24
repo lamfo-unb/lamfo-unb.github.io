@@ -11,10 +11,10 @@ comments: true
 
 # Modelos Regressivos Compostos para Estimativas de Preço
 
-Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performace preditiva de modelos compostos comparados a modelos simples tem sido notável nas mais diversas áreas[1], modelos simples são aqueles que usam [algoritmos puros do aprendizado de máquina](https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina#Abordagens), já modelos compostos combinam as predições de dois ou mais algoritmos na tentativa de melhorar a predição. Nessa postagem buscarei aprensentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de metro quadrado de imóveis em Boston.
+Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performance preditiva de modelos compostos comparados a modelos simples tem sido notável nas mais diversas áreas[1], modelos simples são aqueles que usam [algoritmos puros do aprendizado de máquina](https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina#Abordagens), já modelos compostos combinam as predições de dois ou mais algoritmos na tentativa de melhorar a predição. Nessa postagem buscarei apresentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de metro quadrado de imóveis em Boston.
 
 ### Preparando os Dados
-Aqui usarei um dataset famoso de preços de casa, mas a técnica aqui abordada pode ser estendida para precificação de quase qualquer coisa. Primeiro importarei e carregarei meu conjunto de dados na variavel boston utilizando o Pandas, modulo do Python famoso por seus dataframes voltado a analise em finanças. O conjunto de dados advém do modulo scikit-learn que usaremos no decorrer desse post para trabalhar com AM, ele forneça ferramentas desde o tratamento dos dados até uma _pipeline_ de aprendizado de máquina. Também usaremos o modulo Numpy.
+Aqui usarei um dataset famoso de preços de casa, mas a técnica aqui abordada pode ser estendida para precificação de quase qualquer coisa. Primeiro importarei e carregarei meu conjunto de dados na variável “boston” utilizando o Pandas, modulo do Python famoso por seus dataframes voltado a analise em finanças. O conjunto de dados advém do módulo Scikit-Learn que usaremos no decorrer desse post para trabalhar com AM, ele forneça ferramentas desde o tratamento dos dados até uma _pipeline_ de aprendizado de máquina. Também usaremos o modulo Numpy.
 
 
 ```python
@@ -189,7 +189,7 @@ df.plot.box(figsize=(12,6), patch_artist=True)
 ![png](/img/ensemble/output_6_1.png)
 
 
-Primeiro carrego as bibliotecas de gráfico que utilizarei no decorrer do texto, seto configurações como estilo e paleta de cores para o gráfico, em seguida monto um dataframe _prices_ para receber duas colunas de valores, uma com o preço sem transformação, outra com o preço tranformado pela função log1p (f.log(x+1)).
+Primeiro carrego as bibliotecas de gráfico que utilizarei no decorrer do texto, defino configurações como estilo e paleta de cores para o gráfico, em seguida monto um dataframe _prices_ para receber duas colunas de valores, uma com o preço sem transformação, outra com o preço tranformado pela função log1p (f.log(x+1)).
 
 
 ```python
@@ -210,7 +210,7 @@ plt.ylabel("Quantidade")
 ![png](/img/ensemble/output_8_1.png)
 
 
-Podemos ver que nossa distribuição ficou menos espaçada e um pouco mais próxima de uma distribuição normal, mas o python conta com uma função estatística que nos ajuda avaliar se isso será necessário ou não, através do teste de Box-Cox que terá indicios com o grau de Obliquidade (Skewness).
+Podemos ver que nossa distribuição ficou menos espaçada e um pouco mais próxima de uma distribuição normal, mas o Python conta com uma função estatística que nos ajuda avaliar se isso será necessário ou não, através do teste de Box-Cox que terá indícios com o grau de Obliquidade (Skewness).
 
 
 ```python
@@ -284,12 +284,12 @@ plt.ylabel("Quantidade")
 ![png](/img/ensemble/output_14_1.png)
 
 
-Vemos que as distribuições ficaram muito mais centradas e tendendo a distribuição gaussiana, o que será excelente para o ajuste dos nossos estimadores. Sendo a função logaritimica e a função f.x+1 bijetoras, poderemos retornar ao nosso valor original assim que acabarmos o ajuste do modelo.
+Vemos que as distribuições ficaram muito mais centradas e tendendo a distribuição gaussiana, o que será excelente para o ajuste dos nossos estimadores. Sendo a função logarítmica e a função f.x+1 bijetoras, poderemos retornar ao nosso valor original assim que acabarmos o ajuste do modelo.
 
 
 #### Simplificando nossos dados
 
-Nossos dados ainda podem estar muito complexos, a escala em que se encontram e talvez um excesso de informação necessária podem impossibilitar que nosso modelo atinja a perfeição. Aqui iremos aplicar duas tecnicas, a primeira e escalonamento de variaveis pelo máximo-minimo, transformação que também é reversivel é poderá ser desfeita ao preço final, bastando eu guardar as variaveis da minha transformação.
+Nossos dados ainda podem estar muito complexos, a escala em que se encontram e talvez um excesso de informação necessária podem impossibilitar que nosso modelo atinja a perfeição. Aqui iremos aplicar duas técnicas, a primeira e escalonamento de variáveis pelo máximo-mínimo, transformação que também é reversível é poderá ser desfeita ao preço final, bastando eu guardar as variáveis da minha transformação.
 
 
 ```python
@@ -317,11 +317,11 @@ df.std()
 
 
 
-É visivel que algumas variaveis estão extremamente dispersas, podemos mudar isso com a seguinte formula 
+É visível que algumas variáveis estão extremamente dispersas, podemos mudar isso com a seguinte formula 
 
-%%%% COLOCAR FORMULA AQUI
+$$ z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)} $$
 
-Assim nossas variaveis estarão entre zero e um, ficando mais simplificada a predição.
+Assim nossas variáveis estarão entre zero e um, ficando mais simplificada a predição.
 
 
 ```python
@@ -355,7 +355,7 @@ Excelente!!
 
 #### Tudo Pronto
 
-Finalizado nosso ajuste nos dados após tanto trabalho vamos agora para o ajuste dos nossos modelos, acostume-se, tratar os dados é o que lhe consumirá mais tempo em um processo de aprendizado de máquina. Mas por fim vamos dar uma olhada final em como eles ficaram distribuidos. Usarei a função interna do pandas boxplot, se tem duvida do que esse gráfico representa, veja [aqui](https://pt.wikipedia.org/wiki/Diagrama_de_caixa).
+Finalizado nosso ajuste nos dados após tanto trabalho vamos agora para o ajuste dos nossos modelos, acostume-se, tratar os dados é o que lhe consumirá mais tempo em um processo de aprendizado de máquina. Mas por fim vamos dar uma olhada final em como eles ficaram distribuídos. Usarei a função interna do Pandas, boxplot, se tem dúvida do que esse gráfico representa, veja [aqui](https://pt.wikipedia.org/wiki/Diagrama_de_caixa).
 
 
 ```python
@@ -373,9 +373,9 @@ df.plot.box(figsize=(12,6), patch_artist=True)
 ![png](/img/ensemble/output_20_1.png)
 
 
-Como já discutido em outras postagens, devemos separar os dados em um conjunto de treino e teste, para treinar nosso modelo e para saber quão bem nosso modelo ira prever para casos desconhecidos. Leia [essa publicação](/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia/) para entender melhor.
+Como já discutido em outras postagens, devemos separar os dados em um conjunto de treino e teste, para treinar nosso modelo e para saber quão bem nosso modelo irá prever para casos desconhecidos. Leia [essa publicação](/2017/04/29/Um-Olhar-Descontraido-Sobre-o-Dilema-Vies-Variancia/) para entender melhor.
 
-Aqui usamos a função interna do scikit-learn para separar os dados, para informações adicionais sobre todas as variáveis das funções abaixo sugiro consultar a [documentação oficial](http://scikit-learn.org/stable/documentation.html). Como primeiro argumento passo meu X, atributos, e segundo argumento meu y, valor que eu desejo prever, por fim passo um inteiro para tornar meus resultados reprodutiveis, tornando os processos aleátorios das funções não-aleatórios.
+Aqui usamos a função interna do Scikit-Learn para separar os dados, para informações adicionais sobre todas as variáveis das funções abaixo sugiro consultar a [documentação oficial](http://scikit-learn.org/stable/documentation.html). Como primeiro argumento passo meu X, atributos, e segundo argumento meu y, valor que eu desejo prever, por fim passo um inteiro para tornar meus resultados reprodutíveis, tornando os processos aleatórios das funções não-aleatórios.
 
 
 ```python
@@ -431,8 +431,8 @@ print(err2)
     0.00526337776169
 
 
-Resultados muito bons, mas será que podemos deixa-los ainda melhor?!
-Vamos analisar se nossas predições tem baixa correlação.
+Resultados muito bons, mas será que podemos deixá-los ainda melhor?!
+Vamos analisar se as nossas predições têm baixa correlação.
 
 
 ```python
@@ -463,7 +463,7 @@ print(r_value, std_err)
     0.923252641379 0.0321275120299
 
 
-Devido nosso r-valor não ser muito alto (<.98), podemos nos beneficiar da combinação das estimativas. Chegamos a parte da motivação inicial combinar os modelos para aumentar o desempenho preditivo. Testarei 3 combinações das predições, média ponderada, media simples e média harmonica.
+Devido nosso r-valor não ser muito alto (<.98), podemos nos beneficiar da combinação das estimativas. Chegamos a parte da motivação inicial combinar os modelos para aumentar o desempenho preditivo. Testarei 3 combinações das predições, média ponderada, media simples e média harmônica.
 
 
 ```python
@@ -490,11 +490,11 @@ Excelente, ouve uma melhora significativa, mas o quão significativa?
 
 
 
-Está ai, 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples, e isso poderia nos ajudar a ganhar algumas centenas de milhares de dolares[2].
+Está aí, 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples, e tais aprimoramentos acima de algoritmos de alto desempenho são de extrema importancia no mundo da ciência de dados, talvez até nos ajudaria a pular milhares de posições rumo ao topo em uma competição valendo 1,2 milhões de dólares[2].
 
 ### Concluindo
 
-O objetivo principal dessa publicação era demonstrar a que uma combinação simples entre dois modelos podem impactar significamente na sua predição, mas durante esse processo fiz alguns tratamentos nos dados que irão te impressionar sobre o impacto na redução do nosso erro, experimente avaliar os modelos sem realizar alguns dos tratamentos que dei aos dados... Em publicações futuras, será explicado mais sobre cada tecnica vista aqui.
+O objetivo principal dessa publicação era demonstrar que uma combinação simples entre dois modelos podem impactar significamente na sua predição, mas durante esse processo fiz alguns tratamentos nos dados que irão te impressionar sobre o impacto na redução do nosso erro, experimente avaliar os modelos sem realizar alguns dos tratamentos que dei aos dados... Em publicações futuras, será explicado mais sobre cada técnica vista aqui.
 
 #### Referências
 [1] Polikar, R. (2006). "Ensemble based systems in decision making". IEEE Circuits and Systems Magazine. 6 (3): 21–45. doi:10.1109/MCAS.2006.1688199
