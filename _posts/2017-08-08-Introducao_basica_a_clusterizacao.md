@@ -178,6 +178,15 @@ sepal length X sepal width |  sepal length X petal length | sepal width X petal 
 ![](/img/clustering/03-clustering.jpg)  |  ![](/img/clustering/04-clustering.jpg)  |  ![](/img/clustering/05-clustering.jpg)
 
 
+E como avaliamos os clusters encontrados? A forma mais simples de verificarmos a "qualidade" dos clusters encontrados é
+medindo as distâncias inter-clusters e intra-clusters.
+
+- A distância **inter-clusters** (entre clusters) nos diz o quão distantes estão os clusters dos outros, ou seja, em geral é um bom sinal quando eles estão distantes entre si pois mostram maior isolamento dos grupos e provavelmente uma classificação mais precisa.
+
+- A distância **intra-cluster** (interna aos clusters) nos diz o quão distantes estão os elementos de um mesmo grupo e o quão distantes estão de seu centróide, ou seja, em geral grupos mais densos com elementos mais próximos têm maior similaridade e tem mais chance de realmente compartilharem a mesma classificação
+
+De uma forma bem simplista, podemos dizer que alcançamos clusters interessantes quando eles se isolam do resto e têm uma "alta densidade", seus elementos são mais próximos.
+
 Neste exemplo fica clara a divisão entre classes diferentes, assim podemos compreender como a clusterização funciona e que existem casos específicos em que a técnica será muito útil. Aplicações possíveis da clusterização incluem:
 
 * Marketing: Pesquisa e segmentação de mercado para determinar potenciais grupos homogêneos de consumidores para melhor definir a disposição de produtos que uma estratégia corporativa;
