@@ -4,7 +4,7 @@
 
 Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/ "Os Três Tipos de Aprendizado de Máquina")). Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
 
-Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre "está mais próximo" de um leão do que de uma garça.
+Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre está "mais próximo" de um leão do que de uma garça.
 
 As imagens a seguir ilustram uma clusterização bem simples de dados com apenas duas dimensões (duas "características"):
 
@@ -25,7 +25,9 @@ Para o exemplo utilizaremos o [*Iris Data Set*](https://archive.ics.uci.edu/ml/d
 
 ### Passo a passo do algorítmo
 
-O Κ-means aprimora de forma iterativa seus resultados até alcançar um resultado final. O algoritmo recebe o número de clusters Κ e o conjunto de dados sob análise. Em seguida são estabelecidas estimativas iniciais para os K centróides, que podem ser gerados aleatoriamente ou selecionados aleatoriamente dentro conjunto de dados. O algoritmo faz a iteração entre dois passos:
+O Κ-means aprimora de forma iterativa seus resultados até alcançar um resultado final. O algoritmo recebe o número de clusters Κ e o conjunto de dados a ser analisado. Em seguida são estabelecidas posições iniciais para os K centróides, que podem ser gerados ou selecionados aleatoriamente dentro do conjunto de dados.
+
+O algoritmo é iterado nos seguintes passos até que se estabilize:
 
 - **Associação de cada instância a um centróide** - cada centróide define um cluster, então cada instância será associada a seu cluster mais semelhante (centróide mais próximo). A distância será calculada por alguma métrica de distância, em geral utiliza-se a distância euclidiana entre as duas instâncias;
 
@@ -38,7 +40,7 @@ Para que possamos testar o algorítmo utilizaremos a **linguagem Python** e algu
 - Se você ainda não tem Python em sua máquina, dê uma olhada no nosso post [Instalando Python para Aprendizado de Máquina](https://lamfo-unb.github.io/2017/06/10/Instalando-Python/);
 - Crie um diretório de trabalho em sua máquina, uma pasta que conterá seu programa e os dados utilizados. Decidi chamar meu diretório de *'learn-clustering'*;
 - Faça download do [*iris.data*](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/) no seu novo diretório;
-- Crie um novo arquivo python onde escreveremos nosso programa no mesmo diretório principal ou um Jupyter Notebook. Os trechos de código a seguir devem ser codificados dentro do novo arquivo criado.
+- Crie um novo arquivo python onde escreveremos nosso programa no mesmo diretório principal ou um Jupyter Notebook. Os trechos de código a seguir devem ser codificados dentro do arquivo criado.
 
 #### 1. Importando as pacotes
 
@@ -57,31 +59,30 @@ from sklearn.cluster import KMeans # 4
 
 #### 2. Lendo o Dataset
 
-A leitura dos dados é feita a partir da biblioteca Pandas e os dados estão organizados no formato csv (*comma-separated values*) apesar da extensão *'.data'*. Chamaremos o dataset completo de *dataset*
+A leitura dos dados é feita a partir da biblioteca Pandas e os dados estão organizados no formato csv (*comma-separated values*) apesar da extensão *'.data'*. Chamaremos o dataset completo de *dataset*. Os atributos têm seus nomes indicados nos dados, utilizaremos o *array 'headers'* para nomeá-las de acordo com a [documentação do conjunto de dados](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.names).
 
 ```python
-headers = ['sepal length', 'sepal width', 'petal length', 'class']
+headers = ['sepal length', 'sepal width', 'petal length', 'petal width', 'class']
 dataset = pd.read_csv("./iris.data", encoding = "ISO-8859-1", decimal=",", header=None, names=headers)
 ```
 
-Os dados não têm indicação dos nomes das colunas, utilizaremos o *array 'headers'* para nomeá-las corretamente.
 A variável *'dataset'* recebe os dados lidos, *'header=None'* indica que os dados no têm cabeçalho e *'names=headers'* faz com que os cabeçalhos deste dataset sejam os definidos na variável *'headers'*
 
 Trecho do Dataset:
 
-sepal length | sepal width | petal length | class
--- | -- | -- | --
-3.5 | 1.4 | 0.2 | Iris-setosa
-3.0 | 1.4 | 0.2 | Iris-setosa
-3.2 | 1.3 | 0.2 | Iris-setosa
+sepal length | sepal width | petal length | petal width | class
+-- | -- | -- | -- | --
+5.1 | 3.5 | 1.4 | 0.2 | Iris-setosa
+4.9 | 3.0 | 1.4 | 0.2 | Iris-setosa
+4.7 | 3.2 | 1.3 | 0.2 | Iris-setosa
 ...
-2.8 | 4.7 | 1.2 | Iris-versicolor
-2.9 | 4.3 | 1.3 | Iris-versicolor
-3.0 | 4.4 | 1.4 | Iris-versicolor
+7.0 | 3.2 | 4.7 | 1.4 | Iris-versicolor
+6.4 | 3.2 | 4.5 | 1.5 | Iris-versicolor
+6.9 | 3.1 | 4.9 | 1.5 | Iris-versicolor
 ...
-3.0 | 5.2 | 2.0 | Iris-virginica
-3.4 | 5.4 | 2.3 | Iris-virginica
-3.0 | 5.1 | 1.8 | Iris-virginica
+6.3 | 3.3 | 6.0 | 2.5 | Iris-virginica
+5.8 | 2.7 | 5.1 | 1.9 | Iris-virginica
+7.1 | 3.0 | 5.9 | 2.1 | Iris-virginica
 
 Podemos perceber que cada coluna é referente uma característica daquele espécime de planta. Ou seja, cada caso específico de flor produz uma instância diferente, que têm dados próprios.
 
@@ -90,7 +91,7 @@ Podemos perceber que cada coluna é referente uma característica daquele espéc
 Para garantirmos dados numéricos, vamos garantir que as colunas sejam do tipo float:
 
 ```python
-for col in  dataset.columns[0:3]:
+for col in  dataset.columns[0:4]:
     dataset[col] = dataset[col].astype(float)
 ```
 
@@ -102,6 +103,7 @@ dataset.dtypes
       sepal length    float64
       sepal width     float64
       petal length    float64
+      petal width     float64
       class            object
       dtype: object
 ```
@@ -109,8 +111,8 @@ dataset.dtypes
 Agora deve ser realizada a divisão dos dados entre variáveis dependentes ( X ) e independente ( y ). Uma definição de variáveis dependentes e independentes pode ser encontrada no nosso post [Os Três Tipos de Aprendizado de Máquina](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/)
 
 ```python
-X = dataset.iloc[:, 0:3]
-y = dataset.iloc[:, 3]
+X = dataset.iloc[:, 0:4]
+y = dataset.iloc[:, 4]
 ```
 
 Agora vamos aplicar o kmeans no conjunto de variáveis dependentes - ou seja, não estamos 'contando' ao algorítmo quais são as classes de cada instância de flor, estamos apenas apresentando os dados que cada instância tem. Definimos o número de clusters - k - como 3, uma situação ideal. Existem técnicas para encontrar o melhor k que serão abordadadas em um próximo post.
