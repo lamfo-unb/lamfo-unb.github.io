@@ -125,9 +125,9 @@ Pelos comandos `head()` e `tail()` podemos ver as primeiras e últimas 6 linhas 
 Vamos agora plotar os preços diários, utilizando a coluna de Preço Ajustado, visto que ela incorpora eventos como [splits](https://pt.wikipedia.org/wiki/Desdobramento_de_a%C3%A7%C3%B5es) e distribuição de dividendos, que podem afetar a série.
 
 ```{r}
-ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue") 
-+ ggtitle("Série de preços da Petrobras") 
-+ xlab("Data") + ylab("Preço ($)") + theme(plot.title = element_text(hjust = 0.5)) + 
+ggplot(pbr, aes(x = index(pbr), y = pbr[,6])) + geom_line(color = "darkblue") +
+ggtitle("Série de preços da Petrobras") +
+xlab("Data") + ylab("Preço ($)") + theme(plot.title = element_text(hjust = 0.5)) + 
 scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
 <img src="/img/acoes1/image1.png" height="350" width="550">
@@ -161,14 +161,14 @@ Em nosso caso, calculamos utilizando 10 e 30 dias de janela, preenchendo os valo
 Plotando a série de preços e as médias móveis para todos os dias a partir de 2016, temos:
 
 ```{r}
-ggplot(pbr_mm, aes(x = index(pbr_mm))) + geom_line(aes(y = pbr_mm[,6], color = "PBR")) 
-+ ggtitle("Série de preços da Petrobras") 
-+ geom_line(aes(y = pbr_mm$mm10, color = "MM10")) 
-+ geom_line(aes(y = pbr_mm$mm30, color = "MM30"))
-+ xlab("Data") + ylab("Preço ($)") 
-+ theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) 
-+ scale_x_date(date_labels = "%b %y", date_breaks = "3 months") 
-+ scale_colour_manual("Séries", values=c("PBR"="gray40", "MM10"="firebrick4", "MM30"="darkcyan"))
+ggplot(pbr_mm, aes(x = index(pbr_mm))) + geom_line(aes(y = pbr_mm[,6], color = "PBR")) + 
+ggtitle("Série de preços da Petrobras") +
+geom_line(aes(y = pbr_mm$mm10, color = "MM10")) +
+geom_line(aes(y = pbr_mm$mm30, color = "MM30")) +
+xlab("Data") + ylab("Preço ($)") +
+theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) +
+scale_x_date(date_labels = "%b %y", date_breaks = "3 months") +
+scale_colour_manual("Séries", values=c("PBR"="gray40", "MM10"="firebrick4", "MM30"="darkcyan"))
 ```
 <img src="/img/acoes1/image2.png" height="350" width="550" align="middle">
 
@@ -238,10 +238,10 @@ sd(pbr_ret)
 Ou seja, em média a ação não tem tido um bom desempenho. Podemos agora plotar um gráfico dos retornos e ver como eles desempenharam ao longo do tempo:
 
 ```{r}
-ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) + geom_line(color = "deepskyblue4") 
-+ ggtitle("Série de retornos da Petrobras") + xlab("Data") + ylab("Retorno") 
-+ theme(plot.title = element_text(hjust = 0.5)) 
-+ scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
+ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) + geom_line(color = "deepskyblue4") +
+ggtitle("Série de retornos da Petrobras") + xlab("Data") + ylab("Retorno") +
+theme(plot.title = element_text(hjust = 0.5)) +
+scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
 <img src="/img/acoes1/image3.png" height="350" width="550" align="middle">
 
@@ -254,10 +254,10 @@ Vamos fazer agora uma breve checagem dos retornos da ação em 2017:
 ```{r}
 pbr_ret17 <- subset(pbr_ret, index(pbr_ret) > "2017-01-01")
 
-ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) + geom_line(color = "deepskyblue4") 
-+ ggtitle("Série de retornos da Petrobras em 2017") + xlab("Data") + ylab("Retorno") 
-+ theme(plot.title = element_text(hjust = 0.5)) 
-+ scale_x_date(date_labels = "%b %y", date_breaks = "1 months")
+ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) + geom_line(color = "deepskyblue4") +
+ggtitle("Série de retornos da Petrobras em 2017") + xlab("Data") + ylab("Retorno") +
+theme(plot.title = element_text(hjust = 0.5)) +
+scale_x_date(date_labels = "%b %y", date_breaks = "1 months")
 ```
 <img src="/img/acoes1/image4.png" height="350" width="550" align="middle">
 
