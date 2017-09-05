@@ -2,9 +2,9 @@
 
 ## O que é Clusterização?
 
-Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/ "Os Três Tipos de Aprendizado de Máquina")). Ou seja, um algorítmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
+Clusterização é o agrupamento automático de instâncias similares, uma **classificação não-supervisionada** dos dados ([esse termo não é familiar? Veja nosso post sobre os três tipos de aprendizado de máquina!](https://lamfo-unb.github.io/2017/07/27/tres-tipos-am/ "Os Três Tipos de Aprendizado de Máquina")). Ou seja, um algoritmo que clusteriza dados classifica eles em conjuntos de dados que 'se assemelham' de alguma forma - independentemente de classes predefinidas. **Os grupos gerados por essa classificação são chamados *clusters***.
 
-Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algorítmo sobre estas classificações. Apenas comparando a distância entre dados o algorítmo mostraria que um tigre está "mais próximo" de um leão do que de uma garça.
+Uma forma de clusterização seria, por exemplo, a partir de dados de animais em um zoológico aproximar animais por suas características. Ou seja, a partir dos dados como 'quantidade de pernas', 'quantidade de dentes', 'põe ovo', 'tem pêlos' e vários outros, procuramos animais que estão mais próximos. Poderíamos assim clusterizar os dados, separar animais em mamíferos, aves ou répteis mas sem "contar" ao algoritmo sobre estas classificações. Apenas comparando a distância entre dados o algoritmo mostraria que um tigre está "mais próximo" de um leão do que de uma garça.
 
 As imagens a seguir ilustram uma clusterização bem simples de dados com apenas duas dimensões (duas "características"):
 
@@ -12,18 +12,18 @@ Dados |  Dados agrupados em clusters
 :-------------------------:|:-------------------------:
 ![](/img/clustering/01-clustering.png)  |  ![](/img/clustering/02-clustering.png)
 
-Muitas vezes, a similaridade entre os dados é encontrada por métricas de distância. Um dos algorítmos mais básicos para Clusterização chama-se **K-Means**.
+Muitas vezes, a similaridade entre os dados é encontrada por métricas de distância. Um dos algoritmos mais básicos para Clusterização chama-se **K-Means**.
 
 ## K-Means
 
-O algorítmo se chama assim pois **encontra k *clusters* diferentes** no conjunto de dados. O **centro de cada *cluster* será chamado centróide** e terá a média dos valores neste cluster.
+O algoritmo se chama assim pois **encontra k *clusters* diferentes** no conjunto de dados. O **centro de cada *cluster* será chamado centróide** e terá a média dos valores neste cluster.
 
-A tarefa do algorítmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo. Em caso de sucesso, os **dados são separados organicamente** podendo assim ser rotulados e **centróides viram referência** para classificar novos dados.
+A tarefa do algoritmo é encontrar o centróide mais próximo (por meio de alguma métrica de distância) e atribuir o ponto encontrado a esse cluster. Após este passo, os centróides são atualizados sempre tomando o valor médio de todos os pontos naquele cluster. Para este método são necessários valores numéricos para o cálculo da distância, os valores nominais então podem ser mapeados em valores binários para o mesmo cálculo. Em caso de sucesso, os **dados são separados organicamente** podendo assim ser rotulados e **centróides viram referência** para classificar novos dados.
 
 Para o exemplo utilizaremos o [*Iris Data Set*](https://archive.ics.uci.edu/ml/datasets/iris) do *UCI Machine Learning Repository*. Este é um dos conjuntos de dados mais conhecidos e utilizados para exemplos simples de reconhecimento de padrões. O conjunto de dados contém 3 classes de 50 instâncias cada, onde cada classe se refere a um tipo de planta Iris.
 
 
-### Passo a passo do algorítmo
+### Passo a passo do algoritmo
 
 O Κ-means aprimora de forma iterativa seus resultados até alcançar um resultado final. O algoritmo recebe o número de clusters Κ e o conjunto de dados a ser analisado. Em seguida são estabelecidas posições iniciais para os K centróides, que podem ser gerados ou selecionados aleatoriamente dentro do conjunto de dados.
 
@@ -35,7 +35,7 @@ O algoritmo é iterado nos seguintes passos até que se estabilize:
 
 ### Na prática com Python
 
-Para que possamos testar o algorítmo utilizaremos a **linguagem Python** e algumas de suas bibliotecas
+Para que possamos testar o algoritmo utilizaremos a **linguagem Python** e algumas de suas bibliotecas
 
 - Se você ainda não tem Python em sua máquina, dê uma olhada no nosso post [Instalando Python para Aprendizado de Máquina](https://lamfo-unb.github.io/2017/06/10/Instalando-Python/);
 - Crie um diretório de trabalho em sua máquina, uma pasta que conterá seu programa e os dados utilizados. Decidi chamar meu diretório de *'learn-clustering'*;
@@ -48,7 +48,7 @@ Usaremos:
 1. NumPy (pacote básico para computação científica e matemática, com diversas funções e operações sofisticadas)
 2. Pandas (pacote para manipulação e estruturação de dados)
 3. Matplotlib (pacote para plotagens gráficas em 2D)
-4. sklearn (pacote de Machine Learning contendo a ferramento do algorítmo KMeans pronta)
+4. sklearn (pacote de Machine Learning contendo a ferramento do algoritmo KMeans pronta)
 
 ```python
 import numpy as np # 1
@@ -115,7 +115,7 @@ X = dataset.iloc[:, 0:4]
 y = dataset.iloc[:, 4]
 ```
 
-Agora vamos aplicar o kmeans no conjunto de variáveis dependentes - ou seja, não estamos 'contando' ao algorítmo quais são as classes de cada instância de flor, estamos apenas apresentando os dados que cada instância tem. Definimos o número de clusters - k - como 3, uma situação ideal. Existem técnicas para encontrar o melhor k que serão abordadadas em um próximo post.
+Agora vamos aplicar o kmeans no conjunto de variáveis dependentes - ou seja, não estamos 'contando' ao algoritmo quais são as classes de cada instância de flor, estamos apenas apresentando os dados que cada instância tem. Definimos o número de clusters - k - como 3, uma situação ideal. Existem técnicas para encontrar o melhor k que serão abordadadas em um próximo post.
  
 ```python
 kmeans = KMeans(n_clusters=3, random_state=0).fit(X)
@@ -196,4 +196,4 @@ Neste exemplo fica clara a divisão entre classes diferentes, assim podemos comp
 * **Detecção de anomalias**: A análise de clusters pode ser adaptada para a detecção de *outliers* que destoem da maioria dos outros elementos baseada em alguma métrica de similaridade;
 * **Finanças**: clusterização pode ser utilizado para agrupar empresas por similaridade, o que pode ser bem útil para a construção de portfólios, cuja teoria clássica preconiza que o risco do investidor pode ser diversificado quando se aplica em empresas pouco correlacionadas. A clusterização ainda pode ser usada para a identificação de períodos de alta e baixa volatilidade, o que por sua vez pode subsidiar a construção de estratégias de *trading* e de gestão do risco.
 
-Nem todo resultado terão dados ideais como este conjunto e assim **como qualquer algorítmo ele funcionará para uma finalidade específica**. Por isso, como sempre, conhecer bem o problema, pré-processar os dados corretamente e aplicar técnicas diferentes certamente trarão resultados melhores.
+Nem todo resultado terão dados ideais como este conjunto e assim **como qualquer algoritmo ele funcionará para uma finalidade específica**. Por isso, como sempre, conhecer bem o problema, pré-processar os dados corretamente e aplicar técnicas diferentes certamente trarão resultados melhores.
