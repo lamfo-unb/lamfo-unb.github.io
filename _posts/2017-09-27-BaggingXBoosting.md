@@ -3,7 +3,7 @@ layout: post
 title: Classificadores Ensemble: Bagging e Boosting
 lang: pt
 header-img: img/0026.png
-date: 2017-09-27 13:45:07
+date: 2017-09-27 14:15:07
 tags: [statistics,ML,ensemble]
 author: Maisa Aniceto
 comments: true
@@ -18,7 +18,7 @@ Estudos recentes têm mostrado que métodos de classificadores *ensemble* possue
 Mas você sabe o que é um classificador *ensemble*? 
 Um classificador *ensemble* (também chamado de comitê de *learners*, mistura de especialistas ou sistema de classificadores múltiplo), consiste em um conjunto de classificadores treinados individualmente, classificadores de base, cujas decisões são de alguma forma combinadas (Marques et al., 2012).
 
-Nesse post apresentarei dois algoritmos *ensemble* tradicionais o *Bagging* e o *Boosting*, mais especificamente, o *AdaBoost*.
+Nesse post apresentarei dois algoritmos *ensemble* tradicionais, o *Bagging* e o *Boosting*; e mais especificamente, o *AdaBoost*.
 
 ![](https://i.imgur.com/88aeJst.jpg)
 
@@ -82,7 +82,7 @@ O pseudo código do *Adaboost*, segundo Wang (2011), é o seguinte:
 O pacote ipred do *software* R, oferece uma aplicação clássica *Bagging* em *Decision Tree*. Para treinar o modelo é utilizada a função "bagging()". No caso do *Adaboost*, pode ser utilizado o pacote C50.
 
 
-Nesse post: https://lamfo-unb.github.io/2017/08/17/Modelos-Compostos/ você encontra um modelos regressivo composto para estimativas de preço. É mostrado como uma combinação simples entre dois modelos podem impactar significantemente na sua predição.
+Nesse post: https://lamfo-unb.github.io/2017/08/17/Modelos-Compostos/ você encontra uma aplicação com modelos regressivos compostos para estimativas de preço. É mostrado como uma combinação simples entre dois modelos podem impactar significantemente na sua predição.
 
 Em um próximo post apresentaremos outros exemplos práticos de como utilizar esses classificadores *ensemble*. 
 
