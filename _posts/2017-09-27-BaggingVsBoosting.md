@@ -4,13 +4,12 @@ title: Classificadores Ensemble: Bagging e Boosting
 lang: pt
 header-img: img/0026.png
 date: 2017-09-27 14:15:07
-tags: [statistics,ML,ensemble]
+tags: [statistics, ML, ensemble]
 author: Maisa Aniceto
 comments: true
 ---
 
-Classificadores *Ensemble*
-==========================
+## Classificadores *Ensemble*
 
 
 Estudos recentes têm mostrado que métodos de classificadores *ensemble* possuem performance melhor do que técnicas de inteligência artificial sozinhas.
@@ -22,8 +21,7 @@ Nesse post apresentarei dois algoritmos *ensemble* tradicionais, o *Bagging* e o
 
 ![](https://i.imgur.com/88aeJst.jpg)
 
-Bagging
--------
+### Bagging
 
 O *Bagging (Bootstrap Aggregating)*, um método proposto por Breiman em 1996, gera um conjunto de dados por amostragem *bootstrap* dos dados originais (Já falamos de *bootstrap* aqui: https://lamfo-unb.github.io/2017/06/28/Bootstrap/). O conjunto de dados gera um conjunto de modelos utilizando um algoritmo de aprendizagem simples por meio da combinação por votos para classificação. O seu uso é particularmente atraente quando a informação disponível é de tamanho limitado.
 
@@ -45,8 +43,7 @@ O resumo do pseudo código do *Bagging*, proposto por Breiman, é o seguinte:
  
  
 
-*Boosting* e *AdaBoost*
--------------------
+### *Boosting* e *AdaBoost*
 
 No *Boosting*, de forma semelhante ao *Bagging*, cada classificador é treinado usando um conjunto de treinamento diferente. A abordagem por *Boosting* original foi proposta por Schapire em 1990. A principal diferença em relação ao *Bagging* é que os conjuntos de dados re-amostrados são construídos especificamente para gerar aprendizados complementares e a importância do voto é ponderado com base no desempenho de cada modelo, em vez da atribuição de mesmo peso para todos os votos. 
 Essencialmente, esse procedimento permite aumentar o desempenho de um limiar arbitrário simplesmente adicionando *learners* mais fracos. Dada a utilidade desse achado, *Boosting* é considerado uma das descobertas mais significativas em aprendizado de máquina (LANTZ, 2013).
@@ -87,8 +84,8 @@ Nesse post: https://lamfo-unb.github.io/2017/08/17/Modelos-Compostos/ você enco
 Em um próximo post apresentaremos outros exemplos práticos de como utilizar esses classificadores *ensemble*. 
 
 
-Referências
--------------------
+#### Referências
+
 [Breiman(1996)] Breiman, L., 1996. Bagging Predictors. Machine Learning 24 (2), 123–140.
 
 [Lantz(2013)] Lantz, B., 2013. Machine Learning with R. Packt Publishing Ltd.
