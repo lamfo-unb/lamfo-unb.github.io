@@ -37,9 +37,9 @@ O resumo do pseudo código do *Bagging*, proposto por Breiman, é o seguinte:
 | *Bagging* | 
 | -------- |
 |   Entrada: Dataset $$    D=\{(z_1,y_1),(x_2y_2),...,(x_m,y_m)\}: $$ 
-| Número de rounds de aprendizagem $T$.
-| Processo: Para $t=1,2,...,T:$ 
-| (a.) Forma conjuntos bootstrap de dados $S_t$ selecionando $m$ exemplos aleatórios do conjunto de treinamento com substituição e (b.) Deixa $h_t$ ser o resultado da base de treinamento do algoritmo baseado em $S_t$
+| Número de rounds de aprendizagem $$T$$.
+| Processo: Para $$t=1,2,...,T:$$ 
+| (a.) Forma conjuntos bootstrap de dados $$S_t$$ selecionando $$m$$ exemplos aleatórios do conjunto de treinamento com substituição e (b.) Deixa $$h_t$$ ser o resultado da base de treinamento do algoritmo baseado em $$S_t$$
 | fim.			
 | Saída: 		Classificador combinado: 	$$ H(x)=maioria(h_{1}(x),...,h_{T}(x)) $$
  
