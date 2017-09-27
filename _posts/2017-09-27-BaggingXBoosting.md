@@ -3,8 +3,8 @@ layout: post
 title: Classificadores Ensemble: Bagging e Boosting
 lang: pt
 header-img: img/0026.png
-date: 2017-09-27 23:59:07
-tags: [statistics,variance]
+date: 2017-09-27 13:45:07
+tags: [statistics,ML,ensemble]
 author: Maisa Aniceto
 comments: true
 ---
