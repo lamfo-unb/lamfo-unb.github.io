@@ -35,9 +35,9 @@ O resumo do pseudo código do *Bagging*, proposto por Breiman, é o seguinte:
 | *Bagging* | 
 | -------- |
 |   Entrada: Dataset $$    D=\{(z_1,y_1),(x_2y_2),...,(x_m,y_m)\}: $$ 
-| Número de rounds de aprendizagem $T$.
-| Processo: Para $t=1,2,...,T:$ 
-| (a.) Forma conjuntos bootstrap de dados $S_t$ selecionando $m$ exemplos aleatórios do conjunto de treinamento com substituição e (b.) Deixa $h_t$ ser o resultado da base de treinamento do algoritmo baseado em $S_t$
+| Número de rounds de aprendizagem $$T$$.
+| Processo: Para $$t=1,2,...,T:$$ 
+| (a.) Forma conjuntos bootstrap de dados $$S_t$$ selecionando $$m$$ exemplos aleatórios do conjunto de treinamento com substituição e (b.) Deixa $$h_t$$ ser o resultado da base de treinamento do algoritmo baseado em $$S_t$$
 | fim.			
 | Saída: 		Classificador combinado: 	$$ H(x)=maioria(h_{1}(x),...,h_{T}(x)) $$
  
@@ -50,24 +50,24 @@ Essencialmente, esse procedimento permite aumentar o desempenho de um limiar arb
 
 Já o **AdaBoost**, "*Adaptive Boosting*", é uma combinação das ideias de *Bagging* e *Boosting* e não exige um grande conjunto de treinamento como o *Boosting*. Inicialmente, cada exemplo de formação de um determinado conjunto de treinamento tem o mesmo peso.
 
-Para treinar o $k−esimo$ classificador como um “modelo de aprendizagem fraca”, $n$ conjuntos de amostras de treinamento (n &lt;m) entre $S$ são usadas para treinar o $k−esimo$ classificador. Em seguida, o classificador treinado é avaliado por $S$ para identificar os exemplos de treinamento que não foram classificados corretamente (TSAI, 2014). A rede $k+1$ é então treinada por um conjunto treinado modificado que reforça a importância desses exemplos classificados incorretamente.
+Para treinar o $$k−esimo$$ classificador como um “modelo de aprendizagem fraca”, $n$ conjuntos de amostras de treinamento (n &lt;m) entre $$S$$ são usadas para treinar o $$k−esimo$$ classificador. Em seguida, o classificador treinado é avaliado por $$S$$ para identificar os exemplos de treinamento que não foram classificados corretamente (TSAI, 2014). A rede $$k+1$$ é então treinada por um conjunto treinado modificado que reforça a importância desses exemplos classificados incorretamente.
 
-Este procedimento de amostragem será repetido até que $k$ amostras de treinamento sejam construídas para a construção da $k−esima$ rede. Portanto, a decisão final baseia-se na votação ponderada dos classificadores individuais. 
+Este procedimento de amostragem será repetido até que $k$ amostras de treinamento sejam construídas para a construção da $$k−esima$$ rede. Portanto, a decisão final baseia-se na votação ponderada dos classificadores individuais. 
 O pseudo código do *Adaboost*, segundo Wang (2011), é o seguinte:
        
        
 
 | *Adaboost* | 
 | -------- | 
-| Entrada:  Dataset $D=\{(z_1,y_1),(x_2,y_2),...,(x_m,y_m)\}$;		
-|Algoritmo de base de aprendizagem $L$; Número de rounds de aprendizagem $T$.
+| Entrada:  Dataset $$D=\{(z_1,y_1),(x_2,y_2),...,(x_m,y_m)\}$$;		
+|Algoritmo de base de aprendizagem $$L$$; Número de rounds de aprendizagem $$T$$.
 |Processo: $$ D_1(i) = 1/m.  $$ \% Inicializa a distribuição de pesos. 
-|Para $t=1,2,...,T$: $$ h_1= L(D,D_t); $$
-|Treina a base de aprendizado $h_t$ para D usando a distribuição $D_t$ 		
+|Para $$t=1,2,...,T$$: $$ h_1= L(D,D_t); $$
+|Treina a base de aprendizado $$h_t$$ para D usando a distribuição $$D_t$$ 		
 |$$ \epsilon_i= Pr_{i \cong D_i} [h_t(x_i \neq y_i)]; $$ 
-|Mede o erro de $h_t$ 				
+|Mede o erro de $$h_t$$ 				
 |$$\alpha_t = \frac{1}{2}\ln \frac{1 - \epsilon_t}{\epsilon_t} 	$$
-|Determina o peso de $h_t$								
+|Determina o peso de $$h_t$$								
 |$$ D_{t+1}(i)=\frac{D_{t}(i)}{Z_t}  \left\{\begin{array}{rll}				exp({-\alpha_t}) & \hbox{se} & h_{t}(x_{i})= y_i 	exp({\alpha_t}) & \hbox{se} & h_{t}(x_{i}) \neq y_i						\end{array}\right.$$
 |Atualiza a distribuição
 |$$    =\frac{D_{t}(i)exp(-\alpha_{t}y_{i}h_{t}(x_{i}))}{Z_{t}}      $$ Fator de normalização que permite $D_{t+1}$ ser uma distribuição
