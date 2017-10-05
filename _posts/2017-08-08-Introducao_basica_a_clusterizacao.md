@@ -2,7 +2,7 @@
 layout: post
 title: Introdução Básica à Clusterização
 lang: pt
-header-img: img/0012.png
+header-img: img/0012.jpg
 date: 2017-10-05 17:10:00
 tags: [clusters, aprendizado não-supervisionado]
 author: Hugo Honda
