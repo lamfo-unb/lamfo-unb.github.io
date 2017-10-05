@@ -1,3 +1,13 @@
+---
+layout: post
+title: Introdução Básica à Clusterização
+lang: pt
+header-img: img/0012.png
+date: 2017-10-05 17:10:00
+tags: [clusters, aprendizado não-supervisionado]
+author: Hugo Honda
+comments: true
+---
 # Introdução básica à Clusterização
 
 ## O que é Clusterização?
