@@ -513,3 +513,8 @@ https://en.wikipedia.org/wiki/Bootstrap_aggregating
 https://www.kaggle.com/apapiu/regularized-linear-models
 
 https://pt.wikipedia.org/wiki/An%C3%A1lise_de_componentes_principais
+
+This is a text with a
+footnote[^1].
+
+[^1]: And here is the definition.
