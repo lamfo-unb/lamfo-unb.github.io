@@ -11,7 +11,7 @@ comments: true
 
 # Modelos Regressivos Compostos para Estimativas de Preço
 
-Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performance preditiva de modelos compostos comparados a modelos simples tem sido notável nas mais diversas áreas[1], modelos simples são aqueles que usam [algoritmos puros do aprendizado de máquina](https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina#Abordagens), já modelos compostos combinam as predições de dois ou mais algoritmos na tentativa de melhorar a predição. Nessa postagem buscarei apresentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de metro quadrado de imóveis em Boston.
+Determinar preços de determinados itens antes de sua entrada no mercado é essencial para boa aceitação e consumo. Disponibilizar um produto no mercado abaixo do preço de mercado não te gera bons retornos, mas também um valor muito alto não agrada aos compradores, modelos regressivos nesse caso são de grande ajuda para a tomada de decisão acerca da precificação de um insumo. A performance preditiva de modelos compostos comparados a modelos simples tem sido notável nas mais diversas áreas[^1], modelos simples são aqueles que usam [algoritmos puros do aprendizado de máquina](https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina#Abordagens), já modelos compostos combinam as predições de dois ou mais algoritmos na tentativa de melhorar a predição. Nessa postagem buscarei apresentar formas eficientes de combinar modelos para minimizar o erro das predições de preços de metro quadrado de imóveis em Boston.
 
 ### Preparando os Dados
 Aqui usarei um dataset famoso de preços de casa, mas a técnica aqui abordada pode ser estendida para precificação de quase qualquer coisa. Primeiro importarei e carregarei meu conjunto de dados na variável “boston” utilizando o Pandas, modulo do Python famoso por seus dataframes voltado a analise em finanças. O conjunto de dados advém do módulo Scikit-Learn que usaremos no decorrer desse post para trabalhar com AM, ele forneça ferramentas desde o tratamento dos dados até uma _pipeline_ de aprendizado de máquina. Também usaremos o modulo Numpy.
@@ -232,7 +232,7 @@ for col in df.keys():
 
 
 #### Um Pouco de Feature Engeneering
-O teste de Box-Cox nos diz que um skew acima de 0.75 pode ser linearizado pela função log(x+1), fazendo a distribuição ficar mais normalizada, abaixo disso posso manter o valor como estava sem necessidades de modificação, vamos olhar o antes e depois de aplicar essa função a nossas distribuições. (Suprimi algumas variáveis para não poluir demais o gráfico).
+O teste de Box-Cox[^5] nos diz que um skew acima de 0.75 pode ser linearizado pela função log(x+1), fazendo a distribuição ficar mais normalizada, abaixo disso posso manter o valor como estava sem necessidades de modificação, vamos olhar o antes e depois de aplicar essa função a nossas distribuições. (Suprimi algumas variáveis para não poluir demais o gráfico).
 
 
 ```python
@@ -284,7 +284,7 @@ plt.ylabel("Quantidade")
 ![png](/img/ensemble/output_14_1.png)
 
 
-Vemos que as distribuições ficaram muito mais centradas e tendendo a distribuição gaussiana, o que será excelente para o ajuste dos nossos estimadores. Sendo a função logarítmica e a função f.x+1 bijetoras, poderemos retornar ao nosso valor original assim que acabarmos o ajuste do modelo.
+Vemos que as distribuições ficaram muito mais centradas e tendendo a distribuição gaussiana[^2], o que será excelente para o ajuste dos nossos estimadores[^3]. Sendo a função logarítmica e a função f.x+1 bijetoras, poderemos retornar ao nosso valor original assim que acabarmos o ajuste do modelo.
 
 
 #### Simplificando nossos dados
@@ -490,31 +490,25 @@ Excelente, ouve uma melhora significativa, mas o quão significativa?
 
 
 
-Está aí, 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples, e tais aprimoramentos acima de algoritmos de alto desempenho são de extrema importancia no mundo da ciência de dados, talvez até nos ajudaria a pular milhares de posições rumo ao topo em uma competição valendo 1,2 milhões de dólares[2].
+Está aí, 5% de melhora do nosso melhor estimador, bem significativo para algo tão simples, e tais aprimoramentos acima de algoritmos de alto desempenho são de extrema importancia no mundo da ciência de dados, talvez até nos ajudaria a pular milhares de posições rumo ao topo em uma competição valendo 1,2 milhões de dólares[^4].
 
 ### Concluindo
 
 O objetivo principal dessa publicação era demonstrar que uma combinação simples entre dois modelos podem impactar significamente na sua predição, mas durante esse processo fiz alguns tratamentos nos dados que irão te impressionar sobre o impacto na redução do nosso erro, experimente avaliar os modelos sem realizar alguns dos tratamentos que dei aos dados... Em publicações futuras, será explicado mais sobre cada técnica vista aqui.
 
 #### Referências
-[1] Polikar, R. (2006). "Ensemble based systems in decision making". IEEE Circuits and Systems Magazine. 6 (3): 21–45. doi:10.1109/MCAS.2006.1688199
-[2] https://www.kaggle.com/c/zillow-prize-1
+[^1]: Polikar, R. (2006). "Ensemble based systems in decision making". IEEE Circuits and Systems Magazine. 6 (3): 21–45. doi:10.1109/MCAS.2006.1688199
 
-https://stats.stackexchange.com/questions/298/in-linear-regression-when-is-it-appropriate-to-use-the-log-of-an-independent-va
+[^2]: https://stats.stackexchange.com/questions/298/in-linear-regression-when-is-it-appropriate-to-use-the-log-of-an-independent-va
 
-https://stats.stackexchange.com/questions/18844/when-and-why-should-you-take-the-log-of-a-distribution-of-numbers
+[^3]: https://stats.stackexchange.com/questions/18844/when-and-why-should-you-take-the-log-of-a-distribution-of-numbers
 
-http://www.itl.nist.gov/div898/handbook/eda/section3/eda336.htm
+[^4]: https://www.kaggle.com/c/zillow-prize-1
 
-https://en.wikipedia.org/wiki/Inverse-variance_weighting
+[^5]: http://www.itl.nist.gov/div898/handbook/eda/section3/eda336.htm
 
-https://en.wikipedia.org/wiki/Bootstrap_aggregating
+[Inverse Variance](https://en.wikipedia.org/wiki/Inverse-variance_weighting)
 
-https://www.kaggle.com/apapiu/regularized-linear-models
+[Bootstrap_aggregating Wikipedia](https://en.wikipedia.org/wiki/Bootstrap_aggregating)
 
-https://pt.wikipedia.org/wiki/An%C3%A1lise_de_componentes_principais
-
-This is a text with a
-footnote[^1].
-
-[^1]: And here is the definition.
+[Regularized Linear Models Kernel](https://www.kaggle.com/apapiu/regularized-linear-models)
