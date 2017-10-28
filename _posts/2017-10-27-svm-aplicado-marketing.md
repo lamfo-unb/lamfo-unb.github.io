@@ -10,7 +10,7 @@ comments: true
 ---
 # SVM em Marketing
 
-A grande maioria das decisões que precisam ser tomadas na área de marketing necessitam de modelos preditivos. Para se obter resultados que sejam úteis para a organização, é preciso que o problema a ser resolvido seja definido da forma mais precisa possível. Dessa forma, Cui e Curry (2005)[^1] classificam as previsões em quatro contextos:
+A grande maioria das decisões que precisam ser tomadas na área de marketing necessitam de modelos preditivos. Para se obter resultados que sejam úteis para a organização, é preciso que o problema a ser resolvido seja definido da forma mais precisa possível. Dessa forma, Cui e Curry (2005) classificam as previsões em quatro contextos:
 
 **1. Previsão Pura:** ocorre em casos onde o conhecimento estrutural do problema não é viável ou necessário, o objetivo é apenas resolver um problema e tomar uma decisão, não entender a sua dinâmica; 
 **2. Previsão Robusta:** neste contexto, a previsão continua um fator importante, mas não é o único objetivo, também há uma busca por compreender um panorama geral do problema, como tendências, ;
@@ -25,7 +25,7 @@ Assim, para atender a essas necessidades dos consumidores, os gestores precisam 
 
 <img src="/img/marketing1/analytics.jpg" height="350" width="500">
 
-O marketing direto é um ramo em que busca-se obter vendas de pessoas que já possuem certo interesse pela empresa, como por exemplo cupons de desconto para clientes. Assim, faz-se necessário conhecer o perfil da base de consumidores. Para isso, Shin e Cho (2006)[^2] construíram um modelo usando SVM com o objetivo de prever a possibilidade de resposta dos consumidores a uma promoção de produto ou serviço. 
+O marketing direto é um ramo em que busca-se obter vendas de pessoas que já possuem certo interesse pela empresa, como por exemplo cupons de desconto para clientes. Assim, faz-se necessário conhecer o perfil da base de consumidores. Para isso, Shin e Cho (2006) construíram um modelo usando SVM com o objetivo de prever a possibilidade de resposta dos consumidores a uma promoção de produto ou serviço. 
 
 A precisão do modelo é pautada na quantidade de consumidores que responderão de forma positiva à promoção do produto ou serviço, quanto maior o número de casos positivos, maior a precisão do modelo. 
 
@@ -43,5 +43,10 @@ Já o *Collaborative System* faz recomendações por meio da combinação de pre
 
 Dessa forma, a abordagem em problemas cotidianos de marketing em empresas pode ser melhorada com o uso de aprendizado de máquina e, mais especificamente, o SVM. Em um post futuro, abordaremos um exemplo prático desse tipo de problema.
 
-[^1]CUI, Dapeng; CURRY, David. Prediction in marketing using the support vector machine. Marketing Science, v. 24, n. 4, p. 595-615, 2005.
-[^2]SHIN, HyunJung; CHO, Sungzoon. Response modeling with support vector machines. Expert Systems with applications, v. 30, n. 4, p. 746-760, 2006.
+
+
+Referências:
+
+CUI, Dapeng; CURRY, David. Prediction in marketing using the support vector machine. Marketing Science, v. 24, n. 4, p. 595-615, 2005.
+
+SHIN, HyunJung; CHO, Sungzoon. Response modeling with support vector machines. Expert Systems with applications, v. 30, n. 4, p. 746-760, 2006.
