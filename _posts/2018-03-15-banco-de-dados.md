@@ -27,7 +27,7 @@ Modelos de armazenamento:
 ![Flat](/img/banco_de_dados/Flat_File_Model.svg.png)
   * **Modelo plano (Flat File Model):** consiste de uma matriz bidimensional, ou seja, é o famoso “tabelão” onde todos os dados estão em um lugar.
 
-![Relacional](/img/banco_de_dados/Relational_Model.svg.png)
+![Relacional](/img/banco_de_dados/Relational_Model.png)
   * **Modelo relacional (Relational Model):** é o modelo atualmente mais utilizado, no modelo relacional nos dividimos os dados em diversas tabelas e criamos vínculos entre os dados.
 
 ![Hierárquico](/img/banco_de_dados/Hierarchical_Model.svg.png)
