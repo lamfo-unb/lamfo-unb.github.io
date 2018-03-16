@@ -12,11 +12,11 @@ comments: true
 
 Esse post tem a intenção de fazer uma introdução no conceito de banco de dados estruturados e dos diferentes modelos de armazenamento de dados.
 
-<img src="/img/banco_de_dados/relacionados.png" height="350" width="500">
+![Inter-relacionados](/img/banco_de_dados/relacionados.png)
 
 Mas o que são bancos de dados? Bancos de dados nada mais são do que um conjunto de dados inter-relacionados, agrupados em coleções organizadas de forma que faça sentido; ou seja, são dados agrupados e organizados de forma que se possa extrair informações deles.
 
-<img src="/img/banco_de_dados/sgbds.jpg" height="300" width="320">
+![SGBDs](/img/banco_de_dados/sgbds.jpg)
 
 Mas se apenas isso constitui um banco de dados, o que são os bancos vendidos por grandes empresas como Oracle, Microsoft dentre outras? O que essas empresas vendem não são apenas arquivos TXT com os dados, mas sim programas que são conhecidos como SGBDs (Sistema de Gerenciamento de Banco de Dados) que tem como finalidade introduzir formas diferentes de tratamento e armazenamento dos dados visando aumentar a velocidade das consultas e das manipulações dos dados, garantir a consistência dos dados armazenados, bem como implementar modelos de armazenamento diferentes que podem se adequar melhor a algumas situações.
 
@@ -24,20 +24,20 @@ Modelos de armazenamento? Como assim “modelos de armazenamento”? Imagine o s
 
 Modelos de armazenamento:
 
-<img src="/img/banco_de_dados/Flat_File_Model.svg.png" width="405" height="203">
-**Modelo plano (Flat File Model):** consiste de uma matriz bidimensional, ou seja, é o famoso “tabelão” onde todos os dados estão em um lugar.
+![Flat](/img/banco_de_dados/Flat_File_Model.svg.png)
+  * **Modelo plano (Flat File Model):** consiste de uma matriz bidimensional, ou seja, é o famoso “tabelão” onde todos os dados estão em um lugar.
 
-<img src="/img/banco_de_dados/Relational_Model.png" width="307" height="104">
-**Modelo relacional (Relational Model):** é o modelo atualmente mais utilizado, no modelo relacional nos dividimos os dados em diversas tabelas e criamos vínculos entre os dados.
+![Relacional](/img/banco_de_dados/Relational_Model.svg.png)
+  * **Modelo relacional (Relational Model):** é o modelo atualmente mais utilizado, no modelo relacional nos dividimos os dados em diversas tabelas e criamos vínculos entre os dados.
 
-<img src="/img/banco_de_dados/Hierarchical_Model.svg.png" width="411" height="235">
-**Modelo hierárquico (Hierarchical Model):** modelo que conecta as informações por meio de uma estrutura de dados em árvore, limitando o tipo de vínculo entre as informações a uma relação 1:n, ou seja, um registro está relacionado a n registros. Para contextualizar melhor, imagine a hierarquia convencional de uma empresa, o gerente tem muitos funcionários abaixo dele, porém os funcionários abaixo dele só tem um gerente.
+![Hierárquico](/img/banco_de_dados/Hierarchical_Model.svg.png)
+  * **Modelo hierárquico (Hierarchical Model):** modelo que conecta as informações por meio de uma estrutura de dados em árvore, limitando o tipo de vínculo entre as informações a uma relação 1:n, ou seja, um registro está relacionado a n registros. Para contextualizar melhor, imagine a hierarquia convencional de uma empresa, o gerente tem muitos funcionários abaixo dele, porém os funcionários abaixo dele só tem um gerente.
 
-<img src="/img/banco_de_dados/Network_Model.svg.png" width="407" height="322">
-**Modelo em rede (Network Model):** semelhante ao modelo hierárquico, com a diferença que os registros “filhos” pode ser ligado a mais de um registro “pai”.
+![Rede](/img/banco_de_dados/Network_Model.svg.png)
+  * **Modelo em rede (Network Model):** semelhante ao modelo hierárquico, com a diferença que os registros “filhos” pode ser ligado a mais de um registro “pai”.
 
-<img src="/img/banco_de_dados/Object-Oriented_Model.svg.png" width="449" height="332">
-**Modelo orientado a objeto (Object-Oriented Model):** modelo em que as informações são armazenadas na forma de objetos, visam facilitar a manipulação e comunicação com a aplicação.
+![O-Objeto](/img/banco_de_dados/Object-Oriented_Model.svg.png)
+  * **Modelo orientado a objeto (Object-Oriented Model):** modelo em que as informações são armazenadas na forma de objetos, visam facilitar a manipulação e comunicação com a aplicação.
 
 A forma que os SGBDs utilizam para facilitar a implantação de modelos de dados diferentes é através das constraints, que são limitações de dados, além disso elas também servem para garantir a integridade dos dados. Imagine que você tem banco de dados contendo os dados de clientes e alguém, visando corromper o seu sistema, faça um cadastro utilizando um CPF pertencente a outro cliente, nesse caso as constraints, mais especificamente uma chave única iria garantir que o segundo cadastro não fosse concluído. Mas essa não é a única função delas, elas são também responsáveis, por exemplo, pela garantia de que dados inter-relacionados sejam interdependentes. Isso tudo poderia ser facilmente substituído por regras no código da aplicação, ou por bloqueios manuais se essa fosse a única vantagem da sua utilização, porém a forma que as constraints são feitas otimizam as consultas que as utilizam.
 
@@ -47,14 +47,14 @@ Quando falamos de banco de dados também é importante falar sobre SQL (Structur
 
 Dentro do conjunto de comandos que é conhecido como SQL temos algumas subdivisões de comandos que especificam o tipo de requisição que está sendo feita ao banco, são essas subdivisões:
 
-**DML (Data Manipulation Language - Linguagem de manipulação de dados):** Comandos responsáveis pela inserção, atualização e limpeza dos dados.
+  * **DML (Data Manipulation Language - Linguagem de manipulação de dados):** Comandos responsáveis pela inserção, atualização e limpeza dos dados.
 
-**DDL (Data Definition Language - Linguagem de Definição de Dados):** Comandos responsáveis pela criação e manutenção das estruturas do banco de dados, como tabelas, índices e views.
+  * **DDL (Data Definition Language - Linguagem de Definição de Dados):** Comandos responsáveis pela criação e manutenção das estruturas do banco de dados, como tabelas, índices e views.
 
-**DCL (Data Control Language - Linguagem de Controle de Dados):** Comandos responsáveis pela manutenção de acessos do banco de dados.
+  * **DCL (Data Control Language - Linguagem de Controle de Dados):** Comandos responsáveis pela manutenção de acessos do banco de dados.
 
-**DTL (Data Transaction Language - Linguagem de transação de Dados):** Comandos responsáveis pela execução de outros comandos de forma segura, ou seja, comandos DTL criam uma área na memória para que os comandos executados dentro dessa área não tenham efeito até que se tenha certeza que a consulta deve ser executada.
+  * **DTL (Data Transaction Language - Linguagem de transação de Dados):** Comandos responsáveis pela execução de outros comandos de forma segura, ou seja, comandos DTL criam uma área na memória para que os comandos executados dentro dessa área não tenham efeito até que se tenha certeza que a consulta deve ser executada.
 
-**DQL (Data Query Language - Linguagem de Consulta de Dados):** Comando responsável pela leitura dos dados do banco.
+  * **DQL (Data Query Language - Linguagem de Consulta de Dados):** Comando responsável pela leitura dos dados do banco.
 
 Resumindo, bancos de dados não são apenas programas feitos para o armazenamento e manipulação de dados, mas sim qualquer forma em que os dados sejam armazenados de maneira que se possa extrair informações coerentes deles. Seus diferentes modelos podem se adequar a diversas situações. Os SGBDs são programas para facilitar modelagens, agilizar consultas e dar mais segurança aos dados, otimizando o uso da informação pelas organizações. 
