@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bancos de dados: onde vivem, o que comem e como se reproduzem.
+title: Bancos de dados - Onde vivem, O que comem e Como se reproduzem.
 lang: pt
 header-img: img/banco_de_dados/capa.jpg
 date: 2018-03-15
@@ -8,7 +8,7 @@ tags: [bd, database, banco de dados, base de dados]
 author: Paulo Vitor Moura Barros Henrique
 comments: true
 ---
-# Bancos de dados: onde vivem, o que comem e como se reproduzem.
+# Bancos de dados - Onde vivem, O que comem e Como se reproduzem.
 
 Esse post tem a intenção de fazer uma introdução no conceito de banco de dados estruturados e dos diferentes modelos de armazenamento de dados.
 
