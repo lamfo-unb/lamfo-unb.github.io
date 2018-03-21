@@ -210,3 +210,5 @@ Este tutorial foi amplamente inspirado na [aula de Processos Gaussianos do profe
 Além disso, muitas ideas foram tiradas do [tutorial sobre Processos Gaussianos](http://keyonvafa.com/gp-tutorial/) de Keyon Vafa, e do tutorial [Gaussian Processes for Dummies](http://katbailey.github.io/post/gaussian-processes-for-dummies/), de Katherine Bailey. 
 
 Caso queria se aprofundar mais no assunto, sugiro que comece com o artigo de M. Ebden, [Gaussian Processes for Regression: A Quick Introduction](https://www.robots.ox.ac.uk/~mebden/reports/GPtutorial.pdf). Por fim, recomendo o livro de Kevin P. Murphy, [Machine Learning: A Probabilistic Perspective](https://mitpress.mit.edu/books/machine-learning-0)
+
+Como de costume, o código deste tutorial está disponível no [meu GitHub](https://github.com/matheusfacure/Tutoriais-de-AM/tree/master/Gaussian%20Process).
