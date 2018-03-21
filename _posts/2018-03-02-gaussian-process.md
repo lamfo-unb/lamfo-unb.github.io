@@ -11,7 +11,13 @@ comments: true
 
 ## Conteúdo
 1. [Introdução](#intro)
-
+2. [Intuição](#into)
+3. [Matemática](#math)
+    1. [Kernel](#kernel)
+    2. [Matriz de Covariancia](#cov)
+    3. [Processo Gaussiano](#GP)
+4. [Código](#code)
+5. [Referências](#ref)
 
 <a name="intro"></a>
 ## Introdução
@@ -24,6 +30,7 @@ Por outro lado, e se não quisermos especficar de antemão o número de parâmet
 
 Mas, mais do que isso, Processos Gaussianos são modelos probabilisticos ou bayesianos. Isso significa que, além de nos fornecer uma estimativa pontual de uma previsão (geralmente a média condicional), os Processos Gaussianos também espeficam toda a distribuição preditiva a posteriori, tornando a obtenção de estatísticas de incerteza trivial. Isso é extremamente importante em aplicações de Aprendizado de Máquina em cenários de alto risco, como medicina, carros autônomos ou concessão de crédito. Nessas áreas, além da previsão, estamos frequentemente interessados no grau de certeza do modelo para que, caso ele seja muito alto, possamos passar a decisão para um especialista humano. 
 
+<a name="into"></a>
 ## Intuição
 
 De uma forma bastante simplista, podemos entender Processos Gaussianos como um **interpolador de dados**. Assumindo que não há ruido, um interpolador prevê sempre o valor observado onde há dados. A parte complicada então é saber o que prever entre um e outro ponto. A intuição diz que nossas previsões não mudem bruscamente se as variáveis explicativas não mudarem muito. Por exemplo, se eu observo \\(y=0\\) quando \\(x=0\\) então devo esperar que \\(y\\) seja próximo de zero quando \\(x\\) por próximo de zero, digamos \\(x=0.1\\).   Na imagem abaixo podemos ver como Processos Gaussianos estão de acordo com essa intuição e fazer uma interpolação bastante elegante. 
@@ -37,8 +44,10 @@ imagem mostra 3 amostras de um processo gaussiano definido pelas 5 observações
 
 Então, recapitulando, se podemos entender Processos Gaussianos como uma espécie de interpolador, que, de querba no dá informações de incerteza, precisamos que ele defina duas coisas: uma noção de distância ou similaridade e uma noção de incerteza. Para entender isso melhor, precisaremos entrar um pouco na matemática
 
+<a name="math"></a>
 ## Matemática
 
+<a name="kernel"></a>
 ### Kernel
  
 A noção de distância entre dois pontos é definida num Processo Gaussiao pelo que chamamos de **kernel**, uma função de dois pontos no espaço, geralmente não linear, que pode ser interpretada como a distância entre os seus pontos de entrada. Um kernal bastante popular é o exponencial quadrático, também conhecido como função de base radial ou kernel gaussiano: 
@@ -57,6 +66,7 @@ Já o fator de dimensionamento \\(\sigma^2\\) tem uma interpretação mais simpl
 
 Claro que existem muitos outros kerneis além do gaussiano, mas falar sobre eles não é o porpósito deste post. Caso queira saber mais, confira o [Kernel cookbook](http://www.cs.toronto.edu/~duvenaud/cookbook/), com alguns exemplos de kernels e suas aplicações. Por hora, o que é importante ter em mente é que o kernel é uma função que pode ser **interpretada como a distância ou similaridade entre dois pontos**.
 
+<a name="cov"></a>
 ### Matriz de Covariancia
 
 Outra coisa que carrega uma noção de distância são matrizes de covariancia. Caso não lembre muito sobre matriz de covariancia, pegue um DataFrame qualquer no Pandas e use [`df.cov()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.cov.html). 
@@ -104,6 +114,7 @@ pipe(data.T, # inverte linhas e colunas
 
 Uma outra ideia é que talves usar um simples produto interno na hora de computar a covariância talvez não seja a melhor coisa que possamos fazer. E se quisermos usar uma distância não linear? Para isso, podemos substituir o produto interno por uma **função kernel**, que também codifica distância, mas numa forma muito mais flexível e complexa.
 
+<a name="GP"></a>
 ### Processo Gaussiano
 
 Vimos que kerneis e matriz de covariância são formas de representar uma noção de distância, que é o que precisamos para criar um bom interpolador. Agora podemos juntat tudo isso que vimos para entender os **Processos Gaussianos**. 
@@ -138,6 +149,64 @@ $$p(\boldsymbol y_*\vert \boldsymbol X_*, \boldsymbol X, \boldsymbol y) = \mathc
 
 Provar esse resultado envolve bastante matemática e não é o propósito deste post. Você pode achar várias provas desse teorema online, como por exemplo [essa aqui](https://stats.stackexchange.com/questions/30588/deriving-the-conditional-distributions-of-a-multivariate-normal-distribution) no StackExchange.
 
-
+<a name="code"></a>
 # Código
 
+Antes de qualquer coisa, como vamos trabalhar com as matrizes de covariância obtidas a partir do kernel, precisamos obte-las dos dados de treino e teste.
+
+```python
+K_xx = kernel(X_test, X_test, l, sigma_y)
+K_ss = kernel(X_train, X_train, l, sigma_y)
+K_sx = kernel(X_train, X_test, l, sigma_y)
+```
+
+Olhando a fómula acima podemos notar a inversão de \\(\boldsymbol K\\), uma matriz NxN. Por questões de instabilidade numérica, implementar a formula acima não é muito recomendado. Por isso, usamos algo chamado de Decomposicão de Cholesky, que pode ser entendido como uma espécie de raíz quadrada para matriz. Assim, se \\(\boldsymbol K = \boldsymbol L^T \boldsymbol L \\), então \\(\boldsymbol L = \texttt{Cholesky}(\boldsymbol K)\\). O algorítmo final pode ser descrito nas seguintes linhas
+
+$$
+\boldsymbol L = cholesky(\boldsymbol K + \boldsymbol \sigma_n^2 I) \\
+\boldsymbol \alpha = \boldsymbol L^T \texttt{\\} \boldsymbol L \texttt{\\} \boldsymbol y \\
+\mathbb{E}[\boldsymbol y_*] = \boldsymbol K_*^T \boldsymbol \alpha \\
+
+\boldsymbol v = \boldsymbol L \texttt{\\} \boldsymbol K_* \\
+Var [\boldsymbol y_*] = \boldsymbol K_{**} - \boldsymbol v^T \boldsymbol v
+$$
+
+Que se traduz para as seguintes linhas de código
+
+```python
+L = np.linalg.cholesky(K_xx + sigma_y*np.eye(len(X_train)))
+alpha = np.linalg.solve(L.T, np.linalg.solve(L, y_train))
+mu = K_sx.T.dot(alpha).squeeze()
+
+v = np.linalg.solve(L, K_sx)
+cov = K_ss - v.T.dot(v)
+```
+
+Com a média e covariância, podemos reitrar amostrar do nosso Processo Gaussiano e até plotá-las com um intervalo de confiança.
+
+```python
+np.random.seed(42)
+f_post = np.random.multivariate_normal(mu, cov, size=10).T
+stdv = np.sqrt(np.diagonal(cov))
+
+plt.plot(X_test, f_post)
+plt.gca().fill_between(X_test.flat, mu-2*stdv, mu+2*stdv, color="#dddddd")
+plt.title('Amostras A Posteriori de um Processo Gaussiano')
+plt.plot(X_train, y_train, 'bs', ms=8)
+plt.show()
+```
+
+<figure class="figure center-block thumbnail" style="width: 50%;">
+  <img src="/img/gp/post.png" class="img-responsive center-block" alt="">
+</figure>
+
+Além de bonita, essa imagem mostra como o GP capta bem a intuição bayesiana de colocar mais incerteza onde há menos dados.
+
+<a name="ref"></a>
+## Referências
+
+Este tutorial foi amplamente inspirado na [aula de Processos Gaussianos do professor Nando de Freitas](https://www.youtube.com/watch?v=4vGiHC35j9s), bem como nas suas [notas de aula](http://www.cs.ubc.ca/~nando/540-2013/lectures.html). Cada aula de Nando é uma pérola e recomendo fortemente que você assista todo o seu [curso de Aprendizado de Máquina](https://www.youtube.com/watch?v=w2OtwL5T1ow&list=PLE6Wd9FR--EdyJ5lbFl8UuGjecvVw66F6), lecionado na *University of British Columbia*.
+
+Além disso, muitas ideas foram tiradas do [tutorial sobre Processos Gaussianos](http://keyonvafa.com/gp-tutorial/) de Keyon Vafa, e do tutorial [Gaussian Processes for Dummies](http://katbailey.github.io/post/gaussian-processes-for-dummies/), de Katherine Bailey. 
+
+Caso queria se aprofundar mais no assunto, sugiro que comece com o artigo de M. Ebden, [Gaussian Processes for Regression: A Quick Introduction](https://www.robots.ox.ac.uk/~mebden/reports/GPtutorial.pdf). Por fim, recomendo o livro de Kevin P. Murphy, [Machine Learning: A Probabilistic Perspective](https://mitpress.mit.edu/books/machine-learning-0)
