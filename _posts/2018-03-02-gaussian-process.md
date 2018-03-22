@@ -22,7 +22,7 @@ comments: true
 <a name="intro"></a>
 ## Introdução
 
-Uma das grandes vantagens de Aprendizado de Máquina é conseguir estimar funções com relações complexas entre as variáveis e cheias de não linearidade. Se quisermos encarar esses problemas com modelos lineares simples,  podemos [extender a forma funcional estimada usando mais parâmetros, o que pode ser obtido, por exemplo, fazendo uma expansão polinomial](https://matheusfacure.github.io/2017/03/01/regr-poli/). Sempre podemos aumentar o grau do polinômio estimado, tornando-o arbitrariamente complexo, para assim conseguir ajustar-lo a dados bastante não lineares. 
+Uma das grandes vantagens de Aprendizado de Máquina é conseguir estimar funções com relações complexas entre as variáveis e cheias de não linearidade. Se quisermos encarar esses problemas com modelos lineares simples,  podemos [extender a forma funcional estimada usando mais parâmetros, o que pode ser obtido, por exemplo, fazendo uma expansão polinomial](https://matheusfacure.github.io/2017/03/01/regr-poli/). Sempre podemos aumentar o grau do polinômio estimado, tornando-o arbitrariamente complexo, para assim conseguir ajusta-lo a dados bastante não lineares. 
 
 <img class="img-responsive center-block thumbnail" src="/img/gp/polregr.png" style="width: 60%;" alt="plinomial_regression"/>
 
@@ -40,7 +40,7 @@ De uma forma bastante simplista, podemos entender Processos Gaussianos como um *
   <figcaption class="figure-caption text-center">Retirada do <a href="https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png">livro de Kevin Murphy</a></figcaption>
 </figure>
 
-imagem mostra 3 amostras de um processo gaussiano definido pelas 5 observações marcadas com `x`. Note que, onde há dados, o valor previsto é o mesmo que o observado e não há incerteza (lembre-se de que assumimos ruído zero). Conforme nos afastamos dos dados, a incerteza da interpolação aumenta, denotada pelo alargamento do intervalo de confiança de 95% (em cinza).  
+A imagem mostra 3 amostras de um processo gaussiano definido pelas 5 observações marcadas com `x`. Note que, onde há dados, o valor previsto é o mesmo que o observado e não há incerteza (lembre-se de que assumimos ruído zero). Conforme nos afastamos dos dados, a incerteza da interpolação aumenta, denotada pelo alargamento do intervalo de confiança de 95% (em cinza).  
 
 Então, recapitulando, se podemos entender Processos Gaussianos como uma espécie de interpolador, que, de quebra nos dá informações de incerteza, precisamos que ele defina duas coisas: uma noção de distância ou similaridade e uma noção de variância. Para entender isso melhor, precisaremos entrar um pouco na matemática
 
@@ -56,7 +56,7 @@ $$
 k(x,x') = \sigma^2 exp\Bigg(-\frac{(x-x')^2}{2\mathcal{l}^2}\Bigg)
 $$
 
-Ele tem esses nomes pois é igual a [função gaussiana](https://en.wikipedia.org/wiki/Normal_distribution), tirando o fator de normalização. Isso lhe confere algumas propriedades de distância bastante interessantes.Ele  pode ser entendido como colocando uma função gaussiana onde `x` é o ponto de máximo e distância aumenta conforme nos afastamos desse ponto. O hyper-parâmetro \\(\mathcal{l}\\) é como se fosse a variância dessa gaussiana, controlando quão larga é a curva. Dessa forma, \\(\mathcal{l}\\) muito pequeno nos diz que a distância aumenta rapidamente quando nos afastamos de `x` e, por conseguinte, espera-se que a nossa função interpoladora varie muito e rapidamente, sendo pouco suave. Um \\(\mathcal{l}\\) grande, por sua vez, introduz uma noção de distância que diminui lentamente conforme nos afastamos de `x` e, por conseguinte, a função interpoladora será mais suave.
+Ele tem esses nomes pois é igual a [função gaussiana](https://en.wikipedia.org/wiki/Normal_distribution), tirando o fator de normalização. Isso lhe confere algumas propriedades de distância bastante interessantes. Ele pode ser entendido como uma função gaussiana onde `x` é o ponto de máximo e distância aumenta conforme nos afastamos desse ponto. O hyper-parâmetro \\(\mathcal{l}\\) é como se fosse a variância dessa gaussiana, controlando quão larga é a curva. Dessa forma, \\(\mathcal{l}\\) muito pequeno nos diz que a distância aumenta rapidamente quando nos afastamos de `x` e, por conseguinte, espera-se que a nossa função interpoladora varie muito e rapidamente, sendo pouco suave. Um \\(\mathcal{l}\\) grande, por sua vez, introduz uma noção de distância que diminui lentamente conforme nos afastamos de `x` e, por conseguinte, a função interpoladora será mais suave.
 
 
 Já o fator de dimensionamento \\(\sigma^2\\) tem uma interpretação mais simples: eles nos diz o quanto esperamos que nossa distância seja algo fora da média (zero, na imagem abaixo).
@@ -99,7 +99,7 @@ pipe(data,
      lambda df: df.T.dot(df) / 730) # 730 é o fator normalizador
 ```
 
-Estou mostrando isso porque não é possível ressaltar o suficiente que **covariância é uma métrica de similaridade, assim como produtos internos**. Guarde bem isso na sua cabeça que Processos Gaussianos se tornarão algo simples
+Estou mostrando isso porque não é possível ressaltar o suficiente que **covariância é uma métrica de similaridade, assim como produtos internos**. Guarde bem isso na sua cabeça que Processos Gaussianos se tornarão algo simples.
 
 Agora, e se, em vez de usar a covariância tradicional de uma base de dados, a gente antes virasse a tabela? Nesse caso a matriz covariância obtida seria \\(N\\)x\\(N\\) e nos daria informações sobre o quão similares são as **observações** entre si!
  
@@ -138,7 +138,7 @@ f_prior = np.random.multivariate_normal(np.zeros(len(plot_xs)), K_xx, size=10).T
 
 A única coisa que talvez não seja muito obvia acima é `np.kron(A,B.T)`, que é simplesmente a função [Delta Kronecker](https://pt.wikipedia.org/wiki/Delta_de_Kronecker). Apesar do nome pomposo, ela nada mais é do que uma forma de ver se duas coisas são iguais, retornando 1 se sim e 0 c.c.. 
 
-Algo muito conveniente sobre distribuições gaussianas é que é possível obter a distribuição condicional a partir da distribuição conjunta de maneira bastante simples. Digamos que você tenha dados de treino \\(\pmb{X}\\) e \\(\pmb{f}=\pmb{y}\\) e queria prever para um dado sete de teste \\(\boldsymbol X_\*\\) a variável resposta \\(\boldsymbol f_\* = y_\*\\). Você pode concatenar essas peças em uma gaussiana da seguinte forma.
+Algo muito conveniente sobre distribuições gaussianas é que é possível obter a distribuição condicional a partir da distribuição conjunta de maneira bastante simples. Digamos que você tenha dados de treino \\(\pmb{X}\\) e \\(\pmb{f}=\pmb{y}\\) e queria prever para um dado de teste \\(\boldsymbol X_\*\\) a variável resposta \\(\boldsymbol f_\* = y_\*\\). Você pode concatenar essas peças em uma gaussiana da seguinte forma.
 
 $$\begin{pmatrix} \boldsymbol y \\ \boldsymbol y_* \end{pmatrix} \sim \mathcal N \left( \begin{pmatrix} \boldsymbol 0 \\ \boldsymbol 0 \end{pmatrix}, \left(\begin{matrix} \boldsymbol K \\\boldsymbol K_{*}\end{matrix} \begin{matrix} \boldsymbol K_{*}^T \\ \boldsymbol K_{**}\end{matrix}\right)\right).$$
 
@@ -151,7 +151,7 @@ Provar esse resultado envolve bastante matemática e não é o propósito deste 
 <a name="code"></a>
 # Código
 
-Antes de qualquer coisa, como vamos trabalhar com as matrizes de covariância obtidas a partir do kernel, precisamos obte-las dos dados de treino e teste.
+Antes de qualquer coisa, como vamos trabalhar com as matrizes de covariância obtidas a partir do kernel, precisamos obtê-las dos dados de treino e teste.
 
 ```python
 K_xx = kernel(X_test, X_test, l, sigma_y)
