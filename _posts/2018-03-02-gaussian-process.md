@@ -3,7 +3,7 @@ layout: post
 title: Processos Gaussianos
 lang: pt
 header-img: img/0026.png
-date: 2018-03-04 14:15:07
+date: 2018-03-24 14:15:07
 tags: [Statistics, ML, Bayesian, Gaussian Process]
 author: Matheus Facure
 comments: true
