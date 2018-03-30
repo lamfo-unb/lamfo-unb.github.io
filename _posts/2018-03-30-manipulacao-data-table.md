@@ -2,7 +2,7 @@
 layout: post
 title: Mantendo o controle na era do Big Data . Manipulação de dados em R com o pacote data.table.
 lang: pt
-header-img: img/manipulacao_data.table/img_data.table.png
+header-img: img/manipulacao_data.table/h-BIG-DATA-628x314.jpg
 date: 2018-03-30
 tags: [R, BigData, data.table,packages]
 author: João Victor Freitas Machado e Peng Yahao.
