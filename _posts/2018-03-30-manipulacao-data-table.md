@@ -15,8 +15,7 @@ comments: true
 
 <center>
 
-![imagemteste](/img/manipulacao_data.table/data.table_r.png)
-{:.some-css-class style="width: 200px"}
+![imagemteste](/img/manipulacao_data.table/data.table_r.png =250x)
 
 </center>
 
