@@ -15,7 +15,7 @@ comments: true
 
 
 
-![imagem](img/manipulacao_data.table/data.table_r.png)
+![imagemteste](/img/manipulacao_data.table/data.table_r.png)
 
 
 
@@ -34,7 +34,7 @@ Este post apresenta algumas funcionalidades do pacote *data.table*, uma ferramen
 
 <center>
 
-![SPSS-sucks](img/manipulacao_data.table/Stock_IoT.jpg)
+![SPSS-sucks](/img/manipulacao_data.table/Stock_IoT.jpg)
 
 </center>
 
@@ -50,7 +50,7 @@ Para que fosse um desafio, resolvi escolher um banco de dados suficientemente gr
 
 
 
-![ola](img/manipulacao_data.table/fob_transit-divvy-expansion-west-magnum.jpg)
+![ola](/img/manipulacao_data.table/fob_transit-divvy-expansion-west-magnum.jpg)
 
 </center>
 
