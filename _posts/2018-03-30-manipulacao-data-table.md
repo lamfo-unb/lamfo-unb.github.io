@@ -13,11 +13,11 @@ comments: true
 ### "*With Big Data, comes big responsibilities...*"
 
 
-
+<center>
 
 ![imagemteste](/img/manipulacao_data.table/data.table_r.png)
 
-
+</center>
 
 
 
