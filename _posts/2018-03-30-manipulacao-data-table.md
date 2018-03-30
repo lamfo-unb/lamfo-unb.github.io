@@ -14,8 +14,11 @@ comments: true
 
 
 <center>
-  ![SPSS-sucks](/img/manipulacao_data.table/data.table_r.png)
+  
+  ![teste](/img/manipulacao_data.table/data.table_r.png)
+  
 </center>
+
 
 
 
