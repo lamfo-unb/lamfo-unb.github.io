@@ -14,8 +14,6 @@ comments: true
 
 
 <center>
-
-![imagemteste](/img/manipulacao_data.table/data.table_r.png=250x)
 {% img /img/manipulacao_data.table/data.table_r.png 100x200 %}
 </center>
 
