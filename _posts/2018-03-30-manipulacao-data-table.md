@@ -14,7 +14,7 @@ comments: true
 
 
 <center>
-{% img /img/manipulacao_data.table/data.table_r.png 100x200 %}
+  ![SPSS-sucks](/img/manipulacao_data.table/data.table_r.png)
 </center>
 
 
