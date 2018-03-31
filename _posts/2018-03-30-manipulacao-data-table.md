@@ -5,7 +5,7 @@ lang: pt
 header-img: img/manipulacao_data.table/capa.jpg
 date: 2018-03-30
 tags: [R, BigData, data.table,packages]
-author: João Victor Freitas Machado e Peng Yahao.
+author: João Victor Freitas Machado e Peng Yaohao.
 comments: true
 ---
 
