@@ -15,7 +15,7 @@ comments: true
 
 <center>
   
-  ![teste](/img/manipulacao_data.table/data.table_r.png)
+  ![teste](/img/manipulacao_data.table/datatable_r.png)
   
 </center>
 
@@ -49,8 +49,8 @@ Nesse post abordamos os primeiros passo para aprender a manipular um grande conj
 
 Para que fosse um desafio, resolvi escolher um banco de dados suficientemente grande que funções nativas no R não fossem capazes de lidar facilmente com ele, uma boa possibilidade para você que procura banco de dados, é o site Kaggle que possui muitos dados armazenados além de serem bem explicados, de diversas áreas, o site é [**esse**](https://www.kaggle.com/datasets). O banco que foi utilizado no e projeto, os dados vêm do sistema de compartilhamento de bicicletas Divvy de Chicago, bem como as informações sobre o tempo em Chicago e pode ser encontrado [**aqui**](https://www.kaggle.com/yingwurenjian/chicago-divvy-bicycle-sharing-data)
 
-
-
+<center>
+  
 ![ola](/img/manipulacao_data.table/fob_transit-divvy-expansion-west-magnum.jpg)
 
 </center>
