@@ -13,11 +13,10 @@ comments: true
 ### "*With Big Data, comes big responsibilities...*"
 
 
-<center>
+
   
   ![teste](/img/manipulacao_data.table/datatable_r.png)
   
-</center>
 
 
 
@@ -33,11 +32,11 @@ Limpeza dos dados é uma das partes menos divertidas do ofício de um *data scie
 
 Este post apresenta algumas funcionalidades do pacote *data.table*, uma ferramenta útil para se ter no "canivete" de um cientista de dados. Esperamos que possa ajudar você a controlar suas grandes bases de dados de maneira prática!
 
-<center>
+
 
 ![SPSS-sucks](/img/manipulacao_data.table/Stock_IoT.jpg)
 
-</center>
+
 
 
 ## *data.table*: Um instrumento poderoso
@@ -49,11 +48,11 @@ Nesse post abordamos os primeiros passo para aprender a manipular um grande conj
 
 Para que fosse um desafio, resolvi escolher um banco de dados suficientemente grande que funções nativas no R não fossem capazes de lidar facilmente com ele, uma boa possibilidade para você que procura banco de dados, é o site Kaggle que possui muitos dados armazenados além de serem bem explicados, de diversas áreas, o site é [**esse**](https://www.kaggle.com/datasets). O banco que foi utilizado no e projeto, os dados vêm do sistema de compartilhamento de bicicletas Divvy de Chicago, bem como as informações sobre o tempo em Chicago e pode ser encontrado [**aqui**](https://www.kaggle.com/yingwurenjian/chicago-divvy-bicycle-sharing-data)
 
-<center>
+
   
 ![ola](/img/manipulacao_data.table/fob_transit-divvy-expansion-west-magnum.jpg)
 
-</center>
+
 
 ## Lendo o banco de dados
 ```
