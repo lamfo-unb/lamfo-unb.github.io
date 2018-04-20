@@ -3,7 +3,7 @@ layout: post
 title: Gamificação
 lang: pt
 header-img: lamfo-unb.github.io/img/Gamification/cover1.png
-date: 2017-20-00 16:00:00
+date: 2018-04-20 16:00:00
 tags: [design, gestão]
 author: Ana Julia Akaishi Padula
 comments: true
