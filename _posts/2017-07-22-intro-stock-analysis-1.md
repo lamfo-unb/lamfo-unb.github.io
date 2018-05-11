@@ -161,13 +161,13 @@ We calculated the two MA using 10 and 30 days of windows, filling the values wit
 Ploting the prices series and the moving averages for all days since 2016:
 
 ```{r}
-ggplot(pbr_mm, aes(x = index(pbr_mm))) 
-+ geom_line(aes(y = pbr_mm[,6], color = "PBR")) + ggtitle("Petrobras prices series") 
-+ geom_line(aes(y = pbr_mm$mm10, color = "MM10")) 
-+ geom_line(aes(y = pbr_mm$mm30, color = "MM30")) + xlab("Date") + ylab("Price") 
-+ theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) 
-+ scale_x_date(date_labels = "%b %y", date_breaks = "3 months") 
-+ scale_colour_manual("Series", values=c("PBR"="gray40", "MM10"="firebrick4", "MM30"="darkcyan"))
+ggplot(pbr_mm, aes(x = index(pbr_mm))) +
+  geom_line(aes(y = pbr_mm[,6], color = "PBR")) + ggtitle("Petrobras prices series") +
+  geom_line(aes(y = pbr_mm$mm10, color = "MM10")) +
+  geom_line(aes(y = pbr_mm$mm30, color = "MM30")) + xlab("Date") + ylab("Price") +
+  theme(plot.title = element_text(hjust = 0.5), panel.border = element_blank()) +
+  scale_x_date(date_labels = "%b %y", date_breaks = "3 months") +
+  scale_colour_manual("Series", values=c("PBR"="gray40", "MM10"="firebrick4", "MM30"="darkcyan"))
 ```
 <img src="/img/acoes1/image2en.png" height="350" width="550" align="middle">
 
@@ -236,11 +236,11 @@ sd(pbr_ret)
 This indicates that in average the stock hasn't performed well. Now we can plot the returns and see how they've done over time:
 
 ```{r}
-ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) 
-+ geom_line(color = "deepskyblue4") 
-+ ggtitle("Petrobras returns series")
-+ xlab("Date") + ylab("Return") 
-+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
+ggplot(pbr_ret, aes(x = index(pbr_ret), y = pbr_ret)) +
+  geom_line(color = "deepskyblue4") +
+  ggtitle("Petrobras returns series") +
+  xlab("Date") + ylab("Return") +
+  theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = "%b %y", date_breaks = "6 months")
 ```
 <img src="/img/acoes1/image3en.png" height="350" width="550" align="middle">
 
@@ -253,10 +253,10 @@ Now let's take a small look at the stock returns in 2017:
 ```{r}
 pbr_ret17 <- subset(pbr_ret, index(pbr_ret) > "2017-01-01")
 
-ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) 
-+ geom_line(color = "deepskyblue4") 
-+ ggtitle("Petrobras returns series in 2017") + xlab("Date") + ylab("Return") 
-+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = "%b %y", date_breaks = "1 months")
+ggplot(pbr_ret17, aes(x = index(pbr_ret17), y = pbr_ret17)) +
+  geom_line(color = "deepskyblue4") +
+  ggtitle("Petrobras returns series in 2017") + xlab("Date") + ylab("Return") +
+  theme(plot.title = element_text(hjust = 0.5)) + scale_x_date(date_labels = "%b %y", date_breaks = "1 months")
 ```
 <img src="/img/acoes1/image4en.png" height="350" width="550" align="middle">
 
