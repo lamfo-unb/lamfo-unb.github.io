@@ -3,12 +3,13 @@
 layout: post
 title: Inteligência Artificial na Medicina
 lang: pt
-header-img: img/0026.png
+header-img: img/img-health.jpg
 date: 2017-06-15 00:00:00
 tags: [statistics,variance]
 author: Fernanda Amorim
 comments: true
 ---
+
 # Inteligência Artificial na Medicina
 Entre as várias aplicações possíveis da Inteligência Artificial. Neste post, focaremos em uma área de aplicação da Inteligência Artificial que tem mostrado muitos avanços nos estudos: a medicina. 
 
