@@ -3,7 +3,7 @@ layout: post
 title: Inteligência Artificial na Medicina
 lang: pt
 header-img: img/img-health.jpg
-date: 2018-06-15 00:00:00
+date: 2018-06-14 22:21:00
 tags: [machine learning, healthcare]
 author: Fernanda Amorim
 comments: true
