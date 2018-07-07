@@ -1,22 +1,21 @@
 ---
 layout: post
-title: Otimização de Estruturas de Filas**
+title: Otimização de Estruturas de Filas
 lang: pt
-header-img: https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/header-filas.png**
-date: 2017-07-6 22:05:00**
-tags: [Filas**, Teoria de filas, Otimização,Processo de poisson**]
+header-img: img/teoria-filas/header-filas.png
+date: 2017-07-6 23:05:00
+tags: [Filas, Teoria de filas, Otimização,Processo de poisson]
 author: Ennio Bastos**
 comments: true
 ---
 
 
-#Otimização de Estruturas de Filas
+# Otimização de Estruturas de Filas
 
 As filas são onipresentes, as pessoas assumem os seus lugares e esperam a sua vez. Essa forma de organização tão comum e onerosa é necessária para organizar demandas que são maiores que a capacidade de prestação do serviço. A Teoria das Filas, tenta através de análises matemáticas detalhadas encontrar um ponto de equilíbrio que satisfaça o cliente, e seja viável economicamente para o provedor do serviço de atendimento.
 
-<p align="center">
-![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/fila-banco.png)
-</p>
+
+![fila-banco.png](/img/teoria-filas/fila-banco.png)
 
 A teoria fornece ferramentas de análise que permitem avaliar, por exemplo, se o tempo médio de espera por atendimento está acima do suportável, o tempo médio de ociosidade dos atendentes, tamanho médio da fila, tempo médio de atendimento. Com variáveis de controle é possível criar *benchmarks* com o cenário planejado, e realizar melhores tomadas de decisões e alocação de recursos. Existem muitos trabalhos atuais aplicando a teoria das filas, a maioria das quais tem sido documentadas na literatura de probabilidade, pesquisa operacional, controle de qualidade e engenharia industrial. Alguns exemplos são fluxo de tráfego (veículos, pessoas, comunicações, etc), escalonamento de leitos em hospitais, etc.
 
@@ -31,64 +30,76 @@ Passados os anos, os trabalhos de Kendall e Lindley  tiveram grande destaque sob
 Na decada de 60 Little criou sua lei. A lei de Little  prova matematicamente que uma estrutura de espera é um processo markoviano de tempo continuo em que as transições de estado são de apenas dois tipos: "nascimentos", que aumentam a variável de estado em um, e "mortes", que diminuem o estado em um. Ou seja, um novo cliente no sistema representa um nascimento, e a saída do sistema representa uma morte. Um sistema é dito em equilibrio quando o número de entradas é igual a saída de individuos. 
 
 
-<p align="center">
-![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/nascimento-morte.png)
-</p>
+![nascimento-morte.png](/img/teoria-filas/nascimento-morte.png)
 
 # Entendendo a Metodologia
 
 Os tipos de modelos de filas é definido a partir da Notação de Kendall, que
-representa cada cadeia de filas pelos símbolos A, B, c, K, N, Z da seguinte forma:
+representa cada cadeia de filas pelos símbolos $$A$$, $$B$$, $$c$$, $$K$$, $$N$$, $$Z$$ da seguinte forma:
 
 <p align="center">
-		                                      A/B/c/K/N/Z
+		                                      $$A/B/c/K/N/Z$$
 </p>
 
- - A: distribuição do tempo entre chegadas;-
- - B: disciplina de serviços;
-- c: número de servidores;
--	K: capacidade total de usuários no sistema;
--	N: número de usuários potenciais em uma população fonte;
--	Z: disciplina de atendimento.
+ - $$A$$: distribuição do tempo entre chegadas;-
+ - $$B$$: disciplina de serviços;
+- $$c$$: número de servidores;
+-	$$K$$: capacidade total de usuários no sistema;
+-	$$N$$: número de usuários potenciais em uma população fonte;
+-	$$Z$$: disciplina de atendimento.
 
-Usualmente, quando não declarado a capacidade máxima do sistema (K), e o número de clientes a serem atendidos (N), estes serão considerados como ilimitados.
+Usualmente, quando não declarado a capacidade máxima do sistema ($$K$$), e o número de clientes a serem atendidos ($$N$$), estes serão considerados como ilimitados.
 
 A disciplina de atendimento pode admitir duas politicas. First In First Out (primeiro que entra primeiro a sair), ou fila, é a estrutura de atendimento que bancos e hospitais utilizam pois sequem a ordem de chegada em que os primeiros a chegarem serão os primeiros a serem atendidos. Last In First Out (último que entra primeiro a sair) é a estrutura habitualmente chamada de pilha e amplamente utilizada na estacagem de produtos. Caso o modelo não declare qual a disciplina de atendimento, entende-se que será utilizada a disciplina FIFO.
 
 
 ## Equações de Little
 
-Little utilizando o conceito do processo de nascimento e morte desenvolveu equações teóricas que calculam o desempenho de uma estrutura de espera. Para o modelo $m/m/c$, o número de atendentes é restrito igual a c. Para simplificar a visualização utilizei a notação $r = \frac{\lambda}{\mu}$ e $p = \frac{\lambda}{c\mu}$:
+Little utilizando o conceito do processo de nascimento e morte desenvolveu equações teóricas que calculam o desempenho de uma estrutura de espera. Para o modelo $m/m/c$, o número de atendentes é restrito igual a c. Para simplificar a visualização utilizei a notação $$r = \frac{\lambda}{\mu}$$ e $$p = \frac{\lambda}{c\mu}$$:
 
-Probabilidade do sistema estar vázio <br>
-<p align="center">
-$P_0=\left (  \sum^{c-1}_{n=0} \frac{r^n}{n!} + \frac{r^c}{c!(1-p)} \right ) ^{-1} , p<1.$ 
-</p>
-Probabilidade do sistema possuir n clientes <br>
-<p align="center">
-$P_n= \frac{\lambda^n}{n!\mu^n}P_0, \quad 1 \leq c,$
-<br>
-$P_n = \frac{\lambda^n}{c^{n-c}\mu^n}, \quad n \geq c.$
-</p>
-Tempo médio de cada cliente na fila <br>
-<p align="center">
-$W_q = \frac{r^c}{c!(c\mu)(1-p)^2}P_0$
-</p>
-Número médio de clientes na fila <br>
-<p align="center">
-$L_q = \frac{r^cp}{c!(1-p)^2}P_0$
-</p>
-Número médio de clientes no sistema <br>
-<p align="center">
-$L = \frac{r^cp}{c!(1-p)^2}P_0+r$
-</p>
-Tempo médio de cada cliente no sistema <br>
-<p align="center">
-$W = \frac{1}{\mu}+\frac{r^c}{c!(c\mu)(1-p)^2}P_0$
-</p>
-O modelo M/M/1 da notação de Kendall é a parametrização mais simples, e mais utilizada para um modelo de fila Markoviana. Neste caso, a distribuição do tempo entre novas chegadas de clientes ao sistema é suposta exponencial (M). O tempo necessário para realizar cada serviço também segue uma distribuição exponencial (M). A capacidade máxima do sistema e a população fonte são supostamente infinitas. Nas aplicações desse modelo, denotamos por $\lambda$ e $\mu$ a taxa média de chegada e de atendimento, respectivamente. Além disso, supomos que há apenas um servidor e que a disciplina da fila é FIFO.
+Probabilidade do sistema estar vázio 
 
-A relação entre o tempo médio de chegada e de serviço são as medidas de desempenho do sistema. O pressuposto necessário para a validade da teoria de filas , $\frac{1}{\mu}$  $\leq$  $\frac{1}{\lambda}$, torna o modelo convergente.
+$$
+P_0=\left (  \sum^{c-1}_{n=0} \frac{r^n}{n!} + \frac{r^c}{c!(1-p)} \right ) ^{-1} , p<1.
+$$
+
+Probabilidade do sistema possuir n clientes 
+
+$$
+P_n= \frac{\lambda^n}{n!\mu^n}P_0, \quad 1 \leq c,$
+$$
+
+$$
+P_n = \frac{\lambda^n}{c^{n-c}\mu^n}, \quad n \geq c.
+$$
+
+Tempo médio de cada cliente na fila 
+
+$$
+W_q = \frac{r^c}{c!(c\mu)(1-p)^2}P_0
+$$
+
+Número médio de clientes na fila
+
+$$
+L_q = \frac{r^cp}{c!(1-p)^2}P_0
+$$
+
+Número médio de clientes no sistema
+
+$$
+L = \frac{r^cp}{c!(1-p)^2}P_0+r
+$$
+
+Tempo médio de cada cliente no sistema 
+
+$$
+W = \frac{1}{\mu}+\frac{r^c}{c!(c\mu)(1-p)^2}P_0
+$$
+
+O modelo $$M/M/1$$ da notação de Kendall é a parametrização mais simples, e mais utilizada para um modelo de fila Markoviana. Neste caso, a distribuição do tempo entre novas chegadas de clientes ao sistema é suposta exponencial ($$M$$). O tempo necessário para realizar cada serviço também segue uma distribuição exponencial ($$M$$). A capacidade máxima do sistema e a população fonte são supostamente infinitas. Nas aplicações desse modelo, denotamos por $\lambda$ e $\mu$ a taxa média de chegada e de atendimento, respectivamente. Além disso, supomos que há apenas um servidor e que a disciplina da fila é FIFO.
+
+A relação entre o tempo médio de chegada e de serviço são as medidas de desempenho do sistema. O pressuposto necessário para a validade da teoria de filas , $$\frac{1}{\mu}$  $\leq$$  $$\frac{1}{\lambda}$$, torna o modelo convergente.
 
 # Aplicação
 
@@ -200,14 +211,14 @@ equacoes_little <- function(m,lambda,mu){
 
 ```
 
-## Análise da simulação do modelo *m/m/1*
+## Análise da simulação do modelo $$m/m/1$$
 
 Supondo uma situação real em que um gestor necessita de auxilio de dados nas tomadas de decisões sobre uma estrutura de filas. Por exemplo, coletando os dados da fila de atendimento ele quer avaliar o desempenho do sistema. As variáveis preliminares escolhidas são: o tempo médio que cada cliente passa na fila, a probabilidade do atendente estar ocioso e o tamanho médio da fila durante 60h e 120h de funcionamento. Pelos cálculos, a taxa média de chegada  de novos clientes é igual  10/h e tempo médio de serviço igual a 11/h, com apenas 1 atendente. 
 
 Parâmetros:
-$\lambda = 10/h;$ <br>
-$\mu = 11/h;$ <br>
-$c = 1$ servidor.
+$$\lambda = 10/h;$$ <br>
+$$\mu = 11/h;$$ <br>
+$$c = 1$$ servidor.
 
 
 |Variáveis | Simulação (60,10,11)| Simulação (120,10,11)| Teórico (10,11,1)|
@@ -219,9 +230,9 @@ $c = 1$ servidor.
 
 Além disso, o gestor deseja  análisar a distribuição de probabilidade da quantidade de clientes no sistema. Ele deseja ajustar o sistema para que a fila seja em torno de 5 pessoas.
 
-<p align="center">
-![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/teoria-filas/graph-1.png)
-</p>
+
+![graph-1.png](/img/teoria-filas/graph-1.png)
+
 
 A probabilidade do sistema possuir mais de 5 clientes está acima dos padrões aceitaveis, então percebeu a  necessidade de aumentar a quantidade de atendentes. Utilizando as equações de Little, é possível simular qual seria a melhora na performance caso contratasse novos atendentes. Os resultados obtidos considera que todos atendentes apresentam a mesma eficiência no atendimento.
 
@@ -234,9 +245,8 @@ A probabilidade do sistema possuir mais de 5 clientes está acima dos padrões a
 |$W$          |               1.000|        0.115|        0.094|
 |$L$          |              10.000|        1.146|        0.940|
 
-<p align="center">
-![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/teoria-filas/graph-2.png)
-</p>
+
+![graph-1.png](/img/teoria-filas/graph-2.png)
 
 O sistema com dois atendentes torna o sistema dentro dos padrões desejados e deixa claro a não necessidade de possuir 3 atendentes. O novo sistema apresenta a probabilidade do sistema estar vázio no momento da chegada de novos clientes de 0,45%, a chance do sistema atingir 5 pessoas é baixa, e o tempo de espera médio próximo de 0.
 
