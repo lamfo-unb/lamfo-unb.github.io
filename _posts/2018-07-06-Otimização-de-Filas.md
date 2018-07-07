@@ -1,21 +1,21 @@
-
 ---
 layout: post
-title: Otimização de Filas
+title: Otimização de Estruturas de Filas**
 lang: pt
-header-img: img/teoria-filas/header-filas.png
-date: 2018-07-06 22:00:00
-tags: [filas, queue, análise de filas, teoria de filas]
-author: Ennio Bastos
+header-img: https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/header-filas.png**
+date: 2017-07-6 22:05:00**
+tags: [Filas**, Teoria de filas, Otimização,Processo de poisson**]
+author: Ennio Bastos**
 comments: true
 ---
 
 
+#Otimização de Estruturas de Filas
 
 As filas são onipresentes, as pessoas assumem os seus lugares e esperam a sua vez. Essa forma de organização tão comum e onerosa é necessária para organizar demandas que são maiores que a capacidade de prestação do serviço. A Teoria das Filas, tenta através de análises matemáticas detalhadas encontrar um ponto de equilíbrio que satisfaça o cliente, e seja viável economicamente para o provedor do serviço de atendimento.
 
 <p align="center">
-![](img/teoria-filas/fila-banco.png)
+![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/fila-banco.png)
 </p>
 
 A teoria fornece ferramentas de análise que permitem avaliar, por exemplo, se o tempo médio de espera por atendimento está acima do suportável, o tempo médio de ociosidade dos atendentes, tamanho médio da fila, tempo médio de atendimento. Com variáveis de controle é possível criar *benchmarks* com o cenário planejado, e realizar melhores tomadas de decisões e alocação de recursos. Existem muitos trabalhos atuais aplicando a teoria das filas, a maioria das quais tem sido documentadas na literatura de probabilidade, pesquisa operacional, controle de qualidade e engenharia industrial. Alguns exemplos são fluxo de tráfego (veículos, pessoas, comunicações, etc), escalonamento de leitos em hospitais, etc.
@@ -32,7 +32,7 @@ Na decada de 60 Little criou sua lei. A lei de Little  prova matematicamente que
 
 
 <p align="center">
-![](img/teoria-filas/nascimento-morte.png)
+![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/nascimento-morte.png)
 </p>
 
 # Entendendo a Metodologia
@@ -220,7 +220,7 @@ $c = 1$ servidor.
 Além disso, o gestor deseja  análisar a distribuição de probabilidade da quantidade de clientes no sistema. Ele deseja ajustar o sistema para que a fila seja em torno de 5 pessoas.
 
 <p align="center">
-![](img/teoria-filas/graph-1.png)
+![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/teoria-filas/graph-1.png)
 </p>
 
 A probabilidade do sistema possuir mais de 5 clientes está acima dos padrões aceitaveis, então percebeu a  necessidade de aumentar a quantidade de atendentes. Utilizando as equações de Little, é possível simular qual seria a melhora na performance caso contratasse novos atendentes. Os resultados obtidos considera que todos atendentes apresentam a mesma eficiência no atendimento.
@@ -235,7 +235,7 @@ A probabilidade do sistema possuir mais de 5 clientes está acima dos padrões a
 |$L$          |              10.000|        1.146|        0.940|
 
 <p align="center">
-![](img/teoria-filas/graph-2.png)
+![](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/teoria-filas/teoria-filas/graph-2.png)
 </p>
 
 O sistema com dois atendentes torna o sistema dentro dos padrões desejados e deixa claro a não necessidade de possuir 3 atendentes. O novo sistema apresenta a probabilidade do sistema estar vázio no momento da chegada de novos clientes de 0,45%, a chance do sistema atingir 5 pessoas é baixa, e o tempo de espera médio próximo de 0.
