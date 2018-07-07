@@ -3,7 +3,7 @@ layout: post
 title: Otimização de Estruturas de Filas
 lang: pt
 header-img: img/teoria-filas/header-filas.png
-date: 2017-07-6 23:05:00
+date: 2017-07-6 23:25:00
 tags: [Filas, Teoria de filas, Otimização,Processo de poisson]
 author: Ennio Bastos
 comments: true
@@ -223,9 +223,9 @@ $$c = 1$$ servidor.
 
 |Variáveis | Simulação (60,10,11)| Simulação (120,10,11)| Teórico (10,11,1)|
 |:---------|--------------------:|---------------------:|-----------------:|
-|$W_q$       |            1.1148517|            0.878|         0.909|
-|$P_0$       |            0.0620553|             0.0841|         0.090|
-|$L_q$       |           10.1500000|            10.080|         9.090|
+|$$W_q$$       |            1.1148517|            0.878|         0.909|
+|$$P_0$$       |            0.0620553|             0.0841|         0.090|
+|$$L_q$$       |           10.1500000|            10.080|         9.090|
 
 
 Além disso, o gestor deseja  análisar a distribuição de probabilidade da quantidade de clientes no sistema. Ele deseja ajustar o sistema para que a fila seja em torno de 5 pessoas.
@@ -239,11 +239,11 @@ A probabilidade do sistema possuir mais de 5 clientes está acima dos padrões a
 |           | 1 Atendente (atual)| 2 Atendentes| 3 Atendentes|
 |:----------|-------------------:|------------:|------------:|
 |eficiencia |               0.909|        0.455|        0.303|
-|$P_0$        |               0.091|        0.375|        0.400|
-|$L_q$        |               9.091|        0.237|        0.031|
-|$W_q$        |               0.909|        0.024|        0.003|
-|$W$          |               1.000|        0.115|        0.094|
-|$L$          |              10.000|        1.146|        0.940|
+|$$P_0$$        |               0.091|        0.375|        0.400|
+|$$L_q$$        |               9.091|        0.237|        0.031|
+|$$W_q$$        |               0.909|        0.024|        0.003|
+|$$W$$          |               1.000|        0.115|        0.094|
+|$$L$$          |              10.000|        1.146|        0.940|
 
 
 ![graph-1.png](/img/teoria-filas/graph-2.png)
