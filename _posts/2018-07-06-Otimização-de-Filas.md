@@ -5,7 +5,7 @@ lang: pt
 header-img: img/teoria-filas/header-filas.png
 date: 2017-07-6 23:05:00
 tags: [Filas, Teoria de filas, Otimização,Processo de poisson]
-author: Ennio Bastos**
+author: Ennio Bastos
 comments: true
 ---
 
