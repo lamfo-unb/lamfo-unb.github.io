@@ -3,7 +3,7 @@ layout: post
 title: Otimização de Estruturas de Filas
 lang: pt
 header-img: img/teoria-filas/header-filas.png
-date: 2017-07-6 23:25:00
+date: 2018-07-6 23:25:00
 tags: [Filas, Teoria de filas, Otimização,Processo de poisson]
 author: Ennio Bastos
 comments: true
