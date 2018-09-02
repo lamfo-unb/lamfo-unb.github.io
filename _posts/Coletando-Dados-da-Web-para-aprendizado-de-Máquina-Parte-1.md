@@ -10,7 +10,9 @@ comments: true
 ---
 
 # Coletando Dados da Web para Aprendizado de Máquina - Parte 1
-Algoritmos de aprendizado de máquina dependem de dados para treiná-los. Em certos casos, a complexidade para criação do modelo não se encontra na tecnologia utilizada, mas na obtenção dos dados. Segundo o Diretor do Centro de Análise Avançada do Escritório de Contabilidade do Governo dos EUA:
+Algoritmos de aprendizado de máquina dependem de dados para treiná-los. Para criar um algoritmo para analisar quais parlamentares gastam de forma exorbitante, por exemplo, você necessita extrair dados dessas despesas. Um algoritmo de recomendação de páginas do Facebook, necessita dos dados de quais páginas as pessoas já seguem. Outro exemplo seria um algoritmo de reconhecimento de imagem. Para esse algoritmo, seria necessário obter várias imagens daquilo que você deseja reconhecer. 
+
+Em certos casos, a complexidade para criação do modelo não se encontra na tecnologia utilizada, mas na obtenção dos dados. Segundo o Diretor do Centro de Análise Avançada do Escritório de Contabilidade do Governo dos EUA:
 
 > *"Independente do objetivo, é necessário entender a qualidade dos dados que você possui. A qualidade determina quão confiáveis tais dados são para se tomar boas decisões."*
 
@@ -35,7 +37,9 @@ Em pesquisas do [LAMFO](http://lamfo.unb.br/index.php?lang=pt-br) tal recurso j�
 ## 2 - API's 
 Sites de maior porte e redes sociais geralmente disponibilizam API’s para acesso. As empresas ligadas ao Facebook (Facebook, Instagram, Messenger), por exemplo, possuem a [Graph Api](https://developers.facebook.com/docs/graph-api/) que disponibiliza informações específicas dos usuários. 
 
-Uma API é uma forma de tornar pública e acessível as informações da sua empresa. Tal disponibilidade de dados não é para qualquer uso. Toda API com dados relevantes possui uma página para acesso ao desenvolvedor. Geralmente, para acessar essa página é necessário um cadastro e durante o cadastro são apresentados os termos de uso legal dos dados disponíveis na rede. A Política de Privacidade que deve ser lido e aceito durante a criação de uma conta de desenvolvedor. 
+Uma API é uma forma de tornar pública e acessível as informações de uma empresa. É um servidor que recebe requisições simples HTTP e retorna dados que a empresa possui. Isso é feito para facilitar a análise de informações da empresa ou até mesmo permitir que haja uma interação dos usuários. Um exemplo são os jogos que encontram seus amigos do Facebook. Esses jogos podem ter a permissão de acessar os seus amigos ou outras informações. Todas essas informações são extraídas por uma chamada HTTP e a API geralmente retorna essas informações no formato JSON. Pode parecer uma tarefa difícil, mas em algumas situações, essa requisição HTTP é só uma URL que pode ser digitada em um navegador e no navegador é exibido o JSON. É importante saber como trabalhar com API's, pois facilita muito a extração de dados.
+
+Tal disponibilidade de dados não é para qualquer uso. Toda API com dados relevantes possui uma página para acesso ao desenvolvedor. Geralmente, para acessar essa página é necessário um cadastro e durante o cadastro são apresentados os termos de uso legal dos dados disponíveis na rede. A Política de Privacidade que deve ser lido e aceito durante a criação de uma conta de desenvolvedor. 
 
 Dependendo da API podem existir custos para acessá-la. Algumas empresas até mesmo limitam por quantidade de acessos dentro de um certo período de tempo, como é o caso do [OpenWeatherMap](https://openweathermap.org/api):
 
@@ -133,6 +137,19 @@ Além disso, vamos criar dois testes. Como o JSON de retorno contém o Status Co
 Ao executar nossa requisição, podemos ver o JSON retornado e verificar que a nossa requisição passou em ambos os testes (Test Results 2/2). Além disso, na imagem abaixo, conseguimos observar que a primeira data será um dia de céu limpo (clear sky).
 ![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders_2.PNG " ")
 
+## Para saber mais do assunto
+
+Caso seja do seu interesse se aprofundar no estudo de busca de dados por meio de API, temos alguns conteúdos a sugerir, assim como alguns links de referência. Para criar uma API, e disponibilizar os dados que você já tem para outras pessoas, sugerimos o uso da linguagem Node JS e o banco de dados Mongo DB. A criação de uma API por meio do Mongo é facilitada com a biblioteca Express. O banco de dados Mongo não é um banco de dados relacional. Apesar disso parecer um impedimento, na verdade é um facilitador, pois o Mongo é estruturado como um JSON. Isso facilita muito o trabalho de construção de uma API.
+
+[Criando uma API com Node JS](https://medium.com/gdg-pato-branco/criando-uma-simples-api-em-node-js-7082f745107f)
+
+[Usando o Mongo DB com Node JS](https://udgwebdev.com/um-pouco-de-node-js-e-mongodb-na-pratica/)
+
+Para buscar dados por meio de uma API, sugerimos utilizar a linguagem Python. Não só pela facilidade, mas também por ser uma linguagem amplamente utilizada para a análise de dados. Sendo assim, não é necessário uma conversão, tudo é trabalhado na mesma linguagem. Recomendamos a leitura da documentação da biblioteca requests. Com ela conseguimos configurar tudo que fizemos no Postman. A documentação é bem elaborada e em português.
+
+[Documentação Requests](http://docs.python-requests.org/pt_BR/latest/)
+
+[Guia de início](http://docs.python-requests.org/pt_BR/latest/user/quickstart.html)
 
 ## 3 - Web Scraping 
 O web scraping é caracterizado pela captura de dados na web sem a utilização de uma API ou de um processo manual laborioso e tedioso.
