@@ -3,7 +3,7 @@ layout: post
 title: Coletando Dados da Web para Aprendizado de Máquina - Parte 1
 lang: pt
 header-img: img/web-scraping/capa-web-scraping_JamesOsborne_pixabay.jpg
-date: 2018-09-03 10:00:00
+date: 2018-09-03 00:00:00
 tags: [machine learning, web scraping]
 author: Leonardo Galler e Renê Xavier
 comments: true
