@@ -25,7 +25,7 @@ Para evitar problemas legais como esse, neste post e no próximo explicaremos co
 2. - API’s
 3. - Web Scrapping.
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/alx_acesso_a_informacao_original.jpg "Lei de acesso a informação") 
+![image alt](/img/web-scraping/alx_acesso_a_informacao_original.jpg "Lei de acesso a informação") 
 ## 1 - Lei de acesso a informação
 A extração de dados nem sempre requer uma programação extensiva. No caso de sites e órgãos governamentais, a Lei de Acesso à Informação (Lei nº 12.527/2011) permite o acesso à dados com uma simples requisição formal. 
 
@@ -33,7 +33,7 @@ Tal lei possibilita a qualquer pessoa, física ou jurídica, sem necessidade de 
 
 Em pesquisas do [LAMFO](http://lamfo.unb.br/index.php?lang=pt-br) tal recurso já foi usado com sucesso. Caso o site não possua uma seção para contato para fazer a requisição, um email ao órgão detalhando quais dados devem ser disponibilizados pode solucionar o problema.
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/coding_pixabay_JohnsonMartin640_apis.png "Application Program Interface")
+![image alt](/img/web-scraping/coding_pixabay_JohnsonMartin640_apis.png "Application Program Interface")
 ## 2 - API's 
 Sites de maior porte e redes sociais geralmente disponibilizam API’s para acesso. As empresas ligadas ao Facebook (Facebook, Instagram, Messenger), por exemplo, possuem a [Graph Api](https://developers.facebook.com/docs/graph-api/) que disponibiliza informações específicas dos usuários. 
 
@@ -43,7 +43,7 @@ Tal disponibilidade de dados não é para qualquer uso. Toda API com dados relev
 
 Dependendo da API podem existir custos para acessá-la. Algumas empresas até mesmo limitam por quantidade de acessos dentro de um certo período de tempo, como é o caso do [OpenWeatherMap](https://openweathermap.org/api):
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/openWeather_forecastsCollection.PNG "Weather Collections")
+![image alt](/img/web-scraping/openWeather_forecastsCollection.PNG "Weather Collections")
 
 O acesso aos dados da API é feito por meio de requisições do tipo HTTP e o retorno dos dados pode ser no formato json, xml ou até mesmo texto puro. Para saber como enviar ou como receber as requisições feitas à API, na página de desenvolvedor pode ser encontrada a documentação dela. 
 
@@ -60,11 +60,11 @@ A criação de conta é simples, username, email e senha. Porém, como dito, a p
 
 Após a criação de conta, será perguntado para qual propósito os dados serão usados. Na aba API keys, você pode ver e gerenciar suas chaves privadas da API. Note que após a criação de uma nova chave, somente após 10 minutos ela terá efeito:
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/openWeather_API_KEY.PNG "API Key")
+![image alt](/img/web-scraping/openWeather_API_KEY.PNG "API Key")
 
 Na aba Billing Plans é possível ver o seu plano atual (gratuito) e modificar caso haja necessidade.
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/plans_openWeather.PNG "API Plans")
+![image alt](/img/web-scraping/plans_openWeather.PNG "API Plans")
 
 Na página [/api](https://openweathermap.org/api) é possível encontrar toda a documentação para a API de clima. Para esse exemplo buscamos os dados de 5 dias atrás, na página [/forecast5](https://openweathermap.org/forecast5) veremos a documentação para obtermos dados por meio da requisição HTTP.
 
@@ -77,7 +77,7 @@ Em nosso exemplo iremos buscar os dados da cidade de Campos do Jordão. Iremos b
 ## Testando requisições à API’s
 Antes de criar um código que acesse uma API, é sempre bom testá-la para verificar se ela lhe trará os dados que você realmente quer. Uma forma simples para verificar a conexão com a API sem código é utilizar o programa Postman.
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postman.PNG "Postman Logo")
+![image alt](/img/web-scraping/postman.PNG "Postman Logo")
 
 O Postman permite: 
 
@@ -92,21 +92,21 @@ O Postman permite:
 
 Além disso tudo, é possível agrupar diversas requisições dentro de uma mesma Collection e essas requisições compartilham das mesmas variáveis que serão enviadas ao servidor.
 
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanWorkspace.PNG "Postman Workspace")
+![image alt](/img/web-scraping/postmanWorkspace.PNG "Postman Workspace")
 
 Logo a esquerda ficam as collections. O painel central exibe a URL da requisição e o tipo dela (no caso é uma do tipo GET). Ao clicar em Params, podemos enviar parâmetros pela url por meio de chave e valor, tal como abaixo:
 `www.site.com/api.php?senha=123&usuario=usuario123`
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/PostmanCollections.PNG "Postman Collections")
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/PostmanCollections2.PNG "Postman Collections 2")
+![image alt](/img/web-scraping/PostmanCollections.PNG "Postman Collections")
+![image alt](/img/web-scraping/PostmanCollections2.PNG "Postman Collections 2")
 
 Logo abaixo da URL, é possível configurar os vários tipos de autorizações na aba Authorization. Essa configuração é muito usada quando se trabalha com API’s, pois como explicamos geralmente o acesso à uma API deve ser feito por um usuário. Nela é possível configurar o tipo de autenticação assim como preencher o usuário e senha.
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders.PNG "Postman Headers")
+![image alt](/img/web-scraping/web-scraping/postmanheaders.PNG "Postman Headers")
 
 Na aba Headers podemos enviar parâmetros no Header da requisição atribuindo os valores por meio de chave e valor.
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders_1.PNG "Postman Headers 1")
+![image alt](/img/web-scraping/postmanheaders_1.PNG "Postman Headers 1")
 
 A aba Body só está habilitada para requisições que enviam parâmetros o servidor (POST, PUT..). Nela é possível selecionar diversos tipos de formas de enviar dados ao servidor. A mais comum é o x-www-form-urlencoded, que são dados por chave e valor. É possível que mesmo que um servidor peça um JSON enviando os dados por chave e valor ele aceite. Caso não seja aceito, selecione a opção raw e selecione JSON (application/json). Com isso é possível escrever um JSON no campo para ser enviado. O campo form-data convencionalmente é usado para enviar arquivos (imagens, audios).
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders_2.PNG "Postman Headers 2")
+![image alt](/img/web-scraping/postmanheaders_2.PNG "Postman Headers 2")
 
 Assim que sua requisição estiver completa, clique no botão Send. Ela será enviada e mais abaixo dos parâmetros estará a resposta. Na resposta, o campo Body pode ser visto na forma Pretty, formatado com quebra de linha e tabulação, ou na forma raw, como ele é recebido sem tratamento. Na forma pretty, é possível selecionar a visualização nos seguintes tipos: JSON, XML, HTML, Text. 
 
@@ -120,22 +120,22 @@ Além do Body da resposta que o servidor enviou, é possível ver os Cookies, He
 * 3xx - Informam um redirecionamento. Ex.: 301 - a página foi mudada para outra URL
 * 4xx - Erros no cliente, em outras palavras, erro na requisição feita. Seja por falta de usuário e senha (401), envio de um formato de media que não é suportado (415) ou qualquer outro erro na requisição será notificado.
 * 5xx - Erros no servidor. O servidor pode estar fora do ar (503) ou até mesmo ter ocorrido um erro de processamento da sua requisição (503)
-![  image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders_3.PNG "Postman Headers 3")
+![  image alt](/img/web-scraping/postmanheaders_3.PNG "Postman Headers 3")
 
 A aba de Tests foi deixada para ser tratada por último, pois ela é executada após o retorno da requisição. Nessa aba é possível escrever códigos em Javascript para testar o que veio de retorno, no lugar de ficar procurando no JSON se o retorno lhe interessa. Para criar um novo teste, preencha o valor de tests[‘nome do teste’] com o valor true para um teste que deu certo e false quando errado.
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanResultTests.PNG "Resultado de testes")
+![image alt](/img/web-scraping/postmanResultTests.PNG "Resultado de testes")
 
 Após a execução da requisição, a aba Tests Results irá mostrar quantos e quais testes a requisição passou. Além disso ela indica quantos testes a requisição passou logo no nome da aba, para o exemplo, ela passou em todos os testes (3/3).
 
 ## Voltando ao exemplo do openweathermap
 Sabendo que temos os dados abaixo para executar a requisição, vamos realizar um teste utilizando o Postman
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanFullTest.PNG "Teste completo")
+![image alt](/img/web-scraping/postmanFullTest.PNG "Teste completo")
 
 Além disso, vamos criar dois testes. Como o JSON de retorno contém o Status Code, vamos verificar se o Status é 200 criando o teste tests["Status retorno 200"]. Caso a requisição falhe (e execute o catch) indicaremos que esse teste não passou atribuindo falso ao valor desse teste. O segundo teste verifica se o retorno contém mais de cinco datas com informações sobre o clima. Para este criaremos o teste tests["Contem 5 ou mais datas"] e verificaremos se na lista de informações sobre o clima temos cinco ou mais elementos.
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postman_test.PNG " ")
+![image alt](/img/web-scraping/postman_test.PNG " ")
 
 Ao executar nossa requisição, podemos ver o JSON retornado e verificar que a nossa requisição passou em ambos os testes (Test Results 2/2). Além disso, na imagem abaixo, conseguimos observar que a primeira data será um dia de céu limpo (clear sky).
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/postmanheaders_2.PNG " ")
+![image alt](/img/web-scraping/postmanheaders_2.PNG " ")
 
 ## Para saber mais do assunto
 
@@ -164,7 +164,7 @@ Como mostrado anteriormente o uso de APIs facilita e organiza a aquisição de d
 Muitas APIs também contam com limitadores de velocidade ou cotas de requisições por IP, ou seja, dependendo de seu objetivo as APIs sozinhas não forneceram a quantidade ideal de dados, ou no tempo ótimo.
 E é aí que vemos o *Web Scraping* esperando calmamente pelo momento de fazer sua mágica, porque se você consegue acessar uma página no seu navegador, você consegue acessa-lá com um robô.
     
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/scraping_robot.png "Web Scraping Droid")
+![image alt](/img/web-scraping/scraping_robot.png "Web Scraping Droid")
 
 Quando uma API é disponibilizada, basta que o desenvolvedor siga a documentação e a política de privacidade para que se estabeleça um bom relacionamento entre robô e servidor.
 
@@ -175,7 +175,7 @@ Este protocolo é um método utilizado pelos administradores de páginas web par
 ## Robots.txt. O começo!
 A primeira coisa a ser feita pelos robôs é o acesso ao arquivo robots.txt que por convenção fica na pasta raiz da página, como por exemplo [https://www.google.com/robots.txt](https://www.google.com/robots.txt).
  
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/googleRObots.PNG "Robots.txt")
+![image alt](/img/web-scraping/googleRObots.PNG "Robots.txt")
 
 No exemplo acima, ele diz a todos os robôs(User-agent: *) quais páginas podem (Allow) ser acessadas e quais não(Disallow).
 
@@ -187,19 +187,19 @@ Arquivo de texto ASCII ou UTF-8(Não utilize programas de processamento de texto
 
 Exemplos:
 A. Três diretórios são excluídos a todos os robôs.
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/exemploA_robots.PNG "Exemplo 1")
+![image alt](/img/web-scraping/exemploA_robots.PNG "Exemplo 1")
 
 B. Excluindo todos os robôs de todo o servidor:
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/exemploB_robots.PNG "Exemplo 2")
+![image alt](/img/web-scraping/exemploB_robots.PNG "Exemplo 2")
 
 C. Excluindo um robô específico
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/exemploC_robots.PNG "Exemplo 3")
+![image alt](/img/web-scraping/exemploC_robots.PNG "Exemplo 3")
 
 D. Permitir apenas um robô(ou seja, permite um e não permite nenhum outro):
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/exemploD_robots.PNG "Exemplo 4")
+![image alt](/img/web-scraping/exemploD_robots.PNG "Exemplo 4")
 
 E. Não permitir acesso a arquivos específicos:
-![image alt](https://github.com/lamfo-unb/lamfo-unb.github.io/blob/master/img/web-scraping/exemploE_robots.PNG "Exemplo 5")
+![image alt](/img/web-scraping/exemploE_robots.PNG "Exemplo 5")
 
 O arquivo possui sintaxe simples para ser facilmente analisado.
 É muito importante frisar que o mostrado acima é um arquivo que indica o que pode ser **acessado ou não**, ele **não* é um programa que analisa os robôs na página. Isso quer dizer que você pode fazer o scraping da página sem consulta-lo, mas sem fazer isso seu robô pode acabar acessando páginas protegidas, e pode fazer com que o webmaster o coloque como possível ameaça e bloqueie o acesso de seu robô em qualquer página do servidor.
