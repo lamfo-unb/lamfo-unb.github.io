@@ -263,4 +263,42 @@ for i in range(n):
 ```
 
 ## Conclusion
-Some text here...
+In this post we showed 5 of the most commom sorting algorithms used today. Before using any of them is extremely important to know how fast it run and how much space is going to use. So it’s the tradeoff between complexity - speed - volume. Another key characteristic of the sorting algorithms that are important to know is it stability. The stability means that the algorithm keeps the order of elements with equal key values.
+
+![image alt](/img/Sorting-algorithms/stability.png "Stability")
+
+As we can see, understanding our data plays a very important role in the process of choosing the right algorithm.
+
+**References:**
+
+> Knuth, Donald Ervin, 1938 - The art of computer programming / Donald Ervin Knuth. xiv,782 p. 24 cm.
+
+> Insertion sort - https://pt.wikipedia.org/wiki/Insertion_sort
+
+> Insertion sort - http://interactivepython.org/courselib/static/pythonds/SortSearch/TheInsertionSort.html
+
+> Shell sort - https://en.wikipedia.org/wiki/Shellsort
+
+> Shell sort - http://www.bebetterdeveloper.com/algorithms/sorting/sorting-shell-sort.html 
+
+> Shell sort - https://www.researchgate.net/publication/234791427_ENHANCED_SHELL_SORT_ALGORITHM
+
+> Shell sort - https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-7.php
+
+> Bubble sort - https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_1/Fundamentals_of_algorithms/Sorting_algorithms#Bubble_Sort
+
+> Quicksort - https://commons.wikimedia.org/wiki/File:Quicksort.gif
+
+> Quicksort - http://interactivepython.org/courselib/static/pythonds/SortSearch/TheQuickSort.html
+
+> Heapsort Algorithm - https://en.wikipedia.org/wiki/Heapsort
+
+> Heapsort Algorithm - https://www.geeksforgeeks.org/heap-sort/
+
+> Bubble sort - http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBubbleSort.html
+
+> The Advantages & Disadvantages of Sorting Algorithms - Joe Andy - https://sciencing.com/the-advantages-disadvantages-of-sorting-algorithms-12749529.html
+
+> Sedgewick, R., & Wayne, K. (2011). Algorithms, 4th Edition. (p. I–XII, 1-955). Addison-Wesley. - https://algs4.cs.princeton.edu/20sorting/
+
+> Sorting algorithms - https://brilliant.org/wiki/sorting-algorithms/
