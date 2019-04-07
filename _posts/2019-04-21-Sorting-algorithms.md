@@ -134,7 +134,16 @@ print(alist)
 ## Quicksort
 ![image alt](/img/Sorting-algorithms/Quicksort.gif "Quicksort")
 
-Some text here...
+Is one of the most efficient sorting algorithms, and this makes of him one of the most used too.
+The first thing to be made, is to select a pivot number, this number will separate the data, on his left the numbers smaller than him and the greater numbers on the right. With this, we got the whole sequence partitioned.
+After the partition of the data, we can assure that the partitions are ordenated, we just know that we have bigger values on the right and smaller values on the left.
+The quicksort uses the divide and conquer algorithm with recursion. So, now that we have the data divided we use recursion to call the same method and pass the left half of the data, and after the right half to keep separating and ordenating the data. At the end of the execution, we will have the data all sorted.
+
+Main characteristics:
+* From the family of Exchange Sort Algorithms
+* Divide and conquer paradigm
+* Worst case complexity O(n²)
+
 
 ![image alt](/img/Sorting-algorithms/Quicksort-example.gif "Quicksort")
 
@@ -198,7 +207,6 @@ print(alist)
 ## Heapsort
 ![image alt](/img/Sorting-algorithms/Sorting_heapsort_anim.gif "Heapsort")
 
-Heapsort
 Heapsort is a sorting algorithm based in the structure of a heap. The heap is a specialized data structure based in a tree or a vector.
 In the first stage of the algorithm a tree is created with the values to be sorted, starting from the left, we create the root node, with the first value. Now we create a left child node and insert the next value, in this moment we evaluate if the value setted to the child node is bigger than the value at the root node, if yes, we change change the values. We do this to all the tree. The initial idea is that the parent nodes always have bigger values than the child nodes.
 
