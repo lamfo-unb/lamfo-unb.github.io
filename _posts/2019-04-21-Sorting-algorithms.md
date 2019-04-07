@@ -23,6 +23,35 @@ Straight insertion sort is one of the most basic sorting algorithms that essenti
 
 The advantages of this process are that it is straightforward and easy to implement. Also, it is relatively quick when there are small amounts of elements to sort. It can also turn into binary insertion which is when you compare over longer distances and narrow it down to the right spot instead of comparing against every single element before the right spot. However, a straight insertion sort is usually slow whenever the list becomes large.
 
+Python implementation:
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 10 17:13:56 2019
+
+@note: Insertion sort algorithm
+@source: http://interactivepython.org/courselib/static/pythonds/SortSearch/TheInsertionSort.html
+
+"""
+
+def insertionSort(alist):
+   for index in range(1,len(alist)):
+
+     currentvalue = alist[index]
+     position = index
+
+     while position>0 and alist[position-1]>currentvalue:
+         alist[position]=alist[position-1]
+         position = position-1
+
+     alist[position]=currentvalue
+
+alist = [54,26,93,17,77,31,44,55,20]
+insertionSort(alist)
+print(alist)
+```
+
 ## Shell Sort
 ![image alt](/img/Sorting-algorithms/Sorting_shellsort_anim.gif "Shell Sort")
 
@@ -33,5 +62,205 @@ Furthermore, increasing the size of the subsets is achieved through a decreasing
 
 The main advantage of this sorting algorithm is that it is more efficient than a regular insertion sort. Also, there is a variety of different algorithms that seek to optimize shell sort by changing the way the increment decreases since the only restriction is that the last term in the sequence of increments is 1. The most popular is usually Knuth’s method which uses the formula h=((3^k)-1)/2 giving us a sequence of intervals of 1 (k=1),4 (k=2),13 (k=3), and so on. On the other hand, shell sort is not as efficient as other sorting algorithms such as quicksort and merge sort. 
 
+Python implementation:
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 10 17:13:56 2019
+
+@note: Insertion sort - Shell Method algorithm
+@source: https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-7.php
+
+"""
+
+def shellSort(alist):
+    sublistcount = len(alist)//2
+    while sublistcount > 0:
+      for start_position in range(sublistcount):
+        gap_InsertionSort(alist, start_position, sublistcount)
+
+      print("After increments of size",sublistcount, "The list is",nlist)
+
+      sublistcount = sublistcount // 2
+
+def gap_InsertionSort(nlist,start,gap):
+    for i in range(start+gap,len(nlist),gap):
+
+        current_value = nlist[i]
+        position = i
+
+        while position>=gap and nlist[position-gap]>current_value:
+            nlist[position]=nlist[position-gap]
+            position = position-gap
+
+        nlist[position]=current_value
+
+
+nlist = [14,46,43,27,57,41,45,21,70]
+shellSort(nlist)
+print(nlist)
+```
 ## Bubble Sort
+![image alt](/img/Sorting-algorithms/Sorting_bubblesort_anim.gif "Bubble Sort")
+
 Bubble sort compares adjacent elements of an array and organizes those elements. Its name comes from the fact that large numbers tend to “float” (bubble) to the top. It loops through an array and sees if the number at one position is greater than the number in the following position which would result in the number moving up. This cycle repeats until the algorithm has gone through the array without having to change the order. This method is advantageous because it is simple and works very well for mostly sorted lists.  As a result, programmers can quickly and easily implement this sorting algorithm. However, the tradeoff is that this is one of the slower sorting algorithms.
+
+Python implementation:
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 10 18:05:51 2019
+
+@note: Exchanging sort - Bubble Sort algorithm
+@source: http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBubbleSort.html
+
+"""
+
+def bubbleSort(alist):
+    for passnum in range(len(alist)-1,0,-1):
+        for i in range(passnum):
+            if alist[i]>alist[i+1]:
+                temp = alist[i]
+                alist[i] = alist[i+1]
+                alist[i+1] = temp
+
+alist = [54,26,93,17,77,31,44,55,20]
+bubbleSort(alist)
+print(alist)
+```
+
+## Quicksort
+![image alt](/img/Sorting-algorithms/Quicksort.gif "Quicksort")
+
+Some text here...
+
+![image alt](/img/Sorting-algorithms/Quicksort-example.gif "Quicksort")
+
+Python implementation:
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 10 18:09:35 2019
+
+@note: Exchanging sort - Bubble Sort algorithm
+@source: http://interactivepython.org/courselib/static/pythonds/SortSearch/TheQuickSort.html
+
+"""
+
+def quickSort(alist):
+   quickSortHelper(alist,0,len(alist)-1)
+
+def quickSortHelper(alist,first,last):
+   if first<last:
+
+       splitpoint = partition(alist,first,last)
+
+       quickSortHelper(alist,first,splitpoint-1)
+       quickSortHelper(alist,splitpoint+1,last)
+
+
+def partition(alist,first,last):
+   pivotvalue = alist[first]
+
+   leftmark = first+1
+   rightmark = last
+
+   done = False
+   while not done:
+
+       while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
+           leftmark = leftmark + 1
+
+       while alist[rightmark] >= pivotvalue and rightmark >= leftmark:
+           rightmark = rightmark -1
+
+       if rightmark < leftmark:
+           done = True
+       else:
+           temp = alist[leftmark]
+           alist[leftmark] = alist[rightmark]
+           alist[rightmark] = temp
+
+   temp = alist[first]
+   alist[first] = alist[rightmark]
+   alist[rightmark] = temp
+
+
+   return rightmark
+
+alist = [54,26,93,17,77,31,44,55,20]
+quickSort(alist)
+print(alist)
+```
+
+
+## Heapsort
+![image alt](/img/Sorting-algorithms/Sorting_heapsort_anim.gif "Heapsort")
+
+Some text here...
+
+![image alt](/img/Sorting-algorithms/uv9rgMfetq-heapsort-example.gif "Heapsort")
+
+Python implementation:
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 10 18:18:25 2019
+
+@source: https://www.geeksforgeeks.org/heap-sort/
+
+"""
+# Python program for implementation of heap Sort 
+
+# To heapify subtree rooted at index i. 
+# n is size of heap 
+def heapify(arr, n, i): 
+	largest = i # Initialize largest as root 
+	l = 2 * i + 1	 # left = 2*i + 1 
+	r = 2 * i + 2	 # right = 2*i + 2 
+
+	# See if left child of root exists and is 
+	# greater than root 
+	if l < n and arr[i] < arr[l]: 
+		largest = l 
+
+	# See if right child of root exists and is 
+	# greater than root 
+	if r < n and arr[largest] < arr[r]: 
+		largest = r 
+
+	# Change root, if needed 
+	if largest != i: 
+		arr[i],arr[largest] = arr[largest],arr[i] # swap 
+
+		# Heapify the root. 
+		heapify(arr, n, largest) 
+
+# The main function to sort an array of given size 
+def heapSort(arr): 
+	n = len(arr) 
+
+	# Build a maxheap. 
+	for i in range(n, -1, -1): 
+		heapify(arr, n, i) 
+
+	# One by one extract elements 
+	for i in range(n-1, 0, -1): 
+		arr[i], arr[0] = arr[0], arr[i] # swap 
+		heapify(arr, i, 0) 
+
+# Driver code to test above 
+arr = [ 12, 11, 13, 5, 6, 7] 
+heapSort(arr) 
+n = len(arr) 
+print ("Sorted array is") 
+for i in range(n): 
+	print ("%d" %arr[i]), 
+```
+
+## Conclusion
+Some text here...
