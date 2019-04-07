@@ -195,14 +195,24 @@ alist = [54,26,93,17,77,31,44,55,20]
 quickSort(alist)
 print(alist)
 ```
-
-
 ## Heapsort
 ![image alt](/img/Sorting-algorithms/Sorting_heapsort_anim.gif "Heapsort")
 
-Some text here...
+Heapsort
+Heapsort is a sorting algorithm based in the structure of a heap. The heap is a specialized data structure based in a tree or a vector.
+In the first stage of the algorithm a tree is created with the values to be sorted, starting from the left, we create the root node, with the first value. Now we create a left child node and insert the next value, in this moment we evaluate if the value setted to the child node is bigger than the value at the root node, if yes, we change change the values. We do this to all the tree. The initial idea is that the parent nodes always have bigger values than the child nodes.
+
+At the end of the first step, we create a vector starting with the root value and walking from left to right filling the vector.
+
+Now we start to compare parent and child nodes values looking for the biggest value between them, and when we find, we change places reordering the values. The first movement we compare the root node with the last leaf in the tree, if the root node is bigger then we change the values and keep doing this until the last leaf is the bigger value. When there is no more values to rearrange, whe add the last leaf to the vector and restart the process. We can see this in the image below.
 
 ![image alt](/img/Sorting-algorithms/uv9rgMfetq-heapsort-example.gif "Heapsort")
+
+The main characteristics of the algorithm are:
+* From the family of sorting by selection algorithms
+* comparisons in the worst case = O(n log n)
+* Not stable
+
 
 Python implementation:
 ```
