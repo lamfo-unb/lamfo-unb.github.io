@@ -14,6 +14,10 @@ Sorting algorithms are ways to organize an array of items from smallest to large
 
 Although there is a wide variety of sorting algorithms, this blog explains Straight Insertion, Shell Sort, Bubble Sort, Quick Sort, Selection Sort, and Heap Sort. The first two algorithms (Straight Insertion and Shell Sort) sort arrays with insertion, which is when elements get inserted into the right place. The next 2 (Bubble Sort and Quick Sort) sort arrays with exchanging which is when elements move around the array. The last one is heap sort which sorts through selection where the right elements are selected as the algorithm runs down the array.
 
+## Algorithmic Complexity
+-> Insert text here
+![image alt](/img/Sorting-algorithms/Complexity.png "Complexity")
+
 ## Straight Insertion Sort
 ![image alt](/img/Sorting-algorithms/Insertion_sort_animation.gif "Straight Insertion")
 
@@ -52,11 +56,8 @@ def insertionSort(alist):
          position = position-1
 
      alist[position]=currentvalue
-
-alist = [54,26,93,17,77,31,44,55,20]
-insertionSort(alist)
-print(alist)
 ```
+
 ## Shell Sort
 ![image alt](/img/Sorting-algorithms/Sorting_shellsort_anim.gif "Shell Sort")
 
@@ -91,8 +92,6 @@ def shellSort(alist):
       for start_position in range(sublistcount):
         gap_InsertionSort(alist, start_position, sublistcount)
 
-      print("After increments of size",sublistcount, "The list is",nlist)
-
       sublistcount = sublistcount // 2
 
 def gap_InsertionSort(nlist,start,gap):
@@ -106,12 +105,8 @@ def gap_InsertionSort(nlist,start,gap):
             position = position-gap
 
         nlist[position]=current_value
-
-
-nlist = [14,46,43,27,57,41,45,21,70]
-shellSort(nlist)
-print(nlist)
 ```
+
 ## Bubble Sort
 ![image alt](/img/Sorting-algorithms/Sorting_bubblesort_anim.gif "Bubble Sort")
 
@@ -141,11 +136,8 @@ def bubbleSort(alist):
                 temp = alist[i]
                 alist[i] = alist[i+1]
                 alist[i+1] = temp
-
-alist = [54,26,93,17,77,31,44,55,20]
-bubbleSort(alist)
-print(alist)
 ```
+
 ## Quicksort
 ![image alt](/img/Sorting-algorithms/Quicksort.gif "Quicksort")
 
@@ -213,10 +205,6 @@ def partition(alist,first,last):
 
 
    return rightmark
-
-alist = [54,26,93,17,77,31,44,55,20]
-quickSort(alist)
-print(alist)
 ```
 ## Heapsort
 ![image alt](/img/Sorting-algorithms/Sorting_heapsort_anim.gif "Heapsort")
@@ -284,13 +272,8 @@ def heapSort(arr):
 		arr[i], arr[0] = arr[0], arr[i] # swap 
 		heapify(arr, i, 0) 
 
-# Driver code to test above 
-arr = [ 12, 11, 13, 5, 6, 7] 
 heapSort(arr) 
-n = len(arr) 
-print ("Sorted array is") 
-for i in range(n): 
-	print ("%d" %arr[i]), 
+ 
 ```
 ## Conclusion
 In this post, we showed 5 of the most common sorting algorithms used today. Before using any of them is extremely important to know how fast it runs and how much space is going to use. So it’s the tradeoff between complexity, speed, and volume. Another critical characteristic of the sorting algorithms that are important to know is its stability. The stability means that the algorithm keeps the order of elements with equal key values. The best algorithm changes for each different set of data and as a result, understanding our data plays a significant role in the process of choosing the right algorithm.
@@ -338,3 +321,5 @@ If this post got your attention, take a look at video below, it will give you a 
 > Sedgewick, R., & Wayne, K. (2011). Algorithms, 4th Edition. (p. I–XII, 1-955). Addison-Wesley. - https://algs4.cs.princeton.edu/20sorting/
 
 > Sorting algorithms - https://brilliant.org/wiki/sorting-algorithms/
+
+> A tour of the top 5 sorting algorithms with Python code - https://medium.com/@george.seif94/a-tour-of-the-top-5-sorting-algorithms-with-python-code-43ea9aa02889
