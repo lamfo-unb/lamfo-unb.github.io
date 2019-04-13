@@ -299,9 +299,15 @@ In this post, we showed 5 of the most common sorting algorithms used today. Befo
 
 As we can see, understanding our data plays a very important role in the process of choosing the right algorithm.
 
+If this post got your attention, take a look at video below, it will give you a concise explanation about 15 sorting algorithms.
+
+[![15 Sorting algorithms in 6 minutes](http://img.youtube.com/vi/kPRA0W1kECg/0.jpg)](http://www.youtube.com/watch?v=kPRA0W1kECg "15 Sorting algorithms in 6 minutes")
+
 **References:**
 
 > Knuth, Donald Ervin, 1938 - The art of computer programming / Donald Ervin Knuth. xiv,782 p. 24 cm.
+
+> 15 Sorting Algorithms in 6 minutes - https://www.youtube.com/watch?v=kPRA0W1kECg
 
 > Insertion sort - https://pt.wikipedia.org/wiki/Insertion_sort
 
