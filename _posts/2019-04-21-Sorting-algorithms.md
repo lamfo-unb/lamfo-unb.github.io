@@ -14,9 +14,10 @@ Sorting algorithms are ways to organize an array of items from smallest to large
 
 Although there is a wide variety of sorting algorithms, this blog explains Straight Insertion, Shell Sort, Bubble Sort, Quick Sort, Selection Sort, and Heap Sort. The first two algorithms (Straight Insertion and Shell Sort) sort arrays with insertion, which is when elements get inserted into the right place. The next 2 (Bubble Sort and Quick Sort) sort arrays with exchanging which is when elements move around the array. The last one is heap sort which sorts through selection where the right elements are selected as the algorithm runs down the array.
 
-## Algorithmic Complexity
--> Insert text here
+## Big-O Notation
+Before this blog goes any further, it is essential to explain the methods that professionals use to analyze and assess algorithm complexity and performance. The current standard is called “Big O notation” named according to its notation which is an “O” followed by a function such as “O(n).” Big O is used to denote either the time complexity of an algorithm or how much space it takes up. This blog focuses mainly on the time complexity part of this notation. The way people can calculate this is by identifying the worst case for the targeted algorithm and formulating a function of its performance given an n amount of elements. For example, if there were an algorithm that searched for the number 2 in an array, then the worst case would be if the 2 was at the very end of the array. Therefore, the Big O notation would be O(n) since it would have to run through the entire n-element array before finding the number 2.
 
+To help you, find below a table with algorithms and its complexity.
 ![image alt](/img/Sorting-algorithms/Complexity.png "Complexity")
 
 ## Straight Insertion Sort
