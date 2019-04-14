@@ -16,6 +16,7 @@ Although there is a wide variety of sorting algorithms, this blog explains Strai
 
 ## Algorithmic Complexity
 -> Insert text here
+
 ![image alt](/img/Sorting-algorithms/Complexity.png "Complexity")
 
 ## Straight Insertion Sort
@@ -275,6 +276,19 @@ def heapSort(arr):
 heapSort(arr) 
  
 ```
+
+## Benchmark: How fast they are?
+After development of the algorithms it is good for us to test how fast they can be. In this part we developed a simple program using the code above to generate a basic benchmark, just to see how much time they can use to sort a list of integers.
+Important observations about the code:
+* Python default recursion call limit is 1,000, in this test we are using big numbers, so we needed to improve that number to run the benchmark without errors. The limit was set to 10,000.
+* This code just measure the running time of each algorithm.
+* It was made 20 tests with different size of lists ranging from 2500 to 50000.
+* The numbers were generate randonly ranging from 1 to 10000.
+The results are the following:
+Shell sort and Heap Sort algorithms performed well despite the length of the lists, in the other side we found that Insertion sort and Bubble sort algorithms were far the worse, increasing largely the computing time. See the results in the chart below.
+
+![image alt](/img/Sorting-algorithms/benchmarkChart.png "Benchmark")
+
 ## Conclusion
 In this post, we showed 5 of the most common sorting algorithms used today. Before using any of them is extremely important to know how fast it runs and how much space is going to use. So it’s the tradeoff between complexity, speed, and volume. Another critical characteristic of the sorting algorithms that are important to know is its stability. The stability means that the algorithm keeps the order of elements with equal key values. The best algorithm changes for each different set of data and as a result, understanding our data plays a significant role in the process of choosing the right algorithm.
 
