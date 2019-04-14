@@ -18,12 +18,11 @@ Although there is a wide variety of sorting algorithms, this blog explains Strai
 Before this blog goes any further, it is essential to explain the methods that professionals use to analyze and assess algorithm complexity and performance. The current standard is called “Big O notation” named according to its notation which is an “O” followed by a function such as “O(n).” 
 
 ### Formal definition
-Its formal definition is:
-> For the formal definition, suppose f(x) and g(x) are two functions defined on some subset of the real numbers. We write
+> _Suppose f(x) and g(x) are two functions defined on some subset of the real numbers. We write
 > f(x) = O(g(x)) 
 > (or f(x) = O(g(x)) for x -> ∞ to be more precise) if and only if there exist constants N and C such 
 > that |f(x)| <= C |g(x)| for all x>N.
-> _Intuitively, this means that f does not grow faster than g._
+> Intuitively, this means that f does not grow faster than g._
 
 Big O is used to denote either the time complexity of an algorithm or how much space it takes up. This blog focuses mainly on the time complexity part of this notation. The way people can calculate this is by identifying the worst case for the targeted algorithm and formulating a function of its performance given an n amount of elements. For example, if there were an algorithm that searched for the number 2 in an array, then the worst case would be if the 2 was at the very end of the array. Therefore, the Big O notation would be O(n) since it would have to run through the entire n-element array before finding the number 2.
 
