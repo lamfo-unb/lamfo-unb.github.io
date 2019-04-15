@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Diagnostico em Regressao
+title: Diagnóstico em Regressão
 lang: pt
 header-img: img/0026.png
 date: 2019-04-13 23:59:07
