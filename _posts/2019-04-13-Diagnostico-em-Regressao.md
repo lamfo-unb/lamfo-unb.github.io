@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Diagnostico em Regressao
-lang: en
+lang: pt
 header-img: img/0026.png
 date: 2019-04-13 23:59:07
 tags: [statistics,diagnóstico, regressão, resíduos, distância de Cook]
