@@ -35,7 +35,7 @@ As técnicas de diagnóstico podem ser formais ou informais. As informais baseia
 
 Esse post terá como foco o modelo de regressão linear na apresentação de fórmulas por simplicidade, a extensão do conteúdo acontece de forma natural para modelos lineares generalizados e outras classes de modelo acrescentando os parâmetros pertinentes.
 
-No modelo de regressão linear, que tem forma Y=X\beta + e, os elementos e_i do vetor e
+No modelo de regressão linear, que tem forma $Y=X\beta + e$, os elementos $e_i$ do vetor e
 são as diferenças entre os valores observados y_i e aqueles esperados \mu_i pelo modelo.
 Essa diferença é chamada de resíduo e considera-se como pressuposto do modelo que os resíduos sejam independentes e que tenham distribuição normal (a distribuição esperada pode mudar conforme o modelo), cabe ressaltar que a normalidade deve ser verificada nos resíduos e não na variável resposta Y. 
 
