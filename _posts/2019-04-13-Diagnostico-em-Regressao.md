@@ -130,7 +130,7 @@ $$DFFit(i) = x^T_i(\hat{\beta} - \hat{\beta}_{(i)}) = \hat{\mu}_i - \hat{\mu}_{(
 
 $$D_{(i)} = \frac{(\hat{\beta} - \hat{\beta}_{(i)})^T (X^TX)(\hat{\beta} - \hat{\beta}_{(i)})}{p s^2}$$
 
-###Multicolinearidade
+### Multicolinearidade
 
 Para finalizar, outro grande problema ocorrido nos modelos é a multicolinearidade no qual as variáveis independentes possuem relações lineares exatas ou aproximadamente exatas (correlação alta) entre elas mesmas, indicando que duas ou mais variaveis fornecem a mesma informação sobre a variável resposta. Um índício da existência da multicolinearidade é quando o R^2 é bastante alto (acima de 0,7), mas nenhum dos coeficientes da regressão é estatisticamente significativo segundo a estatística t convencional. A  importância de se verificar a existência de multicolinearidade é que podem alterar as estimativas dos parâmetros e fornecer erros-padrão elevados no caso de multicolinearidade moderada ou alta.
 
