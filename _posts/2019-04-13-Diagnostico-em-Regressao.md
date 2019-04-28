@@ -35,19 +35,19 @@ As técnicas de diagnóstico podem ser formais ou informais. As informais baseia
 
 Esse post terá como foco o modelo de regressão linear na apresentação de fórmulas por simplicidade, a extensão do conteúdo acontece de forma natural para modelos lineares generalizados e outras classes de modelo acrescentando os parâmetros pertinentes.
 
-No modelo de regressão linear, que tem forma $Y=X\beta + e$, os elementos $e_i$ do vetor e
+No modelo de regressão linear, que tem forma \\(Y=X\beta + e\\), os elementos \\(e_i\\) do vetor e
 são as diferenças entre os valores observados y_i e aqueles esperados \mu_i pelo modelo.
 Essa diferença é chamada de resíduo e considera-se como pressuposto do modelo que os resíduos sejam independentes e que tenham distribuição normal (a distribuição esperada pode mudar conforme o modelo), cabe ressaltar que a normalidade deve ser verificada nos resíduos e não na variável resposta Y. 
 
 Os resíduos indicam a variação natural dos dados, um fator aleatório (ou não) que o modelo não capturou. Se as pressuposições do modelo são violadas, a análise será levada a resultados duvidosos e não confiáveis para inferência. Essas falhas do modelo nos pressupostos podem ser oriundas de diversos fatores como não linearidade, não-normalidade, heterocedasticidade, não-independência e isso pode ser causado por pontos atípicos (observações discrepantes), que podem influenciar, ou não, no ajuste do modelo.
 
 Depois de ajustado um modelo algumas medidas básicas de pressuposições sempre devem ser verificadas como
-- valores estimados (ou ajustados) \hat{\mu}_i;
-- Resíduos ordinários r_i = y_i - \hat{\mu}_i (existem outros tipos de resíduos mas partindo da mesma premissa de diferença de valores);
-- Variância residual estimada (ou quadrado médio residual) \hat{\sigma}^2 = s^2 = \sum(y_i - \hat{\mu}_i)^2/(n - p);
-- Elementos da diagonal (Leverage) da matriz de projeção  H = X(X^TX)^{-1}X^T
+- valores estimados (ou ajustados) \\(\hat{\mu}_i\\);
+- Resíduos ordinários \\(r_i = y_i - \hat{\mu}_i\\) (existem outros tipos de resíduos mas partindo da mesma premissa de diferença de valores);
+- Variância residual estimada (ou quadrado médio residual) \\(\hat{\sigma}^2 = s^2 = \sum(y_i - \hat{\mu}_i)^2/(n - p)\\);
+- Elementos da diagonal (Leverage) da matriz de projeção  \\(H = X(X^TX)^{-1}X^T\\)
 
-A diagonal principal da matriz de projeção H = X(X^TX)^{-1}X, em que X denota a matriz modelo, também conhecido como pontos de alavanca, que receberam esse nome por terem um peso desproporcional no
+A diagonal principal da matriz de projeção \\(H = X(X^TX)^{-1}X\\), em que X denota a matriz modelo, também conhecido como pontos de alavanca, que receberam esse nome por terem um peso desproporcional no
 próprio valor ajustado. Esses pontos em geral são remotos no subespaço gerado pelas colunas da matriz X, ou seja, têm um perfil diferente das demais observações no que diz respeito aos valores das variáveis explicativas, conforme o seu afastamento das outras observações esses pontos podem exercer forte influência nas estimativas dos coeficientes da regressão. 
 
 Agora serão apresentados algumas métricas usadas para diagnóstico de forma geral.
@@ -57,7 +57,7 @@ Agora serão apresentados algumas métricas usadas para diagnóstico de forma ge
 
 - Resíduos ordinários
 
-Os resíduos por mínimos quadrados são definidos por r_i = y_i - \hat{\mu}_i.
+Os resíduos por mínimos quadrados são definidos por \\(r_i = y_i - \hat{\mu}_i\\).
 Pela definição as observações do vetor do termo de erro do modelo são independentes e têm a mesma variância, os resíduos (o erro observavel) obtidos com ajuste do modelo tem a seguinte variância
 
 $$Var(R) = Var[(I - H)Y] = \sigma^2(I - H)$$.
@@ -67,8 +67,8 @@ Os resíduos ordinários podem não ser adequados devido à heterogeneidade das 
 - Resíduos estudentizados internamente (Studentized residuals)
 
 Um estimador não viesado para a variância dos resíduos é expresso por
-\hat{Var}(r_i) = (1 - h_{ii})s^2.
-Como E(r_i) = E(Y_i - \hat{\mu}_i) = 0, o resíduo estudentizado internamente (ou seja, retirando a média e dividindo pelo desvio padrão) é igual a
+$$\hat{Var}(r_i) = (1 - h_{ii})s^2$$
+Como \\(E(r_i) = E(Y_i - \hat{\mu}_i) = 0\\), o resíduo estudentizado internamente (ou seja, retirando a média e dividindo pelo desvio padrão) é igual a
 
 $$rsi_i = \frac{ri}{s \sqrt{(1 - h_{ii})}$$
 
@@ -81,14 +81,14 @@ Define-se o resíduo estudentizado externamente, como
 
 $$rse_{(i)} = \frac{ri}{s_{(i)} \sqrt{(1 - h_{ii})}$$
 
-sendo s^2_{(i)} o quadrado médio residual livre da influência da observação i, ou seja, é estimado a variância sem a observação i (por isso a ideia de Jackknife). 
+sendo \\(s^2_{(i)}\\) o quadrado médio residual livre da influência da observação i, ou seja, é estimado a variância sem a observação i (por isso a ideia de Jackknife). 
 
-A vantagem de usar o resíduo rse_{(i)}, além de ser mais robusto, é que, sob normalidade, tem distribuição t de Student com (n - p - 1) graus de liberdade.
+A vantagem de usar o resíduo \\(rse_{(i)}\\), além de ser mais robusto, é que, sob normalidade, tem distribuição t de Student com \\((n - p - 1)\\) graus de liberdade.
 
 
 ### Pontos discrepantes
 
-Pontos atípicos são caracterizadas por terem h_{ii} e/ou resíduos grandes, serem inconsistentes e/ou influentes. Uma observação inconsistente é aquela que se afasta da tendência geral das demais. Quando uma observação está distante das outras em termos das variáveis explicativas, ela pode ser, ou não, influente. Uma observação influente é aquela cuja omissão do conjunto de dados resulta em mudanças substanciais nas estatísticas de diagnóstico do modelo. Essa observação pode ser um outlier (observação aberrante), ou não. Uma observação pode ser influente de 3 maneiras:
+Pontos atípicos são caracterizadas por terem \\(h_{ii}\\) e/ou resíduos grandes, serem inconsistentes e/ou influentes. Uma observação inconsistente é aquela que se afasta da tendência geral das demais. Quando uma observação está distante das outras em termos das variáveis explicativas, ela pode ser, ou não, influente. Uma observação influente é aquela cuja omissão do conjunto de dados resulta em mudanças substanciais nas estatísticas de diagnóstico do modelo. Essa observação pode ser um outlier (observação aberrante), ou não. Uma observação pode ser influente de 3 maneiras:
 
 - Ajuste geral do modelo;
 - Conjunto das estimativas dos parâmetros;
@@ -96,16 +96,16 @@ Pontos atípicos são caracterizadas por terem h_{ii} e/ou resíduos grandes, se
 
 As estatísticas mais usadas para verificar pontos atípicos são:
 
-- Leverage: h_{ii} (já comentado);
-- rse_{(i)} (já comentado);
-- Influência sobre o parâmetro \beta_i : DFBetaS(i) para \beta_i;
+- Leverage: \\(h_{ii}\\) (já comentado);
+- \\(rse_{(i)}\\) (já comentado);
+- Influência sobre o parâmetro \\(\beta_i : DFBetaS(i)\\) para \\(\beta_i\\);
 - Influência geral: DFFitS(i), D(i).
 
 Existem alguns critérios para classificação das observações como discrepantes, contudo cada autor possui o seu critério. De uma forma geral, pode-se classificar uma observação como:
 
-- Inconsistente: ponto com |rse_{(i)}| grande, isto é, tal que |rse_{(i)}| > t_{(1-\alpha)/(2n);n-p-1};
+- Inconsistente: ponto com \\(|rse_{(i)}|\\) grande, isto é, tal que \\(|rse_{(i)}| > t_{(1-\alpha)/(2n);n-p-1}\\);
 - Alavanca: ponto com h_{ii} grande, isto é, tal que h_{ii} - 2p/n, no qual p é o número de parâmetros e n o tamanho da amostra. Pode ser classificado como bom, quando consistente, ou ruim, quando inconsistente;
-- Outlier: ponto inconsistente com leverage pequeno, ou seja, com rse_{(i)} grande e h_{ii} pequeno;
+- Outlier: ponto inconsistente com leverage pequeno, ou seja, com \\(rse_{(i)}\\) grande e \\(h_{ii}\\) pequeno;
 - Influente: ponto com DFFitS(i), C(i), D(i) ou DFBetaS(i) grande.
 
 Essas medidas de influência são descritas abaixo.
