@@ -49,7 +49,7 @@ Uma das vantagens de utilizar o mecanismo de atenção é a interpretabilidade. 
 <img class="center-block thumbnail img-responsive" src="/img/attention/att2.jpg"> <em>Adaptado de http://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/</em>
 
 
-A imagem acima mostra a tradução da frase "eu sou estudante" para o inglês. Valores maiores de atenção são representados por cores mais escura. Perceba que "eu" possui um peso grande para "I" assim como "estudante" possui para "student".
+A imagem acima mostra a tradução da frase "eu sou estudante" para o inglês. Valores maiores de atenção são representados por cores mais escuras. Perceba que "eu" possui um peso grande para "I" assim como "estudante" possui para "student".
 
 ## Como o mecanismo de atenção funciona?
 
@@ -58,6 +58,9 @@ A imagem acima mostra a tradução da frase "eu sou estudante" para o inglês. V
 
 A arquitetura é similar ao encoder-decoder básico, com uma particularidade entre o encoder (azul) e o decoder (vermelho) representados na imagem acima. A diferença principal em relação aos outros modelos seq2seq é o vetor de contexto que considera todo os elementos da entrada. Cada elemento da saída considera o respectivo vetor de contexto e a saída no instante de tempo anterior. 
 
+
+
+<img class="center-block thumbnail img-responsive" src="/img/attention/eq.jpg">
 
 
 
