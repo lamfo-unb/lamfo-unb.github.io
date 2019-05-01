@@ -41,7 +41,7 @@ O mecanismo de atenção surge para suprir essa limitação do vetor de contexto
 <img class="center-block thumbnail img-responsive" src="/img/attention/att.jpg"> <em>Adaptado de <br/> [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473)</em>
 
 
-A imagem acima representa o mecanismo de atenção, x é a sequência de entrada e y a de saída. É importante notar que agora a saída depende da combinação ponderada de todos os estados de entrada. Os a's representam os pesos de atenção, ou seja, quanto cada estado de entrada é considerado em cada saída. Por exemplo, se a2,1 é um valor grande, isso significa que a primeira palavra de entrada é importante na geração da segunda palavra na saída.
+A imagem acima representa o mecanismo de atenção, x é a sequência de entrada e y a de saída. É importante notar que agora a saída depende da combinação ponderada de todos os estados de entrada. Os a's representam os pesos de atenção, ou seja, quanto cada estado de entrada é considerado em cada saída. Por exemplo, se $$a_{2,1}$$ é um valor grande, isso significa que a primeira palavra de entrada é importante na geração da segunda palavra na saída.
 
 Uma das vantagens de utilizar o mecanismo de atenção é a interpretabilidade. É possível saber qual parte da entrada foi mais relevante para cada parte da saída. 
 
