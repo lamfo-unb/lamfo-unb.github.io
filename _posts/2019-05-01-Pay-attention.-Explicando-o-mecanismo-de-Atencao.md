@@ -56,11 +56,14 @@ A imagem acima mostra a tradução da frase "eu sou estudante" para o inglês. V
 <img class="center-block thumbnail img-responsive" src="/img/attention/att3.jpg"> <em>Adaptado de https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129</em>
 
 
-A arquitetura é similar ao encoder-decoder básico, com uma particularidade entre o encoder (azul) e o decoder (vermelho) representados na imagem acima. A diferença principal em relação aos outros modelos seq2seq é o vetor de contexto que considera todo os elementos da entrada. Cada elemento da saída considera o respectivo vetor de contexto e a saída no instante de tempo anterior. 
+A arquitetura é similar ao encoder-decoder básico, com uma particularidade entre o encoder (azul) e o decoder (vermelho) representados na imagem acima. A diferença principal em relação aos outros modelos seq2seq é o vetor de contexto que considera todo os elementos da entrada. Cada elemento da saída considera o respectivo vetor de contexto e a saída no instante de tempo anterior. A atenção é definida pelas três equações abaixo:
 
 
 
 <img class="center-block thumbnail img-responsive" src="/img/attention/eq.jpg">
+
+
+O *score* na equação (1) é normalmente uma rede neural simples, os pesos de atenção são normalizados usando *softmax* em relação ao *input*. O vetor de contexto é calculado pela soma ponderada dos *hidden states* em relação aos seus pesos. Por último, o modelo utiliza o vetor de contexto e o *hidden state* para determinar a saída.
 
 
 
