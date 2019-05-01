@@ -71,3 +71,4 @@ O *score* na equação (1) é normalmente uma rede neural simples, os pesos de a
 > http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/
 > https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129
 > https://towardsdatascience.com/attention-based-neural-machine-translation-b5d129742e2c
+> https://distill.pub/2016/augmented-rnns/
