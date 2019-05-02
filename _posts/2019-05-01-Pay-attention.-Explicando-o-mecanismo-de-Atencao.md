@@ -63,7 +63,8 @@ A arquitetura é similar ao encoder-decoder básico, com uma particularidade ent
 <img class="center-block thumbnail img-responsive" src="/img/attention/eq.jpg">
 
 
-O *score* na equação (1) é normalmente uma rede neural simples, os pesos de atenção são normalizados usando *softmax* em relação ao *input*. O vetor de contexto é calculado pela soma ponderada dos *hidden states* em relação aos seus pesos. Por último, o modelo utiliza o vetor de contexto e o *hidden state* para determinar a saída.
+O *score* na equação (1) é normalmente uma rede neural simples, os pesos de atenção são normalizados usando *softmax* em relação ao *input*. O vetor de contexto é calculado pela soma ponderada dos *hidden states* em relação aos seus pesos. Esse vetor é calculado para cada palavra na saída. Se considerarmos todos os pesos de atenção, teremos uma matriz de dimensões N x M, onde N é o tamanho do *input* e M o tamanho do *output*.
+Por último, o modelo utiliza o vetor de contexto e o *hidden state* para determinar a saída. A equação (3) mostra a tanh como a não linearidade mas pode-se usar outras funções, como ReLU.
 
 
 
