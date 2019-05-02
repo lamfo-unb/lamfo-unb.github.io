@@ -81,11 +81,11 @@ A parte mais clara das imagens representa maior peso e a imagem sublinhada mostr
 
 O mecanismo de atenção surge como solução para a dificuldade de representar longas sequências em modelos convencionais. Um dos lados negativos dessa abordagem é o custo computacional, visto que é preciso calcular os pesos para cada componente da saída, o que pode tornar o custo computacional razoavelmente alto.
 
-**References:**
-> http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/
-> https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129
-> https://towardsdatascience.com/attention-based-neural-machine-translation-b5d129742e2c
-> https://distill.pub/2016/augmented-rnns/
+**Referências:**
+> Attention and Memory in Deep Learning and NLP http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/
+> A Brief Overview of Attention Mechanism https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129
+> Attention Based Machine Translation https://towardsdatascience.com/attention-based-neural-machine-translation-b5d129742e2c
+> Augmented RNNs https://distill.pub/2016/augmented-rnns/
 
 >[Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473)
 
