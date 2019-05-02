@@ -66,6 +66,14 @@ A arquitetura é similar ao encoder-decoder básico, com uma particularidade ent
 O *score* na equação (1) é normalmente uma rede neural simples, os pesos de atenção são normalizados usando *softmax* em relação ao *input*. O vetor de contexto é calculado pela soma ponderada dos *hidden states* em relação aos seus pesos. Esse vetor é calculado para cada palavra na saída. Se considerarmos todos os pesos de atenção, teremos uma matriz de dimensões N x M, onde N é o tamanho do *input* e M o tamanho do *output*.
 Por último, o modelo utiliza o vetor de contexto e o *hidden state* para determinar a saída. A equação (3) mostra a tanh como a não linearidade mas pode-se usar outras funções, como ReLU.
 
+## Atenção além da tradução
+
+O mecanismo de atenção nesse post foi introduzido utilizando sua aplicação na tradução. Porém, esse método também é utilizado em outras aplicações. Em [Show,Attend and Tell](https://arxiv.org/abs/1502.03044), o mecanismo de atenção foi aplicado para gerar descrição de imagens. A descrição era gerada por uma RNR com atenção após receber a representação da imagem feito por uma Rede Neural Convolucional.
+
+
+
+<img class="center-block thumbnail img-responsive" src="/img/attention/caption.png"><em> Fonte : <br/> [Show,Attend and Tell](https://arxiv.org/abs/1502.03044) </em>
+
 
 
 **References:**
@@ -73,3 +81,7 @@ Por último, o modelo utiliza o vetor de contexto e o *hidden state* para determ
 > https://medium.com/syncedreview/a-brief-overview-of-attention-mechanism-13c578ba9129
 > https://towardsdatascience.com/attention-based-neural-machine-translation-b5d129742e2c
 > https://distill.pub/2016/augmented-rnns/
+
+>[Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473)
+
+> [Show,Attend and Tell](https://arxiv.org/abs/1502.03044)
