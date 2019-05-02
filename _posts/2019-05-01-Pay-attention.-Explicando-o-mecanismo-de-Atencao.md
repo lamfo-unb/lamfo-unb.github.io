@@ -74,7 +74,12 @@ O mecanismo de atenção nesse post foi introduzido utilizando sua aplicação n
 
 <img class="center-block thumbnail img-responsive" src="/img/attention/caption.png"><em> Fonte : <br/> [Show,Attend and Tell](https://arxiv.org/abs/1502.03044) </em>
 
+A parte mais clara das imagens representa maior peso e a imagem sublinhada mostra de qual palavra os pesos são. É possível notar que o modelo identificou de forma correta os exemplos de acordo com a distribuição dos pesos.
 
+
+## Conclusões
+
+O mecanismo de atenção surge como solução para a dificuldade de representar longas sequências em modelos convencionais. Um dos lados negativos dessa abordagem é o custo computacional, visto que é preciso calcular os pesos para cada componente da saída, o que pode tornar o custo computacional razoavelmente alto.
 
 **References:**
 > http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/
