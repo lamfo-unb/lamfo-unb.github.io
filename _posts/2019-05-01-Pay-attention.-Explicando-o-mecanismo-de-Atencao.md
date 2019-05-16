@@ -9,7 +9,7 @@ author: Stefano Dantas
 comments: true
 ---
 
-# Pay Attention. Explicando o Mecanismo de Atenção
+# Pay Attention - Explicando o Mecanismo de Atenção
 
 
 
