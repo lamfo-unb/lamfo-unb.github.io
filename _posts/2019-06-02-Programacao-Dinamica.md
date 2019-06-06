@@ -27,14 +27,14 @@ Para exemplificar, vamos supor que trabalhamos em uma empresa de transportes e p
 
 Os pesos dos arcos representam o custo para ir de uma cidade a outra e queremos gastar o mínimo possível neste trajeto. Logo,
 
-- Função Objetivo: $min(\sum Custo_{D,C})$. 
-- Restrições: $\sum In_i = \sum Out_i$, sendo $i$ os vértices do grafo com exceção da entrada e saída. Para esses últimos, tem-se que 
+- Função Objetivo: $$min(\sum Custo_{D,C})$$. 
+- Restrições: $$\sum In_i = \sum Out_i$$, sendo $$i$$ os vértices do grafo com exceção da entrada e saída. Para esses últimos, tem-se que 
 
 $$In_D = 0, Out_D = 4$$
 
 e
 
-$$In_C = 2, Out_C = 0$$.
+$$In_C = 2, Out_C = 0$$
 
 
 Uma das formas de resolução deste problema seria listarmos todos os caminhos possíveis entre D e C e, ao final, escolhermos a combinação que gerasse o menor custo. Esses são os chamados algoritmos de força bruta. Contudo, note que usá-los poderia tornar o algoritmo computacionalmente dispendioso à medida que o número de vértices e arcos do grafo aumentam. A segunda maneira para encontrar a solução de tal problema seria perceber que para chegarmos em C necessariamente devemos passar por B ou E. Portanto, encontrar a solução ótima partindo da cidade C seria encontrar, antes, a solução ótima da cidade D para a cidade B ou E que são os vértices vizinhos de C. Seguindo o raciocínio, teríamos as possibilidades expressas pela árvore da figura 2.
