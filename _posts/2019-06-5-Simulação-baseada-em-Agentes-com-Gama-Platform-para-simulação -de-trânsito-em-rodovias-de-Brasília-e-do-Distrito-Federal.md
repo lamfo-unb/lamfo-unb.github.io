@@ -269,6 +269,7 @@ species carro skills: [advanced_driving]{
 }
 ```
 O resultado visual desse modelo é esse:
+
 ![m'ladyy](../img/ABM/10.png)
 
 Analisando o equivalente à descida do colorado (DF150), percebemos uma densidade de veículos maior nessa área.
