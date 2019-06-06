@@ -47,21 +47,21 @@ Para representar as ruas que serão usadas na análise, precisamos que estas est
 Uma vez com os arquivos, devemos extrair o arquivo zip e com algum software de visualização de arquivos GIS editarmos o que precisamos. Aqui, utilizaremos o software QGIS, de código livre. 
 
 Na tela principal do QGIS, clique em Add Vector Layer
-![m'ladyy](img/ABM/2.png)
+![m'ladyy](../img/ABM/2.png)
 
 Em seguida, escolha o arquivo “tra_trecho_rodoviario_I.shp”. Após carregar o arquivo, devemos ter a visão das rodovias de todo o Brasil.
-![m'ladyy](img/ABM/3.png)
+![m'ladyy](../img/ABM/3.png)
 
 Podemos então refinar nossos dados para apenas a área desejada, para então reduzirmos nosso espaço de análise e tornarmos a simulação factível e interpretável. Com o uso do plugin OpenLayers, é possível ter uma visão cartográfica, para auxiliar no processo de escolher a região desejada. Com essa camada ativada no lado esquerdo inferior, podemos dar zoom na região do Distrito Federal, e em seguida desselecionar a camada cartográfica e visualizar apenas as rodovias do local.
 
-![m'ladyy](img/ABM/4.png)
-![m'ladyy](img/ABM/5.png)
+![m'ladyy](../img/ABM/4.png)
+![m'ladyy](../img/ABM/5.png)
 
 Com a camada selecionada no lado esquerdo inferior, podemos usar a ferramenta select feature by area (botão amarelo) e escolher a região desejada, arrastando o mouse sobre a área desejada. 
 
 Com a área selecionada em destaque, podemos clicar com o lado direito sobre a camada tra_trecho_rodoviario_I e escolhe a opção save selected features as, e escolher salvar o arquivo em formato shapefile (.shp).
 
-![m'ladyy](img/ABM/6.png)
+![m'ladyy](../img/ABM/6.png)
 
 Pronto, agora já temos os arquivos base para as rodovias que iremos usar em nossa simulação.
 
@@ -72,11 +72,11 @@ A simulação baseada em agentes se parece com a programação orientada à obje
 A simulação funciona em ticks, que funcionam como passagens do tempo. Quando se inicia uma simulação no GAMA, apenas o tick inicial é executado, sendo todos os demais executados de acordo com a passagem do tempo simulado ou critérios específicos.
 	
 Para iniciarmos nossa simulação, devemos primeiro criar um projeto e um arquivo .gaml.
-![m'ladyy](img/ABM/7.png)
+![m'ladyy](../img/ABM/7.png)
 
 De início são criados dois principais diretórios, includes (onde irão todos arquivos que servirão de input para nosso modelo) e models (onde ficarão nosso código).
 
-![m'ladyy](img/ABM/8.png)
+![m'ladyy](../img/ABM/8.png)
 
 Com os arquivos gerados na etapa anterior, devemos colocá-los na pasta includes, e importa-los dentro da definição Global com o seguinte comando:
 
@@ -125,7 +125,7 @@ global{
 		}
 	}
 ```
-![m'ladyy](img/ABM/9.png)
+![m'ladyy](../img/ABM/9.png)
 
 ##Limpando os dados para as ruas
 
@@ -269,15 +269,15 @@ species carro skills: [advanced_driving]{
 }
 ```
 O resultado visual desse modelo é esse:
-![m'ladyy](img/ABM/10.png)
+![m'ladyy](../img/ABM/10.png)
 
 Analisando o equivalente à descida do colorado (DF150), percebemos uma densidade de veículos maior nessa área.
 
-![m'ladyy](img/ABM/11.png)
+![m'ladyy](../img/ABM/11.png)
 
 De fato, a região é uma das de maior trânsito na cidade, estando inclusive passando por uma obra de ampliação prevista para acabar em 2019
 
-![m'ladyy](img/ABM/12.png)
+![m'ladyy](../img/ABM/12.png)
 *http://www.jornalregional.com.br/noticia/7099/EPIA-NORTE:-Ponto-de-entrada-e-sa%C3%ADda-da-faixa-reversa-do-Colorado-será-deslocado-a-partir-desta-quarta-(6).html*
 
 Simulações como essa poderiam ser usadas para diversas finalidades. Seguindo o exemplo analisado, poderíamos usar essa simulação para analisar o trânsito caso adicionássemos mais uma via em outro local, ou caso quiséssemos observar o efeito de se ampliar as vias já existentes.  
