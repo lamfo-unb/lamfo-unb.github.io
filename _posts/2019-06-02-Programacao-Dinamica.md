@@ -28,7 +28,7 @@ Para exemplificar, vamos supor que trabalhamos em uma empresa de transportes e p
 Os pesos dos arcos representam o custo para ir de uma cidade a outra e queremos gastar o mínimo possível neste trajeto. Logo,
 
 - Função Objetivo: $$min(\sum Custo_{D,C})$$. 
-- Restrições: $$\sum In_i = \sum Out_i$$, sendo  $$In_i$$ as arestas que entram no vértice e $$Out_i$$ as arestas que saem. Essa restrição, porém, não vale para os vértices de entrada e saída do caminho. Para esses, tem-se que 
+- Restrições: $$\sum In_i = \sum Out_i$$, sendo  $$In_i$$ as arestas que entram no vértice $$i$$ e $$Out_i$$ as arestas que saem. Essa restrição, porém, não vale para os vértices de entrada e saída do caminho. Para esses, tem-se que 
 
 $$In_D = 0, Out_D = 4$$
 
