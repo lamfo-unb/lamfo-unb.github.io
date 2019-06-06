@@ -31,7 +31,11 @@ Para exemplificar, vamos supor que trabalhamos em uma empresa de transportes e p
 Os pesos dos arcos representam o custo para ir de uma cidade a outra e queremos gastar o mínimo possível neste trajeto. Logo,
 
 - Função Objetivo: min(\sum Custo_{D,C}). 
-- Restrições: não há.
+- Restrições: \sum In_i = \sum Out_i, sendo i os vértices do grafo com exceção da entrada e saída. Para esses últimos, tem-se que 
+
+$$In_D = 0 e Out_D = 4$$
+
+$$In_C = 2 e Out_C = 0$$
 
 
 Uma das formas de resolução deste problema seria listarmos todos os caminhos possíveis entre D e C e, ao final, escolhermos a combinação que gerasse o menor custo. Esses são os chamados algoritmos de força bruta. Contudo, note que usá-los poderia tornar o algoritmo computacionalmente dispendioso à medida que o número de vértices e arcos do grafo aumentam. A segunda maneira para encontrar a solução de tal problema seria perceber que para chegarmos em C necessariamente devemos passar por B ou E. Portanto, encontrar a solução ótima partindo da cidade C seria encontrar, antes, a solução ótima da cidade D para a cidade B ou E que são os vértices vizinhos de C. Seguindo o raciocínio, teríamos as possibilidades expressas pela árvore da figura 2.
@@ -202,7 +206,15 @@ Escolheu-se o cálculo de termos maiores (35 a 39) para mostrar como o código, 
 
 # Conclusão
 
-Neste post foi apresentada uma introdução sobre programação dinâmica e sua utilidade para a busca de soluções ótimas em problemas de otimização que possuem subestrutura ótima e sobreposição de soluções. Apresentou-se também duas metodologias de implementação da programação dinâmica - abordagem top-down e bottom-up - bem como suas vantagens e desvantagens. Vimos o quão lento a resolução pode se tornar com o uso apenas da recursividade e a grande eficiência alcançada no que tange ao tempo de execução dos códigos provindos do uso de tais metodologias. Caso o leitor se interesse, sugere-se o estudo de problemas mais avançados como a questão da multiplicação de várias matrizes encadeadas além de vários outros encontrados em [[1]](https://www.geeksforgeeks.org/dynamic-programming/#concepts).
+Neste post foi apresentada uma introdução sobre programação dinâmica e sua utilidade para a busca de soluções ótimas em problemas de otimização que possuem subestrutura ótima e sobreposição de soluções. Apresentou-se também duas metodologias de implementação da programação dinâmica - abordagem top-down e bottom-up - bem como suas vantagens e desvantagens. Vimos o quão lento a resolução pode se tornar com o uso apenas da recursividade e a grande eficiência alcançada no que tange ao tempo de execução dos códigos provindos do uso de tais metodologias. Caso o leitor se interesse, sugere-se o estudo de questões mais avançadas como:
+
+- Multiplicação de matrizes encadeadas [[1]](https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/);
+
+- Problema da Mochila [[2]](https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/)[[3]](http://www.ime.unicamp.br/~eabreu/Projeto/RubensCarvalhoRA122181-MS777.pdf);
+
+- Problema do Troco [[4]](http://prorum.com/?qa=3250/problema-troco-resolve-abordagem-natural-sempre-funciona);
+
+- Aplicações em Economia para apreçamento de ativos usando Equações de Euler [[5]](https://mitsloan.mit.edu/shared/ods/documents/?DocumentID=4171).
 
 # Referências
 
