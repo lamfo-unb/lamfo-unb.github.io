@@ -22,7 +22,7 @@ Em megalópoles, como Nova Iorque, soluções igualmente complexas ao trânsito 
 	
 É nesse cenário de complexidade que a simulação baseada em agentes se faz útil. Não é simples analisar o movimento complexo de um conjunto de carros ao longo do dia, mas é (mais) simples imaginar o padrão de comportamento de um único indivíduo. Por exemplo: não é exagero inferir com certa confiança que uma pessoa, em geral, sai para o trabalho 8:30 da manhã e volta 18h para casa, com uma variação de 30 minutos média. Suposições como essas, simples, quando simuladas em grande escala, são capazes de gerar um padrão de comportamento complexo, que não seria facilmente possível por outras técnicas. 
 
-##Simulação baseada em Agentes
+## Simulação baseada em Agentes
 
 Mas o que é simulação baseada em agentes? A simulação baseada em agentes nada mais é que a simulação individual de agentes (indivíduos, por exemplo), do nível mais baixo da interpretação de um fenômeno, para a compreensão de algo mais complexo, advindo do conjunto das ações individuais.
 
@@ -34,13 +34,13 @@ Por exemplo, o movimento de pássaros voando em conjunto, é algo matematicament
 
 Se simularmos um simples pássaro, podemos com poucos parâmetros compreender o resultado do conjunto de interações. [Em código disponível no NetLogo](https://ccl.northwestern.edu/netlogo/models/Flocking) (software consagrado para análises de ABM), são usados 3 simples principais parâmetros para analisar esse caso: alinhamento, separação e coesão. 
 
-##GAMA Platform
+## GAMA Platform
 
 Apesar de softwares como o NetLogo serem mais famosos para se trabalhar com a simulação baseada em agentes, é importante compreender que cada aplicação irá exigir algumas especificidades que podem favorecer um ou outro software. O artigo [Agent Based Modelling and Simulation tools: A review of the state-of-art software](https://www.researchgate.net/publication/316002244_Agent_Based_Modelling_and_Simulation_tools_A_review_of_the_state-of-art_software) faz uma análise comparative dos softwares disponíveis. Aqui usaremos o GAMA Platform, devido à sua boa integração com dados georreferenciados. 
 
 A plataforma GAMA é um software de simulação utilizado para reproduzir n-agentes simultaneamente, e os visualizar de maneira gráfica atualizada em tempo real. O diferencial da plataforma, que possui linguagem própria (GAML), é a integração simples com arquivos de informação espacial GIS. Outras opções são usadas para a mesma finalidade.
 
-##Importando os arquivos de rodovias para análise
+## Importando os arquivos de rodovias para análise
 
 Para representar as ruas que serão usadas na análise, precisamos que estas estejam em formato compatível, com arquivos de shapefile. Assim, utilizaremos o arquivo Transporte_v2017.zip, disponível [neste link]( http://forest-gis.com/2009/04/base-de-dados-shapefile-do-brasil-todo.html/ ). 
 
@@ -65,7 +65,7 @@ Com a área selecionada em destaque, podemos clicar com o lado direito sobre a c
 
 Pronto, agora já temos os arquivos base para as rodovias que iremos usar em nossa simulação.
 
-##GAMA Language – GAML
+## GAMA Language – GAML
 
 A simulação baseada em agentes se parece com a programação orientada à objetos. Temos variáveis e propriedades globais, bem como agentes, que são definidos com propriedades gerais e específicas. Assim, podemos herdar valores e funções em diferentes níveis para formar o agente com as características que precisarmos.
 
@@ -127,7 +127,7 @@ global{
 ```
 ![m'ladyy](../img/ABM/9.png)
 
-##Limpando os dados para as ruas
+## Limpando os dados para as ruas
 
 As ruas não podem apenas estar plotadas no nosso mapa para que possam servir de ruas navegáveis. Precisamos, portanto, transformar as ruas em grafos com suas conexões funcionando como nós. Para isso, precisamos realizar alguns passos para garantir que teremos um grafo que conecta todos os pontos, evitando erros de roteirização impossível (não existe caminho entre dois pontos), ruas soltas (não se conectam de nenhuma forma ao grafo) ou simplesmente defeitos no arquivo (ruas com 2 metros de distância da realidade, criando um espaçamento não existente).
 
@@ -282,7 +282,7 @@ De fato, a região é uma das de maior trânsito na cidade, estando inclusive pa
 
 Simulações como essa poderiam ser usadas para diversas finalidades. Seguindo o exemplo analisado, poderíamos usar essa simulação para analisar o trânsito caso adicionássemos mais uma via em outro local, ou caso quiséssemos observar o efeito de se ampliar as vias já existentes.  
 
-##Extensão do modelo
+## Extensão do modelo
 
 Esta foi a base do modelo para simulação de trânsito em casos do mundo real. Vale ressaltar que, apesar de ser relativamente complexa a modelagem utilizando o pacote de habilidades advanced driving skill, os resultados são muito mais fidedignos devido à dezenas de atributos que são herdados automaticamente, como inercia para freiar, probabilidade de quebrar o carro (como decorrente de um acidente), distância do veículo da frente, velocidade máxima entre muitas outras. Para conferir o artigo que trata do advanced driving skill, leia [Traffic simulation with the GAMA platform ](https://hal.archives-ouvertes.fr/hal-01055567/document). 
 
