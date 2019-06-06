@@ -29,7 +29,7 @@ Mas o que é simulação baseada em agentes? A simulação baseada em agentes na
 Por exemplo, o movimento de pássaros voando em conjunto, é algo matematicamente (e biologicamente) bastante complexo. Por trás da complexidade desses movimentos, porém, se esconde um padrão de pura simplicidade.
 	
 	
-![m'ladyy](img/ABM/1.png)
+![m'ladyy](../img/ABM/1.png)
 *https://www.slideshare.net/premsankarchakkingal/introduction-to-agent-based-modeling-using-netlogo*
 
 Se simularmos um simples pássaro, podemos com poucos parâmetros compreender o resultado do conjunto de interações. [Em código disponível no NetLogo](https://ccl.northwestern.edu/netlogo/models/Flocking) (software consagrado para análises de ABM), são usados 3 simples principais parâmetros para analisar esse caso: alinhamento, separação e coesão. 
