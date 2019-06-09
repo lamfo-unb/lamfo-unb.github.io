@@ -2,7 +2,7 @@
 layout: post
 title: Simulação baseada em Agentes com Gama Platform para simulação de trânsito em rodovias de Brasília e do Distrito Federal
 lang: pt
-header-img: https://media.giphy.com/media/3ov9jNFwV8DIzOd7xe/200w_s.gif
+header-img: img/ABM/18.jpg
 date: 2019-06-5 23:59:07
 tags: [GAMA, GAML, ABM, Agent-Based Modelling]
 author: Lucas Moreira Gomes
