@@ -18,9 +18,9 @@ comments: true
 
    Simular o trânsito de grandes cidades é um grande desafio por vários motivos, os quais vão desde a complexidade de se formular matematicamente a complexidade da movimentação dos carros em horários e situações específicas do dia a dia, até um acidente ou um buraco na pista. Entretanto, uma coisa é certa: o problema da mobilidade em grandes centros urbanos é custosa e diretamente ligado à qualidade de vida.
     
-Em megalópoles, como Nova Iorque, soluções igualmente complexas ao problema do trânsito foram desenvolvidas e implementadas, com semáforos sincronizados de maneira a tentar minimizar o congestionamento. Entretanto, essas soluções não são facilmente replicáveis a outros cenários, especialmente quando a extensão da área analisada se torna muito grande.
+Em megalópoles, como Nova Iorque, soluções igualmente complexas ao problema do trânsito foram desenvolvidas e implementadas, com semáforos sincronizados de maneira a tentar minimizar o congestionamento. No entanto, essas soluções não são facilmente replicáveis a outros cenários, especialmente quando a extensão da área analisada se torna muito grande.
 	
-É (por exemplo) nesse cenário de complexidade que a simulação baseada em agentes se faz útil. Não é simples analisar o movimento complexo de um conjunto de carros ao longo do dia, mas é (mais) simples imaginar o padrão de comportamento de um único indivíduo. Por exemplo: não é exagero inferir com certa confiança que uma pessoa, em geral, sai para o trabalho 8:30 da manhã e volta 18h para casa, com uma variação de 30 minutos média. Suposições como essas, simples, quando simuladas em grande escala, são capazes de gerar um padrão de comportamento complexo, que não seria facilmente possível por outras técnicas. 
+É nesse cenário de complexidade que a simulação baseada em agentes se faz útil. Não é simples analisar o movimento complexo de um conjunto de carros ao longo do dia, porém é mais simples imaginar o padrão de comportamento de um único indivíduo. Por exemplo: não é exagero inferir com certa confiança que uma pessoa, em geral, sai para o trabalho 8:30 da manhã e volta às 18h para casa, com uma variação média de 30 minutos. Suposições como essas, simples, quando simuladas em grande escala, são capazes de gerar um padrão de comportamento complexo, que não seria facilmente possível por outras técnicas. 
 
 ## Simulação baseada em Agentes
 
@@ -52,12 +52,12 @@ Na tela principal do QGIS, clique em Add Vector Layer
 Em seguida, escolha o arquivo “tra_trecho_rodoviario_I.shp”. Após carregar o arquivo, devemos ter a visão das rodovias de todo o Brasil.
 ![m'ladyy](/img/ABM/3.png)
 
-Podemos então refinar nossos dados para apenas a área desejada, para então reduzirmos nosso espaço de análise e tornarmos a simulação factível e interpretável. Com o uso do plugin OpenLayers, é possível ter uma visão cartográfica, para auxiliar no processo de escolher a região desejada. Com essa camada ativada no lado esquerdo inferior, podemos dar zoom na região do Distrito Federal, e em seguida desselecionar a camada cartográfica e visualizar apenas as rodovias do local.
+Podemos então refinar nossos dados para apenas a área desejada, para então reduzirmos nosso espaço de análise e tornarmos a simulação factível e interpretável. Com o uso do plugin OpenLayers, é possível ter uma visão cartográfica, para auxiliar no processo de escolha da região desejada. Com essa camada ativada no lado esquerdo inferior, podemos dar zoom na região do Distrito Federal, em seguida desselecionar a camada cartográfica e visualizar apenas as rodovias do local.
 
 ![m'ladyy](/img/ABM/4.png)
 ![m'ladyy](/img/ABM/5.png)
 
-Com a camada selecionada no lado esquerdo inferior, podemos usar a ferramenta select feature by area (botão amarelo) e escolher a região desejada, arrastando o mouse sobre a área desejada. 
+Com a camada selecionada no lado inferior esquerdo, podemos usar a ferramenta select feature by area (botão amarelo) e escolher a região desejada, arrastando o mouse sobre a área desejada. 
 
 Com a área selecionada em destaque, podemos clicar com o lado direito sobre a camada tra_trecho_rodoviario_I e escolher a opção save selected features as, e então salvar o arquivo em formato shapefile (.shp).
 
@@ -67,18 +67,18 @@ Pronto, agora já temos os arquivos base para as rodovias que iremos usar em nos
 
 ## GAMA Language – GAML
 
-A simulação baseada em agentes se parece com a programação orientada à objetos. Temos variáveis e propriedades globais, bem como agentes, que são definidos com propriedades gerais e específicas. Assim, podemos herdar valores e funções em diferentes níveis para formar o agente com as características que precisarmos.
+A simulação baseada em agentes se parece com a programação orientada a objetos. Temos variáveis e propriedades globais, bem como agentes, que são definidos com propriedades gerais e específicas. Assim, podemos herdar valores e funções em diferentes níveis para formar o agente com as características que precisarmos.
 
 A simulação funciona em ticks, que funcionam como passagens do tempo. Quando se inicia uma simulação no GAMA, apenas o tick inicial é executado, sendo todos os demais executados de acordo com a passagem do tempo simulado ou critérios específicos.
 	
 Para iniciarmos nossa simulação, devemos primeiro criar um projeto e um arquivo .gaml.
 ![m'ladyy](/img/ABM/7.png)
 
-De início são criados dois principais diretórios, includes (onde irão todos arquivos que servirão de input para nosso modelo) e models (onde ficará nosso código).
+De início são criados dois principais diretórios, includes (onde irão todos os arquivos que servirão de input para nosso modelo) e models (onde ficará nosso código).
 
 ![m'ladyy](/img/ABM/8.png)
 
-Com os arquivos gerados na etapa anterior, devemos colocá-los na pasta includes, e importa-los dentro da definição Global com o seguinte comando:
+Com os arquivos gerados na etapa anterior, devemos colocá-los na pasta includes, e importá-los dentro da definição Global com o seguinte comando:
 
 ```
 global{
@@ -94,7 +94,7 @@ global{
 	geometry shape <- envelope(shape_file_roads);
 	}
 ```
-Em seguida, precisamos definir como o agente rodovia será. Aqui, vamos apenas dizer que a rua se parecerá com a geometria que o próprio arquivo trás consigo.
+Em seguida, precisamos definir como o agente rodovia será. Aqui, vamos apenas dizer que a rua se parecerá com a geometria que o próprio arquivo traz consigo.
 
 ```
 species rodovia {
@@ -146,7 +146,7 @@ global{
 
 Assim, criamos uma lista de geometrias temporárias, as quais usamos para criar as ruas em seguida.
 
-Entretanto, estamos deixando algumas informações de fora quando não analisamos o número de faixas e vias. Para isso, podemos simplesmente usar as informações que já vem nos arquivos GIS e criar uma variável para cada rua com esse atributo usando o comando: with: [variável::formato(procura(nome_da_coluna)),...].
+Entretanto, estamos deixando algumas informações de fora quando não analisamos o número de faixas e vias. Para isso, podemos simplesmente usar as informações que já vêm nos arquivos GIS e criar uma variável para cada rua com esse atributo usando o comando: with: [variável::formato(procura(nome_da_coluna)),...].
 
 ```
 global{
@@ -166,7 +166,7 @@ species rodovia {
 			}
 		}
 ```
-Em seguida precisamos garantir que exista uma via para cada sentido da pista, já que as pistas devem ser direcionais. Assim, para cada pista, deverá haver uma outra de iguais propriedades, e geometria invertida. Além disso, precisamos explicitamente garantir que as ruas estejam conectadas umas as outras. Quando chamamos um agente dentro da função de outro agente, nos referimos ao mais recente como self, e ao mais antigo como myself (o que chamou a função primeiro). 
+Em seguida precisamos garantir que exista uma via para cada sentido da pista, já que as pistas devem ser direcionais. Assim, para cada pista, deverá haver uma outra de iguais propriedades, e geometria invertida. Além disso, precisamos explicitamente garantir que as ruas estejam conectadas umas às outras. Quando chamamos um agente dentro da função de outro agente, nos referimos ao mais recente como self, e ao mais antigo como myself (o que chamou a função primeiro). 
 
 ```
 global{
@@ -191,7 +191,7 @@ species rodovia skills: [skill_road]{
 		}
 ```
 
-Agora temos os links do nosso grafo, precisamos apenas dos nós. Para criar os nós, criamos um grafo de linhas temporárias, e em seguida passamos em cada vértice e criamos um agente nó naquela localização. 
+Agora temos os links do nosso grafo, precisamos apenas dos nós. Para criar os nós, criamos um grafo de linhas temporárias, em seguida passamos em cada vértice e criamos um agente nó naquela localização. 
 
 ```
 global{
@@ -272,7 +272,7 @@ O resultado visual desse modelo é esse:
 
 ![m'ladyy](/img/ABM/10.png)
 
-Analisando o equivalente à descida do colorado (DF150), percebemos uma densidade de veículos maior nessa área.
+Analisando o equivalente à descida do Colorado (DF150), percebemos uma densidade de veículos maior nessa área.
 
 ![m'ladyy](/img/ABM/11.png)
 
@@ -285,6 +285,6 @@ Simulações como essa poderiam ser usadas para diversas finalidades. Seguindo o
 
 ## Extensão do modelo
 
-Esta foi a base do modelo para simulação de trânsito em casos do mundo real. Vale ressaltar que, apesar de ser relativamente complexa a modelagem utilizando o pacote de habilidades advanced driving skill, os resultados são muito mais fidedignos devido à dezenas de atributos que são herdados automaticamente, como inercia para freiar, probabilidade de quebrar o carro (como decorrente de um acidente), distância do veículo da frente, velocidade máxima entre muitas outras. Para conferir o artigo que trata do advanced driving skill, leia [Traffic simulation with the GAMA platform ](https://hal.archives-ouvertes.fr/hal-01055567/document). 
+Esta foi a base do modelo para simulação de trânsito em casos do mundo real. Vale ressaltar que, apesar de ser relativamente complexa a modelagem utilizando o pacote de habilidades advanced driving skill, os resultados são muito mais fidedignos devido à dezenas de atributos que são herdados automaticamente, como inercia para frear, probabilidade de quebrar o carro (como decorrente de um acidente), distância do veículo da frente, velocidade máxima entre muitas outras. Para conferir o artigo que trata do advanced driving skill, leia [Traffic simulation with the GAMA platform ](https://hal.archives-ouvertes.fr/hal-01055567/document). 
 
 Entretanto, vale ressaltar que modelos usando pacotes mais simples podem ter resultado tão positivo quanto o aqui apresentado. No site da plataforma, um [tutorial rápido ensina a montar um modelo de análise de trânsito em uma cidade onde os moradores tem um endereço residencial, e um local de trabalho](https://gama-platform.github.io/wiki/RoadTrafficModel). O modelo, por usar um pacote de habilidade mais simples (moving skill) é capaz de gerar esse cenário com uma substancial simplicidade.
