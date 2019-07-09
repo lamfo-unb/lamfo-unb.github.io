@@ -107,7 +107,71 @@ print(mi_local.Is)
 # numpy vetorização
 sig = mi_local.p_sim<0.05
 mi_local.p_sim[sig]
-
+---
+2
+layout: post
+3
+title: Autocorrelação Espacial e Dependência Geográfica
+4
+lang: pt-br
+5
+header-img: img/autocorrelation/globes-1246245_1280.jpg
+6
+date: 2019-07-07 23:59:07
+7
+tags: [GIS,spatial-statistics, autocorrelation, spatial-dependency]
+8
+author: Leonardo Galler
+9
+comments: true
+10
+---
+11
+​
+12
+-- #Dependência espacial?
+13
+## A primeira lei da Geografia diz: 
+14
+> “Todas as coisas estão relacionadas com todas as outras, mas coisas próximas estão mais relacionadas do que coisas distantes.” Waldo R. Tobler
+15
+​
+16
+Com essa afirmação introduzimos um conceito muito importante em Estatística Espacial, o conceito de **_Dependência Espacial_**.
+17
+ 
+18
+​
+19
+​
+20
+-- #O que é a autocorrelação?
+21
+​
+22
+-- #Como é a espacial?
+23
+​
+24
+-- #Quando utilizar?
+25
+​
+26
+-- #Aplicação?
+27
+​
+28
+-- #Conclusão?
+29
+​
+30
+​
+31
+​
+32
+## Referências:
+33
+1 - Dependência Espacial - http://www.sinaldetransito.com.br/artigos/espacial.pdf
 # Encontrando o quadrante de cada unidade
 mi_local.q[sig]
 
