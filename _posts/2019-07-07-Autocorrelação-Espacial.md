@@ -12,31 +12,32 @@ comments: true
 > “Todas as coisas estão relacionadas com todas as outras, mas coisas próximas estão mais relacionadas do que coisas distantes.” Waldo R. Tobler
 
 Com essa afirmação introduzimos um conceito muito importante em Estatística Espacial, o conceito de **_Dependência Espacial_**.
-	A estatística espacial nasceu com o objetivo de capturar dos dados, os possíveis padrões que podem existir entre lugares e valores. Ou nas palavras de Luc Anselin(1992):
->”A principal característica da estatística espacial é seu foco em inquirir padrões espaciais de lugares e valores, identificando a associação espacial existente entre eles e a variação sistemática do fenômeno por localização.”
-	Ou de forma mais genérica, a força da dependência espacial é uma medida que expressa o relacionamento entre a variação das propriedades e a proximidade espacial.
-	É importante ressaltar que as associações significativas encontradas durante a análise estão **necessariamente** associadas à situação inicial dos dados de entrada e que, uma situação inicial diferente pode revelar outros padrões espaciais.
+A estatística espacial nasceu com o objetivo de capturar dos dados, os possíveis padrões que podem existir entre lugares e valores. Ou nas palavras de Luc Anselin(1992):
+
+> ”A principal característica da estatística espacial é seu foco em inquirir padrões espaciais de lugares e valores, identificando a associação espacial existente entre eles e a variação sistemática do fenômeno por localização.”
+	
+Ou de forma mais genérica, a força da dependência espacial é uma medida que expressa o relacionamento entre a variação das propriedades e a proximidade espacial.
+
+É importante ressaltar que as associações significativas encontradas durante a análise estão **necessariamente** associadas à situação inicial dos dados de entrada e que, uma situação inicial diferente pode revelar outros padrões espaciais.
 
 ### Autocorrelação
-	Comecemos por partes:
+Comecemos por partes:
+
 __Correlação__: é o relacionamento predominante entre variáveis ou pares de valores em observações individuais. Falando de forma bem simples, correlação é o comportamento que observamos entre variáveis que variam conjuntamente, de forma positiva ou negativa. Lembre-se sempre, __correlação não implica causalidade__.
 
-<Imagem correlação>
 
-	Auto: Significa mesmo, ou ‘o mesmo’.
+Auto: Significa mesmo, ou ‘o mesmo’.
 
-	Podemos entender que a autocorrelação é o relacionamento entre entre as observações da mesma variável. As observações da mesma variável estão relacionadas, não são independentes.
-	Quando incluímos o adjetivo espacial ao termo auto-correlação, queremos dizer que as dependências que existem entre observações estão relacionadas a sua localização geográfica, e estas dependências induzem a padrões em mapas.
+Podemos entender que a autocorrelação é o relacionamento entre entre as observações da mesma variável. As observações da mesma variável estão relacionadas, não são independentes.
+Quando incluímos o adjetivo espacial ao termo auto-correlação, queremos dizer que as dependências que existem entre observações estão relacionadas a sua localização geográfica, e estas dependências induzem a padrões em mapas.
 
 ## Medindo a dependência espacial
 
->	A dependência espacial pode ser medida de diferentes formas. O índice de Moran (I) > é a estatística mais difundida e mede a autocorrelação espacial a partir do produto dos   > desvios em relação a média. Este índice é uma medida global da autocorrelação              > espacial, pois indica o grau de associação espacial presente no conjunto de dados.
-
-<Imagem IdeMoran>
+> A dependência espacial pode ser medida de diferentes formas. O índice de Moran (I) > é a estatística mais difundida e mede a autocorrelação espacial a partir do produto dos   > desvios em relação a média. Este índice é uma medida global da autocorrelação espacial, pois indica o grau de associação espacial presente no conjunto de dados.
 
 ## Calculando o I de Moran 
-	Antes de calcularmos o I de Moran precisamos calcular os pesos. Os pesos são de forma simplificada, para um conjunto de dados espaciais composto por n localizações, a matriz de pesos espaciais expressa o potencial de interação entre observações em cada par de localizações.
-	Para este post estaremos utilizando o shapefile de Crimes do estados de Minas gerais, os dados estão disponíveis aqui <link para meu github <https://github.com/LeoGaller/Posts/blob/master/Autocorrelation-LAMFO/crime_mg.zip>>.
+Antes de calcularmos o I de Moran precisamos calcular os pesos. Os pesos são de forma simplificada, para um conjunto de dados espaciais composto por n localizações, a matriz de pesos espaciais expressa o potencial de interação entre observações em cada par de localizações.
+Para este post estaremos utilizando o shapefile de Crimes do estados de Minas gerais, os dados estão disponíveis aqui <link para meu github <https://github.com/LeoGaller/Posts/blob/master/Autocorrelation-LAMFO/crime_mg.zip>>.
 
 ### Pré-requisitos
 Estaremos utilizando o pacote Pysal, para ter certeza que o código rodará com sucesso, verifique e instale o pacote.
@@ -60,11 +61,10 @@ import geopandas as gpd
 fp = "/dados/crime_mg.shp"
 map_df = gpd.read_file(fp)
 ```
-	A autocorrelação pode ser calculada por duas perspectivas, Global e Local.
+A autocorrelação pode ser calculada por duas perspectivas, Global e Local.
 
 ### Autocorrelação Global
-	A análise de autocorrelação global envolve o estudo do padrão de todo o mapa e pergunta se o padrão apresenta agrupamento ou não.
-	Hipótese nula: **Aleatoriedade Espacial Completa**
+A análise de autocorrelação global envolve o estudo do padrão de todo o mapa e pergunta se o padrão apresenta agrupamento ou não. Hipótese nula: **Aleatoriedade Espacial Completa**
 
 ```
 # Lendo e salvando a matriz de pesos em uma variável
@@ -82,13 +82,14 @@ print('The Morans I Statistic For INDICE94 is: '+ str(mi.I)[0:6] )
 # Para uma visão geral do objeto
 help(mi)
 ```
+
 O índice pode ser usado para identificação de padrões de dispersão/aleatoriedade/agrupamento:
 Índices próximos a zero [tecnicamente, próximos a -1/(n-1)], indicam padrão aleatório
 Índices acima de -1/(n-1) (em direção a +1) indicam tendência a clusterização
 Índices abaixo de -1/(n-1) (em direção a -1) indicam tendência à dispersão/uniformização
 
 ### Autocorrelação Local
-	No cálculo do índice para autocorrelação local é retornado 1 valor para cada unidade espacial. A autocorrelação local tem com objetivo quantificar o grau de associação espacial a que cada localização do conjunto amostral.
+No cálculo do índice para autocorrelação local é retornado 1 valor para cada unidade espacial. A autocorrelação local tem com objetivo quantificar o grau de associação espacial a que cada localização do conjunto amostral.
 
 ```
 # Local
@@ -102,81 +103,14 @@ help(mi_local)
 print(mi_local.Is)
 
 ```
-	Vamos encontrar agora os valores LISA(Local Indicators of Spatial Association) significantes:
+Vamos encontrar agora os valores LISA(Local Indicators of Spatial Association) significantes:
 ```
 # numpy vetorização
 sig = mi_local.p_sim<0.05
 mi_local.p_sim[sig]
----
-2
-layout: post
-3
-title: Autocorrelação Espacial e Dependência Geográfica
-4
-lang: pt-br
-5
-header-img: img/autocorrelation/globes-1246245_1280.jpg
-6
-date: 2019-07-07 23:59:07
-7
-tags: [GIS,spatial-statistics, autocorrelation, spatial-dependency]
-8
-author: Leonardo Galler
-9
-comments: true
-10
----
-11
-​
-12
--- #Dependência espacial?
-13
-## A primeira lei da Geografia diz: 
-14
-> “Todas as coisas estão relacionadas com todas as outras, mas coisas próximas estão mais relacionadas do que coisas distantes.” Waldo R. Tobler
-15
-​
-16
-Com essa afirmação introduzimos um conceito muito importante em Estatística Espacial, o conceito de **_Dependência Espacial_**.
-17
- 
-18
-​
-19
-​
-20
--- #O que é a autocorrelação?
-21
-​
-22
--- #Como é a espacial?
-23
-​
-24
--- #Quando utilizar?
-25
-​
-26
--- #Aplicação?
-27
-​
-28
--- #Conclusão?
-29
-​
-30
-​
-31
-​
-32
-## Referências:
-33
-1 - Dependência Espacial - http://www.sinaldetransito.com.br/artigos/espacial.pdf
-# Encontrando o quadrante de cada unidade
-mi_local.q[sig]
 
 ```
-	Agora vamos gerar o gráfico de espalhamento.
+Agora vamos gerar o gráfico de espalhamento.
 ```
 # Gerando o gráfico de espalhamento
 map_df['significant_INDICE94'] = lmINDICE94.p_sim < 0.05
@@ -217,12 +151,11 @@ plt.axis('equal')
 plt.show()
 
 ```
-<Imagem do mapa>
 
-	O mapa acima apresenta os agrupamentos de localidades por seus valores do I de Moran, classificados em HH (alto-alto), HL(alto-baixo), LH(Baixo-Alto), LL(Baixo-Baixo). Os itens em branco são não significantes.
+O mapa acima apresenta os agrupamentos de localidades por seus valores do I de Moran, classificados em HH (alto-alto), HL(alto-baixo), LH(Baixo-Alto), LL(Baixo-Baixo). Os itens em branco são não significantes.
 
 ## Conclusão
-	Observando o mapa podemos ter uma boa percepção de como estava distribuída a violência no estado de Minas Gerais em 1994, as áreas que apresentavam mais violência são as áreas mais a esquerda do mapa, já as com menor violência a direita, sendo que podemos observar áreas de alta violência com áreas de baixa violência ao redor.
+Observando o mapa podemos ter uma boa percepção de como estava distribuída a violência no estado de Minas Gerais em 1994, as áreas que apresentavam mais violência são as áreas mais a esquerda do mapa, já as com menor violência a direita, sendo que podemos observar áreas de alta violência com áreas de baixa violência ao redor.
 	
 
 ## Referências:
