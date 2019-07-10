@@ -25,19 +25,23 @@ Comecemos por partes:
 
 __Correlação__: é o relacionamento predominante entre variáveis ou pares de valores em observações individuais. Falando de forma bem simples, correlação é o comportamento que observamos entre variáveis que variam conjuntamente, de forma positiva ou negativa. Lembre-se sempre, __correlação não implica causalidade__.
 
+![Correlação](../img/autocorrelation/correlation.png "Correlação <> Causalidade")
 
-Auto: Significa mesmo, ou ‘o mesmo’.
+__Auto__: Significa mesmo, ou ‘o mesmo’.
 
 Podemos entender que a autocorrelação é o relacionamento entre entre as observações da mesma variável. As observações da mesma variável estão relacionadas, não são independentes.
 Quando incluímos o adjetivo espacial ao termo auto-correlação, queremos dizer que as dependências que existem entre observações estão relacionadas a sua localização geográfica, e estas dependências induzem a padrões em mapas.
 
 ## Medindo a dependência espacial
 
-> A dependência espacial pode ser medida de diferentes formas. O índice de Moran (I) > é a estatística mais difundida e mede a autocorrelação espacial a partir do produto dos   > desvios em relação a média. Este índice é uma medida global da autocorrelação espacial, pois indica o grau de associação espacial presente no conjunto de dados.
+> A dependência espacial pode ser medida de diferentes formas. O índice de Moran (I) é a estatística mais difundida e mede a autocorrelação espacial a partir do produto dos desvios em relação a média. Este índice é uma medida global da autocorrelação espacial, pois indica o grau de associação espacial presente no conjunto de dados.
 
 ## Calculando o I de Moran 
+
+![Global](../img/autocorrelation/iDeMoran.png "ìndice de Moran")
+
 Antes de calcularmos o I de Moran precisamos calcular os pesos. Os pesos são de forma simplificada, para um conjunto de dados espaciais composto por n localizações, a matriz de pesos espaciais expressa o potencial de interação entre observações em cada par de localizações.
-Para este post estaremos utilizando o shapefile de Crimes do estados de Minas gerais, os dados estão disponíveis aqui <link para meu github <https://github.com/LeoGaller/Posts/blob/master/Autocorrelation-LAMFO/crime_mg.zip>>.
+Para este post estaremos utilizando o shapefile de Crimes do estados de Minas gerais, os dados estão disponíveis [aqui](https://github.com/LeoGaller/Posts/blob/master/Autocorrelation-LAMFO).
 
 ### Pré-requisitos
 Estaremos utilizando o pacote Pysal, para ter certeza que o código rodará com sucesso, verifique e instale o pacote.
@@ -151,6 +155,7 @@ plt.axis('equal')
 plt.show()
 
 ```
+![LISA](../img/autocorrelation/LISA.png "LISA")
 
 O mapa acima apresenta os agrupamentos de localidades por seus valores do I de Moran, classificados em HH (alto-alto), HL(alto-baixo), LH(Baixo-Alto), LL(Baixo-Baixo). Os itens em branco são não significantes.
 
@@ -160,10 +165,16 @@ Observando o mapa podemos ter uma boa percepção de como estava distribuída a 
 
 ## Referências:
 1 - Dependência Espacial - http://www.sinaldetransito.com.br/artigos/espacial.pdf
+
 2 - The Concept of Spatial Dependency - http://www.gitta.info/DiscrSpatVari/en/html/spat_depend_conc_spat_de.html
+
 3 - Anselin, Luc ; Getis, Arthur. / Spatial statistical analysis and geographic information systems. In: The Annals of Regional Science. 1992 ; Vol. 26, No. 1. pp. 19-33.
+
 4 - Griffith, Daniel A. "What Is Spatial Autocorrelation? Reflections on the past 25 Years of Spatial Statistics." L'Espace Géographique21, no. 3 (1992): 265-80. http://www.jstor.org/stable/44381737.
+
 5 - Correlation - https://hackernoon.com/correlation-and-causation-by-example-e7fd627475e5
+
 6 -Spatial Autocorrelation
  https://pysal.readthedocs.io/en/v1.11.0/users/tutorials/autocorrelation.html
+ 
 7 - Weights - https://pysal.readthedocs.io/en/v1.11.0/users/tutorials/weights.html
