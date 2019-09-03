@@ -386,7 +386,7 @@ Output:
 cluster =  [1]
 ~~~
 
-#Conclusão
+## Conclusão
 
 Com o uso da planilha gerada no passo anterior, podemos coletar input humano que nos auxilie a definir o k que mais gere valor para nossa análise. 
 Embora o uso de k-means seja uma técnica considerada não-supervisionada, o uso com NLP nos força a usar de recursos que exigem uma forma de supervisionamento.
