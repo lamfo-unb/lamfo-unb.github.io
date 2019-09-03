@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Simulação baseada em Agentes com Gama Platform para simulação de trânsito em rodovias de Brasília e do Distrito Federal
+title: Clusterização de texto de reclamação não supervisionada usando K-means com python
 lang: pt
-header-img:
+header-img:https://www.zugspitzakademie.de/wp-content/uploads/2019/02/kreatives-denken-steigern-nlp-muenchen.jpg
 date: 2019-06-5 23:59:07
-tags: [GAMA, GAML, ABM, Agent-Based Modelling]
+tags: [K-means, Clusters, NLP, Text mining]
 author: Lucas Moreira Gomes
 comments: true
 ---
