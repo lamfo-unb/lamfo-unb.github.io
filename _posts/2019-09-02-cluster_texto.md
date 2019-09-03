@@ -15,20 +15,18 @@ comments: true
 
 [fonte: Kreatives Denken steigern mit NLP München](https://www.zugspitzakademie.de/kreatives-denken-steigern-nlp-muenchen/])
 
-A classificação (e clusterização) de textos representa uma área importante dentro do campo de análise de dados. Primeiro por ser uma área com ampla disponibilidade de dados,
-segundo por ser uma área presente em quase todos os segmentos da sociedade, e terceiro por ser uma área de grande potencial de resultados, já que hoje são poucas as empresas que
-analisam de forma sistemática esse tipo de dado.
 
-Antes de mais nada, é importante deixar clara a diferença entre classificar um texto e clusterizar um texto.
-A classificação de texto envolve atrelar categorias já conhecidas, aos textos em análise. Já a clusterização envolve agrupar textos em grupos que mais façam sentido, em um número k de grupos.
-O número k de grupos pode ser conhecido previamente, ou não. Mas como veremos, quando não sabemos o número de k, quase sempre caímos na maldição da dimensionalidade e necessitamos de correção humana para validar o melhor k.
+Antes de começarmos, é importante deixar clara a diferença entre classificar um texto e clusterizar um texto.
+A classificação de texto envolve atrelar categorias já conhecidas aos textos em análise. Já a clusterização envolve agrupar textos em grupos que mais façam sentido, em um número k de grupos.
+O número k de grupos pode ser conhecido previamente, ou não. Mas como veremos, quando não sabemos o número de k e estamos trabalhando com texto, quase sempre caímos na [maldição da dimensionalidade](https://towardsdatascience.com/the-curse-of-dimensionality-50dc6e49aa1e) e necessitamos de correção humana para validar o melhor k.
 
+Como nosso objetivo aqui será agrupar textos de reclamação em k categorias, usaremos o recurso de [clusterização com k-means](https://lamfo-unb.github.io/2017/10/05/Introducao_basica_a_clusterizacao/). 
 ## Os dados e bibliotecas usadas
 
+Os dados usados nessa análise estão em formato .csv e utilizaremos apenas uma coluna chamada "Reclamacao".
+Como estamos usando python, nada mais natural que usarmos um [DataFrame do Pandas](https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python) para lidar com nossos dados.
 
-
-Os textos analisados aqui se referem a textos de reclamação de um serviço específico, referentes à 2018.
-
+As bibliotecas usadas ao longo de toda a análise são dispostas abaixo:
 ~~~py
 import pandas as pd
 import numpy as np
@@ -46,8 +44,8 @@ from mpl_toolkits import mplot3d
 
 ## Preparando os dados
 
-Antes de iniciarmos o processo de clusterização dos textos, é importante prepararmos o dados adequadamente.
-Isso nos ajudará a reduzir nossa Matriz Esparsa, eliminando palavras desnecessárias e aglomerando aquelas de mesmo significado.
+Antes de iniciarmos o processo de clusterização dos textos, é importante prepararmos os dados adequadamente.
+Isso nos ajudará a reduzir nossa [Matriz Esparsa](http://btechsmartclass.com/data_structures/sparse-matrix.html), eliminando palavras desnecessárias e aglomerando aquelas de mesmo significado.
 Primeiro, iremos transformar todas as letras do texto para minúsculo. Assim, palavras como "Carro", "carro" e "CARRO" ficam todas como "carro".
 
 ~~~py
@@ -65,7 +63,7 @@ data["Reclamacao"] = data["Reclamacao"].apply(lambda x: unidecode(x))
 ~~~
 
 
-Por último, aplicamos o método chamado Stemming, o qual reduz as palavras ao seu radical (e.g. enviar, enviado, envio .. viram envi).
+Por último, aplicamos o método chamado [Stemming](http://blog.chapagain.com.np/python-nltk-stemming-lemmatization-natural-language-processing-nlp/), o qual reduz as palavras ao seu radical (e.g. enviar, enviado, envio .. viram envi).
 
 ~~~py
 #converte as palavras para seu radical
@@ -83,7 +81,7 @@ Esse tipo de representação de texto é chamado de bolsa de palavras, ou Bag-of
 
 ## Bag-of-words
 
-Para convertermos o texto analisado em uma linguagem que o computador seja capaz de interpretar, precisamos criar nossa Bag-of-Words. Nessa Bag-of-words, separamos cada palavra em um coluna, a qual passa a contar o número de aparições daquele termo lá.
+Para convertermos o texto analisado em uma linguagem que o computador seja capaz de interpretar, precisamos criar nossa [Bag-of-Words](https://medium.com/greyatom/an-introduction-to-bag-of-words-in-nlp-ac967d43b428). Nessa Bag-of-words, separamos cada palavra em uma coluna, a qual passa a contar o número de aparições daquele termo.
 
 Podemos usar uma frase como exemplo: "The book is on the table" fica:
 
@@ -104,22 +102,22 @@ Juntando os dois casos temos:
 | 1 | 0 | 1 | 1 | 0 | 1 | 1 | 1 |
 | 1 | 1 | 0 | 1 | 1 | 1 | 1 | 0 |
 
-Assim, podemos considerar que cada palavra se transforma em uma dimensão em um vetor.
-Esse vetor, embora tenha eficiência computacional elevada, pode crescer em tamanho muito rapidamente e se tornar um obstáculo computacional.
+Assim, podemos considerar que cada palavra se transforma em uma dimensão representada por um vetor.
+Esse vetor, embora por um lado tenha eficiência computacional elevada, pode crescer em tamanho muito rapidamente e se tornar um obstáculo. Isso é, porém, facilmente contornado com as configurações adequadas do modelo.
 
-Essa representação geralmente leva em conta alguma forma. Aqui, analisa-se a frequência simples dos termos (apenas para a frase em destaque):
+Essa representação geralmente leva em conta alguma forma de significância. Aqui, analisa-se a frequência simples dos termos (apenas para a frase em destaque):
 
 ![](https://www.oreilly.com/library/view/applied-text-analysis/9781491963036/assets/atap_0402.png)
 
 [fonte: Chapter 4. Text Vectorization and Transformation Pipelines](https://www.oreilly.com/library/view/applied-text-analysis/9781491963036/ch04.html)
 
-Podemos perceber que algumas palavras, como "the" e "can" provavelmente não são tão importantes para compreender o sentido da frase, embora a frequência dela seja a mesma de "echolocation".
-Esses e outros precisam ser considerados, e simples análise de frequência não é suficiente. 
+Podemos perceber uma fragilidade nessa abordagem, já que algumas palavras como "the" e "can" provavelmente não são tão importantes para compreender o sentido da frase, embora a frequência dela seja a mesma de "echolocation" (para a frase em questão).
+Esses e outros termos precisam ser considerados, e a simples análise de frequência não é suficiente. 
 
 ## TF-IDF - Importância relativa das palavras.
 
 É importante fazermos uma análise de importância das palavras para identificar aquelas que realmente podem agregar significado à uma sentença.
-Para isso, é usual empregarmos a técnica da frequência inversa.
+Para isso, é usual empregarmos a [técnica da frequência inversa](https://www.tidytextmining.com/tfidf.html).
 Com o TF-IDF (term frequency — inverse document frequency), consideramos a frequência de uma palavra na sentença, dividido pelo número de documentos em que ela aparece.
 
 
@@ -129,7 +127,7 @@ Com o TF-IDF (term frequency — inverse document frequency), consideramos a
  
 Assim, uma palavra que aparece muito em uma frase poderia parecer importante, mas se aparecer em 100% dos textos analisados, se tornando uma informação irrelevante.
 
-Alguma palavras, como conectores, podem ter alta correlação com certos assuntos, não representando porém significância, como é o caso das Stopwords. Stopwords são conectores textuais, como "mas", "porem", "assim", os quais podem dificultar nossa análise (já que podem deslocar a média, e nosso modelo é sensível a isso).
+Alguma palavras, como conectores, podem ter alta correlação com certos assuntos, não representando porém significância, como é o caso das Stopwords. [Stopwords](https://pythonspot.com/nltk-stop-words/) são conectores textuais, como "mas", "porem", "assim", os quais podem dificultar nossa análise (já que podem deslocar a média, e nosso modelo é sensível a isso).
 
 Para criarmos nossa bag-of-words, considerando os stopwords, e analisando a frequência inversa dos documentos, usamos os seguintes comandos:
 
@@ -184,6 +182,7 @@ Analisamos os resultados para 1, 2 e 3 dimensões para separar os gatinhos dos c
 Assim, utilizando-se as dimensões geradas na vetorização das sentenças (lembrando que cada palavra é uma dimensão) e sua relativa frequência (TFIDF), tenta-se separar os clusters maximizando as distâncias entre a média da distância dos pontos (reclamações, no caso).
 Matematicamente, essa expressão fica:
 
+
 ![fonte: Computer vision for dummies](https://www.saedsayad.com/images/Clustering_kmeans_c.png) 
 
 [fonte: K-Means Clustering](https://www.saedsayad.com/clustering_kmeans.htm) 
@@ -233,7 +232,7 @@ Para número de clusters = 9 o valor médio do silhouette_score foi : 0.00553051
 Para número de clusters = 10 o valor médio do silhouette_score foi : 0.005672599203188975
 ~~~
 
-Os valores, como observados, estão longe do ideal (1). Isso, porém, se deve a maldição da dimensionalidade, que implica que se utilizarmos dimensões além do necessário, estaremos causando overfitting em nossos dados, criando um caso artificialmente positivo, capaz apenas de funcionar para o cenário de treinamento.
+Os valores, como observados, estão longe do ideal (1). Isso, porém, se deve a [maldição da dimensionalidade](https://towardsdatascience.com/the-curse-of-dimensionality-50dc6e49aa1e), que implica que se utilizarmos dimensões além do necessário, estaremos causando [overfitting](https://elitedatascience.com/overfitting-in-machine-learning) em nossos dados, criando um caso artificialmente positivo, capaz apenas de funcionar para o cenário de treinamento.
 
 Além disso, podemos citar a dificuldade inerente desse processo, já que as variáveis (então tratadas como independentes) são influenciadas por muitas outras variáveis, mas nenhuma em especial.
 
@@ -242,9 +241,9 @@ Como referencial dos nossos dados, eles já contam com duas labels que os divide
 ![](/img/text/elbow.png)
 
 
-Uma forma de se julgar esses números, é analisar a técnica do cotovelo.
+Uma forma de se julgar esses números, é analisar a [técnica do cotovelo](https://pythonprogramminglanguage.com/kmeans-elbow-method/).
 Nela, procura-se o número de clusters que faz com que o ganho se torne marginal.
-Como nossa reta se aproxima de uma reta, não é possível visualmente escolher qualquer número de clusters.
+Como nossa curva se aproxima de uma reta, não é possível visualmente escolher qualquer número de clusters (para o nossa caso, tratando de textos).
 
 Dessa forma, considerando que processamentos de texto lidam com milhares de dimensões em uma mesma análise, já era esperado que os resultados sofressem dessa maldição.
 
@@ -310,7 +309,7 @@ fig = plt.figure(figsize=plt.figaspect(0.5))
 
 
     #Salva arquivo de imagem 3D
-    plt.savefig("img/text/grafico_cluster_k=%d" % cluster)
+    plt.savefig("imagens/grafico_cluster_k=%d" % cluster)
     plt.show()
 ~~~
 
@@ -321,7 +320,8 @@ E os resultados para os primeiros cluster podem ser vistos abaixo:
 ![](/img/text/grafico_cluster_k=3.png)
 ![](/img/text/grafico_cluster_k=4.png)
 
-Podemos perceber, então, que os clusters se formam de maneira clara, com fronteira razoavelmente bem definida. Contudo, devido a dimensionalidade, não podemos definir qual número de clusters faz mais sentidos, apenas pelos resultados.
+Podemos perceber, então, que os clusters se formam de maneira clara, com fronteira razoavelmente bem definida.
+ Contudo, devido a dimensionalidade, não podemos definir qual número de clusters faz mais sentido apenas pelos resultados (as fronteiras estão se sobrepondo).
 
 Precisamos, então, de uma verificação humana. 
 
@@ -385,3 +385,10 @@ Output:
 ~~~py
 cluster =  [1]
 ~~~
+
+#Conclusão
+
+Com o uso da planilha gerada no passo anterior, podemos coletar input humano que nos auxilie a definir o k que mais gere valor para nossa análise. 
+Embora o uso de k-means seja uma técnica considerada não-supervisionada, o uso com NLP nos força a usar de recursos que exigem uma forma de supervisionamento.
+
+Treinamos a máquina a aprender os critérios que fariam mais sentido servirem como separador dos grupos, preparamos os dados para análise, convertemos esses dados em uma linguagem que o computador possa interpretar, e criamos um classificador que recebe qualquer texto e o classifica como pertencendo a algum dos grupos.
