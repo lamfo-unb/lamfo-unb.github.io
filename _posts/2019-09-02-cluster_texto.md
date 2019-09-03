@@ -239,7 +239,7 @@ Além disso, podemos citar a dificuldade inerente desse processo, já que as var
 
 Como referencial dos nossos dados, eles já contam com duas labels que os dividem em 12 grupos e 120 subgrupos. Isso poderia nos indicar que existe uma divisão lógica nesses pontos. Analisamos, então, os clusters até 150.
 
-![](img/text/elbow.png)
+![](./img/text/elbow.png)
 
 
 Uma forma de se julgar esses números, é analisar a técnica do cotovelo.
