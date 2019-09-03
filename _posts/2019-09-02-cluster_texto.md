@@ -239,7 +239,7 @@ Além disso, podemos citar a dificuldade inerente desse processo, já que as var
 
 Como referencial dos nossos dados, eles já contam com duas labels que os dividem em 12 grupos e 120 subgrupos. Isso poderia nos indicar que existe uma divisão lógica nesses pontos. Analisamos, então, os clusters até 150.
 
-![](./img/text/elbow.png)
+![](/img/text/elbow.png)
 
 
 Uma forma de se julgar esses números, é analisar a técnica do cotovelo.
@@ -317,9 +317,9 @@ fig = plt.figure(figsize=plt.figaspect(0.5))
 E os resultados para os primeiros cluster podem ser vistos abaixo:
 
 
-![](img/text/grafico_cluster_k=2.png)
-![](img/text/grafico_cluster_k=3.png)
-![](img/text/grafico_cluster_k=4.png)
+![](/img/text/grafico_cluster_k=2.png)
+![](/img/text/grafico_cluster_k=3.png)
+![](/img/text/grafico_cluster_k=4.png)
 
 Podemos perceber, então, que os clusters se formam de maneira clara, com fronteira razoavelmente bem definida. Contudo, devido a dimensionalidade, não podemos definir qual número de clusters faz mais sentidos, apenas pelos resultados.
 
