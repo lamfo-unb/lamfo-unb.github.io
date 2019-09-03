@@ -3,7 +3,7 @@ layout: post
 title: Clusterização de texto de reclamação não supervisionada usando K-means com python
 lang: pt
 header-img:https://www.zugspitzakademie.de/wp-content/uploads/2019/02/kreatives-denken-steigern-nlp-muenchen.jpg
-date: 2019-06-5 23:59:07
+date: 2019-09-2 23:59:07
 tags: [K-means, Clusters, NLP, Text mining]
 author: Lucas Moreira Gomes
 comments: true
