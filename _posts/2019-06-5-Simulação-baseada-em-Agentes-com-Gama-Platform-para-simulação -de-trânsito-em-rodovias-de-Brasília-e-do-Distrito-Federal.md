@@ -8,13 +8,14 @@ tags: [GAMA, GAML, ABM, Agent-Based Modelling]
 author: Lucas Moreira Gomes
 comments: true
 ---
-# Simulação baseada em Agentes com Gama Platform para simulação de trânsito em rodovias de Brasília e do Distrito Federal
 
-![m'ladyy](https://i.ytimg.com/vi/ycbeYxV2B7M/maxresdefault.jpg)
+
  
 ---
 
 ## Simulação Baseada em Agendes para análise de Trânsito
+
+![m'ladyy](https://i.ytimg.com/vi/ycbeYxV2B7M/maxresdefault.jpg)
 
    Simular o trânsito de grandes cidades é um grande desafio por vários motivos, os quais vão desde a complexidade de se formular matematicamente a complexidade da movimentação dos carros em horários e situações específicas do dia a dia, até um acidente ou um buraco na pista. Entretanto, uma coisa é certa: o problema da mobilidade em grandes centros urbanos é custosa e diretamente ligado à qualidade de vida.
     
