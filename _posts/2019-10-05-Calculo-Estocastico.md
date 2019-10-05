@@ -51,10 +51,12 @@ Geralmente, o processo é totalmente descrito pela matriz de probabilidade de tr
 ## Random walk
 
 Random Walk é um processo de Markov em tempo discreto que tem incrementos independentes e estacionários na forma de:
-$$ S_{t+1} = S_{t} + \epsilon_t$$
-no qual $S_0= 0$, $S_t$ é o valor da variável no tempo t e $\epsilon_t$ é uma variável aleatória com probabilidade P($\epsilon_t$= 1) = P($\epsilon_t$= -1) = 0.5.
 
-O Random Walk pode incluir um termo de crescimento/decrescimento, ou  “drift”, que representa um crescimento/decrescimento de longo prazo. Sem o termo de drift, a melhor estimativa do próximo valor  da variável $S_{t+1}$ é o seu valor atual (markov), uma vez que o termo de  erro é normalmente distribuído com média zero. Com o termo de drift os valores futuros da variável tendem a crescer de maneira proporcional a taxa de crescimento.
+$$ S_{t+1} = S_{t} + \epsilon_t$$
+
+no qual $$S_0= 0$$, $$S_t$$ é o valor da variável no tempo t e $$\epsilon_t$$ é uma variável aleatória com probabilidade P($$\epsilon_t$$= 1) = P($$\epsilon_t$$= -1) = 0.5.
+
+O Random Walk pode incluir um termo de crescimento/decrescimento, ou  “drift”, que representa um crescimento/decrescimento de longo prazo. Sem o termo de drift, a melhor estimativa do próximo valor  da variável $$S_{t+1}$$ é o seu valor atual (markov), uma vez que o termo de  erro é normalmente distribuído com média zero. Com o termo de drift os valores futuros da variável tendem a crescer de maneira proporcional a taxa de crescimento.
 
 ## Processo de Wiener (Movimento Browniano)
 
@@ -66,9 +68,9 @@ Esse processo é um caso particular do processo markoviano no qual considera que
 
 Além disso, um movimento browniano x é caracterizado pelas seguintes propriedades:
 
-- $P(x(0) = 0) = 1$;
-- **Estacionário** Para todo $0 \le s \le t, x(t) - x(s) \sim N(0, t-s)$;  
-- **Incremento independente** Se o intervalo $(S_i, t_i)$ não são sobrepostos, então $x(t_i) - x(S_i)$ são independentes;
+- $$P(x(0) = 0) = 1$$;
+- **Estacionário** Para todo $$0 \le s \le t, x(t) - x(s) \sim N(0, t-s)$$;  
+- **Incremento independente** Se o intervalo $$(S_i, t_i)$$ não são sobrepostos, então $$x(t_i) - x(S_i)$$ são independentes;
 - É um processo contínuo. Pode-se dizer que é um Random Walk com amostras infinitesimais;
 - Não é diferenciável (Choongbum Lee, MIT open course ware).
 
@@ -92,15 +94,15 @@ O processo de Itô acontece quando a generalização do processo de Winer assume
 
 $$dx = a(x,t)dt + b(x,t)dz$$
 
-A taxa de derivação e a taxa de variância esperadas de um processo de Itô podem mudar com o tempo. Em um pequeno intervalo entre t e $t + \Delta t$, a variável muda de $x$ para $x + \Delta x$, onde, $\Delta x = a(x,t)\Delta t + b(x,t)\epsilon\sqrt{\Delta t}$.
+A taxa de derivação e a taxa de variância esperadas de um processo de Itô podem mudar com o tempo. Em um pequeno intervalo entre t e $$t + \Delta t$$, a variável muda de $$x$$ para $$x + \Delta x$$, onde, $$\Delta x = a(x,t)\Delta t + b(x,t)\epsilon\sqrt{\Delta t}$$.
 
-Essa equação envolve uma pequena aproximação. Ela pressupõe que a taxa de derivação e de variância de $x$ permanecem constantes, iguais a seus valores no tempo t, durante o intervalo de tempo entre $t$ e $t + \Delta t$.
+Essa equação envolve uma pequena aproximação. Ela pressupõe que a taxa de derivação e de variância de $$x$$ permanecem constantes, iguais a seus valores no tempo t, durante o intervalo de tempo entre $$t$$ e $$t + \Delta t$$.
 
-O lema de Itô parte de uma expansão de Taylor para resolver o problema da não diferenciação (variação quadrática $dx^2  = dt$) do movimento Browniano para chegar em uma fórmula analítica. O lema de Itô para uma função qualquer G de x e t segue o processo:
+O lema de Itô parte de uma expansão de Taylor para resolver o problema da não diferenciação (variação quadrática $$dx^2  = dt$$) do movimento Browniano para chegar em uma fórmula analítica. O lema de Itô para uma função qualquer G de x e t segue o processo:
 
 $$dG = (\frac{dG}{dx}+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt + \frac{dG}{dx}bdz$$,
 
-No qual $dz$ é o mesmo processo de Wiener que na equação. Assim, G também segue um processo de Itô, com taxa de derivação de: $\frac{dG}{dx}a+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt$. E a taxa de variância de: ${\frac{dG}{dx}}^2 b^2$.
+No qual $dz$ é o mesmo processo de Wiener que na equação. Assim, G também segue um processo de Itô, com taxa de derivação de: $$\frac{dG}{dx}a+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt$$. E a taxa de variância de: $${\frac{dG}{dx}}^2 b^2$$.
 
 
 A partir desse lema de Itô que o modelo Black and Scholes é elaborado, mostrando a relação entre preço do ativo, taxa livre de risco, volatilidade e suas gregas.
@@ -111,7 +113,7 @@ O modelo de Black and Scholes surgiu na década de 70 e até hoje é utilizado c
 
 $$dS(t) = \mu Sdt + \sigma SdW(t)$$
 
-No qual $S(t)$ é valor do ativo subjacente no tempo $t, \mu$ é a tendência, $\sigma$ é a volatilidade (constante) de $S$ e $dW(t)$ é processo estocástico em relação ao ativo $S$.
+No qual $$S(t)$$ é valor do ativo subjacente no tempo $$t, \mu$$ é a tendência, $$\sigma$$ é a volatilidade (constante) de $$S$$ e $$dW(t)$$ é processo estocástico em relação ao ativo $$S$$.
 
 Portanto, é uma aplicação que possui as características de um processo de Itô.
 
@@ -122,7 +124,7 @@ $$P(S,t) = X e^{-r(T-1)}N(-d_2) - SN(-d_1)$$
 $$d_1 = \frac{ln(\frac{S}{K})+(r+\frac{\sigma^2}{2})(T-t)}{\sigma\sqrt{(T-t)}}$$
 $$d_2 = d_1 - \sigma\sqrt{(T-t)}$$
 
-No qual $K$ é o preço de exercício da opção (Strike) e N(.) é a distribuição normal acumulada padronizada.
+No qual $$K$$ é o preço de exercício da opção (Strike) e N(.) é a distribuição normal acumulada padronizada.
 
 A partir da equação de Black and Scholes é possível calcular as gregas, que são as derivadas parciais em relação ao preço, volatilidade, tempo e a taxa livre de risco. A interpretabilidade de cada grega é:
 
