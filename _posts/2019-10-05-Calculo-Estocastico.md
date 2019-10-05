@@ -39,14 +39,15 @@ Existem diversos processos e vamos explorar os mais conhecidos e utilizados que 
 
 ## Processo de markov
 
-O Processo de Markov é um processo estocástico onde somente o valor atual da variável é relevante para predizer a evolução futura do processo (depende apenas de 1 momento já realizado). Valores históricos (caminho realizado) através do qual a variável atingiu o seu valor atual são  irrelevantes para a determinação do seu valor futuro. Nesse modelo, assumimos que o preço atual de uma ação reflete todas as informações históricas bem  como as expectativas a respeito do preço futuro desta ação
+O Processo de Markov é um processo estocástico onde somente o valor atual da variável é relevante para predizer a evolução futura do processo (depende apenas de 1 momento já realizado). Valores históricos (caminho realizado) através do qual a variável atingiu o seu valor atual são  irrelevantes para a determinação do seu valor futuro. Nesse modelo, assumimos que o preço atual de uma ação reflete todas as informações históricas bem  como as expectativas a respeito do preço futuro desta ação.
 
-Definição: Um processo estocástico discreto é um processo de Markov se
+**Definição:** Um processo estocástico discreto é um processo de Markov se
+
 $$ P(X_{t+1} = S / X_0, X_1, \cdots, X_t) = P(X_{t+1} = S /X_t)$$
 
-para todo t ≥ 0 e S.
+para todo $$t ≥ 0$$ e $$S$$.
 
-Geralmente, o processo é totalmente descrito pela matriz de probabilidade de transição A que indica todas as probabilidades de sair de um estado i para j, em 1 passo. A partir da matriz A é possível calcular as probabilidades de transição em mais passos até a sua convergência no limite.
+Geralmente, o processo é totalmente descrito pela matriz de probabilidade de transição **A** que indica todas as probabilidades de sair de um estado i para j, em 1 passo. A partir da matriz **A** é possível calcular as probabilidades de transição em mais passos até a sua convergência no limite.
 
 ## Random walk
 
@@ -72,25 +73,25 @@ Além disso, um movimento browniano x é caracterizado pelas seguintes proprieda
 - **Estacionário** Para todo $$0 \le s \le t, x(t) - x(s) \sim N(0, t-s)$$;  
 - **Incremento independente** Se o intervalo $$(S_i, t_i)$$ não são sobrepostos, então $$x(t_i) - x(S_i)$$ são independentes;
 - É um processo contínuo. Pode-se dizer que é um Random Walk com amostras infinitesimais;
-- Não é diferenciável (Choongbum Lee, MIT open course ware).
+- Não é diferenciável (a prova pode ser encontrada em Choongbum Lee, MIT open course ware).
 
 
 ## Processo de Wiener Generalizado
 
-A generalização do processo de Wiener ocorre quando se considera que a variação não é constante em delta z. No caso do processo simples, a taxa de variância é 1 e significa que a variância da mudança em z em um intervalo de tempo delta t é igual a delta t (constante para todas as diferenças). Portanto, para incorporar no processo, denotado agora por dz, essa variabilidade é definida pela seguinte equação:
+A generalização do processo de Wiener ocorre quando se considera que a variação não é constante em delta z. No caso do processo simples, a taxa de variância é 1 e significa que a variância da mudança em z em um intervalo de tempo delta t é igual a delta t (constante para todas as diferenças). Portanto, para incorporar no processo, denotado agora por $$dz$$, essa variabilidade é definida pela seguinte equação:
 
 $$dx = adt + bdz$$
 
-no qual a e b são constantes.
+no qual $$a$$ e $$b$$ são constantes.
 
 
-Para entender a equação é útil considerar os dois componentes no lado direito separadamente. O termo adt implica que $x$ tem uma taxa de derivação esperada de a por unidade de tempo. Sem o termo $bdz$ a equação é dx=adt que implica que $\frac{dx}{dt}=a$. Integrando com relação ao tempo, obtemos: $x=x_0+at$, onde $x_0$ é o valor de $x$ no tempo 0. Em um período de tempo de duração $T$, a variável $x$ aumenta na quantidade $aT$. O termo $bdz$ no lado direito da equação pode ser considerado como um ruído ou variabilidade no caminho seguido por $x$. O nível desse ruído ou variabilidade é b vezes um processo de Wiener. Um processo de Wiener, por sua vez, tem uma taxa de variância por unidade de tempo 1. Logo, $b$ vezes um processo de Wiener tem uma taxa de variância por unidade de tempo de $b^2$.
+Para entender a equação é útil considerar os dois componentes no lado direito separadamente. O termo adt implica que $$x$$ tem uma taxa de derivação esperada de a por unidade de tempo. Sem o termo $$bdz$$ a equação é $$dx=adt$$ que implica que $$\frac{dx}{dt}=a$$. Integrando com relação ao tempo, obtemos: $$x=x_0+at$$, onde $$x_0$$ é o valor de $$x$$ no tempo 0. Em um período de tempo de duração $$T$$, a variável $$x$$ aumenta na quantidade $$aT$$. O termo $$bdz$$ no lado direito da equação pode ser considerado como um ruído ou variabilidade no caminho seguido por $$x$$. O nível desse ruído ou variabilidade é $$b$$ vezes um processo de Wiener. Um processo de Wiener, por sua vez, tem uma taxa de variância por unidade de tempo 1. Logo, $$b$$ vezes um processo de Wiener tem uma taxa de variância por unidade de tempo de $$b^2$$.
 
 <p><img src="/img/mlg/processo_wiener.jpg" height="450" width="450" /></p>
 
 ## Lema e Cálculo de Itô
 
-O processo de Itô acontece quando a generalização do processo de Winer assume que os termos a e b da equação são funções do valor do ativo (x) e do tempo (t), fornecendo a seguinte fórmula:
+O processo de Itô acontece quando a generalização do processo de Winer assume que os termos $$a$$ e $$b$$ da equação são funções do valor do ativo (x) e do tempo (t), fornecendo a seguinte fórmula:
 
 $$dx = a(x,t)dt + b(x,t)dz$$
 
@@ -102,7 +103,7 @@ O lema de Itô parte de uma expansão de Taylor para resolver o problema da não
 
 $$dG = (\frac{dG}{dx}+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt + \frac{dG}{dx}bdz$$,
 
-No qual $dz$ é o mesmo processo de Wiener que na equação. Assim, G também segue um processo de Itô, com taxa de derivação de: $$\frac{dG}{dx}a+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt$$. E a taxa de variância de: $${\frac{dG}{dx}}^2 b^2$$.
+No qual $$dz$$ é o mesmo processo de Wiener que na equação. Assim, G também segue um processo de Itô, com taxa de derivação de: $$\frac{dG}{dx}a+\frac{dG}{dt}+\frac{1}{2}\frac{d^2G}{dx^2}b^2)dt$$. E a taxa de variância de: $${\frac{dG}{dx}}^2 b^2$$.
 
 
 A partir desse lema de Itô que o modelo Black and Scholes é elaborado, mostrando a relação entre preço do ativo, taxa livre de risco, volatilidade e suas gregas.
