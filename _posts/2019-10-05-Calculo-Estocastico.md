@@ -2,7 +2,7 @@
 
 layout: post
 
-title: Calculo Estocastico
+title: Cálculo Estocástico
 lang: pt
 
 header-img: img/0026.png
