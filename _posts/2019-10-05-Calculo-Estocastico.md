@@ -7,7 +7,7 @@ lang: pt
 
 header-img: img/0026.png
 
-date: 2019-10-05 14:15:07
+date: 2019-10-05 11:15:00
 
 tags: [Calculo Estocastico, Black and Scholes, Browniano]
 author: Alfredo Rossi e Victor Matheus
