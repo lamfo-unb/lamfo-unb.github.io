@@ -30,7 +30,7 @@ For example, the movement of birds flying together is mathematically (and biolog
 ![m'ladyy](https://i.giphy.com/media/gtqM4xScIm1Tq/giphy-downsized-large.gif)
 *https://www.slideshare.net/premsankarchakkingal/introduction-to-agent-based-modeling-using-netlogo*
 
-If we simulate a simple bird flying we can with just a few parameters, understand the result of the set of interactions. [In this code available from NetLogo] (https://ccl.northwestern.edu/netlogo/models/Flocking) (established ABM analysis software), 3 simple main parameters are used to analyze this case: alignment, separation and cohesion.
+If we simulate a simple bird flying we can with just a few parameters, understand the result of the set of interactions. [In this code available from NetLogo](https://ccl.northwestern.edu/netlogo/models/Flocking) (established ABM analysis software), 3 simple main parameters are used to analyze this case: alignment, separation and cohesion.
 
 
 ## GAMA Platform
@@ -268,6 +268,7 @@ species carro skills: [advanced_driving]{
 }
 ```
 The visual result of this model is this:
+
 ![m'ladyy](/img/ABM/10.png)
 
 Analyzing the equivalent of the colorado descent (A quite busy road in Brasília), we noticed a higher vehicle density in this area.
@@ -284,6 +285,6 @@ Simulations like this could be used for a variety of purposes. Following the exa
 
 ## Model extension
 
-This was the basis of the model for traffic simulation in real world cases. It is noteworthy that, although modeling using the advanced driving skill package is relatively complex, the results are much more reliable due to the dozens of attributes that are inherited automatically, such as braking inertia, probability of breaking the car (as a result of an accident), distance from the vehicle ahead, top speed and many others. To check out the article on advanced driving skill, read [Traffic simulation with the RANGE platform] (https://hal.archives-ouvertes.fr/hal-01055567/document).
+This was the basis of the model for traffic simulation in real world cases. It is noteworthy that, although modeling using the advanced driving skill package is relatively complex, the results are much more reliable due to the dozens of attributes that are inherited automatically, such as braking inertia, probability of breaking the car (as a result of an accident), distance from the vehicle ahead, top speed and many others. To check out the article on advanced driving skill, read [Traffic simulation with the RANGE platform](https://hal.archives-ouvertes.fr/hal-01055567/document).
 
-However, it is important to consider that models using simpler packages can have as positive results as the ones presented here. On the platform's website, a [quick tutorial teaches you how to set up a traffic analysis model in a city where residents have a home address, and a workplace] (https://gama-platform.github.io/wiki/ RoadTrafficModel). The model, by using a simpler skill package (moving skill) is able to generate this scenario with relative simplicity.
+However, it is important to consider that models using simpler packages can have as positive results as the ones presented here. On the platform's website, a [quick tutorial teaches you how to set up a traffic analysis model in a city where residents have a home address, and a workplace](https://gama-platform.github.io/wiki/ RoadTrafficModel). The model, by using a simpler skill package (moving skill) is able to generate this scenario with relative simplicity.
