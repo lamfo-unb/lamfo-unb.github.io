@@ -35,13 +35,13 @@ If we simulate a simple bird flying we can with just a few parameters, understan
 
 ## GAMA Platform
 
-Although softwares such as NetLogo are most famous for working with agent-based simulation, it is important to understand that each application will require some specificities that may favor either software. The [Agent Based Modeling and Simulation tools: A review of the state-of-the-art software] article (https://www.researchgate.net/publication/316002244_Agent_Based_Modelling_and_Simulation_tools_A_review_of_the_state-of-art_software) compares the available software. Here we will use the GAMA Platform, due to its good integration with georeferenced data.
+Although softwares such as NetLogo are most famous for working with agent-based simulation, it is important to understand that each application will require some specificities that may favor either software. The article [Agent Based Modeling and Simulation tools: A review of the state-of-the-art software](https://www.researchgate.net/publication/316002244_Agent_Based_Modelling_and_Simulation_tools_A_review_of_the_state-of-art_software) compares the available software. Here we will use the GAMA Platform, due to its good integration with georeferenced data.
 
 The GAMA platform is a simulation software used to simultaneously reproduce n-agents and view them in a graphically updated manner in real time. The platform differential, which has its own language (GAML), is the simple integration with GIS spatial information files. Other software options can be used for the same purpose.
 
 ## Importing the road files for analysis
 
-To represent the streets that will be used in this analysis, we need them to be in compatible format with shapefile files. Thus, we will use the Transport_v2017.zip file, available at this link (http://forest-gis.com/2009/04/data-shapefile-do-todo.html/).
+To represent the streets that will be used in this analysis, we need them to be in compatible format with shapefile files. Thus, we will use the Transport_v2017.zip file, available at [this link](http://forest-gis.com/2009/04/data-shapefile-do-todo.html/).
 
 Once with the files, we should extract the zip file and with some GIS file viewer software of preference, edit what we need. Here we will use the open source QGIS software.
 
@@ -279,7 +279,8 @@ Analyzing the equivalent of the colorado descent (A quite busy road in Brasília
 In fact, the region is one of the busiest in the city, and is even undergoing a work of expansion expected to end in 2019.
 
 ![m'ladyy](/img/ABM/12.png)
-*http://www.jornalregional.com.br/noticia/7099/EPIA-NORTE:-Ponto-de-entrada-e-sa%C3%ADda-da-faixa-reversa-do-Colorado-será-deslocado-a-partir-desta-quarta-(6).html*
+
+[EPIA NORTE: Ponto de entrada e saída da faixa reversa do Colorado será deslocado a partir desta quarta (6)](http://www.jornalregional.com.br/noticia/7099/EPIA-NORTE:-Ponto-de-entrada-e-sa%C3%ADda-da-faixa-reversa-do-Colorado-será-deslocado-a-partir-desta-quarta-(6).html)
 
 Simulations like this could be used for a variety of purposes. Following the example above, we could use this simulation to analyze traffic if we added one more road in another location, or if we wanted to observe the effect of widening existing roads.
 
