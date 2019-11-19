@@ -1,0 +1,223 @@
+---
+title: "Dados em Painel - LAMFO"
+author: "Hiro"
+date: "9 de novembro de 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+# Dados em Painel
+
+Dados em painel são úteis e sua aplicabilidade é ubíqua. Aparecem em análise de políticas públicas, ajuda humanitária, finanças; mas são simples. Dados em painel são simplesmente dados em que temos *algumas* observações de indivíduos  i e as acompanhamos *por um período de tempo* t. Diferem dos dados cross-section pois esse coleta observações de um único período de tempo. Podemos dizer que um dado cross-section é um dado em painel com t = 1. Diferem também das séries de tempo, os quais coletam variáveis para apenas um indivíduo (ou país, ou entidade, ou empresa...). Podemos dizer que séries de tempo são dados em painel com a quantidade de indivíduos = 1.
+
+
+As vantagens dos dados assim são, dados por Hsiao (2005), os seguintes:
+
+1. Melhor acurácia para inferência de parâmetros. Uma vez que dados em painel tendem a ter mais graus de liberdade e menos multi-colinearidade que as suas contrapartidas cross-section
+
+2.  Maior capacidade em capturar a complexidade do comportamento humano que uma série de tempo ou um cross-section.
+
++ Constructing and testing more complicated behavioral hypotheses. For instance,
+consider the example of Ben-Porath (1973) that a cross-sectional
+sample of married women was found to have an average yearly labor-force
+participation rate of 50 percent. These could be the outcome of random
+draws from a homogeneous population or could be draws from heterogeneous
+populations in which 50% were from the population who always work
+and 50% never work. If the sample was from the former, each woman would
+be expected to spend half of her married life in the labor force and half out of
+the labor force. The job turnover rate would be expected to be frequent and
+the average job duration would be about two years. If the sample was from the latter, there is no turnover. The current information about a woman’s
+work status is a perfect predictor of her future work status. A cross-sectional
+data is not able to distinguish between these two possibilities, but panel data
+can because the sequential observations for a number of women contain information
+about their labor participation in different subintervals of their life
+cycle..........................
+
++ Controlar o efeito das variáveis omitidas
+
++ Desvelar relações dinâmicas entre as variáveis. With panel
+data, we can rely on the inter-individual differences to reduce the collinearity
+between current and lag variables to estimate unrestricted time-adjustment
+patterns (e.g. Pakes and Griliches (1984)).
+
++ Gerar maior acurácia, agregando os dados
+
++ Possibiltar a microfundamentação para a análise de dados. Como podemos aniquilar os efeitos fixos, não necessitamos supor que os agentes são homogêneos a priori.
+
+
+3.  Simplificando a computação e a inferência estatística
+
++ Análise de dados não estacionários em séries de tempo. Quando dados não são estacionários, ie, ... então a distribuição de mínimos quadrados e estimadores de máxima verossimilhança não funcionam.  Havendo dados em painel, sendo então cada observação cross-section independente, pode-se usar o teorema do limite central. Assegurando que os estimadores são normais assintoticamente.
+
++ Erros de medida...
+
++ Modelos Tobit Dinâmicos. ...
+
+
+# Motivação
+
+Analisemos os dados em painel e poremos em prática os modelos utilizados para tomar proveito desse formato de dado.
+
+Situe-se sediando uma posição de trabalho na Organização das Nações Unidas. Seu posto é, de alguma forma, diminuir a incidência de guerras e conflitos internos de alguma região. Intuitivamente, espera-se que instabilidade política, ... influenciem nessa questão. Todavia como garantir isso?
+
+Os dados que temos em mão está disponível ..................
+
+
+# Pooled Regression
+
+O modelo mais simples que se pode usar em dados em painel é a regressão pooled. Essa é a regressão que ignora a colinearidade temporal e considera cada observação de tempo e país como independentes para derivar uma relação linear entre as variáveis explicativas $X_1, \dots, X_k$ e a variável dependente Y. Como temos as observações para tempos diferentes (t) e indivíduos diferentes (i), adicionamos os respectivos subscriptows nas variáveis explicativas e na variável dependente.
+
+$$ Y_{it} = \beta_0 + \beta_1X_{1it} + ... \beta_kX_{kit}   + u_i      $$
+O objetivo é estimar os valores dos $\beta_1, ...,\beta_k$, os quais representam o efeito das variáveis $X_1,...,X_k$. Como esperamos uma aleatoriedade dessa relação, colocamos um termo de erro $u_i$ que indica o desvio da nossa observação para o nosso modelo predito pelos betas estimados e as variáveis dependentes.
+
+```{r}
+library(plm)
+library(haven)
+library(stargazer)
+library(knitr)
+require(memisc)
+library(shiny)
+setwd("~/LAMFO/Riot_data")
+repdata <- read_dta("repdata.dta")
+guerra <- repdata
+
+
+p1 <- plm(onset ~ warl +  gdpenl + lpop + lmtnest + ncontig + Oil + nwstate + instab + polity2l + ethfrac + relfrac, data = guerra, index=c("country","year"), model = 'pooling')
+stargazer(p1, type = 'html')
+
+
+```
+
+
+```{r}
+stargazer::stargazer(p1, p2, p3, type = "html", title = "Results")
+shiny::includeHTML("pp.html")
+```
+
+
+
+Uma preocupação que existe nesse modelo é o viés de variável omitida. Quiçá existe variáveis que são necessárias para explicar o modelo, mas não especificamos na equação. Quando esses efeitos decorrem de características que são fixas no tempo, podemos resolver com o seguinte modelo.
+
+
+
+## Teste de Hausman
+
+The test compares the consistent but inefficient estimator (fixed effects) to the potentially inconsistent but efficient estimator (OLS)................................
+
+
+# Fixed Effects
+
+Uma forma de eliminar os iiuv seria o modelo de Fixed Effects/ Within Estimator. Embora saber os efeitos de ser uma ex-colônia britânica ou francesa; ser de tal continente pode dar insights interessantes, acreditamos que mudá-los está além do nosso alcance. Por outro lado, estamos preocupados com variáveis que podemos mudar, especificamente estabilidade política.
+
+Eis aqui o poder dos dados em painel. Podemos eliminar os vieses de efeitos que são fixos ao longo do tempo e assim isolarmos o efeito explicativo da nossa variável de interesse. Esse é o modelo de Efeitos Fixos:
+
+$$ Y_{i t}=\beta_{1} X_{1i t} + ... + \beta_kX_{kit} +\alpha_{i}+u_{i t} $$
+
+Em seguida calculamos a média dessa relação para cada indivíduo. Como o efeito fixo é o mesmo ao longo do tempo, permanece inalterado.
+
+$$     \overline{Y}_i = \beta_1\overline{X}_{1i} + ... + \beta_k\overline{X}_{ki} + \alpha_i + \overline{u}_i $$
+
+$$ Y_{it} - \overline{Y}_{1i} = \beta_1(X_{1it}-\overline{X}_{1i}) + ... + \beta_k(X_{kit} - \overline{X}_{ki}) + (u_{it}-\overline{u_i}) $$
+Como os efeitos fixos sumiram, nós rearranjamos a equação acima para uma notação mais concisa:
+$$     \tilde{Y}_i = \beta_1\tilde{X}_{1i} + ... + \beta_k\tilde{X}_{ki} +  \tilde{u}_i  $$
+
+Computacionalmente: 
+feaffaef
+aef
+a
+ef
+aef
+a
+ef
+aef
+aef
+
+ae
+fa
+f
+ea
+fea
+
+
+
+
+# Random Effects
+
+But suppose we think ai is uncorrelated with each explanatory variable
+in all time periods. Then, using a transformation to eliminate ai results in inefficient
+estimators.
+
+
+
+$$ Y_{i t}= \beta_0 +   \beta_{1} X_{1i t} + ... + \beta_kX_{kit} +\alpha_{i}+u_{i t} $$
+
+composite error term as vit  ai  ui
+
+
+$$
+y_{i t}=\beta_{0}+\beta_{1} x_{i t 1}+\ldots+\beta_{k} x_{i t k}+v_{i t}
+$$
+
+$$
+\operatorname{Corr}\left(v_{i t}, v_{i s}\right)=\sigma_{a}^{2} /\left(\sigma_{a}^{2}+\sigma_{u}^{2}\right), \quad t \neq s
+$$
+
+$$
+\theta=1-\left[\sigma_{u}^{2} /\left(\sigma_{u}^{2}+T \sigma_{a}^{2}\right)\right]^{1 / 2}
+$$
+
+$$
+\begin{aligned} y_{i t}-\theta \bar{y}_{i}=& \beta_{0}(1-\theta)+\beta_{1}\left(x_{i t 1}-\theta \bar{x}_{i 1}\right)+\ldots \\ &+\beta_{k}\left(x_{i k}-\theta \bar{x}_{i k}\right)+\left(v_{i t}-\theta \bar{v}_{i}\right) \end{aligned}
+$$
+
+
+
+
+
+
+
+
+
+
+
+# Dif in Dif
+
+
+
+
+
+
+# Regression in Discontinuity
+
+Outra vantagem de dados em painel é que eles podem 
+
+```{r}
+library(rddtools)
+
+```
+
+
+
+
+Vamos deixar algumas libraries abertas:
+```{r}
+library(AER)
+library(plm)
+library(stargazer)
+```
+
+```{r}
+setwd("~/LAMFO/Riot_data")
+library(haven)
+guerra <- read_dta("repdata.dta")
+
+p1 <- plm(onset ~ warl +  gdpenl + lpop + lmtnest + ncontig + Oil + nwstate + instab + polity2l + ethfrac + relfrac, data = guerra, index=c("country","year"), model = 'fd')
+p2 <- plm(onset ~ warl +  gdpenl + lpop + lmtnest + ncontig + Oil + nwstate + instab + polity2l + ethfrac + relfrac, data = guerra, index=c("country","year"), model = 'random')
+p3 <- plm(onset ~ warl +  gdpenl + lpop + lmtnest + ncontig + Oil + nwstate + instab + polity2l + ethfrac + relfrac, data = guerra, index=c("country","year"), model = 'pooling')
+stargazer(p1,p2,p3)
+```
+
+
+stargazer(p1,p2,p3)
