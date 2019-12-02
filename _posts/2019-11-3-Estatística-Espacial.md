@@ -71,10 +71,10 @@ O Kriging é um dos métodos de interpolação geoestatístico que assume que a 
 $$ \hat{Z}(s_0) = \sum_{i=1}^{N}\lambda_iZ(s_i) $$
 
 Sendo: 
-$s_0$ a previsão para um local
-$λ_i$ o peso para alocalização i
-$Z(s_i)$ o valor da amosta na localização i
-$N$ o número de amostras
+\(s_0\) a previsão para um local
+\(λ_i\) o peso para alocalização \(i\)
+\(Z(s_i)\) o valor da amosta na localização \(i\)
+\(N\) o número de amostras
 
 A diferença entre o Simple Kriging e o IDW é que o peso do IDW depende somente da distância para as amostras. Enquanto que o Simple Kriging considera a relação espacial com as amostras por meio de um varioagrama.
 
@@ -102,7 +102,7 @@ Assim, para determinar a concentração de um fenômeno em um ponto, temos de mo
 
 ![](https://gisgeography.com/wp-content/uploads/2016/10/semi-variogram-feature-2-678x322.png)
 
-A imagem acima exemplifica a distância ($h$) entre todas as amostras e uma amostra em específico. Tal passo deve ser repetido para cada uma das outras amostras, levantando a distância entre todos dois pontos possíveis.
+A imagem acima exemplifica a distância (\(h\)) entre todas as amostras e uma amostra em específico. Tal passo deve ser repetido para cada uma das outras amostras, levantando a distância entre todos dois pontos possíveis.
 
 Ao mesmo tempo, para cada dois pontos iremos calcular a variância desses dois pontos pela seguinte fórmula:
 
@@ -142,7 +142,7 @@ Cada fórmula possui três elementos principais: o Range, o Sill e o Nugget.O Ra
 
 ![](https://gisgeography.com/wp-content/uploads/2016/10/Variogram-Nugget-Range-Sill.png)
 
-Tendo feito o fitting, utilizamos os valores do Range ($r$), do Sill ($\alpha$) e do Nugget ($C_0$) obtidos do modelos na fórmula. Agora resta apenas a distância ($h$) na fórmula. Faremos uma matriz de todas as possibilidades de relações de amostras e para cada distância, calcularemos o valor da semivariância. Resultando em uma matriz de semivariâncias, por exemplo:
+Tendo feito o fitting, utilizamos os valores do Range (\(r\)), do Sill (\(\alpha\)) e do Nugget (\(C_0\)) obtidos do modelos na fórmula. Agora resta apenas a distância (\(h\)) na fórmula. Faremos uma matriz de todas as possibilidades de relações de amostras e para cada distância, calcularemos o valor da semivariância. Resultando em uma matriz de semivariâncias, por exemplo:
 
 ```python
 [C11 C12 C13]   [4    1.1  0.62]
@@ -150,14 +150,14 @@ Tendo feito o fitting, utilizamos os valores do Range ($r$), do Sill ($\alpha$) 
 [C31 C32 C33]   [0.62 0.62 4   ]
 ```
 
-Também é necessário criar uma matriz de semivariâncias de todas as amostras em relação ao ponto a ser obtido. Nesse caso, o valor da distância ($h$) na fórmula será a distância entre a amostra e o ponto a ser observado ($Z(0)$), por exemplo: 
+Também é necessário criar uma matriz de semivariâncias de todas as amostras em relação ao ponto a ser obtido. Nesse caso, o valor da distância (\(h\)) na fórmula será a distância entre a amostra e o ponto a ser observado (\(Z(0)\)), por exemplo: 
 
 ```python
 [C10]   [1.48]
 |C20| = |1.48|
 [C30]   [1.1 ]
 ```
-Com essas matrizes, adicionamos mais uma linha e uma coluna na matriz entre as amostras para ser contabilizado como o erro e a invertemos. Em seguida, multiplicamos o resultado pela matriz de distâncias até o ponto a ser obtido ($Z(0)$):
+Com essas matrizes, adicionamos mais uma linha e uma coluna na matriz entre as amostras para ser contabilizado como o erro e a invertemos. Em seguida, multiplicamos o resultado pela matriz de distâncias até o ponto a ser obtido (\(Z(0)\)):
 
 ```python
 [w1]    [4    1.1  0.62 1]-1  [1.48]   [ 0.353]
@@ -165,7 +165,7 @@ Com essas matrizes, adicionamos mais uma linha e uma coluna na matriz entre as a
 |w3|    |0.62 0.62 4    1|    |1.1 |   | 0.293|
 [λ ]    [1    1    1    0]    [1   ]   [-0.505]
 ```
-O resultado são os pesos das amostras em relação ao ponto a ser obtido ($Z(0)$). Com os pesos, utilizamos a fórmula do kriging, somamos a multiplicação dos peso pela concentração da amostra:
+O resultado são os pesos das amostras em relação ao ponto a ser obtido (\(Z(0)\)). Com os pesos, utilizamos a fórmula do kriging, somamos a multiplicação dos peso pela concentração da amostra:
 
 $$ \hat{Z}(s_0) = \sum_{i=1}^{N}\lambda_iZ(s_i) $$
 
@@ -173,7 +173,7 @@ Ao fazer o somatório dos valores da multiplicação do peso com o valor da amos
 
 ### Exemplo
 
-Digamos que temos uma propriedade, que se extende por 5.5km de largura e comprimento, na qual queremos saber a melhor localidade para extração de ouro. Para tal, extraímos amostras de alguns lugares de nossa propriedade. Abaixo são indicadas as latitudes $x(i)$, longitudes $y(i)$ e a concentrações $Z(s_i)$ encontradas:
+Digamos que temos uma propriedade, que se extende por 5.5km de largura e comprimento, na qual queremos saber a melhor localidade para extração de ouro. Para tal, extraímos amostras de alguns lugares de nossa propriedade. Abaixo são indicadas as latitudes \(x(i)\), longitudes \(y(i)\) e a concentrações \(Z(s_i)\) encontradas:
 
 
 | Amostra $i$ | $x(i)$ | $y(i)$ | $Z(s_i)$ |
@@ -193,11 +193,11 @@ conda install -c conda-forge pykrige
 ```
 
 Abaixo um simples exemplo de Ordinary Kringing.
-Ele se inica com a criação de um array de amostras com a posição $X, Y$ e o valor de concentração do fenômeno.
+Ele se inica com a criação de um array de amostras com a posição \(X, Y\) e o valor de concentração do fenômeno.
 
-Logo em seguida é criado o grid em que serão exibidos os resultados. Tal grid é composto pelo eixo $X$ e $Y$ em que cada um possui um valor inicial, um final e um espaçamento entre cada ponto.
+Logo em seguida é criado o grid em que serão exibidos os resultados. Tal grid é composto pelo eixo \(X\) e \(Y\) em que cada um possui um valor inicial, um final e um espaçamento entre cada ponto.
 
-Na criação do Ordinary Kringing são passados todos os valores do eixo $X$ das amostras, em seguida do eixo $Y$ e por fim a concentração do fenômeno. Além desses parâmetros também é passado o tipo de modelo de variograma. Caso nenhum modelo seja passado, a biblioteca irá automaticamente tentar fazer o fitting dos dados em um modelo.
+Na criação do Ordinary Kringing são passados todos os valores do eixo \(X\) das amostras, em seguida do eixo \(Y\) e por fim a concentração do fenômeno. Além desses parâmetros também é passado o tipo de modelo de variograma. Caso nenhum modelo seja passado, a biblioteca irá automaticamente tentar fazer o fitting dos dados em um modelo.
 
 Após criado a variável Ordinary Kringing, executamos ele. O resultado é o grid de valores e a variância do grid.
 
