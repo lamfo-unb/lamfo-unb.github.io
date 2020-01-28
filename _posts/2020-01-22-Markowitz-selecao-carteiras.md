@@ -1,4 +1,5 @@
 ﻿---
+ layout: post
 title: "Markowitz - Seleção de carteiras"
 author: "Neuremberg de Matos, Sarah Teixeira, Alícia Isaias"
 date: "22 de janeiro de 2020"
