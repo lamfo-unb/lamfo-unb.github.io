@@ -157,7 +157,7 @@ A correlação entre ativos pode contribuir para aumentar ou reduzir o efeito di
 Isso é ilustrado no gráfico a seguir, em que cada ponto corresponde a um ativo:
 
 <p>
-    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png" with = "672" style = "display: block; margin: auto;"/>
+    <img src=/img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: Adaptado de BERK, 2014</em>
 </p>
