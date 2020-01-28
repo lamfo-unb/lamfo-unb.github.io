@@ -665,7 +665,7 @@ dados_plot %>%
   theme(legend.position = 'none')
 ```
 
-<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png style="display: block; margin: auto;" />
+<img src= /img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png style="display: block; margin: auto;" />
 
 A fronteira mais escura foi construída a partir dos ativos *ABEV3*, *PETR4* e *ITSA4*, já a fronteira laranja foi construída com os mesmo ativos mais o ativo *NATU3*. A nova fronteira ficou mais à esquerda que a anterior, portanto, é possível obter o mesmo retorno com uma risco menor por meio dessa nova nova fronteira eficiente. Tais resultados são possíveis devido aos efeitos da diversificação: ao aumentar a quantidade de ativos na carteira, o risco cai mais que os retornos ponderados dos ativos.
 
