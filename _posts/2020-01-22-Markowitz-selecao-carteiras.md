@@ -36,7 +36,7 @@ Além da medida de retorno, outra medida de grande importância para os investid
 
 O gráfico a seguir ilustra intuitivamente essa ideia. Considere dois ativos que têm o retorno esperado de 4%, entretanto o ativo *A* possui um risco menor que o ativo *B*:
 
-<img src="img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
 
 Como consequência os retornos efetivos do ativo *A* são bem mais concentrados, ou próximos, ao retorno esperado do ativo. Ao mesmo tempo que os retornos efetivos de ativo *B* são bem mais dispersos. Formalmente, o risco de um ativo é definido como o desvio padrão dos retornos efetivos em relação ao retorno esperado:
 
@@ -157,7 +157,7 @@ A correlação entre ativos pode contribuir para aumentar ou reduzir o efeito di
 Isso é ilustrado no gráfico a seguir, em que cada ponto corresponde a um ativo:
 
 <p>
-    <img src="../img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png" with = "672" style = "display: block; margin: auto;"/>
+    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png" with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: Adaptado de BERK, 2014</em>
 </p>
@@ -209,7 +209,7 @@ $$
 Isto é, quando o número de ativos cresce muito a variância da carteira se aproxima do valor da média da covariância entre os ativos. Assim, o risco remanescente corresponde ao risco de mercado, o que está ilustrado no gráfico a seguir.
 
 <p>
-    <img src="../img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png" with = "672" style = "display: block; margin: auto;"/>
+    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png" with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: BERK, 2014</em>
 </p>
@@ -228,7 +228,7 @@ No gráfico abaixo, note que a ação da Coca-Cola apresenta um risco de 25%, as
 
 
 <p>
-  <img src='../img/makowitz-selecao-carteiras/img-alicia/fronteira01.png' with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira01.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -238,7 +238,7 @@ No gráfico abaixo, note que a ação da Coca-Cola apresenta um risco de 25%, as
 No exemplo anterior, o investidor escolheu a carteira composta com a ação da Coca Cola, uma vez que esta era dominante, dentre as opções que ele possui. Agora suponha que existe a carteira $A$, que assim como as ações apresentadas, possui uma volatilidade de 25%, mas a carteira $A$ representa a combinação de ativos com o maior retorno. Essa carteira será a carteira eficiente, uma vez que o investidor pode ficar numa melhor posição ao escolher $A$, invés das demais carteiras. 
 
 <p>
-  <img src='../img/makowitz-selecao-carteiras/img-alicia/fronteira02.png' with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira02.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -287,7 +287,7 @@ Usando termos de pesquisa operacional, diz-se que o problema de minimização de
 Colocando todas as combinações de retorno e risco das possíveis carteiras de conjunto de ativos obtém-se o seguinte gráfico. Abaixo pode-se observar duas fronteiras eficientes, a fronteira eficiente de uma carteira contendo as 10 ativos, representada pela linha continua, a fronteira eficiente contendo 3 ativos, representada pela linha pontilhada.  O eixo $Y$ apresenta todos os retornos para cada combinação e o eixo $X$ apresenta o risco para cada combinação de ativos.
 
 <p>
-  <img src='../img/makowitz-selecao-carteiras/img-alicia/fronteira03.png' with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira03.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -459,7 +459,7 @@ precos_ <- precos_tidy(precos, 'periodo')
 plot_precos(precos_, 'periodo')
 ```
 
-<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png" style="display: block; margin: auto;" />
+<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png style="display: block; margin: auto;" />
 
 ```r
 # calculando correlação entre os preços
