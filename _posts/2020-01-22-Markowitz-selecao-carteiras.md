@@ -1,4 +1,4 @@
-﻿---
+---
  layout: post
  lang: pt
 title: "Markowitz - Seleção de carteiras"
