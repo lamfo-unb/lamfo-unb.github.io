@@ -36,7 +36,7 @@ Além da medida de retorno, outra medida de grande importância para os investid
 
 O gráfico a seguir ilustra intuitivamente essa ideia. Considere dois ativos que têm o retorno esperado de 4%, entretanto o ativo *A* possui um risco menor que o ativo *B*:
 
-<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
 
 Como consequência os retornos efetivos do ativo *A* são bem mais concentrados, ou próximos, ao retorno esperado do ativo. Ao mesmo tempo que os retornos efetivos de ativo *B* são bem mais dispersos. Formalmente, o risco de um ativo é definido como o desvio padrão dos retornos efetivos em relação ao retorno esperado:
 
