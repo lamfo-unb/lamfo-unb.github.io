@@ -1,11 +1,10 @@
 ﻿---
  layout: post
+ lang: pt
 title: "Markowitz - Seleção de carteiras"
 author: "Neuremberg de Matos, Sarah Teixeira, Alícia Isaias"
 date: "22 de janeiro de 2020"
-output: 
-  html_document:
-    keep_md: true
+
 ---
 
 ### Definição de risco e retorno
