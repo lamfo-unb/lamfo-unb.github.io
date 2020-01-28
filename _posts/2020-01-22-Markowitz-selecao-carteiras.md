@@ -36,7 +36,7 @@ Além da medida de retorno, outra medida de grande importância para os investid
 
 O gráfico a seguir ilustra intuitivamente essa ideia. Considere dois ativos que têm o retorno esperado de 4%, entretanto o ativo *A* possui um risco menor que o ativo *B*:
 
-<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
+<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png style="display: block; margin: auto;" />
 
 Como consequência os retornos efetivos do ativo *A* são bem mais concentrados, ou próximos, ao retorno esperado do ativo. Ao mesmo tempo que os retornos efetivos de ativo *B* são bem mais dispersos. Formalmente, o risco de um ativo é definido como o desvio padrão dos retornos efetivos em relação ao retorno esperado:
 
@@ -209,7 +209,7 @@ $$
 Isto é, quando o número de ativos cresce muito a variância da carteira se aproxima do valor da média da covariância entre os ativos. Assim, o risco remanescente corresponde ao risco de mercado, o que está ilustrado no gráfico a seguir.
 
 <p>
-    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png" with = "672" style = "display: block; margin: auto;"/>
+    <img src=/img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: BERK, 2014</em>
 </p>
@@ -228,7 +228,7 @@ No gráfico abaixo, note que a ação da Coca-Cola apresenta um risco de 25%, as
 
 
 <p>
-  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira01.png' with="672" style="display: block; margin: auto;"/>
+  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira01.png with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -238,7 +238,7 @@ No gráfico abaixo, note que a ação da Coca-Cola apresenta um risco de 25%, as
 No exemplo anterior, o investidor escolheu a carteira composta com a ação da Coca Cola, uma vez que esta era dominante, dentre as opções que ele possui. Agora suponha que existe a carteira $A$, que assim como as ações apresentadas, possui uma volatilidade de 25%, mas a carteira $A$ representa a combinação de ativos com o maior retorno. Essa carteira será a carteira eficiente, uma vez que o investidor pode ficar numa melhor posição ao escolher $A$, invés das demais carteiras. 
 
 <p>
-  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira02.png' with="672" style="display: block; margin: auto;"/>
+  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira02.png with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -287,7 +287,7 @@ Usando termos de pesquisa operacional, diz-se que o problema de minimização de
 Colocando todas as combinações de retorno e risco das possíveis carteiras de conjunto de ativos obtém-se o seguinte gráfico. Abaixo pode-se observar duas fronteiras eficientes, a fronteira eficiente de uma carteira contendo as 10 ativos, representada pela linha continua, a fronteira eficiente contendo 3 ativos, representada pela linha pontilhada.  O eixo $Y$ apresenta todos os retornos para cada combinação e o eixo $X$ apresenta o risco para cada combinação de ativos.
 
 <p>
-  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira03.png' with="672" style="display: block; margin: auto;"/>
+  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira03.png with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -483,7 +483,7 @@ Na tabela acima, cada célula representa a correlação entre os preços do ativ
 plot_precos(precos_, 'periodo', filter = c('PETR4', 'NATU3'))
 ```
 
-<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/grafico_petr4_natu3-1.png" style="display: block; margin: auto;" />
+<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/grafico_petr4_natu3-1.png style="display: block; margin: auto;" />
 
 Os dois ativos apresentam a tendência de queda entre 2013 e meados de 2016, após esse período passa a ter uma tendência ascendente. Talvez a mudança de governo ocorrido em 2016 tenha sido um motivo relevante para esse comportamento. A apesar de tudo isso, a mesma relação não se mantém quando calculamos a correlação entre os retornos. Quando fazemos esse cálculo, percebemos que a maior correlação ocorre entre *PETR4* e *ITSA4* como pode ser visto abaixo:
 
@@ -665,7 +665,7 @@ dados_plot %>%
   theme(legend.position = 'none')
 ```
 
-<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png" style="display: block; margin: auto;" />
+<img src= /img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png style="display: block; margin: auto;" />
 
 A fronteira mais escura foi construída a partir dos ativos *ABEV3*, *PETR4* e *ITSA4*, já a fronteira laranja foi construída com os mesmo ativos mais o ativo *NATU3*. A nova fronteira ficou mais à esquerda que a anterior, portanto, é possível obter o mesmo retorno com uma risco menor por meio dessa nova nova fronteira eficiente. Tais resultados são possíveis devido aos efeitos da diversificação: ao aumentar a quantidade de ativos na carteira, o risco cai mais que os retornos ponderados dos ativos.
 
