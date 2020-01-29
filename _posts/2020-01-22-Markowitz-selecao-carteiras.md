@@ -1,10 +1,12 @@
 ---
- layout: post
- lang: pt
-title: "Markowitz - Seleção de carteiras"
-author: "Neuremberg de Matos, Sarah Teixeira, Alícia Isaias"
-date: "22 de janeiro de 2020"
-
+layout: post
+title: Markowitz - Seleção de carteiras
+lang: pt
+header-img: img/home-bg.jpg
+date: 2020-01-22 23:59:07
+tags: [finanças, otimização]
+author: Neuremberg de Matos, Sarah Teixeira e Alícia Isaias
+comments: true
 ---
 
 ### Definição de risco e retorno
@@ -15,7 +17,7 @@ $$
  P = \{p_1, p_2, ..., p_n\}
 $$
 
-O *retorno efetivo*  do ativo no período $t=2$ é dado por $R_2 = p_2 - p_1$. A ideia é que se um agente comprasse o ativo no período 1 ao preço $p_1$ e o vendesse no período 2 ao $p_2$, ele teria o ganho de $R_2$ unidades monetárias. Entretanto, para que essa medida de ganho seja comparável entre ativos diferentes se usa frequentemente o retorno percentual como medida de retorno, isto é:
+O *retorno efetivo*  do ativo no período $$t=2$$ é dado por $$R_{2} = p_{2} - p_{1}$$. A ideia é que se um agente comprasse o ativo no período 1 ao preço $$p_1$$ e o vendesse no período 2 ao $$p_2$$, ele teria o ganho de $$R_2$$ unidades monetárias. Entretanto, para que essa medida de ganho seja comparável entre ativos diferentes se usa frequentemente o retorno percentual como medida de retorno, isto é:
 
 $$
   R_2 = \frac{p_2 - p_1}{p_1}
@@ -28,6 +30,7 @@ Uma medida mais interessante para o investidor é qual será o retorno do ativo 
 $$
  \mu = E(R) = \sum_{i=1}^n{p_iR_i}
 $$
+
 Em outros termos, o retorno esperado é o somatório dos retornos do ativo ponderado pelo pelas respectivas probabilidades de ocorrência. Assim, para calcular o retorno esperado pela definição deve-se saber todos os retornos que o ativo pode ter e quais as probabilidades associados a eles. Isso significa dizer que se conhece todos os cenários que podem ocorrer, suas probabilidades e retornos associados a eles. 
 
 Na maioria dos casos não se tem este tipo de conhecimento sobre os retornos de determinado ativo. Nesse caso, os retornos históricos podem serem usados para estimar o retorno esperado, mas não há nenhuma garantia de que o retorno futuro será o mesmo que o já observado no passado. Disto isto, neste *post* o retorno esperado de um ativo será estimado como sendo a média aritmética do retornos históricos. Essa abordagem será adotada em razão da sua simplicidade.
@@ -36,7 +39,7 @@ Além da medida de retorno, outra medida de grande importância para os investid
 
 O gráfico a seguir ilustra intuitivamente essa ideia. Considere dois ativos que têm o retorno esperado de 4%, entretanto o ativo *A* possui um risco menor que o ativo *B*:
 
-<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png style="display: block; margin: auto;" />
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
 
 Como consequência os retornos efetivos do ativo *A* são bem mais concentrados, ou próximos, ao retorno esperado do ativo. Ao mesmo tempo que os retornos efetivos de ativo *B* são bem mais dispersos. Formalmente, o risco de um ativo é definido como o desvio padrão dos retornos efetivos em relação ao retorno esperado:
 
@@ -58,13 +61,13 @@ $$
     R_c = \sum_{i=1}^{n}w_i R_i
 $$
 
-Em que $n$ é a quantidade de ativos que compõe a carteira, $w_i$ a participação de do ativo $i$ na carteira e $R_i$ o retorno esperado do ativo $i$. Usando a notação matricial podemos descrever essa relação como um produto interno entre dois vetores:
+Em que $$n$$ é a quantidade de ativos que compõe a carteira, $$w_i$$ a participação de do ativo $$i$$ na carteira e $$R_i$$ o retorno esperado do ativo $$i$$. Usando a notação matricial podemos descrever essa relação como um produto interno entre dois vetores:
 
 
 $$
 R_c = w'R
 $$
-Sendo $w$ um vetor coluna com as participações dos ativos na carteira e $w'$ a sua transporta e $R$ outro vetor coluna que contém os retornos dos ativos da carteira:
+Sendo $$w$$ um vetor coluna com as participações dos ativos na carteira e $$w'$$ a sua transporta e $$R$$ outro vetor coluna que contém os retornos dos ativos da carteira:
 
 $$
 w = \begin{bmatrix}
@@ -103,20 +106,20 @@ $$
 \end{equation}
 $$
 
-Sendo $cov(R_i,R_i) = var(R_i) = \sigma_{ii} = \sigma_{i}^2$ e $cov(R_i, R_j) = cov(R_j, R_i)$ segue:
+Sendo $$cov(R_i,R_i) = var(R_i) = \sigma_{ii} = \sigma_{i}^2$$ e $$cov(R_i, R_j) = cov(R_j, R_i)$$ segue:
 
 $$
   Var(R_p) = w_1^2\sigma_1^2 + 2w_1w_2\sigma_{12} + w_2^2\sigma_{2}^2
 $$
 
-Diferente do caso do retorno, o risco de uma carteira não é igual à média ponderada dos riscos de cada ativo. A razão para isso é que em geral sempre há uma relação entre a evolução de um preço de ativo $A$ e um ativo $B$, por exemplo, há um relação entre a evolução dos preços das ações da Petrobras e da Vale dado que ambas exportam *commodities*. No caso da carteira com dois ativos, o relacionamentos entre os dois ativos é captado pela covariância entre eles, $\sigma_{12}$.
+Diferente do caso do retorno, o risco de uma carteira não é igual à média ponderada dos riscos de cada ativo. A razão para isso é que em geral sempre há uma relação entre a evolução de um preço de ativo $$A$$ e um ativo $$B$$, por exemplo, há um relação entre a evolução dos preços das ações da Petrobras e da Vale dado que ambas exportam *commodities*. No caso da carteira com dois ativos, o relacionamentos entre os dois ativos é captado pela covariância entre eles, $$\sigma_{12}$$.
 
 O risco de uma carteira com *n* ativos pode ser definido como:
 
 $$
   Var(R_p) = w'\Omega w
 $$
-Novamente $w$ é o vetor com a participação de cada ativo na carteira, já $\Omega$ é a matriz do covariância dos retornos dos ativos:
+Novamente $$w$$ é o vetor com a participação de cada ativo na carteira, já $$\Omega$$ é a matriz do covariância dos retornos dos ativos:
 
 $$
 \Omega = \begin{bmatrix}
@@ -127,7 +130,7 @@ $$
 \end{bmatrix}
 $$
 
-Assim, cada célula $\sigma_{ij}$ da matriz é a covariância entre os retornos do ativo $i$ e dos retornos do ativo $j$. Como $\sigma_{ij} = \sigma_{ji}$, $\Omega$ é uma matriz simétrica cuja diagonal é a variância dos ativos.
+Assim, cada célula $$\sigma_{ij}$$ da matriz é a covariância entre os retornos do ativo $$i$$ e dos retornos do ativo $$j$$. Como $$\sigma_{ij} = \sigma_{ji}$$, $$\Omega$$ é uma matriz simétrica cuja diagonal é a variância dos ativos.
 
 ### Tipos de Risco
 
@@ -139,7 +142,7 @@ Já o risco sistemático é aquele ao qual estão sujeitos todos os ativos negoc
 
 ### Diversificação
 
-Para entender a diversificação é preciso que esteja clara a distinção entre os tipos de risco. O risco não sistemático então é aquele que afetará somente um ou alguns ativos. No caso das ações de uma empresa seu risco específico está relacionado às decisões de investimentos tomadas pelo gestor, investimentos com $VPL$ positivo impactam positivamente o valor de uma ação, porém a ocorrência de greves ou fraudes terá impacto negativo.
+Para entender a diversificação é preciso que esteja clara a distinção entre os tipos de risco. O risco não sistemático então é aquele que afetará somente um ou alguns ativos. No caso das ações de uma empresa seu risco específico está relacionado às decisões de investimentos tomadas pelo gestor, investimentos com $$VPL$$ positivo impactam positivamente o valor de uma ação, porém a ocorrência de greves ou fraudes terá impacto negativo.
 
 Já como risco sistemático podemos citar eventos macroeconômicos como a inflação que afeta oferta e demanda de todo um país, é em diferentes níveis para cada tipo de bem, serviço ou setor, mas de maneira geral toda a economia é afetada.
 
@@ -152,12 +155,12 @@ Assim, o efeito diversificação consiste em na redução do risco de uma cartei
 A correlação é a medida da estatística utilizada para medir se dois ativos possuem flutuações muito ou pouco parecidas, é, no cálculo, o que fará o risco aumentar ou diminuir ao montar uma carteira de investimentos. Pode variar de -1, que é quando os ativos possuem correlação perfeitamente negativa, a 1, ativos com correlação perfeitamente positiva.  Quanto mais próxima de 1, maior o risco da carteira, pois neste caso, os ativos se comportam de maneira muito parecida, e quanto mais próxima de -1, menor o desvio padrão da carteira. Entretanto, a correlação não capta relações não-lineares entre variáveis.
 
 
-A correlação entre ativos pode contribuir para aumentar ou reduzir o efeito diversificação em uma carteira. Considere uma carteira com duas ações, o risco da carteira depende da correlação entre os ativos. No caso em que a correlação entre os ativos é $-1$ o risco da carteira pode ser nulo dependendo dos pesos entre os ativos. Por outro lado, caso a correlação seja $1$ não há efeito diversificação. 
+A correlação entre ativos pode contribuir para aumentar ou reduzir o efeito diversificação em uma carteira. Considere uma carteira com duas ações, o risco da carteira depende da correlação entre os ativos. No caso em que a correlação entre os ativos é $$-1$$ o risco da carteira pode ser nulo dependendo dos pesos entre os ativos. Por outro lado, caso a correlação seja $$1$$ não há efeito diversificação. 
 
 Isso é ilustrado no gráfico a seguir, em que cada ponto corresponde a um ativo:
 
 <p>
-    <img src=/img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png with = "672" style = "display: block; margin: auto;"/>
+    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-correlacao.png" with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: Adaptado de BERK, 2014</em>
 </p>
@@ -166,7 +169,7 @@ Isso é ilustrado no gráfico a seguir, em que cada ponto corresponde a um ativo
 Entretanto, em uma carteira com muito ativos o efeito ilustrado acima é difícil de acontecer, em razão das correlações entre os vários ativos. Nesta situação, no pior dos casos, diversificar torna o risco da carteira igual ao valor do risco sistemático dos ativos, eliminando o risco idiossincrático.
 
 
-Considere um carteira com $n$ ativos, tal que todos os ativos têm o mesmo peso na carteira. Como já mencionado, a variância de uma carteira $p$ com $n$ ativos é dada por:
+Considere um carteira com $$n$$ ativos, tal que todos os ativos têm o mesmo peso na carteira. Como já mencionado, a variância de uma carteira $$p$$ com $$n$$ ativos é dada por:
 
 $$
 Var(R_p) = \sum_i^n\sum_j^nw_iw_jCov(R_i, R_j)
@@ -181,12 +184,13 @@ $$
 \end{split}
 $$
 
-Considerando que $w_i = w_j = \frac{1}{n}$, segue:
+Considerando que $$w_i = w_j = \frac{1}{n}$$, segue:
 
 $$
 Var(R_p) = \frac{1}{n^2} \sum_i^{n}Var(R_i) +  \frac{1}{n^2}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j)
 $$
-Note que na equação acima há $n$ variâncias, uma para cada ativo, e $n*n - n$ covariâncias, todas as covariâncias descontadas as variâncias. Assim, a equação acima pode ser reescrita como:
+
+Note que na equação acima há $$n$$ variâncias, uma para cada ativo, e $$n*n - n$$ covariâncias, todas as covariâncias descontadas as variâncias. Assim, a equação acima pode ser reescrita como:
 
 $$
 \begin{split}
@@ -197,8 +201,8 @@ $$
 
 Tal que:
 
-* $\bar{\sigma_i} \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$, que é a média das variâncias individuais dos ativos;
-* $\bar{\sigma_{ij}} \equiv \frac{1}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j)$, que é a média das covariâncias entre os ativos.
+* $$\bar{\sigma_i} \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$$, que é a média das variâncias individuais dos ativos;
+* $$\bar{\sigma_{ij}} \equiv \frac{1}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j)$$, que é a média das covariâncias entre os ativos.
 
 Assim, quando o número de ações na carteira tende ao infinito, segue:
 
@@ -209,7 +213,7 @@ $$
 Isto é, quando o número de ativos cresce muito a variância da carteira se aproxima do valor da média da covariância entre os ativos. Assim, o risco remanescente corresponde ao risco de mercado, o que está ilustrado no gráfico a seguir.
 
 <p>
-    <img src=/img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png with = "672" style = "display: block; margin: auto;"/>
+    <img src="/img/makowitz-selecao-carteiras/img-sarah/efeito-diversificao.png" with = "672" style = "display: block; margin: auto;"/>
     <br>
     <em>Fonte: BERK, 2014</em>
 </p>
@@ -222,29 +226,29 @@ Não existe uma carteira que seja a melhor para todos investidores. Isso ocorre 
 
 A diversificação permite a criação de diversas combinações de risco e retorno, e nem todas as carteiras diversificadas são eficientes. É possível realizar a comparação entre carteiras ou ativos que apresentem o mesmo risco ou o mesmo retorno. Essa comparação pode mostrar aquele ativo ou carteira que é mais eficiente, comparativamente, que os demais.
 
-Supondo que no mercado existam as ações $X$ e $Y$, essas ações possuem o mesmo retorno, mas riscos distintos - o risco da ação $Y$ é quatro vezes maior que o risco da ação $X$. Se o investidor avaliar somente o retorno esperado, será indiferente entre os dois ativos. Entretanto, se esse investidor for racional e analisar tanto o retorno como o risco, optará pela ação $X$, que está de acordo com o princípio da dominância. Esse princípio diz que: “um agente racional optará pelo investimento que lhe fornece o maior retorno esperado dado um nível de risco, ou o menor risco dado um nível de retorno”. Com isso é nítido que o ativo $X$ domina o ativo $Y$. 
+Supondo que no mercado existam as ações $$X$$ e $$Y$$, essas ações possuem o mesmo retorno, mas riscos distintos - o risco da ação $$Y$$ é quatro vezes maior que o risco da ação $$X$$. Se o investidor avaliar somente o retorno esperado, será indiferente entre os dois ativos. Entretanto, se esse investidor for racional e analisar tanto o retorno como o risco, optará pela ação $$X$$, que está de acordo com o princípio da dominância. Esse princípio diz que: “um agente racional optará pelo investimento que lhe fornece o maior retorno esperado dado um nível de risco, ou o menor risco dado um nível de retorno”. Com isso é nítido que o ativo $$X$$ domina o ativo $$Y$$. 
 
 No gráfico abaixo, note que a ação da Coca-Cola apresenta um risco de 25%, assim como a ação da Bore. Todavia, o retorno apresentado pela Coca-Cola é maior. Logo, um investidor racional, ao se deparar com as duas ações no mercado, irá optar por aquela com maior retorno. Apesar de ser dominante, nenhuma dessas duas ações está sobre a fronteira de eficiência, portanto existe uma combinação que pode trazer um maior retorno, com o mesmo risco.
 
 
 <p>
-  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira01.png with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira01.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
 
 #### Carteiras Eficientes
 
-No exemplo anterior, o investidor escolheu a carteira composta com a ação da Coca Cola, uma vez que esta era dominante, dentre as opções que ele possui. Agora suponha que existe a carteira $A$, que assim como as ações apresentadas, possui uma volatilidade de 25%, mas a carteira $A$ representa a combinação de ativos com o maior retorno. Essa carteira será a carteira eficiente, uma vez que o investidor pode ficar numa melhor posição ao escolher $A$, invés das demais carteiras. 
+No exemplo anterior, o investidor escolheu a carteira composta com a ação da Coca Cola, uma vez que esta era dominante, dentre as opções que ele possui. Agora suponha que existe a carteira $$A$$, que assim como as ações apresentadas, possui uma volatilidade de 25%, mas a carteira $$A$$ representa a combinação de ativos com o maior retorno. Essa carteira será a carteira eficiente, uma vez que o investidor pode ficar numa melhor posição ao escolher $$A$$, invés das demais carteiras. 
 
 <p>
-  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira02.png with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira02.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
 
 
-Note que na combinação $(0,1)$, em que a carteira é composta apenas por ativos da Coca-Cola, o risco é o mesmo que no ponto $(0.4, 0.6)$, em que 40% da carteira é composta por ações da Intel e 60% por ações da Coca-Cola, essa carteira apresenta o mesmo risco, entretanto o retorno é maior e ela está posicionada na fronteira de eficiência, isso significa que um investidor racional que está disposto a aceitar 25% de volatilidade, irá optar pela combinação $(0.4, 0.6)$. 
+Note que na combinação $$(0,1)$$, em que a carteira é composta apenas por ativos da Coca-Cola, o risco é o mesmo que no ponto $$(0.4, 0.6)$$, em que 40% da carteira é composta por ações da Intel e 60% por ações da Coca-Cola, essa carteira apresenta o mesmo risco, entretanto o retorno é maior e ela está posicionada na fronteira de eficiência, isso significa que um investidor racional que está disposto a aceitar 25% de volatilidade, irá optar pela combinação $$(0.4, 0.6)$$. 
 
 Uma carteira eficiente, portanto, pode ser definida como aquela que apresenta o maior retorno esperado dado um nível de risco. Ou, alternativamente, a carteira de menor risco dado um nível de retorno, isto é, a carteira de variância mínima. Essa é a carteira que um investidor racional irá escolher dentre as opções que foram apresentadas para ele.
 
@@ -261,11 +265,11 @@ $$
 \end{equation}
 $$
 
-Sendo $w$ o vetor de pesos da carteira a ser encontrada, $M$ a matriz de covariância dos retornos, $R$ o vetor com dos retornos de cada ativo, $R_d$ o retorno desejado para a carteira ótima e $\textbf1$ um vetor de cuja todas as coordenadas são 1. O problema de otimização tem duas restrições: $wR=R_d$ e $w\textbf{1}=1$. A primeira restrição afirma que a carteira ótima deve ter o retorno igual ao retorno desejado, já segunda afirma que a soma das participações de cada ativo deve somar 1.
+Sendo $$w$$ o vetor de pesos da carteira a ser encontrada, $$M$$ a matriz de covariância dos retornos, $$R$$ o vetor com dos retornos de cada ativo, $$R_d$$ o retorno desejado para a carteira ótima e $$\textbf1$$ um vetor de cuja todas as coordenadas são 1. O problema de otimização tem duas restrições: $$wR=R_d$$ e $$w\textbf{1}=1$$. A primeira restrição afirma que a carteira ótima deve ter o retorno igual ao retorno desejado, já segunda afirma que a soma das participações de cada ativo deve somar 1.
 
-Resolver tal problema de minimização significa encontrar a participação de cada ativo na carteira, os pesos, tal que a carteira tenha o menor risco entre todas as carteiras com os mesmos ativos e retorno igual $R_d$. 
+Resolver tal problema de minimização significa encontrar a participação de cada ativo na carteira, os pesos, tal que a carteira tenha o menor risco entre todas as carteiras com os mesmos ativos e retorno igual $$R_d$$. 
 
-Através dessa solução, variando os valores $R_d$, pode-se representar em um espaço bidimensional de Variância x Retorno Esperado, todas as carteiras geradas essa representação apresenta a forma de uma hipérbole. Ademais, o problema de otimização de Markowitz é quadrático e convexo, o que garante que de fato o problema é solucionado de maneira eficiente.
+Através dessa solução, variando os valores $$R_d$$, pode-se representar em um espaço bidimensional de Variância x Retorno Esperado, todas as carteiras geradas essa representação apresenta a forma de uma hipérbole. Ademais, o problema de otimização de Markowitz é quadrático e convexo, o que garante que de fato o problema é solucionado de maneira eficiente.
 
 O modelo de otimização de Markowitz também pode ser resolvido através da maximização do retorno dado um nível de risco. Assim, uma formulação equivalente ao problema de minimização é:
 
@@ -284,10 +288,10 @@ Usando termos de pesquisa operacional, diz-se que o problema de minimização de
 
 ### Fronteira eficiente
 
-Colocando todas as combinações de retorno e risco das possíveis carteiras de conjunto de ativos obtém-se o seguinte gráfico. Abaixo pode-se observar duas fronteiras eficientes, a fronteira eficiente de uma carteira contendo as 10 ativos, representada pela linha continua, a fronteira eficiente contendo 3 ativos, representada pela linha pontilhada.  O eixo $Y$ apresenta todos os retornos para cada combinação e o eixo $X$ apresenta o risco para cada combinação de ativos.
+Colocando todas as combinações de retorno e risco das possíveis carteiras de conjunto de ativos obtém-se o seguinte gráfico. Abaixo pode-se observar duas fronteiras eficientes, a fronteira eficiente de uma carteira contendo as 10 ativos, representada pela linha continua, a fronteira eficiente contendo 3 ativos, representada pela linha pontilhada.  O eixo $$Y$$ apresenta todos os retornos para cada combinação e o eixo $$X$$ apresenta o risco para cada combinação de ativos.
 
 <p>
-  <img src=/img/makowitz-selecao-carteiras/img-alicia/fronteira03.png with="672" style="display: block; margin: auto;"/>
+  <img src='/img/makowitz-selecao-carteiras/img-alicia/fronteira03.png' with="672" style="display: block; margin: auto;"/>
   <br>
   <em>Fonte: BERK, 2014</em>
 </p>
@@ -306,7 +310,7 @@ Para ilustrar a discussão teórica feita até aqui, será usado o R para calcul
 Será necessário carregar os seguintes pacotes:
 
 
-```r
+```
 library(ggplot2)
 library(magrittr)
 library(quantmod)
@@ -328,7 +332,7 @@ Usaremos os pacotes `quantmod` e `xts` para obter os dados de interesse e tratar
 Usaremos as funções do pacote `quantmod` para obter os preços diárias das ações entre outubro de 2016 e dezembro de 2019. Antes desse período, os dados do índice Bovespa apresenta muitos valores perdidos.
 
 
-```r
+```
 # Definindo parâmetros
 simbolos <- c("ITSA4.SA", "VVAR3.SA", "FNOR11.SA", "PETR4.SA", "BOVV11.SA")
 
@@ -350,11 +354,11 @@ Se tudo tiver corrido corretamente os dados das ações foram baixados em carreg
 Agora que temos os dados, vamos realizar um processamento de modo a obter o retorno mensais dessas séries, mas antes disso vamos que criar algumas funções para nos auxiliar nisso:
 
 
-```r
+```
 get_preco_fechamento <- function(x){
   ## Obtem preço de fechamento
   
-  x[, base::grepl(pattern = '\\.Close$', x = dimnames(x)[[2]])]
+  x[, base::grepl(pattern = '\\.Close$$', x = dimnames(x)[[2]])]
 }
 
 list_to_xts <- function(list_xts){
@@ -386,7 +390,7 @@ Na lista `ativos` estão os dados de transações de cada ativo na bolsa em obje
 Já a função `list_to_xts()` recebe uma lista de objetos `xts` e a transforma em apenas um objeto `xts` e, por fim, a função `xts_to_data.frame` transforma um objeto `xts` em um `data.frame` mantendo o período dos dados como uma coluna do `data.frame` resultante. A seguir, vamos calcular os retornos mensais dos ativos:
 
 
-```r
+```
 #Obtendo apenas os preços de fechamento
 ativos <- lapply(X = ativos, FUN = get_preco_fechamento)
 
@@ -409,7 +413,7 @@ Aplicando a função `get_preco_fechamento()` por meio da função `lapply()` ob
 Antes de prosseguirmos, vamos dar uma olhada na evolução dos preços de fechamento dos ativos. Para isso, usaremos as seguintes funções:
 
 
-```r
+```
 precos_tidy <- function(data, periodo){
   ## Transforma os precos para o formato long
   
@@ -453,15 +457,15 @@ Os dados dos ativos estão organizados de forma que cada coluna representa uma a
 A função `plot_precos()` toma o preços no formato `long` e cria um gráfico usando as funções do `ggplot2`. A seguir, plotamos a evolução dos preços de fechamento das ações e calcular as correlações entres o preços.
 
 
-```r
+```
 precos_ <- precos_tidy(precos, 'periodo')
 
 plot_precos(precos_, 'periodo')
 ```
 
-<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png style="display: block; margin: auto;" />
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png" style="display: block; margin: auto;" />
 
-```r
+```
 # calculando correlação entre os preços
 m <- as.matrix(precos[, -1])
 m <- na.omit(m)
@@ -479,16 +483,16 @@ cor(m)
 Na tabela acima, cada célula representa a correlação entre os preços do ativo da linha com o ativo da coluna. Chama a atenção a alta correlação existente entre preços das ações da Petrobras, *PETR4*, e  da Natura *NATU3*, que alcança o valor de 74,65%. Isso é um pouco curioso, já que essas empresas são de setores diferentes. Tal relação fica mais clara no gráfico a seguir:
 
 
-```r
+```
 plot_precos(precos_, 'periodo', filter = c('PETR4', 'NATU3'))
 ```
 
-<img src=/img/makowitz-selecao-carteiras/main_files/figure-html/grafico_petr4_natu3-1.png style="display: block; margin: auto;" />
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/grafico_petr4_natu3-1.png" style="display: block; margin: auto;" />
 
 Os dois ativos apresentam a tendência de queda entre 2013 e meados de 2016, após esse período passa a ter uma tendência ascendente. Talvez a mudança de governo ocorrido em 2016 tenha sido um motivo relevante para esse comportamento. A apesar de tudo isso, a mesma relação não se mantém quando calculamos a correlação entre os retornos. Quando fazemos esse cálculo, percebemos que a maior correlação ocorre entre *PETR4* e *ITSA4* como pode ser visto abaixo:
 
 
-```r
+```
 # Correlação entre os retornos
 cor(carteira)
 ```
@@ -513,7 +517,7 @@ A venda a descoberta consiste na venda de uma ação que o investidor não possu
 Para facilitar esse trabalho, vamos criar algumas funções:
 
 
-```r
+```
 carteira_otima <- function(ativos, retorno_desejado, shorts = FALSE){
   ## Calcula carteira ótima
   
@@ -550,22 +554,22 @@ get_risco <- function(res){
 }
 ```
 
-Assim, a carteira ótima que tem o retorno mensal esperado de $1\%$ seria dada por:
+Assim, a carteira ótima que tem o retorno mensal esperado de $$1\%$$ seria dada por:
 
 
-```r
+```
 carteira_otima(ativos = carteira, retorno_desejado = .01, shorts = FALSE)
 ```
 
 ```
-## $pesos
+## $$pesos
 ##     ABEV3     NATU3     PETR4     ITSA4 
 ## 0.5035733 0.2429710 0.0000000 0.2534557 
 ## 
-## $retorno
+## $$retorno
 ## [1] 0.01
 ## 
-## $risco
+## $$risco
 ## [1] 0.04844689
 ```
 
@@ -574,7 +578,7 @@ Sendo `pesos` a participação de cada ativo na carteira ótima, `retorno` o ret
 Vamos calcular o retorno esperados para o ativos e seus respectivos riscos e guardar tais informações em um `data.frame`. Após isso, vamos gerar um vetor de retornos desejados para as carteira ótimas a fim de gerar a fronteira eficiente.
 
 
-```r
+```
 retornos_esperados <- apply(carteira, MARGIN = 2, mean)
 riscos <- apply(carteira, MARGIN = 2, sd)
 
@@ -605,7 +609,7 @@ Para calcular a fronteira usaremos a função `carteira_otima()`. Ela toma como 
 Portanto, para gerar a fronteira eficiente será necessário gerar esse conjunto de carteira ótimas. Para tanto, é necessário gerar um retorno desejado para cada carteira ótima. A seguir serão gerando 50 retornos desejados para gerar 50 carteiras ótimas e construir a fronteira eficiente.
 
 
-```r
+```
 retorno_min <- 0.5*min(retornos_esperados)
 retorno_max <- 1.5*max(retornos_esperados)
 
@@ -617,7 +621,7 @@ O menor retorno esperado tem a metade do retorno do ativo com menor retorno e o 
 A seguir calcularemos as carteiras da fronteira. Como há retornos desejados abaixo e acima dos retornos mínimo e máximo dos ativos na carteira usaremos `short = TRUE`.
 
 
-```r
+```
 # Primeira com todos os ativos
 fronteira <- lapply(
   X = retornos_seq,
@@ -647,7 +651,7 @@ dados_plot <- data.frame(
 O `data.frame` `dados_plot` contêm o dados de risco e retorno das carteiras ótimas. Com eles é possível plotar a fronteira eficiente, como poder ser visto no gráfico a seguir:
 
 
-```r
+```
 # Plotando fronteira eficiente
 dados_plot %>% 
   ggplot(aes(x = retorno, y = risco, color = '#E7B800'))+
@@ -665,8 +669,8 @@ dados_plot %>%
   theme(legend.position = 'none')
 ```
 
-<img src= /img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png
-</img>
+<img src="/img/makowitz-selecao-carteiras/main_files/figure-html/fronteira_plot-1.png" style="display: block; margin: auto;" />
+
 A fronteira mais escura foi construída a partir dos ativos *ABEV3*, *PETR4* e *ITSA4*, já a fronteira laranja foi construída com os mesmo ativos mais o ativo *NATU3*. A nova fronteira ficou mais à esquerda que a anterior, portanto, é possível obter o mesmo retorno com uma risco menor por meio dessa nova nova fronteira eficiente. Tais resultados são possíveis devido aos efeitos da diversificação: ao aumentar a quantidade de ativos na carteira, o risco cai mais que os retornos ponderados dos ativos.
 
 
