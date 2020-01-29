@@ -196,13 +196,13 @@ Note que na equação acima há $$n$$ variâncias, uma para cada ativo, e $$n*n 
 $$
 \begin{split}
   Var(R_p) &= \frac{1}{n^2}\frac{n}{n} \sum_i^{n}Var(R_i) + \frac{1}{n^2}\frac{n^2-n}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j) \\
-  Var(R_p) & = \frac{1}{n}\bar{\sigma_i^2} + \left( 1 + \frac{1}{n}\right)\bar{\sigma_{ij}}
+  Var(R_p) & = \frac{1}{n}\bar{\sigma_i}^2 + \left( 1 + \frac{1}{n}\right)\bar{\sigma_{ij}}
 \end{split}
 $$
 
 Tal que:
 
-* $$\bar{\sigma_i^2} \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$$, que é a média das variâncias individuais dos ativos;
+* $$\bar{\sigma_i}^2 \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$$, que é a média das variâncias individuais dos ativos;
 * $$\bar{\sigma_{ij}} \equiv \frac{1}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j)$$, que é a média das covariâncias entre os ativos.
 
 Assim, quando o número de ações na carteira tende ao infinito, segue:
