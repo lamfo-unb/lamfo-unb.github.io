@@ -33,7 +33,7 @@ $$
 
 Em outros termos, o retorno esperado é o somatório dos retornos do ativo ponderado pelo pelas respectivas probabilidades de ocorrência. Assim, para calcular o retorno esperado pela definição deve-se saber todos os retornos que o ativo pode ter e quais as probabilidades associados a eles. Isso significa dizer que se conhece todos os cenários que podem ocorrer, suas probabilidades e retornos associados a eles. 
 
-Na maioria dos casos não se tem este tipo de conhecimento sobre os retornos de determinado ativo. Nesse caso, os retornos históricos podem serem usados para estimar o retorno esperado, mas não há nenhuma garantia de que o retorno futuro será o mesmo que o já observado no passado. Disto isto, neste *post* o retorno esperado de um ativo será estimado como sendo a média aritmética do retornos históricos. Essa abordagem será adotada em razão da sua simplicidade.
+Na maioria dos casos, não se tem este tipo de conhecimento sobre os retornos de determinado ativo. Nesse caso, os retornos históricos podem serem usados para estimar o retorno esperado, mas não há nenhuma garantia de que o retorno futuro será o mesmo que o já observado no passado. Disto isto, neste *post* o retorno esperado de um ativo será estimado como sendo a média aritmética do retornos históricos. Essa abordagem será adotada em razão da sua simplicidade.
 
 Além da medida de retorno, outra medida de grande importância para os investidores é o risco associado aos ativos. Tal métrica mede o quanto em média o valor do retorno efetivo irá divergir do retorno esperado. Isso significa que ativos com risco alto têm retornos efetivos que divergem bastante do retorno esperado, ao mesmo tempo que o ativos menos arriscados têm retornos efetivos que divergem pouco do retorno esperado.
 
@@ -67,6 +67,7 @@ Em que $$n$$ é a quantidade de ativos que compõe a carteira, $$w_i$$ a partici
 $$
 R_c = w'R
 $$
+
 Sendo $$w$$ um vetor coluna com as participações dos ativos na carteira e $$w'$$ a sua transporta e $$R$$ outro vetor coluna que contém os retornos dos ativos da carteira:
 
 $$
@@ -195,13 +196,13 @@ Note que na equação acima há $$n$$ variâncias, uma para cada ativo, e $$n*n 
 $$
 \begin{split}
   Var(R_p) &= \frac{1}{n^2}\frac{n}{n} \sum_i^{n}Var(R_i) + \frac{1}{n^2}\frac{n^2-n}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j) \\
-  Var(R_p) & = \frac{1}{n}\bar{\sigma_i} + \left( 1 + \frac{1}{n}\right)\bar{\sigma_{ij}}
+  Var(R_p) & = \frac{1}{n}\bar{\sigma_i^2} + \left( 1 + \frac{1}{n}\right)\bar{\sigma_{ij}}
 \end{split}
 $$
 
 Tal que:
 
-* $$\bar{\sigma_i} \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$$, que é a média das variâncias individuais dos ativos;
+* $$\bar{\sigma_i^2} \equiv \frac{1}{n} \sum_i^{n}Var(R_i)$$, que é a média das variâncias individuais dos ativos;
 * $$\bar{\sigma_{ij}} \equiv \frac{1}{n^2-n}\sum_{\substack{ i, \ j \\i \neq j}}^{n}Cov(R_i, R_j)$$, que é a média das covariâncias entre os ativos.
 
 Assim, quando o número de ações na carteira tende ao infinito, segue:
