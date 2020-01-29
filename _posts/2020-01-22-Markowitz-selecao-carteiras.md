@@ -562,14 +562,14 @@ carteira_otima(ativos = carteira, retorno_desejado = .01, shorts = FALSE)
 ```
 
 ```
-## $$pesos
+## $pesos
 ##     ABEV3     NATU3     PETR4     ITSA4 
 ## 0.5035733 0.2429710 0.0000000 0.2534557 
 ## 
-## $$retorno
+## $retorno
 ## [1] 0.01
 ## 
-## $$risco
+## $risco
 ## [1] 0.04844689
 ```
 
