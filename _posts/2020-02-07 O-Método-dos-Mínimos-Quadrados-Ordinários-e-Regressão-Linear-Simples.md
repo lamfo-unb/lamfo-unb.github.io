@@ -355,10 +355,10 @@ O $R^{2}$ deste modelo tem um valor de 0,051. Logo, 5,1\% da variação da vari�
 
 ## Referências:
 
-**Busab**, W. **Morettin**, P. *Estatística Básica: 9ª Edição*. São Paulo, SP: Saraivauni, 2017.
-**Hanck**, Cristoph. et al. *Introduction to Econometrics with R*. Disponível em: <https://www.econometrics-with-r.org/>.
-**Kutner**, Michael H. et al. *Applied linear statistical models: 5th ed.* McGraw-Hill/Irwin, 2004.
-**Paula**, Gilberto A. *Modelos de regressão com apoio computacional*. São Paulo, SP: Instituto de Matemática e Estatística, Universidade de São Paulo. 2013.
-**Pindyck**, R. **Rubinfeld**, D. *Econometric models and economic forecasts*. McGraw-Hill/Irwin, 1998.
-**Stock**, J; **Watson**, M. *Introduction to econometrics: 3rd ed*. Pearson, 2010. 
-**Wooldridge**, Jeffrey M. *Introdução à econometria: uma abordagem moderna: tradução da 6ª edição norte-americana*. São Paulo, SP: Cengage Learning, 2016.
+**Busab**, W. **Morettin**, P. *Estatística Básica: 9ª Edição*. São Paulo, SP: Saraivauni, 2017.\\
+**Hanck**, Cristoph. et al. *Introduction to Econometrics with R*. Disponível em: <https://www.econometrics-with-r.org/>.\\
+**Kutner**, Michael H. et al. *Applied linear statistical models: 5th ed.* McGraw-Hill/Irwin, 2004.\\
+**Paula**, Gilberto A. *Modelos de regressão com apoio computacional*. São Paulo, SP: Instituto de Matemática e Estatística, Universidade de São Paulo. 2013.\\
+**Pindyck**, R. **Rubinfeld**, D. *Econometric models and economic forecasts*. McGraw-Hill/Irwin, 1998.\\
+**Stock**, J; **Watson**, M. *Introduction to econometrics: 3rd ed*. Pearson, 2010. \\
+**Wooldridge**, Jeffrey M. *Introdução à econometria: uma abordagem moderna: tradução da 6ª edição norte-americana*. São Paulo, SP: Cengage Learning, 2016.\\
