@@ -159,9 +159,9 @@ Aqui está o segredo da lei de Benford. Vejamos a simulação de crescimento da 
 
 Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obedecer a lei de Benford. Quando olhamos pelas lentes logarítmicas, uma função exponencial se parece uma função que cresce linearmente, que cada observação é equidistante das observações antes e depois. Todavia, nessa mesma lente logarítmica, a área que existe entre 10 e 20 é menor a que existe entre 20 e 30, e assim succesivamente. Isso quer dizer que a probabilidade da variável cair nessa faixa é menor que nas faixas seguintes.
 
-Usando um jargão técnico, <ins>**a mantissa dos logs é uniformemente distribuída**</ins>. Para o número $x$ que conseguimos da amostra, vamos aplicar o seu log -- por exemplo, apliquemos o log para o número 150:  $log_{10} (150) \approx 2.176$. Podemos decompor o resultado na parte inteira $m = 2$ e na parte decimal $d = 0.176$. A parte decimal é a que chamamos de *mantissa*.
+Usando um jargão técnico, <ins>**a mantissa dos logs é uniformemente distribuída**</ins>. Para o número $$x$$ que conseguimos da amostra, vamos aplicar o seu log -- por exemplo, apliquemos o log para o número 150:  $$log_{10} (150) \approx 2.176$$. Podemos decompor o resultado na parte inteira $$m = 2$$ e na parte decimal $$d = 0.176$$. A parte decimal é a que chamamos de *mantissa*.
 
-### Mantissa e distribuição teórica $D_T$
+### Mantissa e distribuição teórica $$D_T$$
 Pelas propriedades do logaritmo, $$log_{10} (150) = log_{10}(100 \cdot 1.5) = log_{10}(100) + log_{10}(1.5) = 2 + 0.176$$. Observe que o log na base 10 de qualquer potência inteira de 10 (100, 1000, 10000...) vai resultar em um número inteiro. Nesse sentido, a parte inteira do log na base 10 retorna a quantidade de algarismos que o número original tem (já que o sistema numérico indo-arábico possui 10 algarismos). A mantissa, por outro lado, é o responsável por dizer qual é o primeiro algarismo.
 
 Na casa das centenas, enquanto a mantissa estiver no intervalo $$[0, 0.301)$$, o número original estará entre $$[100, 200)$$. Fazendo o mesmo procedimento anterior, quando o número chegar em 200, o seu log resultará em $$log_{10}(200) = log_{10}(100 \cdot 2) = log_{10}(100) + log_{10}(2)$$ que resulta em $$2 + 0.301$$.
@@ -198,7 +198,7 @@ Para poupar tempo do leitor, calculamos a distribuição de probabilidade de cad
 
 Para mais detalhes sobre a lei de Benford e suas aplicações, dê uma olhada nesses links [[1](http://prorum.com/?qa=2157/existem-formas-de-detectar-fraudes-em-bases-de-dados); [2](https://epublications.marquette.edu/cgi/viewcontent.cgi?article=1031&context=account_fac); [3](https://towardsdatascience.com/what-is-benfords-law-and-why-is-it-important-for-data-science-312cb8b61048)]
 
-## Distribuições empíricas $D_E$ dos dados do COVID-19
+## Distribuições empíricas $$D_E$$ dos dados do COVID-19
 
 Para este exercício, escolhemos os <ins> países com mais de 10000 casos confirmados de COVID-19 em 18/04/2020</ins>, de acordo com os dados disponíveis [neste link](https://github.com/RamiKrispin/coronavirus-csv). Vejamos a seguir como ficou a distribuição do primeiro dígito para as séries temporais de casos e óbitos por COVID-19 dos 24 países selecionados:
 
@@ -211,7 +211,7 @@ Para este exercício, escolhemos os <ins> países com mais de 10000 casos confir
 ***Imagem 16**: Distribuição do primeiro dígito das séries de óbitos por COVID-19*
 </center>
 
-**Nenhuma base de dados segue perfeitamente a Lei de Benford, mas as distribuições empíricas da China parecem ser particularmente diferentes das dos demais países**. Pela inspeção visual, os dados da China parecem destoar significativamente da Lei de Benford. Para maior robustez, vamos comparar as distribuições empíricas $D_E$ com a distribuição teórica $D_T$ que vem da Lei de Benford realizando alguns testes de hipóteses.
+**Nenhuma base de dados segue perfeitamente a Lei de Benford, mas as distribuições empíricas da China parecem ser particularmente diferentes das dos demais países**. Pela inspeção visual, os dados da China parecem destoar significativamente da Lei de Benford. Para maior robustez, vamos comparar as distribuições empíricas $$D_E$$ com a distribuição teórica $$D_T$$ que vem da Lei de Benford realizando alguns testes de hipóteses.
 
 ## Testes de hipóteses
 
@@ -221,7 +221,7 @@ Para este exercício, vamos realizar três testes de hipóteses:
 * Teste Kolmogorov-Smirnov (bicaudal)
 * Teste de Kuiper
 
-Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igualdade entre as distribuições empírica ($D_E$) e teórica ($D_T$)</ins>. O teste qui-quadrado é o mais comumente utilizado, porém tende a rejeitar a hipótese nula mais facilmente, enquanto que o teste KS é menos sensível a diferenças pontuais; o teste de Kuiper funciona da mesma forma que o teste KS, com a diferença que considera separadamente diferenças positivas e negativas entre as distribuições (o caso "E maior que T" é encarado como diferente do caso "T maior que E"). A tabela com os p-valores associados está abaixo:
+Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igualdade entre as distribuições empírica ($$D_E$$) e teórica ($$D_T$$)</ins>. O teste qui-quadrado é o mais comumente utilizado, porém tende a rejeitar a hipótese nula mais facilmente, enquanto que o teste KS é menos sensível a diferenças pontuais; o teste de Kuiper funciona da mesma forma que o teste KS, com a diferença que considera separadamente diferenças positivas e negativas entre as distribuições (o caso "E maior que T" é encarado como diferente do caso "T maior que E"). A tabela com os p-valores associados está abaixo:
 
 <center>
 
@@ -299,7 +299,7 @@ Vamos ver agora o quão "parecidos" são os dados dos países entre si, utilizan
 KL(D_E||D_T) = \sum\limits_{x \in \mathcal{P}}{D_E(x)\cdot log\left(\frac{D_E(x)}{D_T(x)}\right)}
 \end{equation}
 
-A distância KL fornece o valor esperado da diferença logarítmica entre duas distribuições (no nosso caso, $D_E$ e $D_T$) definidas no mesmo espaço de probabilidade $\mathcal{P}$; a discussão teórica da  está além dos escopos deste post, pois envolve conhecimentos de teoria da informação e teoria da medida. Em termos simplificados, a distância KL mede o quão diferentes são duas distribuições de probabilidade -- quanto mais próximo de zero, mais "parecidas" elas são. Como são 24 países, como resultado temos uma matriz 24x24 que mede a "diferença" entre os dados dos países considerados, matriz cuja diagonal principal é toda zero (a "diferença" de algo com ela mesma é igual a zero!).
+A distância KL fornece o valor esperado da diferença logarítmica entre duas distribuições (no nosso caso, $$D_E$$ e $$D_T$$) definidas no mesmo espaço de probabilidade $$\mathcal{P}$$; a discussão teórica da  está além dos escopos deste post, pois envolve conhecimentos de teoria da informação e teoria da medida. Em termos simplificados, a distância KL mede o quão diferentes são duas distribuições de probabilidade -- quanto mais próximo de zero, mais "parecidas" elas são. Como são 24 países, como resultado temos uma matriz 24x24 que mede a "diferença" entre os dados dos países considerados, matriz cuja diagonal principal é toda zero (a "diferença" de algo com ela mesma é igual a zero!).
 
 <center>
 
@@ -333,10 +333,10 @@ A distância KL fornece o valor esperado da diferença logarítmica entre duas d
 ***Tabela 4**: Matriz de distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados, arredondado para quatro casas decimais*
 </center>
 
-A matriz acima não tem uma interpretação prática muito imediata, então aplicamos um algoritmo de clusterização para definir quais são os países que se parecem mais entre si -- pares de países com grande distância KL são menos parecidos entre si que pares de países com baixa distância KL. O algoritmo escolhido foi o DBSCAN, que cria *clusters* para cada ponto da amostra com base no número mínimo de pontos em cada *cluster* ($mp$) e na distância máxima que um ponto pode estar em relação a outro ponto do mesmo *cluster* ($\varepsilon$). <ins>Pontos que não possui pelo menos $mp$ pontos dentro do raio de $\varepsilon$ são classificados como *outliers* sem *cluster*</ins>. Um bom material introdutório sobre o DBSCAN pode ser encontrado em [aqui](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
+A matriz acima não tem uma interpretação prática muito imediata, então aplicamos um algoritmo de clusterização para definir quais são os países que se parecem mais entre si -- pares de países com grande distância KL são menos parecidos entre si que pares de países com baixa distância KL. O algoritmo escolhido foi o DBSCAN, que cria *clusters* para cada ponto da amostra com base no número mínimo de pontos em cada *cluster* ($$mp$$) e na distância máxima que um ponto pode estar em relação a outro ponto do mesmo *cluster* ($$\varepsilon$$). <ins>Pontos que não possui pelo menos $$mp$$ pontos dentro do raio de $$\varepsilon$$ são classificados como *outliers* sem *cluster*</ins>. Um bom material introdutório sobre o DBSCAN pode ser encontrado em [aqui](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
 
 
-Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido automaticamente em vez de escolhido pelo usuário, tornando-o um bom instrumento para a detecção de anomalias. Para este exercício, utilizamos $mp=3$ e $\varepsilon$ como sendo a média das distâncias KL entre os países acrescida de três desvios-padrão amostrais. O resultado dessa clusterização é mais fácil de ser interpretada:
+Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido automaticamente em vez de escolhido pelo usuário, tornando-o um bom instrumento para a detecção de anomalias. Para este exercício, utilizamos $$mp=3$$ e $$\varepsilon$$ como sendo a média das distâncias KL entre os países acrescida de três desvios-padrão amostrais. O resultado dessa clusterização é mais fácil de ser interpretada:
 
 <center>
 
@@ -418,7 +418,7 @@ A medida que à pandemia atinge mais e mais pessoas e traz impactos cada vez mai
 
 <center>
 
-**Às vezes, "coincidência" é apenas um jeito conveniente de alguém se esquivar dos fatos que ele não conseguiu explicar.**
+\textbf{Às vezes, "coincidência" é apenas um jeito conveniente de alguém se esquivar dos fatos que ele não conseguiu explicar.}
 </center>
 
 ![tsuru](https://cdn.shopify.com/s/files/1/1218/4290/products/GOLD13391_46faec9e-ca27-48f7-997d-e152c18f4349_800x.JPG?v=1515022654)
