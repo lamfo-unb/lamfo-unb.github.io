@@ -345,32 +345,115 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 
 <center>
 
-|      País      |   Cluster   |
-|:--------------:|:-----------:|
-|    Áustria     |      1      |
-|    Bélgica     |      1      |
-|     Brasil     |      1      |
-|     Canadá     |      1      |
-|     China      | **Outlier** |
-|     França     |      1      |
-|    Alemanha    |      1      |
-|     Índia      | **Outlier** |
-|      Irã       |      1      |
-|    Irlanda     |      1      |
-|     Israel     |      1      |
-|     Itália     |      1      |
-|     Japão      |      1      |
-| Coreia do Sul  |      1      |
-| Países Baixos  |      1      |
-|      Peru      |      1      |
-|    Portugal    |      1      |
-|     Rússia     |      1      |
-|    Espanha     |      1      |
-|     Suécia     |      1      |
-|     Suíça      |      1      |
-|    Turquia     |      1      |
-|  Reino Unido   |      1      |
-| Estados Unidos |      1      |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-7btt{font-weight:bold;border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-7btt">País</th>
+    <th class="tg-7btt">Cluster</th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Áustria</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Bélgica</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Brasil</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Canadá</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">China</td>
+    <td class="tg-7btt">Outlier</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">França</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Alemanha</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Índia</td>
+    <td class="tg-7btt">Outlier</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Irã</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Irlanda</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Israel</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Itália</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Japão</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Coreia do Sul</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Países Baixos</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Peru</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Portugal</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Rússia</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Espanha</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Suécia</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Suíça</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Turquia</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Reino Unido</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Estados Unidos</td>
+    <td class="tg-c3ow">1</td>
+  </tr>
+</table>
 
 </center>
 ***Tabela 5**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados*
@@ -380,108 +463,109 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
 .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-7btt{font-weight:bold;border-color:inherit;text-align:center;vertical-align:top}
 </style>
 <table class="tg">
   <tr>
-    <th class="tg-0pky">Country</th>
-    <th class="tg-0pky">Cluster</th>
+    <th class="tg-7btt">País</th>
+    <th class="tg-7btt">Cluster</th>
   </tr>
   <tr>
-    <td class="tg-0pky">Austria</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Áustria</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Belgium</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Bélgica</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Brazil</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Brasil</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Canada</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Canadá</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">China</td>
-    <td class="tg-0pky">**Outlier**</td>
+    <td class="tg-c3ow">China</td>
+    <td class="tg-7btt">Outlier</td>
   </tr>
   <tr>
-    <td class="tg-0pky">France</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">França</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Germany</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Alemanha</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">India</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Índia</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Iran</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Irã</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Ireland</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Irlanda</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Israel</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Israel</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Italy</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Itália</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Japan</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Japão</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Korea</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Coreia do Sul</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Netherlands</td>
-    <td class="tg-0pky">Outlier</td>
+    <td class="tg-c3ow">Países Baixos</td>
+    <td class="tg-7btt">Outlier</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Peru</td>
-    <td class="tg-0pky">Outlier</td>
+    <td class="tg-c3ow">Peru</td>
+    <td class="tg-7btt">Outlier</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Portugal</td>
-    <td class="tg-0pky">Outlier</td>
+    <td class="tg-c3ow">Portugal</td>
+    <td class="tg-7btt">Outlier</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Russia</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Rússia</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Spain</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Espanha</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Sweden</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Suécia</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Switzerland</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Suíça</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">Turkey</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Turquia</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">United Kingdom</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Reino Unido</td>
+    <td class="tg-c3ow">1</td>
   </tr>
   <tr>
-    <td class="tg-0pky">USA</td>
-    <td class="tg-0pky">1</td>
+    <td class="tg-c3ow">Estados Unidos</td>
+    <td class="tg-c3ow">1</td>
   </tr>
 </table>
 ***Tabela 6**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de óbitos por COVID-19 dos países analisados*
