@@ -44,77 +44,48 @@ Ademais, vendo a decomposição do dado agregado para nível de província na **
 A nível de província, o único local que apresentou algum grau de variância ao longo do tempo foi Hong Kong; em Shandong, observou-se uma grande variação num único dia -- 21/02/2020, quando foi notificado um surto do vírus na penitenciária de Rencheng da cidade de Jinin: nesse dia 203 pessoas foram adicionadas à estatística de confirmados, um ponto isolado numa curva "bem comportada" em todos os períodos além desse dia. Em Guangdong (no sul da China) e em Heilongjiang (no nordeste da China) a série voltou a apresentar crescimento no fim de março e no início de abril, respectivamente, ambos após um longo período praticamente sem variações. Veja o comportamento das séries dessas províncias na **imagem 3**.
 
 Para efeito de comparação, veja as séries dos casos de COVID-19 em cada estado dos Estados Unidos:
-<center>
 
-![](https://i.imgur.com/GNK4lWE.png)
-</center>
+![](/img/covid19/f4.png)
 ***Imagem 4**: Casos acumulados de COVID-19 por estado dos Estados Unidos, dados de 30/03/2020. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 
-<center>
-
-![](https://i.imgur.com/dRbZVJC.png)
-</center>
+![](/img/covid19/f5.png)
 ***Imagem 5**: Igual à imagem 4, com todas as províncias exceto New York e New Jersey. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 
 
 É bem sabido que <ins>a derivada de uma função exponencial também é uma exponencial</ins>, então é de se esperar que a variação diária do número de confirmados também siga uma exponencial. Os dados chineses, porém, mostraram algo bem diferente:
 
-<center>
-
-![](https://i.imgur.com/bwLNvtk.png)
-</center>
+![](/img/covid19/f6.png)
 ***Imagem 6**: Variação diária de casos de COVID-19 na China, dados de 18/04/2020*
 
 O segmento inicial da série mais se assemelha a uma reta do que uma exponencial considerando os dois picos em 28/01 e 02/02, enquanto que o número de novos casos diminuiu rapidamente e sem grandes variações -- exceto o pico de 15136 novos casos no dia 13/02/2020, que claramente destoa dos demais períodos. Desconsiderando esse ponto anômalo, é possível enxergar uma tendência praticamente linear entre 02/02 e 23/02, data a partir da qual a série praticamente vira uma linha reta -- novamente, um padrão raro em doenças contagiosas.
 
 Veja abaixo o mesmo gráfico comparando a província de Hubei com todas as demais províncias:
 
-<center>
-
-![](https://i.imgur.com/cYtb2vI.png)
-</center>
+![](/img/covid19/f7.png)
 ***Imagem 7**: Variação diária de casos de COVID-19 na China, dados de 18/04/2020, comparando Hubei com todas as outras províncias*
 
-<center>
-
-![](https://i.imgur.com/dUAPefy.png)
-</center>
+![](/img/covid19/f8.png)
 ***Imagem 8**: Igual à imagem 7, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
 Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoling e Ma Guoqiang foram exonerados](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): eles eram o Nº 1 e o Nº 2 na hierarquia de comando de Hubei (secretário-geral e vice secretário-geral do Partido na província, respectivamente).
 
 **Os dados chineses de óbitos por COVID-19 são igualmente anti-intuitivos**, veja abaixo nas **imagens 9 a 11**. Note que a província com mais mortes registradas foi Henan, que é vizinha de Hubei, com apenas 22 óbitos. A variação diária de mortos é uma série praticamente estacionária, temperada com o bizarro "ajuste" de 1290 mortes em 17/04 após mais de um mês quase sem mortes oficiais:
 
-<center>
-
-![i6](https://i.imgur.com/axemn2w.png)
-</center>
+![](/img/covid19/f9.png)
 ***Imagem 9**: Óbitos totais por COVID-19 na China, dados de 18/04/2020, comparando Hubei com todas as outras províncias*
 
-<center>
-
-![i7](https://i.imgur.com/Oza9jZa.png)
-</center>
+![](/img/covid19/f10.png)
 ***Imagem 10**: Igual à imagem 9, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
-<center>
-
-![](https://i.imgur.com/Ma4i0ia.png)
-</center>
+![](/img/covid19/f11.png)
 ***Imagem 11**: Variação diária de óbitos por COVID-19 na China, dados de 18/04/2020*
 
 A adoção de medidas severas de isolamento social influenciam diretamente no formato das curvas, porém o padrão exponencial se mantém pelo menos nos estágios iniciais, e seus efeitos também demoram um certo tempo para se tornarem evidentes. Compare abaixo com dados de Taiwan, Singapura e Coreia do Sul, adotaram quarentena em estágios iniciais da doença, bem como da Itália, Espanha e Reino Unido, que agiram com maior intensidade em estágios mais avançados:
 
-<center>
-
-![](https://i.imgur.com/ypU1Mbv.png)
-</center>
+![](/img/covid19/f12.png)
 ***Imagem 12**: Casos totais de COVID-19 na Espanha, Itália, Reino Unido, China, Coreia do Sul, Japão e Singapura, dados de 18/04/2020*
 
-<center>
-
-![](https://i.imgur.com/cOcFKX5.png)
-</center>
+![](/img/covid19/f13.png)
 ***Imagem 13**: Igual à imagem 12, com os países asiáticos exceto China. Note que Japão e Singapura também apresentaram um crescimento exponencial que começou mais tarde. Apenas a curva da Coreia do Sul apresentou um formato que se assemelha aos dados da China*
 
 Com a análise visual acima é possível deduzir que existe algum "padrão" subjacente aos dados do COVID-19, mas que por alguma razão não aparece nos dados da China. Vamos fazer a seguir um exercício de tentar identificar esse padrão usando a **Lei de Benford**.
@@ -132,25 +103,16 @@ Benford mostrou que, para mais de 20 variáveis de contextos, tais como tamanhos
 
 Como explicar intuitivamente essa regularidade aparentemente sem sentido? A resposta está relacionada a dois conceitos conhecidos: a função exponencial e a escala logarítmica. Vamos revisá-las pois elas estão por toda a parte, em especial durante a presente pandemia...
 
-<center>
-
-![](https://i.imgur.com/yNDGdJS.jpg)
-</center>
-
-
+![](/img/covid19/expo.jpg)
 
 Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $$I_1$$ é igual a uma constante $$\alpha$$ vezes a quantidade de infectados hoje $$I_0$$; ou seja, $$I_1 = \alpha \cdot I_0$$.
 
 
 Supondo que a taxa seja a mesma para amanhã (podemos interpretar como sendo que nenhuma política ou mudança de hábitos da população tenha ocorrido), A quantidade de pessoas infectadas depois de amanhã, $$I_2$$, é uma proporção do que é amanhã ($$I_2=\alpha \cdot I_1$$), que por sua vez pode ser substituído por $$I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$$. Com perspicácia, percebemos que podemos generalizar essa fórmula para daqui a t dias. Sendo t qualquer número que quisermos. A generalização é $$I_t=\alpha^t \cdot I_0$$. O praticamente onipresente regime de juros compostos dos números financeiros também segue essa mesma lógica ($$F = P(1+i)^n$$).
 
-
 Aqui está o segredo da lei de Benford. Vejamos a simulação de crescimento da epidemia exponencialmente, isso é, cada dia é um múltiplo fixo do dia anterior. Analisemos na escala padrão e na escala logarítmica ao longo do tempo (nesse caso usamos exponenciais de 2, mas poderia ser qualquer número-base). Veja que nos dois casos, cada gradação de azul é a área referente a um dígito. A primeira corresponde entre 10 e 20, a segunda entre 20 e 30, assim sucessivamente até o número 100. Veja que essa distância é diferente na escala padrão e na escala logarítmica.
 
-<center>
-
-![](https://i.imgur.com/qYrmXVN.png)
-</center>
+![](/img/covid19/f14.png)
 ***Imagem 14**: Função exponencial e escala logarítmica*
 
 Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obedecer a lei de Benford. Quando olhamos pelas lentes logarítmicas, uma função exponencial se parece uma função que cresce linearmente, que cada observação é equidistante das observações antes e depois. Todavia, nessa mesma lente logarítmica, a área que existe entre 10 e 20 é menor a que existe entre 20 e 30, e assim succesivamente. Isso quer dizer que a probabilidade da variável cair nessa faixa é menor que nas faixas seguintes.
@@ -197,16 +159,10 @@ Para mais detalhes sobre a lei de Benford e suas aplicações, dê uma olhada ne
 
 Para este exercício, escolhemos os <ins> países com mais de 10000 casos confirmados de COVID-19 em 18/04/2020</ins>, de acordo com os dados disponíveis [neste link](https://github.com/RamiKrispin/coronavirus-csv). Vejamos a seguir como ficou a distribuição do primeiro dígito para as séries temporais de casos e óbitos por COVID-19 dos 24 países selecionados:
 
-<center>
-
-![](https://i.imgur.com/7O0Ts1B.png)
-</center>
+![](/img/covid19/f15.png)
 ***Imagem 15**: Distribuição do primeiro dígito das séries de casos de COVID-19*
 
-<center>
-
-![](https://i.imgur.com/cH4nWQd.png)
-</center>
+![](/img/covid19/f16.png)
 ***Imagem 16**: Distribuição do primeiro dígito das séries de óbitos por COVID-19*
 
 **Nenhuma base de dados segue perfeitamente a Lei de Benford, mas as distribuições empíricas da China parecem ser particularmente diferentes das dos demais países**. Pela inspeção visual, os dados da China parecem destoar significativamente da Lei de Benford. Para maior robustez, vamos comparar as distribuições empíricas $$D_E$$ com a distribuição teórica $$D_T$$ que vem da Lei de Benford realizando alguns testes de hipóteses.
