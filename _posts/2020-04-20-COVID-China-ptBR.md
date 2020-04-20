@@ -143,10 +143,10 @@ Como explicar intuitivamente essa regularidade aparentemente sem sentido? A resp
 </center>
 
 
-Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $I_1$ é igual a uma constante $\alpha$ vezes a quantidade de infectados hoje $I_0$; ou seja, $I_1 = \alpha \cdot I_0$.
+Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $$I_1$$ é igual a uma constante $$\alpha$$ vezes a quantidade de infectados hoje $$I_0$$; ou seja, $$I_1 = \alpha \cdot I_0$$.
 
 
-Supondo que a taxa seja a mesma para amanhã (podemos interpretar como sendo que nenhuma política ou mudança de hábitos da população tenha ocorrido), A quantidade de pessoas infectadas depois de amanhã, $I_2$, é uma proporção do que é amanhã ($I_2=\alpha \cdot I_1$), que por sua vez pode ser substituído por $I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$. Com perspicácia, percebemos que podemos generalizar essa fórmula para daqui a t dias. Sendo t qualquer número que quisermos. A generalização é $I_t=\alpha^t \cdot I_0$. O praticamente onipresente regime de juros compostos dos números financeiros também segue essa mesma lógica ($F = P(1+i)^n$).
+Supondo que a taxa seja a mesma para amanhã (podemos interpretar como sendo que nenhuma política ou mudança de hábitos da população tenha ocorrido), A quantidade de pessoas infectadas depois de amanhã, $$I_2$$, é uma proporção do que é amanhã ($$I_2=\alpha \cdot I_1$$), que por sua vez pode ser substituído por $$I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$$. Com perspicácia, percebemos que podemos generalizar essa fórmula para daqui a t dias. Sendo t qualquer número que quisermos. A generalização é $$I_t=\alpha^t \cdot I_0$$. O praticamente onipresente regime de juros compostos dos números financeiros também segue essa mesma lógica ($$F = P(1+i)^n$$).
 
 
 Aqui está o segredo da lei de Benford. Vejamos a simulação de crescimento da epidemia exponencialmente, isso é, cada dia é um múltiplo fixo do dia anterior. Analisemos na escala padrão e na escala logarítmica ao longo do tempo (nesse caso usamos exponenciais de 2, mas poderia ser qualquer número-base). Veja que nos dois casos, cada gradação de azul é a área referente a um dígito. A primeira corresponde entre 10 e 20, a segunda entre 20 e 30, assim sucessivamente até o número 100. Veja que essa distância é diferente na escala padrão e na escala logarítmica.
@@ -162,19 +162,19 @@ Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obed
 Usando um jargão técnico, <ins>**a mantissa dos logs é uniformemente distribuída**</ins>. Para o número $x$ que conseguimos da amostra, vamos aplicar o seu log -- por exemplo, apliquemos o log para o número 150:  $log_{10} (150) \approx 2.176$. Podemos decompor o resultado na parte inteira $m = 2$ e na parte decimal $d = 0.176$. A parte decimal é a que chamamos de *mantissa*.
 
 ### Mantissa e distribuição teórica $D_T$
-Pelas propriedades do logaritmo, $log_{10} (150) = log_{10}(100 \cdot 1.5) = log_{10}(100) + log_{10}(1.5) = 2 + 0.176$. Observe que o log na base 10 de qualquer potência inteira de 10 (100, 1000, 10000...) vai resultar em um número inteiro. Nesse sentido, a parte inteira do log na base 10 retorna a quantidade de algarismos que o número original tem (já que o sistema numérico indo-arábico possui 10 algarismos). A mantissa, por outro lado, é o responsável por dizer qual é o primeiro algarismo.
+Pelas propriedades do logaritmo, $$log_{10} (150) = log_{10}(100 \cdot 1.5) = log_{10}(100) + log_{10}(1.5) = 2 + 0.176$$. Observe que o log na base 10 de qualquer potência inteira de 10 (100, 1000, 10000...) vai resultar em um número inteiro. Nesse sentido, a parte inteira do log na base 10 retorna a quantidade de algarismos que o número original tem (já que o sistema numérico indo-arábico possui 10 algarismos). A mantissa, por outro lado, é o responsável por dizer qual é o primeiro algarismo.
 
-Na casa das centenas, enquanto a mantissa estiver no intervalo $[0, 0.301)$, o número original estará entre $[100, 200)$. Fazendo o mesmo procedimento anterior, quando o número chegar em 200, o seu log resultará em $log_{10}(200) = log_{10}(100 \cdot 2) = log_{10}(100) + log_{10}(2)$ que resulta em $2 + 0.301$.
+Na casa das centenas, enquanto a mantissa estiver no intervalo $$[0, 0.301)$$, o número original estará entre $$[100, 200)$$. Fazendo o mesmo procedimento anterior, quando o número chegar em 200, o seu log resultará em $$log_{10}(200) = log_{10}(100 \cdot 2) = log_{10}(100) + log_{10}(2)$$ que resulta em $$2 + 0.301$$.
 
-Como vimos que a mantissa é decisiva para saber o primeiro dígito, podemos finalmente entender a lei de Benford. A sua ideia é que a mantissa tem distribuição uniforme para os dígitos de 1 a 9. Assim, é mais fácil occorrer o dígito número 1 por que ele tem o maior intervalo da mantissa $[0, 0.301)$.
+Como vimos que a mantissa é decisiva para saber o primeiro dígito, podemos finalmente entender a lei de Benford. A sua ideia é que a mantissa tem distribuição uniforme para os dígitos de 1 a 9. Assim, é mais fácil occorrer o dígito número 1 por que ele tem o maior intervalo da mantissa $$[0, 0.301)$$.
 
-Podemos definir, de acordo com a lei de Benford, a probabilidade de um múnero possuir primeiro dígito $d$, dada por:
+Podemos definir, de acordo com a lei de Benford, a probabilidade de um múnero possuir primeiro dígito $$d$$, dada por:
 
 \begin{equation}
 P(d)=\log_{10}\left(1+\frac{1}{d}\right), d = 1,...,9
 \end{equation}
 
-Para poupar tempo do leitor, calculamos a distribuição de probabilidade de cada dígito ser o primeiro de acordo com a Lei de Benford ($D_T$), bem como os respectivos intervalos na mantissa:
+Para poupar tempo do leitor, calculamos a distribuição de probabilidade de cada dígito ser o primeiro de acordo com a Lei de Benford ($$D_T$$), bem como os respectivos intervalos na mantissa:
 
 <center>
 
