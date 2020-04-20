@@ -27,10 +27,7 @@ Em dados de epidemias, é natural observar um crescimento exponencial do número
 
 Analisando os dados dos países afetados pela pandemia, é possível observar padrões que são comuns a todos. Apesar da existência de várias peculiaridades como extensão territorial, densidade populacional, temperatura, estação do ano, grau de subnotificação, disciplina social para acatar medidas de isolamento, etc., as quais diferem significativamente entre os diferentes países, o vírus (ainda) não sofreu mutações radicais desde seu surgimento na China, de modo que os parâmetros gerais de infectividade e letalidade são similares entre os países. No entanto, **os dados chineses são uma notória exceção**, apresentando um comportamento que difere dos demais -- apesar de ser o primeiro país afetado pela doença, o crescimento do número de infectados se manteve próximo de uma tendência linear em estágios iniciais, com <ins> poucos momentos que sofrem variação abrupta e prolongados períodos marcados pela ausência de variância</ins>, ambas tendências pouco usuais na natureza. Veja a seguir alguns gráficos:
 
-<center>
-
-![b1](https://i.imgur.com/DduLTPH.png)
-</center>
+<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png" style="display: block; margin: auto;" />
 ***Imagem 1**: Casos acumulados de COVID-19 na China, dados de 18/04/2020*
 
 <center>
@@ -145,7 +142,7 @@ Como explicar intuitivamente essa regularidade aparentemente sem sentido? A resp
 
 ![](https://i.imgur.com/yNDGdJS.jpg)
 </center>
-*Exponentials everywhere...*
+
 
 
 Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $$I_1$$ é igual a uma constante $$\alpha$$ vezes a quantidade de infectados hoje $$I_0$$; ou seja, $$I_1 = \alpha \cdot I_0$$.
