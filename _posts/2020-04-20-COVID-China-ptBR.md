@@ -30,20 +30,20 @@ Analisando os dados dos países afetados pela pandemia, é possível observar pa
 <center>
 
 ![b1](https://i.imgur.com/DduLTPH.png)
-***Imagem 1**: Casos acumulados de COVID-19 na China, dados de 18/04/2020*
 </center>
+***Imagem 1**: Casos acumulados de COVID-19 na China, dados de 18/04/2020*
 
 <center>
 
 ![b2](https://i.imgur.com/XTujEsu.png)
-***Imagem 2**: Igual à imagem 1, comparando a província de Hubei com todas as outras províncias*
 </center>
+***Imagem 2**: Igual à imagem 1, comparando a província de Hubei com todas as outras províncias*
 
 <center>
 
 ![b3](https://i.imgur.com/Hi5TmTh.png)
-***Imagem 3**: Igual à imagem 2, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 </center>
+***Imagem 3**: Igual à imagem 2, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
 
 A **imagem 1** acima mostra o número acumulado de casos confirmados de COVID-19 na China (não inclui Taiwan). Note que o padrão exponencial aparece no início mas a concavidade da curva muda rapidamente, ao contrário do esperado e observado em praticamente todos os outros países. O crescimento acontece com "saltos" no início da série, seguido por uma tendência praticamente linear nos primeiros dias de fevereiro, um único dia de grande crescimento, e um longo período com cada vez menos casos novos por dia, até se tornar praticamente uma linha reta a partir do início de março.
@@ -56,14 +56,14 @@ Para efeito de comparação, veja as séries dos casos de COVID-19 em cada estad
 <center>
 
 ![](https://i.imgur.com/GNK4lWE.png)
-***Imagem 4**: Casos acumulados de COVID-19 por estado dos Estados Unidos, dados de 30/03/2020. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 </center>
+***Imagem 4**: Casos acumulados de COVID-19 por estado dos Estados Unidos, dados de 30/03/2020. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 
 <center>
 
 ![](https://i.imgur.com/dRbZVJC.png)
-***Imagem 5**: Igual à imagem 4, com todas as províncias exceto New York e New Jersey. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 </center>
+***Imagem 5**: Igual à imagem 4, com todas as províncias exceto New York e New Jersey. Retirado de ["Coronavirus: Out of Many, One" por Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 
 
 É bem sabido que <ins>a derivada de uma função exponencial também é uma exponencial</ins>, então é de se esperar que a variação diária do número de confirmados também siga uma exponencial. Os dados chineses, porém, mostraram algo bem diferente:
@@ -71,8 +71,8 @@ Para efeito de comparação, veja as séries dos casos de COVID-19 em cada estad
 <center>
 
 ![](https://i.imgur.com/bwLNvtk.png)
-***Imagem 6**: Variação diária de casos de COVID-19 na China, dados de 18/04/2020*
 </center>
+***Imagem 6**: Variação diária de casos de COVID-19 na China, dados de 18/04/2020*
 
 O segmento inicial da série mais se assemelha a uma reta do que uma exponencial considerando os dois picos em 28/01 e 02/02, enquanto que o número de novos casos diminuiu rapidamente e sem grandes variações -- exceto o pico de 15136 novos casos no dia 13/02/2020, que claramente destoa dos demais períodos. Desconsiderando esse ponto anômalo, é possível enxergar uma tendência praticamente linear entre 02/02 e 23/02, data a partir da qual a série praticamente vira uma linha reta -- novamente, um padrão raro em doenças contagiosas.
 
@@ -81,12 +81,14 @@ Veja abaixo o mesmo gráfico comparando a província de Hubei com todas as demai
 <center>
 
 ![](https://i.imgur.com/cYtb2vI.png)
+</center>
 ***Imagem 7**: Variação diária de casos de COVID-19 na China, dados de 18/04/2020, comparando Hubei com todas as outras províncias*
 
-![](https://i.imgur.com/dUAPefy.png)
-***Imagem 8**: Igual à imagem 7, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
+<center>
 
+![](https://i.imgur.com/dUAPefy.png)
 </center>
+***Imagem 8**: Igual à imagem 7, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
 Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoling e Ma Guoqiang foram exonerados](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): eles eram o Nº 1 e o Nº 2 na hierarquia de comando de Hubei (secretário-geral e vice secretário-geral do Partido na província, respectivamente).
 
@@ -95,31 +97,34 @@ Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoling e Ma Guoqiang 
 <center>
 
 ![i6](https://i.imgur.com/axemn2w.png)
-***Imagem 9**: Óbitos totais por COVID-19 na China, dados de 18/04/2020, comparando Hubei com todas as outras províncias*
 </center>
+***Imagem 9**: Óbitos totais por COVID-19 na China, dados de 18/04/2020, comparando Hubei com todas as outras províncias*
+
 <center>
 
 ![i7](https://i.imgur.com/Oza9jZa.png)
-***Imagem 10**: Igual à imagem 9, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 </center>
+***Imagem 10**: Igual à imagem 9, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
+
 <center>
 
 ![](https://i.imgur.com/Ma4i0ia.png)
-***Imagem 11**: Variação diária de óbitos por COVID-19 na China, dados de 18/04/2020*
 </center>
+***Imagem 11**: Variação diária de óbitos por COVID-19 na China, dados de 18/04/2020*
 
 A adoção de medidas severas de isolamento social influenciam diretamente no formato das curvas, porém o padrão exponencial se mantém pelo menos nos estágios iniciais, e seus efeitos também demoram um certo tempo para se tornarem evidentes. Compare abaixo com dados de Taiwan, Singapura e Coreia do Sul, adotaram quarentena em estágios iniciais da doença, bem como da Itália, Espanha e Reino Unido, que agiram com maior intensidade em estágios mais avançados:
 
 <center>
 
 ![](https://i.imgur.com/ypU1Mbv.png)
+</center>
 ***Imagem 12**: Casos totais de COVID-19 na Espanha, Itália, Reino Unido, China, Coreia do Sul, Japão e Singapura, dados de 18/04/2020*
 
+<center>
+
 ![](https://i.imgur.com/cOcFKX5.png)
-***Imagem 13**: Igual à imagem 12, com os países asiáticos exceto China. Note que Japão e Singapura também apresentaram um crescimento exponencial que começou mais tarde. Apenas a curva da Coreia do Sul apresentou um formato que se assemelha aos dados da China*
-
-
 </center>
+***Imagem 13**: Igual à imagem 12, com os países asiáticos exceto China. Note que Japão e Singapura também apresentaram um crescimento exponencial que começou mais tarde. Apenas a curva da Coreia do Sul apresentou um formato que se assemelha aos dados da China*
 
 Com a análise visual acima é possível deduzir que existe algum "padrão" subjacente aos dados do COVID-19, mas que por alguma razão não aparece nos dados da China. Vamos fazer a seguir um exercício de tentar identificar esse padrão usando a **Lei de Benford**.
 
@@ -139,8 +144,8 @@ Como explicar intuitivamente essa regularidade aparentemente sem sentido? A resp
 <center>
 
 ![](https://i.imgur.com/yNDGdJS.jpg)
-*Exponentials everywhere...*
 </center>
+*Exponentials everywhere...*
 
 
 Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $$I_1$$ é igual a uma constante $$\alpha$$ vezes a quantidade de infectados hoje $$I_0$$; ou seja, $$I_1 = \alpha \cdot I_0$$.
@@ -154,8 +159,8 @@ Aqui está o segredo da lei de Benford. Vejamos a simulação de crescimento da 
 <center>
 
 ![](https://i.imgur.com/qYrmXVN.png)
-***Imagem 14**: Função exponencial e escala logarítmica*
 </center>
+***Imagem 14**: Função exponencial e escala logarítmica*
 
 Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obedecer a lei de Benford. Quando olhamos pelas lentes logarítmicas, uma função exponencial se parece uma função que cresce linearmente, que cada observação é equidistante das observações antes e depois. Todavia, nessa mesma lente logarítmica, a área que existe entre 10 e 20 é menor a que existe entre 20 e 30, e assim succesivamente. Isso quer dizer que a probabilidade da variável cair nessa faixa é menor que nas faixas seguintes.
 
@@ -192,9 +197,8 @@ Para poupar tempo do leitor, calculamos a distribuição de probabilidade de cad
 \hline
 \end{array}
 
-***Tabela 1** : Distribuição do primeiro dígito de acordo com a Lei de Benford*
-
 </center>
+***Tabela 1** : Distribuição do primeiro dígito de acordo com a Lei de Benford*
 
 Para mais detalhes sobre a lei de Benford e suas aplicações, dê uma olhada nesses links [[1](http://prorum.com/?qa=2157/existem-formas-de-detectar-fraudes-em-bases-de-dados); [2](https://epublications.marquette.edu/cgi/viewcontent.cgi?article=1031&context=account_fac); [3](https://towardsdatascience.com/what-is-benfords-law-and-why-is-it-important-for-data-science-312cb8b61048)]
 
@@ -205,11 +209,14 @@ Para este exercício, escolhemos os <ins> países com mais de 10000 casos confir
 <center>
 
 ![](https://i.imgur.com/7O0Ts1B.png)
+</center>
 ***Imagem 15**: Distribuição do primeiro dígito das séries de casos de COVID-19*
 
+<center>
+
 ![](https://i.imgur.com/cH4nWQd.png)
-***Imagem 16**: Distribuição do primeiro dígito das séries de óbitos por COVID-19*
 </center>
+***Imagem 16**: Distribuição do primeiro dígito das séries de óbitos por COVID-19*
 
 **Nenhuma base de dados segue perfeitamente a Lei de Benford, mas as distribuições empíricas da China parecem ser particularmente diferentes das dos demais países**. Pela inspeção visual, os dados da China parecem destoar significativamente da Lei de Benford. Para maior robustez, vamos comparar as distribuições empíricas $$D_E$$ com a distribuição teórica $$D_T$$ que vem da Lei de Benford realizando alguns testes de hipóteses.
 
@@ -252,9 +259,8 @@ Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igua
 |  Reino Unido   |  **0.0000**  |       0.9794       | 0.9761 |
 | Estados Unidos |  **0.0156**  |       0.6994       | 0.7292 |
 
-***Tabela 2** : P-valores para os testes de hipótese para dados de casos de COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
-
 </center>
+***Tabela 2** : P-valores para os testes de hipótese para dados de casos de COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
 
 <center>
 
@@ -285,9 +291,8 @@ Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igua
 |  Reino Unido   |    0.8325    |       0.9794       | 0.7292 |
 | Estados Unidos |    0.9284    |       0.6994       | 0.9761 |
 
-***Tabela 3** : P-valores para os testes de hipótese para dados de óbitos por COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
-
 </center>
+***Tabela 3** : P-valores para os testes de hipótese para dados de óbitos por COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
 
 Basicamente, quanto **menor** o p-valor, **menos** os dados do respectivo país parecem "obedecer" à Lei de Benford. <ins>Usando essa métrica de avaliação, os dados chineses claramente são anômalos em relação à Lei de Benford, ao passo que a grande maioria dos outros países parecem segui-la razoavelmente bem.</ins>
 
@@ -330,8 +335,8 @@ A distância KL fornece o valor esperado da diferença logarítmica entre duas d
 | Reino Unido    | 0.1109  | 0.1662 | 0.0990 | 0.0824 | 0.4789 | 0.1278   | 0.1935 | 0.2098 | 0.1040  | 0.0790 | 0.0952 | 0.0870 | 0.0596        | 0.0397        | 0.0683 | 0.0820   | 0.0931 | 0.1539  | 0.1252 | 0.1644 | 0.0918  | 0.1053      | 0.0000         | 0.1764 |
 | Estados Unidos | 0.0410  | 0.1019 | 0.1111 | 0.1181 | 0.6572 | 0.0244   | 0.0691 | 0.2509 | 0.0680  | 0.0411 | 0.0578 | 0.1073 | 0.1089        | 0.1473        | 0.0821 | 0.0257   | 0.0314 | 0.2438  | 0.0915 | 0.0723 | 0.1397  | 0.0319      | 0.1764         | 0.0000 |
 
-***Tabela 4**: Matriz de distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados, arredondado para quatro casas decimais*
 </center>
+***Tabela 4**: Matriz de distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados, arredondado para quatro casas decimais*
 
 A matriz acima não tem uma interpretação prática muito imediata, então aplicamos um algoritmo de clusterização para definir quais são os países que se parecem mais entre si -- pares de países com grande distância KL são menos parecidos entre si que pares de países com baixa distância KL. O algoritmo escolhido foi o DBSCAN, que cria *clusters* para cada ponto da amostra com base no número mínimo de pontos em cada *cluster* ($$mp$$) e na distância máxima que um ponto pode estar em relação a outro ponto do mesmo *cluster* ($$\varepsilon$$). <ins>Pontos que não possui pelo menos $$mp$$ pontos dentro do raio de $$\varepsilon$$ são classificados como *outliers* sem *cluster*</ins>. Um bom material introdutório sobre o DBSCAN pode ser encontrado em [aqui](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
 
@@ -367,8 +372,9 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 |  Reino Unido   |      1      |
 | Estados Unidos |      1      |
 
-***Tabela 5**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados*
 </center>
+***Tabela 5**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados*
+
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
