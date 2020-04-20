@@ -30,16 +30,10 @@ Analisando os dados dos países afetados pela pandemia, é possível observar pa
 <img src="../img/makowitz-selecao-carteiras/main_files/figure-html/explorando_precos-1.png" style="display: block; margin: auto;" />
 ***Imagem 1**: Casos acumulados de COVID-19 na China, dados de 18/04/2020*
 
-<center>
-
-![b2](https://i.imgur.com/XTujEsu.png)
-</center>
+<img src="../img/makowitz-selecao-carteiras/main_files/figure-html/histogramas-risco-1.png" style="display: block; margin: auto;" />
 ***Imagem 2**: Igual à imagem 1, comparando a província de Hubei com todas as outras províncias*
 
-<center>
-
-![b3](https://i.imgur.com/Hi5TmTh.png)
-</center>
+<img src="../img/covid19/f3.png" style="display: block; margin: auto;" />
 ***Imagem 3**: Igual à imagem 2, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
 
