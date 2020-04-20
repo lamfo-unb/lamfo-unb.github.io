@@ -370,37 +370,114 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 ***Tabela 5**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados*
 </center>
 
-\begin{table}[]
-\begin{tabular}{|l|l|}
-\hline
-Country        & Cluster \\ \hline
-Austria        & 1       \\ \hline
-Belgium        & 1       \\ \hline
-Brazil         & 1       \\ \hline
-Canada         & 1       \\ \hline
-China          & Outlier \\ \hline
-France         & 1       \\ \hline
-Germany        & 1       \\ \hline
-India          & 1       \\ \hline
-Iran           & 1       \\ \hline
-Ireland        & 1       \\ \hline
-Israel         & 1       \\ \hline
-Italy          & 1       \\ \hline
-Japan          & 1       \\ \hline
-Korea          & 1       \\ \hline
-Netherlands    & Outlier \\ \hline
-Peru           & Outlier \\ \hline
-Portugal       & Outlier \\ \hline
-Russia         & 1       \\ \hline
-Spain          & 1       \\ \hline
-Sweden         & 1       \\ \hline
-Switzerland    & 1       \\ \hline
-Turkey         & 1       \\ \hline
-United Kingdom & 1       \\ \hline
-USA            & 1       \\ \hline
-\end{tabular}
-\end{table}
-
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-0pky">Country</th>
+    <th class="tg-0pky">Cluster</th>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Austria</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Belgium</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Brazil</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Canada</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">China</td>
+    <td class="tg-0pky">**Outlier**</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">France</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Germany</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">India</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Iran</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Ireland</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Israel</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Italy</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Japan</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Korea</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Netherlands</td>
+    <td class="tg-0pky">Outlier</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Peru</td>
+    <td class="tg-0pky">Outlier</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Portugal</td>
+    <td class="tg-0pky">Outlier</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Russia</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Spain</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Sweden</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Switzerland</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Turkey</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">United Kingdom</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">USA</td>
+    <td class="tg-0pky">1</td>
+  </tr>
+</table>
 ***Tabela 6**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de óbitos por COVID-19 dos países analisados*
 
 Novamente, assim como sugerido pela inspeção visual e pelos testes de hipóteses supramencionados, os resultados indicam que os dados da China apresentam padrões distintos da grande parte dos outros países mais afetados pela pandemia, os quais mostraram padrões similares de infectividade e letalidade. Apesar de a China ser o local de origem da doença, dada a grande divergência entre seus dados e os dos demais locais, os dados chineses devem ser utilizados com especial cautela para análises como a estimação dos parâmetros médicos (como *basic reproducing number*, *serial interval* e *case-fatality ratio*, por exemplo), a modelagem da dispersão geográfica do patógeno, diagnósticos da eficácia de cenários de intervenção, etc.
