@@ -370,42 +370,38 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 ***Tabela 5**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados*
 </center>
 
-<center>
-
-|      País      |   Cluster   |
-|:--------------:|:-----------:|
-|    Áustria     |      1      |
-|    Bélgica     |      1      |
-|     Brasil     |      1      |
-|     Canadá     |      1      |
-|     China      | **Outlier** |
-|     França     |      1      |
-|    Alemanha    |      1      |
-|     Índia      |      1      |
-|      Irã       |      1      |
-|    Irlanda     |      1      |
-|     Israel     |      1      |
-|     Itália     |      1      |
-|     Japão      |      1      |
-| Coreia do Sul  |      1      |
-| Países Baixos  | **Outlier** |
-|      Peru      | **Outlier** |
-|    Portugal    | **Outlier** |
-|     Rússia     |      1      |
-|    Espanha     |      1      |
-|     Suécia     |      1      |
-|     Suíça      |      1      |
-|    Turquia     |      1      |
-|  Reino Unido   |      1      |
-| Estados Unidos |      1      |
-
-</center>
-
-<center>
+\begin{table}[]
+\begin{tabular}{|l|l|}
+\hline
+Country        & Cluster \\ \hline
+Austria        & 1       \\ \hline
+Belgium        & 1       \\ \hline
+Brazil         & 1       \\ \hline
+Canada         & 1       \\ \hline
+China          & \textbf{Outlier} \\ \hline
+France         & 1       \\ \hline
+Germany        & 1       \\ \hline
+India          & 1       \\ \hline
+Iran           & 1       \\ \hline
+Ireland        & 1       \\ \hline
+Israel         & 1       \\ \hline
+Italy          & 1       \\ \hline
+Japan          & 1       \\ \hline
+Korea          & 1       \\ \hline
+Netherlands    & \textbf{Outlier} \\ \hline
+Peru           & \textbf{Outlier} \\ \hline
+Portugal       & \textbf{Outlier} \\ \hline
+Russia         & 1       \\ \hline
+Spain          & 1       \\ \hline
+Sweden         & 1       \\ \hline
+Switzerland    & 1       \\ \hline
+Turkey         & 1       \\ \hline
+United Kingdom & 1       \\ \hline
+USA            & 1       \\ \hline
+\end{tabular}
+\end{table}
 
 ***Tabela 6**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de óbitos por COVID-19 dos países analisados*
-
-</center>
 
 Novamente, assim como sugerido pela inspeção visual e pelos testes de hipóteses supramencionados, os resultados indicam que os dados da China apresentam padrões distintos da grande parte dos outros países mais afetados pela pandemia, os quais mostraram padrões similares de infectividade e letalidade. Apesar de a China ser o local de origem da doença, dada a grande divergência entre seus dados e os dos demais locais, os dados chineses devem ser utilizados com especial cautela para análises como a estimação dos parâmetros médicos (como *basic reproducing number*, *serial interval* e *case-fatality ratio*, por exemplo), a modelagem da dispersão geográfica do patógeno, diagnósticos da eficácia de cenários de intervenção, etc.
 
@@ -416,9 +412,8 @@ A medida que à pandemia atinge mais e mais pessoas e traz impactos cada vez mai
 
 ---
 
-<center>
-
-\textbf{Às vezes, "coincidência" é apenas um jeito conveniente de alguém se esquivar dos fatos que ele não conseguiu explicar.}
-</center>
+\begin{center}
+**Às vezes, "coincidência" é apenas um jeito conveniente de alguém se esquivar dos fatos que ele não conseguiu explicar.**
+\end{center}
 
 ![tsuru](https://cdn.shopify.com/s/files/1/1218/4290/products/GOLD13391_46faec9e-ca27-48f7-997d-e152c18f4349_800x.JPG?v=1515022654)
