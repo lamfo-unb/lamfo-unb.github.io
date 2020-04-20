@@ -232,64 +232,329 @@ Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igua
 
 <center>
 
-|      País      | Qui-quadrado | Kolmogorov-Smirnov | Kuiper |
-|:--------------:|:------------:|:------------------:|:------:|
-|    Áustria     |    0.1644    |       0.3364       | 0.7292 |
-|    Bélgica     |  **0.0004**  |     **0.0366**     | 0.0521 |
-|     Brasil     |    0.2685    |       0.1243       | 0.4969 |
-|     Canadá     |  **0.0117**  |       1.0000       | 1.0000 |
-|     China      |  **0.0000**  |     **0.0086**     | 0.0521 |
-|     França     |  **0.0363**  |       0.9794       | 1.0000 |
-|    Alemanha    |  **0.0000**  |       0.3364       | 0.4969 |
-|     Índia      |  **0.0000**  |       0.1243       | 0.7292 |
-|      Irã       |    0.1284    |       0.6994       | 0.7292 |
-|    Irlanda     |    0.8036    |       0.9794       | 0.7292 |
-|     Israel     |    0.5245    |       0.9794       | 0.7292 |
-|     Itália     |    0.0705    |       0.1243       | 0.0521 |
-|     Japão      |    0.0509    |       0.9794       | 0.7292 |
-| Coreia do Sul  |  **0.0002**  |       0.9794       | 0.7292 |
-| Países Baixos  |    0.4804    |       0.3364       | 0.7292 |
-|      Peru      |    0.9629    |       0.6994       | 0.7292 |
-|    Portugal    |    0.6247    |       0.3364       | 0.4969 |
-|     Rússia     |  **0.0000**  |       0.1243       | 0.1797 |
-|    Espanha     |  **0.0027**  |     **0.0366**     | 0.1797 |
-|     Suécia     |  **0.0000**  |       0.1243       | 0.4969 |
-|     Suíça      |  **0.0111**  |       0.1243       | 0.1797 |
-|    Turquia     |    0.6985    |       0.9794       | 0.7292 |
-|  Reino Unido   |  **0.0000**  |       0.9794       | 0.9761 |
-| Estados Unidos |  **0.0156**  |       0.6994       | 0.7292 |
-
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-1wig">País/Teste</th>
+    <th class="tg-1wig">Qui-quadrado</th>
+    <th class="tg-1wig">Kolmogorov-Smirnov</th>
+    <th class="tg-1wig">Kuiper</th>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Áustria</td>
+    <td class="tg-0lax">0.1644</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Bélgica</td>
+    <td class="tg-1wig">0.0004</td>
+    <td class="tg-1wig">0.0366</td>
+    <td class="tg-0lax">0.0521</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Brasil</td>
+    <td class="tg-0lax">0.2685</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Canadá</td>
+    <td class="tg-1wig">0.0117</td>
+    <td class="tg-0lax">1.0000</td>
+    <td class="tg-0lax">1.0000</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">China</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-1wig">0.0086</td>
+    <td class="tg-0lax">0.0521</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">França</td>
+    <td class="tg-1wig">0.0363</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">1.0000</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Alemanha</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Índia</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irã</td>
+    <td class="tg-0lax">0.1284</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irlanda</td>
+    <td class="tg-0lax">0.8036</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Israel</td>
+    <td class="tg-0lax">0.5245</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Itália</td>
+    <td class="tg-0lax">0.0705</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.0521</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Japão</td>
+    <td class="tg-0lax">0.0509</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Coreia do Sul</td>
+    <td class="tg-1wig">0.0002</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Países Baixos</td>
+    <td class="tg-0lax">0.4804</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Peru</td>
+    <td class="tg-0lax">0.9629</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Portugal</td>
+    <td class="tg-0lax">0.6247</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Rússia</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.1797</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Espanha</td>
+    <td class="tg-1wig">0.0027</td>
+    <td class="tg-1wig">0.0366</td>
+    <td class="tg-0lax">0.1797</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suécia</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suíça</td>
+    <td class="tg-1wig">0.0111</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.1797</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Turquia</td>
+    <td class="tg-0lax">0.6985</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Reino Unido</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.9761</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Estados Unidos</td>
+    <td class="tg-1wig">0.0156</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+</table>
 </center>
 ***Tabela 2** : P-valores para os testes de hipótese para dados de casos de COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
 
 <center>
 
-|      País      | Qui-quadrado | Kolmogorov-Smirnov | Kuiper |
-|:--------------:|:------------:|:------------------:|:------:|
-|    Áustria     |    0.2883    |       0.6994       | 0.4969 |
-|    Bélgica     |    0.3746    |       0.9794       | 0.4969 |
-|     Brasil     |    0.9773    |       0.9794       | 0.9761 |
-|     Canadá     |    0.7868    |       0.9794       | 0.7292 |
-|     China      |  **0.0000**  |       0.1243       | 0.4969 |
-|     França     |  **0.0454**  |       0.3364       | 0.7292 |
-|    Alemanha    |    0.5473    |       0.6994       | 0.9761 |
-|     Índia      |    0.3685    |       0.6994       | 0.4969 |
-|      Irã       |    0.2098    |       0.3364       | 0.7292 |
-|    Irlanda     |    0.7039    |       0.9794       | 0.9761 |
-|     Israel     |    0.4175    |       0.6994       | 0.4969 |
-|     Itália     |    0.2414    |       0.3364       | 0.7292 |
-|     Japão      |  **0.0203**  |       0.6994       | 0.7292 |
-| Coreia do Sul  |    0.1442    |       0.1243       | 0.7292 |
-| Países Baixos  |    0.4993    |       0.3364       | 0.4969 |
-|      Peru      |    0.5246    |       0.6994       | 0.7292 |
-|    Portugal    |    0.3712    |       0.6994       | 0.1797 |
-|     Rússia     |    0.6750    |       0.3364       | 0.7292 |
-|    Espanha     |    0.1228    |       0.1243       | 0.4969 |
-|     Suécia     |    0.7078    |       0.9794       | 0.7292 |
-|     Suíça      |    0.6034    |       0.6994       | 0.7292 |
-|    Turquia     |    0.5745    |       0.9794       | 0.7292 |
-|  Reino Unido   |    0.8325    |       0.9794       | 0.7292 |
-| Estados Unidos |    0.9284    |       0.6994       | 0.9761 |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-1wig">País/Teste</th>
+    <th class="tg-1wig">Qui-quadrado</th>
+    <th class="tg-1wig">Kolmogorov-Smirnov</th>
+    <th class="tg-1wig">Kuiper</th>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Áustria</td>
+    <td class="tg-0lax">0.2883</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Bélgica</td>
+    <td class="tg-0lax">0.3746</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Brasil</td>
+    <td class="tg-0lax">0.9773</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.9761</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Canadá</td>
+    <td class="tg-0lax">0.7868</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">China</td>
+    <td class="tg-1wig">0.0000</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">França</td>
+    <td class="tg-1wig">0.0454</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Alemanha</td>
+    <td class="tg-0lax">0.5473</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.9761</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Índia</td>
+    <td class="tg-0lax">0.3685</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irã</td>
+    <td class="tg-0lax">0.2098</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irlanda</td>
+    <td class="tg-0lax">0.7039</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.9761</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Israel</td>
+    <td class="tg-0lax">0.4175</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Itália</td>
+    <td class="tg-0lax">0.2414</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Japão</td>
+    <td class="tg-1wig">0.0203</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Coreia do Sul</td>
+    <td class="tg-0lax">0.1442</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Países Baixos</td>
+    <td class="tg-0lax">0.4993</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Peru</td>
+    <td class="tg-0lax">0.5246</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Portugal</td>
+    <td class="tg-0lax">0.3712</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.1797</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Rússia</td>
+    <td class="tg-0lax">0.6750</td>
+    <td class="tg-0lax">0.3364</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Espanha</td>
+    <td class="tg-0lax">0.1228</td>
+    <td class="tg-0lax">0.1243</td>
+    <td class="tg-0lax">0.4969</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suécia</td>
+    <td class="tg-0lax">0.7078</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suíça</td>
+    <td class="tg-0lax">0.6034</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Turquia</td>
+    <td class="tg-0lax">0.5745</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Reino Unido</td>
+    <td class="tg-0lax">0.8325</td>
+    <td class="tg-0lax">0.9794</td>
+    <td class="tg-0lax">0.7292</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Estados Unidos</td>
+    <td class="tg-0lax">0.9284</td>
+    <td class="tg-0lax">0.6994</td>
+    <td class="tg-0lax">0.9761</td>
+  </tr>
+</table>
 
 </center>
 ***Tabela 3** : P-valores para os testes de hipótese para dados de óbitos por COVID-19, arredondado para quatro casas decimais. Valores significantes ao nível de confiança de 95% estão em negrito*
@@ -308,32 +573,690 @@ A distância KL fornece o valor esperado da diferença logarítmica entre duas d
 
 <center>
 
-| Áustria        | Bélgica | Brasil | Canadá | China  | França | Alemanha | Índia  | Irã    | Irlanda | Israel | Itália | Japão  | Coreia do Sul | Países Baixos | Peru   | Portugal | Rússia | Espanha | Suécia | Suíça  | Turquia | Reino Unido | Estados Unidos |        |
-|-------------- | ------- | ------ | ------ | ------ | ------ | -------- | ------ | ------ | ------- | ------ | ------ | ------ | ------------- | ------------- | ------ | -------- | ------ | ------- | ------ | ------ | ------- | ----------- | -------------- | ------ |
-| Áustria        | 0.0000  | 0.0409 | 0.0734 | 0.1005 | 0.5631 | 0.0387   | 0.0447 | 0.1739 | 0.1223  | 0.0371 | 0.0395 | 0.0595 | 0.0921        | 0.0778        | 0.0313 | 0.0268   | 0.0146 | 0.1832  | 0.0362 | 0.0214 | 0.0812  | 0.0826      | 0.1109         | 0.0410 |
-| Bélgica        | 0.0409  | 0.0000 | 0.0452 | 0.1612 | 0.7024 | 0.0812   | 0.0956 | 0.1827 | 0.1964  | 0.0727 | 0.0819 | 0.0488 | 0.1466        | 0.1303        | 0.0397 | 0.0704   | 0.0556 | 0.1564  | 0.0539 | 0.0455 | 0.0995  | 0.1418      | 0.1662         | 0.1019 |
-| Brasil         | 0.0734  | 0.0452 | 0.0000 | 0.0981 | 0.5960 | 0.1057   | 0.1721 | 0.1647 | 0.1151  | 0.0601 | 0.0887 | 0.0252 | 0.0707        | 0.1151        | 0.0235 | 0.0650   | 0.0670 | 0.0532  | 0.0693 | 0.1201 | 0.0533  | 0.1100      | 0.0990         | 0.1111 |
-| Canadá         | 0.1005  | 0.1612 | 0.0981 | 0.0000 | 0.3342 | 0.1223   | 0.1370 | 0.2187 | 0.0409  | 0.1111 | 0.0376 | 0.1266 | 0.0310        | 0.0433        | 0.1267 | 0.0698   | 0.0839 | 0.2046  | 0.1453 | 0.1418 | 0.1335  | 0.0830      | 0.0824         | 0.1181 |
-| China          | 0.5631  | 0.7024 | 0.5960 | 0.3342 | 0.0000 | 0.7432   | 0.7605 | 0.6701 | 0.5725  | 0.6681 | 0.5067 | 0.6763 | 0.4182        | 0.3305        | 0.6036 | 0.5808   | 0.6312 | 0.8489  | 0.7006 | 0.7566 | 0.6211  | 0.6705      | 0.4789         | 0.6572 |
-| França         | 0.0387  | 0.0812 | 0.1057 | 0.1223 | 0.7432 | 0.0000   | 0.0647 | 0.1576 | 0.0771  | 0.0246 | 0.0361 | 0.0719 | 0.1107        | 0.1180        | 0.0807 | 0.0137   | 0.0647 | 0.2226  | 0.0879 | 0.0524 | 0.1224  | 0.0256      | 0.1278         | 0.0244 |
-| Alemanha       | 0.0447  | 0.0956 | 0.1721 | 0.1370 | 0.7605 | 0.0647   | 0.0000 | 0.2417 | 0.1751  | 0.0690 | 0.0461 | 0.1260 | 0.1635        | 0.1181        | 0.1170 | 0.0521   | 0.0420 | 0.2765  | 0.0858 | 0.0206 | 0.1607  | 0.1151      | 0.1935         | 0.0691 |
-| Índia          | 0.1739  | 0.1827 | 0.1647 | 0.2187 | 0.6701 | 0.1576   | 0.2417 | 0.0000 | 0.2459  | 0.2386 | 0.2244 | 0.0706 | 0.2892        | 0.2965        | 0.1888 | 0.2027   | 0.2205 | 0.3063  | 0.3947 | 0.2911 | 0.3474  | 0.1517      | 0.2098         | 0.2509 |
-| Irã            | 0.1223  | 0.1964 | 0.1151 | 0.0409 | 0.5725 | 0.0771   | 0.1751 | 0.2459 | 0.0000  | 0.0947 | 0.0674 | 0.1353 | 0.0491        | 0.1192        | 0.1351 | 0.0598   | 0.1113 | 0.2188  | 0.1537 | 0.1645 | 0.1445  | 0.0292      | 0.1040         | 0.0680 |
-| Irlanda        | 0.0371  | 0.0727 | 0.0601 | 0.1111 | 0.6681 | 0.0246   | 0.0690 | 0.2386 | 0.0947  | 0.0000 | 0.0321 | 0.0540 | 0.0644        | 0.0742        | 0.0472 | 0.0068   | 0.0459 | 0.1446  | 0.0583 | 0.0663 | 0.0632  | 0.0446      | 0.0790         | 0.0411 |
-| Israel         | 0.0395  | 0.0819 | 0.0887 | 0.0376 | 0.5067 | 0.0361   | 0.0461 | 0.2244 | 0.0674  | 0.0321 | 0.0000 | 0.0719 | 0.0621        | 0.0432        | 0.0809 | 0.0184   | 0.0456 | 0.2038  | 0.0847 | 0.0467 | 0.1104  | 0.0476      | 0.0952         | 0.0578 |
-| Itália         | 0.0595  | 0.0488 | 0.0252 | 0.1266 | 0.6763 | 0.0719   | 0.1260 | 0.0706 | 0.1353  | 0.0540 | 0.0719 | 0.0000 | 0.1031        | 0.1094        | 0.0357 | 0.0558   | 0.0724 | 0.1237  | 0.1236 | 0.1072 | 0.1077  | 0.0759      | 0.0870         | 0.1073 |
-| Japão          | 0.0921  | 0.1466 | 0.0707 | 0.0310 | 0.4182 | 0.1107   | 0.1635 | 0.2892 | 0.0491  | 0.0644 | 0.0621 | 0.1031 | 0.0000        | 0.0537        | 0.0528 | 0.0651   | 0.0831 | 0.0927  | 0.0679 | 0.1534 | 0.0386  | 0.1049      | 0.0596         | 0.1089 |
-| Coreia do Sul  | 0.0778  | 0.1303 | 0.1151 | 0.0433 | 0.3305 | 0.1180   | 0.1181 | 0.2965 | 0.1192  | 0.0742 | 0.0432 | 0.1094 | 0.0537        | 0.0000        | 0.0883 | 0.0726   | 0.0863 | 0.2317  | 0.1205 | 0.1145 | 0.1041  | 0.1254      | 0.0397         | 0.1473 |
-| Países Baixos  | 0.0313  | 0.0397 | 0.0235 | 0.1267 | 0.6036 | 0.0807   | 0.1170 | 0.1888 | 0.1351  | 0.0472 | 0.0809 | 0.0357 | 0.0528        | 0.0883        | 0.0000 | 0.0457   | 0.0423 | 0.0785  | 0.0317 | 0.0859 | 0.0276  | 0.1009      | 0.0683         | 0.0821 |
-| Peru           | 0.0268  | 0.0704 | 0.0650 | 0.0698 | 0.5808 | 0.0137   | 0.0521 | 0.2027 | 0.0598  | 0.0068 | 0.0184 | 0.0558 | 0.0651        | 0.0726        | 0.0457 | 0.0000   | 0.0328 | 0.1594  | 0.0626 | 0.0530 | 0.0767  | 0.0290      | 0.0820         | 0.0257 |
-| Portugal       | 0.0146  | 0.0556 | 0.0670 | 0.0839 | 0.6312 | 0.0647   | 0.0420 | 0.2205 | 0.1113  | 0.0459 | 0.0456 | 0.0724 | 0.0831        | 0.0863        | 0.0423 | 0.0328   | 0.0000 | 0.1745  | 0.0625 | 0.0453 | 0.0908  | 0.0611      | 0.0931         | 0.0314 |
-| Rússia         | 0.1832  | 0.1564 | 0.0532 | 0.2046 | 0.8489 | 0.2226   | 0.2765 | 0.3063 | 0.2188  | 0.1446 | 0.2038 | 0.1237 | 0.0927        | 0.2317        | 0.0785 | 0.1594   | 0.1745 | 0.0000  | 0.0920 | 0.2830 | 0.0342  | 0.2555      | 0.1539         | 0.2438 |
-| Espanha        | 0.0362  | 0.0539 | 0.0693 | 0.1453 | 0.7006 | 0.0879   | 0.0858 | 0.3947 | 0.1537  | 0.0583 | 0.0847 | 0.1236 | 0.0679        | 0.1205        | 0.0317 | 0.0626   | 0.0625 | 0.0920  | 0.0000 | 0.0725 | 0.0254  | 0.1403      | 0.1252         | 0.0915 |
-| Suécia         | 0.0214  | 0.0455 | 0.1201 | 0.1418 | 0.7566 | 0.0524   | 0.0206 | 0.2911 | 0.1645  | 0.0663 | 0.0467 | 0.1072 | 0.1534        | 0.1145        | 0.0859 | 0.0530   | 0.0453 | 0.2830  | 0.0725 | 0.0000 | 0.1327  | 0.1115      | 0.1644         | 0.0723 |
-| Suíça          | 0.0812  | 0.0995 | 0.0533 | 0.1335 | 0.6211 | 0.1224   | 0.1607 | 0.3474 | 0.1445  | 0.0632 | 0.1104 | 0.1077 | 0.0386        | 0.1041        | 0.0276 | 0.0767   | 0.0908 | 0.0342  | 0.0254 | 0.1327 | 0.0000  | 0.1652      | 0.0918         | 0.1397 |
-| Turquia        | 0.0826  | 0.1418 | 0.1100 | 0.0830 | 0.6705 | 0.0256   | 0.1151 | 0.1517 | 0.0292  | 0.0446 | 0.0476 | 0.0759 | 0.1049        | 0.1254        | 0.1009 | 0.0290   | 0.0611 | 0.2555  | 0.1403 | 0.1115 | 0.1652  | 0.0000      | 0.1053         | 0.0319 |
-| Reino Unido    | 0.1109  | 0.1662 | 0.0990 | 0.0824 | 0.4789 | 0.1278   | 0.1935 | 0.2098 | 0.1040  | 0.0790 | 0.0952 | 0.0870 | 0.0596        | 0.0397        | 0.0683 | 0.0820   | 0.0931 | 0.1539  | 0.1252 | 0.1644 | 0.0918  | 0.1053      | 0.0000         | 0.1764 |
-| Estados Unidos | 0.0410  | 0.1019 | 0.1111 | 0.1181 | 0.6572 | 0.0244   | 0.0691 | 0.2509 | 0.0680  | 0.0411 | 0.0578 | 0.1073 | 0.1089        | 0.1473        | 0.0821 | 0.0257   | 0.0314 | 0.2438  | 0.0915 | 0.0723 | 0.1397  | 0.0319      | 0.1764         | 0.0000 |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-0lax"></th>
+    <th class="tg-1wig">Áustria</th>
+    <th class="tg-1wig">Bélgica</th>
+    <th class="tg-1wig">Brasil</th>
+    <th class="tg-1wig">Canadá</th>
+    <th class="tg-1wig">China</th>
+    <th class="tg-1wig">França</th>
+    <th class="tg-1wig">Alemanha</th>
+    <th class="tg-1wig">Índia</th>
+    <th class="tg-1wig">Irã</th>
+    <th class="tg-1wig">Irlanda</th>
+    <th class="tg-1wig">Israel</th>
+    <th class="tg-1wig">Itália</th>
+    <th class="tg-1wig">Japão</th>
+    <th class="tg-1wig">Coreia do Sul</th>
+    <th class="tg-1wig">Países Baixos</th>
+    <th class="tg-1wig">Peru</th>
+    <th class="tg-1wig">Portugal</th>
+    <th class="tg-1wig">Rússia</th>
+    <th class="tg-1wig">Espanha</th>
+    <th class="tg-1wig">Suécia</th>
+    <th class="tg-1wig">Suíça</th>
+    <th class="tg-1wig">Turquia</th>
+    <th class="tg-1wig">Reino Unido</th>
+    <th class="tg-1wig">Estados Unidos</th>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Áustria</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0409</td>
+    <td class="tg-0lax">0.0734</td>
+    <td class="tg-0lax">0.1005</td>
+    <td class="tg-0lax">0.5631</td>
+    <td class="tg-0lax">0.0387</td>
+    <td class="tg-0lax">0.0447</td>
+    <td class="tg-0lax">0.1739</td>
+    <td class="tg-0lax">0.1223</td>
+    <td class="tg-0lax">0.0371</td>
+    <td class="tg-0lax">0.0395</td>
+    <td class="tg-0lax">0.0595</td>
+    <td class="tg-0lax">0.0921</td>
+    <td class="tg-0lax">0.0778</td>
+    <td class="tg-0lax">0.0313</td>
+    <td class="tg-0lax">0.0268</td>
+    <td class="tg-0lax">0.0146</td>
+    <td class="tg-0lax">0.1832</td>
+    <td class="tg-0lax">0.0362</td>
+    <td class="tg-0lax">0.0214</td>
+    <td class="tg-0lax">0.0812</td>
+    <td class="tg-0lax">0.0826</td>
+    <td class="tg-0lax">0.1109</td>
+    <td class="tg-0lax">0.0410</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Bélgica</td>
+    <td class="tg-0lax">0.0409</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0452</td>
+    <td class="tg-0lax">0.1612</td>
+    <td class="tg-0lax">0.7024</td>
+    <td class="tg-0lax">0.0812</td>
+    <td class="tg-0lax">0.0956</td>
+    <td class="tg-0lax">0.1827</td>
+    <td class="tg-0lax">0.1964</td>
+    <td class="tg-0lax">0.0727</td>
+    <td class="tg-0lax">0.0819</td>
+    <td class="tg-0lax">0.0488</td>
+    <td class="tg-0lax">0.1466</td>
+    <td class="tg-0lax">0.1303</td>
+    <td class="tg-0lax">0.0397</td>
+    <td class="tg-0lax">0.0704</td>
+    <td class="tg-0lax">0.0556</td>
+    <td class="tg-0lax">0.1564</td>
+    <td class="tg-0lax">0.0539</td>
+    <td class="tg-0lax">0.0455</td>
+    <td class="tg-0lax">0.0995</td>
+    <td class="tg-0lax">0.1418</td>
+    <td class="tg-0lax">0.1662</td>
+    <td class="tg-0lax">0.1019</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Brasil</td>
+    <td class="tg-0lax">0.0734</td>
+    <td class="tg-0lax">0.0452</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0981</td>
+    <td class="tg-0lax">0.5960</td>
+    <td class="tg-0lax">0.1057</td>
+    <td class="tg-0lax">0.1721</td>
+    <td class="tg-0lax">0.1647</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.0601</td>
+    <td class="tg-0lax">0.0887</td>
+    <td class="tg-0lax">0.0252</td>
+    <td class="tg-0lax">0.0707</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.0235</td>
+    <td class="tg-0lax">0.0650</td>
+    <td class="tg-0lax">0.0670</td>
+    <td class="tg-0lax">0.0532</td>
+    <td class="tg-0lax">0.0693</td>
+    <td class="tg-0lax">0.1201</td>
+    <td class="tg-0lax">0.0533</td>
+    <td class="tg-0lax">0.1100</td>
+    <td class="tg-0lax">0.0990</td>
+    <td class="tg-0lax">0.1111</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Canadá</td>
+    <td class="tg-0lax">0.1005</td>
+    <td class="tg-0lax">0.1612</td>
+    <td class="tg-0lax">0.0981</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.3342</td>
+    <td class="tg-0lax">0.1223</td>
+    <td class="tg-0lax">0.1370</td>
+    <td class="tg-0lax">0.2187</td>
+    <td class="tg-0lax">0.0409</td>
+    <td class="tg-0lax">0.1111</td>
+    <td class="tg-0lax">0.0376</td>
+    <td class="tg-0lax">0.1266</td>
+    <td class="tg-0lax">0.0310</td>
+    <td class="tg-0lax">0.0433</td>
+    <td class="tg-0lax">0.1267</td>
+    <td class="tg-0lax">0.0698</td>
+    <td class="tg-0lax">0.0839</td>
+    <td class="tg-0lax">0.2046</td>
+    <td class="tg-0lax">0.1453</td>
+    <td class="tg-0lax">0.1418</td>
+    <td class="tg-0lax">0.1335</td>
+    <td class="tg-0lax">0.0830</td>
+    <td class="tg-0lax">0.0824</td>
+    <td class="tg-0lax">0.1181</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">China</td>
+    <td class="tg-0lax">0.5631</td>
+    <td class="tg-0lax">0.7024</td>
+    <td class="tg-0lax">0.5960</td>
+    <td class="tg-0lax">0.3342</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.7432</td>
+    <td class="tg-0lax">0.7605</td>
+    <td class="tg-0lax">0.6701</td>
+    <td class="tg-0lax">0.5725</td>
+    <td class="tg-0lax">0.6681</td>
+    <td class="tg-0lax">0.5067</td>
+    <td class="tg-0lax">0.6763</td>
+    <td class="tg-0lax">0.4182</td>
+    <td class="tg-0lax">0.3305</td>
+    <td class="tg-0lax">0.6036</td>
+    <td class="tg-0lax">0.5808</td>
+    <td class="tg-0lax">0.6312</td>
+    <td class="tg-0lax">0.8489</td>
+    <td class="tg-0lax">0.7006</td>
+    <td class="tg-0lax">0.7566</td>
+    <td class="tg-0lax">0.6211</td>
+    <td class="tg-0lax">0.6705</td>
+    <td class="tg-0lax">0.4789</td>
+    <td class="tg-0lax">0.6572</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">França</td>
+    <td class="tg-0lax">0.0387</td>
+    <td class="tg-0lax">0.0812</td>
+    <td class="tg-0lax">0.1057</td>
+    <td class="tg-0lax">0.1223</td>
+    <td class="tg-0lax">0.7432</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0647</td>
+    <td class="tg-0lax">0.1576</td>
+    <td class="tg-0lax">0.0771</td>
+    <td class="tg-0lax">0.0246</td>
+    <td class="tg-0lax">0.0361</td>
+    <td class="tg-0lax">0.0719</td>
+    <td class="tg-0lax">0.1107</td>
+    <td class="tg-0lax">0.1180</td>
+    <td class="tg-0lax">0.0807</td>
+    <td class="tg-0lax">0.0137</td>
+    <td class="tg-0lax">0.0647</td>
+    <td class="tg-0lax">0.2226</td>
+    <td class="tg-0lax">0.0879</td>
+    <td class="tg-0lax">0.0524</td>
+    <td class="tg-0lax">0.1224</td>
+    <td class="tg-0lax">0.0256</td>
+    <td class="tg-0lax">0.1278</td>
+    <td class="tg-0lax">0.0244</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Alemanha</td>
+    <td class="tg-0lax">0.0447</td>
+    <td class="tg-0lax">0.0956</td>
+    <td class="tg-0lax">0.1721</td>
+    <td class="tg-0lax">0.1370</td>
+    <td class="tg-0lax">0.7605</td>
+    <td class="tg-0lax">0.0647</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.2417</td>
+    <td class="tg-0lax">0.1751</td>
+    <td class="tg-0lax">0.0690</td>
+    <td class="tg-0lax">0.0461</td>
+    <td class="tg-0lax">0.1260</td>
+    <td class="tg-0lax">0.1635</td>
+    <td class="tg-0lax">0.1181</td>
+    <td class="tg-0lax">0.1170</td>
+    <td class="tg-0lax">0.0521</td>
+    <td class="tg-0lax">0.0420</td>
+    <td class="tg-0lax">0.2765</td>
+    <td class="tg-0lax">0.0858</td>
+    <td class="tg-0lax">0.0206</td>
+    <td class="tg-0lax">0.1607</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.1935</td>
+    <td class="tg-0lax">0.0691</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Índia</td>
+    <td class="tg-0lax">0.1739</td>
+    <td class="tg-0lax">0.1827</td>
+    <td class="tg-0lax">0.1647</td>
+    <td class="tg-0lax">0.2187</td>
+    <td class="tg-0lax">0.6701</td>
+    <td class="tg-0lax">0.1576</td>
+    <td class="tg-0lax">0.2417</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.2459</td>
+    <td class="tg-0lax">0.2386</td>
+    <td class="tg-0lax">0.2244</td>
+    <td class="tg-0lax">0.0706</td>
+    <td class="tg-0lax">0.2892</td>
+    <td class="tg-0lax">0.2965</td>
+    <td class="tg-0lax">0.1888</td>
+    <td class="tg-0lax">0.2027</td>
+    <td class="tg-0lax">0.2205</td>
+    <td class="tg-0lax">0.3063</td>
+    <td class="tg-0lax">0.3947</td>
+    <td class="tg-0lax">0.2911</td>
+    <td class="tg-0lax">0.3474</td>
+    <td class="tg-0lax">0.1517</td>
+    <td class="tg-0lax">0.2098</td>
+    <td class="tg-0lax">0.2509</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irã</td>
+    <td class="tg-0lax">0.1223</td>
+    <td class="tg-0lax">0.1964</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.0409</td>
+    <td class="tg-0lax">0.5725</td>
+    <td class="tg-0lax">0.0771</td>
+    <td class="tg-0lax">0.1751</td>
+    <td class="tg-0lax">0.2459</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0947</td>
+    <td class="tg-0lax">0.0674</td>
+    <td class="tg-0lax">0.1353</td>
+    <td class="tg-0lax">0.0491</td>
+    <td class="tg-0lax">0.1192</td>
+    <td class="tg-0lax">0.1351</td>
+    <td class="tg-0lax">0.0598</td>
+    <td class="tg-0lax">0.1113</td>
+    <td class="tg-0lax">0.2188</td>
+    <td class="tg-0lax">0.1537</td>
+    <td class="tg-0lax">0.1645</td>
+    <td class="tg-0lax">0.1445</td>
+    <td class="tg-0lax">0.0292</td>
+    <td class="tg-0lax">0.1040</td>
+    <td class="tg-0lax">0.0680</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Irlanda</td>
+    <td class="tg-0lax">0.0371</td>
+    <td class="tg-0lax">0.0727</td>
+    <td class="tg-0lax">0.0601</td>
+    <td class="tg-0lax">0.1111</td>
+    <td class="tg-0lax">0.6681</td>
+    <td class="tg-0lax">0.0246</td>
+    <td class="tg-0lax">0.0690</td>
+    <td class="tg-0lax">0.2386</td>
+    <td class="tg-0lax">0.0947</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0321</td>
+    <td class="tg-0lax">0.0540</td>
+    <td class="tg-0lax">0.0644</td>
+    <td class="tg-0lax">0.0742</td>
+    <td class="tg-0lax">0.0472</td>
+    <td class="tg-0lax">0.0068</td>
+    <td class="tg-0lax">0.0459</td>
+    <td class="tg-0lax">0.1446</td>
+    <td class="tg-0lax">0.0583</td>
+    <td class="tg-0lax">0.0663</td>
+    <td class="tg-0lax">0.0632</td>
+    <td class="tg-0lax">0.0446</td>
+    <td class="tg-0lax">0.0790</td>
+    <td class="tg-0lax">0.0411</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Israel</td>
+    <td class="tg-0lax">0.0395</td>
+    <td class="tg-0lax">0.0819</td>
+    <td class="tg-0lax">0.0887</td>
+    <td class="tg-0lax">0.0376</td>
+    <td class="tg-0lax">0.5067</td>
+    <td class="tg-0lax">0.0361</td>
+    <td class="tg-0lax">0.0461</td>
+    <td class="tg-0lax">0.2244</td>
+    <td class="tg-0lax">0.0674</td>
+    <td class="tg-0lax">0.0321</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0719</td>
+    <td class="tg-0lax">0.0621</td>
+    <td class="tg-0lax">0.0432</td>
+    <td class="tg-0lax">0.0809</td>
+    <td class="tg-0lax">0.0184</td>
+    <td class="tg-0lax">0.0456</td>
+    <td class="tg-0lax">0.2038</td>
+    <td class="tg-0lax">0.0847</td>
+    <td class="tg-0lax">0.0467</td>
+    <td class="tg-0lax">0.1104</td>
+    <td class="tg-0lax">0.0476</td>
+    <td class="tg-0lax">0.0952</td>
+    <td class="tg-0lax">0.0578</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Itália</td>
+    <td class="tg-0lax">0.0595</td>
+    <td class="tg-0lax">0.0488</td>
+    <td class="tg-0lax">0.0252</td>
+    <td class="tg-0lax">0.1266</td>
+    <td class="tg-0lax">0.6763</td>
+    <td class="tg-0lax">0.0719</td>
+    <td class="tg-0lax">0.1260</td>
+    <td class="tg-0lax">0.0706</td>
+    <td class="tg-0lax">0.1353</td>
+    <td class="tg-0lax">0.0540</td>
+    <td class="tg-0lax">0.0719</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1031</td>
+    <td class="tg-0lax">0.1094</td>
+    <td class="tg-0lax">0.0357</td>
+    <td class="tg-0lax">0.0558</td>
+    <td class="tg-0lax">0.0724</td>
+    <td class="tg-0lax">0.1237</td>
+    <td class="tg-0lax">0.1236</td>
+    <td class="tg-0lax">0.1072</td>
+    <td class="tg-0lax">0.1077</td>
+    <td class="tg-0lax">0.0759</td>
+    <td class="tg-0lax">0.0870</td>
+    <td class="tg-0lax">0.1073</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Japão</td>
+    <td class="tg-0lax">0.0921</td>
+    <td class="tg-0lax">0.1466</td>
+    <td class="tg-0lax">0.0707</td>
+    <td class="tg-0lax">0.0310</td>
+    <td class="tg-0lax">0.4182</td>
+    <td class="tg-0lax">0.1107</td>
+    <td class="tg-0lax">0.1635</td>
+    <td class="tg-0lax">0.2892</td>
+    <td class="tg-0lax">0.0491</td>
+    <td class="tg-0lax">0.0644</td>
+    <td class="tg-0lax">0.0621</td>
+    <td class="tg-0lax">0.1031</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0537</td>
+    <td class="tg-0lax">0.0528</td>
+    <td class="tg-0lax">0.0651</td>
+    <td class="tg-0lax">0.0831</td>
+    <td class="tg-0lax">0.0927</td>
+    <td class="tg-0lax">0.0679</td>
+    <td class="tg-0lax">0.1534</td>
+    <td class="tg-0lax">0.0386</td>
+    <td class="tg-0lax">0.1049</td>
+    <td class="tg-0lax">0.0596</td>
+    <td class="tg-0lax">0.1089</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Coreia do Sul</td>
+    <td class="tg-0lax">0.0778</td>
+    <td class="tg-0lax">0.1303</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.0433</td>
+    <td class="tg-0lax">0.3305</td>
+    <td class="tg-0lax">0.1180</td>
+    <td class="tg-0lax">0.1181</td>
+    <td class="tg-0lax">0.2965</td>
+    <td class="tg-0lax">0.1192</td>
+    <td class="tg-0lax">0.0742</td>
+    <td class="tg-0lax">0.0432</td>
+    <td class="tg-0lax">0.1094</td>
+    <td class="tg-0lax">0.0537</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0883</td>
+    <td class="tg-0lax">0.0726</td>
+    <td class="tg-0lax">0.0863</td>
+    <td class="tg-0lax">0.2317</td>
+    <td class="tg-0lax">0.1205</td>
+    <td class="tg-0lax">0.1145</td>
+    <td class="tg-0lax">0.1041</td>
+    <td class="tg-0lax">0.1254</td>
+    <td class="tg-0lax">0.0397</td>
+    <td class="tg-0lax">0.1473</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Países Baixos</td>
+    <td class="tg-0lax">0.0313</td>
+    <td class="tg-0lax">0.0397</td>
+    <td class="tg-0lax">0.0235</td>
+    <td class="tg-0lax">0.1267</td>
+    <td class="tg-0lax">0.6036</td>
+    <td class="tg-0lax">0.0807</td>
+    <td class="tg-0lax">0.1170</td>
+    <td class="tg-0lax">0.1888</td>
+    <td class="tg-0lax">0.1351</td>
+    <td class="tg-0lax">0.0472</td>
+    <td class="tg-0lax">0.0809</td>
+    <td class="tg-0lax">0.0357</td>
+    <td class="tg-0lax">0.0528</td>
+    <td class="tg-0lax">0.0883</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0457</td>
+    <td class="tg-0lax">0.0423</td>
+    <td class="tg-0lax">0.0785</td>
+    <td class="tg-0lax">0.0317</td>
+    <td class="tg-0lax">0.0859</td>
+    <td class="tg-0lax">0.0276</td>
+    <td class="tg-0lax">0.1009</td>
+    <td class="tg-0lax">0.0683</td>
+    <td class="tg-0lax">0.0821</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Peru</td>
+    <td class="tg-0lax">0.0268</td>
+    <td class="tg-0lax">0.0704</td>
+    <td class="tg-0lax">0.0650</td>
+    <td class="tg-0lax">0.0698</td>
+    <td class="tg-0lax">0.5808</td>
+    <td class="tg-0lax">0.0137</td>
+    <td class="tg-0lax">0.0521</td>
+    <td class="tg-0lax">0.2027</td>
+    <td class="tg-0lax">0.0598</td>
+    <td class="tg-0lax">0.0068</td>
+    <td class="tg-0lax">0.0184</td>
+    <td class="tg-0lax">0.0558</td>
+    <td class="tg-0lax">0.0651</td>
+    <td class="tg-0lax">0.0726</td>
+    <td class="tg-0lax">0.0457</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0328</td>
+    <td class="tg-0lax">0.1594</td>
+    <td class="tg-0lax">0.0626</td>
+    <td class="tg-0lax">0.0530</td>
+    <td class="tg-0lax">0.0767</td>
+    <td class="tg-0lax">0.0290</td>
+    <td class="tg-0lax">0.0820</td>
+    <td class="tg-0lax">0.0257</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Portugal</td>
+    <td class="tg-0lax">0.0146</td>
+    <td class="tg-0lax">0.0556</td>
+    <td class="tg-0lax">0.0670</td>
+    <td class="tg-0lax">0.0839</td>
+    <td class="tg-0lax">0.6312</td>
+    <td class="tg-0lax">0.0647</td>
+    <td class="tg-0lax">0.0420</td>
+    <td class="tg-0lax">0.2205</td>
+    <td class="tg-0lax">0.1113</td>
+    <td class="tg-0lax">0.0459</td>
+    <td class="tg-0lax">0.0456</td>
+    <td class="tg-0lax">0.0724</td>
+    <td class="tg-0lax">0.0831</td>
+    <td class="tg-0lax">0.0863</td>
+    <td class="tg-0lax">0.0423</td>
+    <td class="tg-0lax">0.0328</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1745</td>
+    <td class="tg-0lax">0.0625</td>
+    <td class="tg-0lax">0.0453</td>
+    <td class="tg-0lax">0.0908</td>
+    <td class="tg-0lax">0.0611</td>
+    <td class="tg-0lax">0.0931</td>
+    <td class="tg-0lax">0.0314</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Rússia</td>
+    <td class="tg-0lax">0.1832</td>
+    <td class="tg-0lax">0.1564</td>
+    <td class="tg-0lax">0.0532</td>
+    <td class="tg-0lax">0.2046</td>
+    <td class="tg-0lax">0.8489</td>
+    <td class="tg-0lax">0.2226</td>
+    <td class="tg-0lax">0.2765</td>
+    <td class="tg-0lax">0.3063</td>
+    <td class="tg-0lax">0.2188</td>
+    <td class="tg-0lax">0.1446</td>
+    <td class="tg-0lax">0.2038</td>
+    <td class="tg-0lax">0.1237</td>
+    <td class="tg-0lax">0.0927</td>
+    <td class="tg-0lax">0.2317</td>
+    <td class="tg-0lax">0.0785</td>
+    <td class="tg-0lax">0.1594</td>
+    <td class="tg-0lax">0.1745</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0920</td>
+    <td class="tg-0lax">0.2830</td>
+    <td class="tg-0lax">0.0342</td>
+    <td class="tg-0lax">0.2555</td>
+    <td class="tg-0lax">0.1539</td>
+    <td class="tg-0lax">0.2438</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Espanha</td>
+    <td class="tg-0lax">0.0362</td>
+    <td class="tg-0lax">0.0539</td>
+    <td class="tg-0lax">0.0693</td>
+    <td class="tg-0lax">0.1453</td>
+    <td class="tg-0lax">0.7006</td>
+    <td class="tg-0lax">0.0879</td>
+    <td class="tg-0lax">0.0858</td>
+    <td class="tg-0lax">0.3947</td>
+    <td class="tg-0lax">0.1537</td>
+    <td class="tg-0lax">0.0583</td>
+    <td class="tg-0lax">0.0847</td>
+    <td class="tg-0lax">0.1236</td>
+    <td class="tg-0lax">0.0679</td>
+    <td class="tg-0lax">0.1205</td>
+    <td class="tg-0lax">0.0317</td>
+    <td class="tg-0lax">0.0626</td>
+    <td class="tg-0lax">0.0625</td>
+    <td class="tg-0lax">0.0920</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.0725</td>
+    <td class="tg-0lax">0.0254</td>
+    <td class="tg-0lax">0.1403</td>
+    <td class="tg-0lax">0.1252</td>
+    <td class="tg-0lax">0.0915</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suécia</td>
+    <td class="tg-0lax">0.0214</td>
+    <td class="tg-0lax">0.0455</td>
+    <td class="tg-0lax">0.1201</td>
+    <td class="tg-0lax">0.1418</td>
+    <td class="tg-0lax">0.7566</td>
+    <td class="tg-0lax">0.0524</td>
+    <td class="tg-0lax">0.0206</td>
+    <td class="tg-0lax">0.2911</td>
+    <td class="tg-0lax">0.1645</td>
+    <td class="tg-0lax">0.0663</td>
+    <td class="tg-0lax">0.0467</td>
+    <td class="tg-0lax">0.1072</td>
+    <td class="tg-0lax">0.1534</td>
+    <td class="tg-0lax">0.1145</td>
+    <td class="tg-0lax">0.0859</td>
+    <td class="tg-0lax">0.0530</td>
+    <td class="tg-0lax">0.0453</td>
+    <td class="tg-0lax">0.2830</td>
+    <td class="tg-0lax">0.0725</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1327</td>
+    <td class="tg-0lax">0.1115</td>
+    <td class="tg-0lax">0.1644</td>
+    <td class="tg-0lax">0.0723</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Suíça</td>
+    <td class="tg-0lax">0.0812</td>
+    <td class="tg-0lax">0.0995</td>
+    <td class="tg-0lax">0.0533</td>
+    <td class="tg-0lax">0.1335</td>
+    <td class="tg-0lax">0.6211</td>
+    <td class="tg-0lax">0.1224</td>
+    <td class="tg-0lax">0.1607</td>
+    <td class="tg-0lax">0.3474</td>
+    <td class="tg-0lax">0.1445</td>
+    <td class="tg-0lax">0.0632</td>
+    <td class="tg-0lax">0.1104</td>
+    <td class="tg-0lax">0.1077</td>
+    <td class="tg-0lax">0.0386</td>
+    <td class="tg-0lax">0.1041</td>
+    <td class="tg-0lax">0.0276</td>
+    <td class="tg-0lax">0.0767</td>
+    <td class="tg-0lax">0.0908</td>
+    <td class="tg-0lax">0.0342</td>
+    <td class="tg-0lax">0.0254</td>
+    <td class="tg-0lax">0.1327</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1652</td>
+    <td class="tg-0lax">0.0918</td>
+    <td class="tg-0lax">0.1397</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Turquia</td>
+    <td class="tg-0lax">0.0826</td>
+    <td class="tg-0lax">0.1418</td>
+    <td class="tg-0lax">0.1100</td>
+    <td class="tg-0lax">0.0830</td>
+    <td class="tg-0lax">0.6705</td>
+    <td class="tg-0lax">0.0256</td>
+    <td class="tg-0lax">0.1151</td>
+    <td class="tg-0lax">0.1517</td>
+    <td class="tg-0lax">0.0292</td>
+    <td class="tg-0lax">0.0446</td>
+    <td class="tg-0lax">0.0476</td>
+    <td class="tg-0lax">0.0759</td>
+    <td class="tg-0lax">0.1049</td>
+    <td class="tg-0lax">0.1254</td>
+    <td class="tg-0lax">0.1009</td>
+    <td class="tg-0lax">0.0290</td>
+    <td class="tg-0lax">0.0611</td>
+    <td class="tg-0lax">0.2555</td>
+    <td class="tg-0lax">0.1403</td>
+    <td class="tg-0lax">0.1115</td>
+    <td class="tg-0lax">0.1652</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1053</td>
+    <td class="tg-0lax">0.0319</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Reino Unido</td>
+    <td class="tg-0lax">0.1109</td>
+    <td class="tg-0lax">0.1662</td>
+    <td class="tg-0lax">0.0990</td>
+    <td class="tg-0lax">0.0824</td>
+    <td class="tg-0lax">0.4789</td>
+    <td class="tg-0lax">0.1278</td>
+    <td class="tg-0lax">0.1935</td>
+    <td class="tg-0lax">0.2098</td>
+    <td class="tg-0lax">0.1040</td>
+    <td class="tg-0lax">0.0790</td>
+    <td class="tg-0lax">0.0952</td>
+    <td class="tg-0lax">0.0870</td>
+    <td class="tg-0lax">0.0596</td>
+    <td class="tg-0lax">0.0397</td>
+    <td class="tg-0lax">0.0683</td>
+    <td class="tg-0lax">0.0820</td>
+    <td class="tg-0lax">0.0931</td>
+    <td class="tg-0lax">0.1539</td>
+    <td class="tg-0lax">0.1252</td>
+    <td class="tg-0lax">0.1644</td>
+    <td class="tg-0lax">0.0918</td>
+    <td class="tg-0lax">0.1053</td>
+    <td class="tg-0lax">0.0000</td>
+    <td class="tg-0lax">0.1764</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Estados Unidos</td>
+    <td class="tg-0lax">0.0410</td>
+    <td class="tg-0lax">0.1019</td>
+    <td class="tg-0lax">0.1111</td>
+    <td class="tg-0lax">0.1181</td>
+    <td class="tg-0lax">0.6572</td>
+    <td class="tg-0lax">0.0244</td>
+    <td class="tg-0lax">0.0691</td>
+    <td class="tg-0lax">0.2509</td>
+    <td class="tg-0lax">0.0680</td>
+    <td class="tg-0lax">0.0411</td>
+    <td class="tg-0lax">0.0578</td>
+    <td class="tg-0lax">0.1073</td>
+    <td class="tg-0lax">0.1089</td>
+    <td class="tg-0lax">0.1473</td>
+    <td class="tg-0lax">0.0821</td>
+    <td class="tg-0lax">0.0257</td>
+    <td class="tg-0lax">0.0314</td>
+    <td class="tg-0lax">0.2438</td>
+    <td class="tg-0lax">0.0915</td>
+    <td class="tg-0lax">0.0723</td>
+    <td class="tg-0lax">0.1397</td>
+    <td class="tg-0lax">0.0319</td>
+    <td class="tg-0lax">0.1764</td>
+    <td class="tg-0lax">0.0000</td>
+  </tr>
+</table>
 
 </center>
 ***Tabela 4**: Matriz de distâncias KL entre as distribuições do primeiro dígito do número de casos de COVID-19 dos países analisados, arredondado para quatro casas decimais*
@@ -570,7 +1493,9 @@ Uma das vantagens do DBSCAN é o fato de o número de *cluster* ser definido aut
 </table>
 ***Tabela 6**: Clusterização por DBSCAN das distâncias KL entre as distribuições do primeiro dígito do número de óbitos por COVID-19 dos países analisados*
 
-Novamente, assim como sugerido pela inspeção visual e pelos testes de hipóteses supramencionados, os resultados indicam que os dados da China apresentam padrões distintos da grande parte dos outros países mais afetados pela pandemia, os quais mostraram padrões similares de infectividade e letalidade. Apesar de a China ser o local de origem da doença, dada a grande divergência entre seus dados e os dos demais locais, os dados chineses devem ser utilizados com especial cautela para análises como a estimação dos parâmetros médicos (como *basic reproducing number*, *serial interval* e *case-fatality ratio*, por exemplo), a modelagem da dispersão geográfica do patógeno, diagnósticos da eficácia de cenários de intervenção, etc.
+Novamente, assim como sugerido pela inspeção visual e pelos testes de hipóteses supramencionados, os resultados indicam que os dados da China apresentam padrões distintos da grande parte dos outros países mais afetados pela pandemia, os quais mostraram padrões similares de infectividade e letalidade: o algoritmo retornou apenas um *cluster*, classificando China como "*outlier*" tanto para os dados de casos quanto para os dados de óbitos. De fato, os países categorizados como "*cluster* 1" parecem seguir melhor a distribuição da Lei de Benford.
+
+Apesar de a China ser o local de origem da doença, dada a grande divergência entre seus dados e os dos demais locais, os dados chineses devem ser utilizados com especial cautela para análises como a estimação dos parâmetros médicos (*basic reproducing number*, *serial interval* e *case-fatality ratio*, por exemplo), a modelagem da dispersão geográfica do patógeno, diagnósticos da eficácia de cenários de intervenção, etc.
 
 ## Considerações finais
 
