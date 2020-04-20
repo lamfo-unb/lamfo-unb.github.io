@@ -378,7 +378,7 @@ Austria        & 1       \\ \hline
 Belgium        & 1       \\ \hline
 Brazil         & 1       \\ \hline
 Canada         & 1       \\ \hline
-China          & \textbf{Outlier} \\ \hline
+China          & Outlier \\ \hline
 France         & 1       \\ \hline
 Germany        & 1       \\ \hline
 India          & 1       \\ \hline
@@ -388,9 +388,9 @@ Israel         & 1       \\ \hline
 Italy          & 1       \\ \hline
 Japan          & 1       \\ \hline
 Korea          & 1       \\ \hline
-Netherlands    & \textbf{Outlier} \\ \hline
-Peru           & \textbf{Outlier} \\ \hline
-Portugal       & \textbf{Outlier} \\ \hline
+Netherlands    & Outlier \\ \hline
+Peru           & Outlier \\ \hline
+Portugal       & Outlier \\ \hline
 Russia         & 1       \\ \hline
 Spain          & 1       \\ \hline
 Sweden         & 1       \\ \hline
@@ -412,8 +412,6 @@ A medida que à pandemia atinge mais e mais pessoas e traz impactos cada vez mai
 
 ---
 
-\begin{center}
 **Às vezes, "coincidência" é apenas um jeito conveniente de alguém se esquivar dos fatos que ele não conseguiu explicar.**
-\end{center}
 
 ![tsuru](https://cdn.shopify.com/s/files/1/1218/4290/products/GOLD13391_46faec9e-ca27-48f7-997d-e152c18f4349_800x.JPG?v=1515022654)
