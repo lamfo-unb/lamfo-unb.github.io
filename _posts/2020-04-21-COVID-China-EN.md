@@ -2,7 +2,7 @@
 layout: post
 title: Statistical analysis of the chinese COVID-19 data with Benford's Law and clustering.
 lang: en
-header-img: img/manipulacao_data.table/img_data.table.png
+header-img: img/covid_capa.jpg
 date: 2020-04-21
 tags: [COVID-19, Coronavirus, exponential growth, hypothesis test]
 author: Yaohao Peng and Mateus Hiro Nagata.
