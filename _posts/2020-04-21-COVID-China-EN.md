@@ -550,7 +550,7 @@ In **table 4** below we present the matrix of KL divergenves between the empiric
     <th class="tg-1wig">Spain</th>
     <th class="tg-1wig">Sweden</th>
     <th class="tg-1wig">Switzerland</th>
-    <th class="tg-1wig">Turkeyth>
+    <th class="tg-1wig">Turkey</th>
     <th class="tg-1wig">United Kingdom</th>
     <th class="tg-1wig">United States</th>
   </tr>
