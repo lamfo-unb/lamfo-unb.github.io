@@ -80,7 +80,7 @@ Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoling e Ma Guoqiang 
 ![](/img/covid19/f11.png)
 ***Imagem 11**: Variação diária de óbitos por COVID-19 na China, dados de 18/04/2020*
 
-A adoção de medidas severas de isolamento social influenciam diretamente no formato das curvas, porém o padrão exponencial se mantém pelo menos nos estágios iniciais, e seus efeitos também demoram um certo tempo para se tornarem evidentes. Compare abaixo com dados de Taiwan, Singapura e Coreia do Sul, adotaram quarentena em estágios iniciais da doença, bem como da Itália, Espanha e Reino Unido, que agiram com maior intensidade em estágios mais avançados:
+A adoção de medidas severas de isolamento social influenciam diretamente no formato das curvas, porém o padrão exponencial se mantém pelo menos nos estágios iniciais, e seus efeitos também demoram um certo tempo para se tornarem evidentes. Compare abaixo com dados de Japão, Singapura e Coreia do Sul, que responderam à doença nos estágios iniciais, bem como da Itália, Espanha e Reino Unido, que agiram com maior intensidade apenas em estágios mais avançados:
 
 ![](/img/covid19/f12.png)
 ***Imagem 12**: Casos totais de COVID-19 na Espanha, Itália, Reino Unido, China, Coreia do Sul, Japão e Singapura, dados de 18/04/2020*
@@ -108,14 +108,14 @@ Como explicar intuitivamente essa regularidade aparentemente sem sentido? A resp
 Epidemias como a do Coronavirus, a qual estamos vivendo nesse momento, são clássicos exemplos para explicar a função exponencial. A modelagem acontece da seguinte forma: a quantidade de infectados amanhã $$I_1$$ é igual a uma constante $$\alpha$$ vezes a quantidade de infectados hoje $$I_0$$; ou seja, $$I_1 = \alpha \cdot I_0$$.
 
 
-Supondo que a taxa seja a mesma para amanhã (podemos interpretar como sendo que nenhuma política ou mudança de hábitos da população tenha ocorrido), A quantidade de pessoas infectadas depois de amanhã, $$I_2$$, é uma proporção do que é amanhã ($$I_2=\alpha \cdot I_1$$), que por sua vez pode ser substituído por $$I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$$. Com perspicácia, percebemos que podemos generalizar essa fórmula para daqui a t dias. Sendo t qualquer número que quisermos. A generalização é $$I_t=\alpha^t \cdot I_0$$. O praticamente onipresente regime de juros compostos dos números financeiros também segue essa mesma lógica ($$F = P(1+i)^n$$).
+Supondo que a taxa seja a mesma para amanhã (podemos interpretar como sendo que nenhuma política ou mudança de hábitos da população tenha ocorrido), A quantidade de pessoas infectadas depois de amanhã, $$I_2$$, é uma proporção do que é amanhã ($$I_2=\alpha \cdot I_1$$), que por sua vez pode ser substituído por $$I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$$. Com perspicácia, percebemos que podemos generalizar essa fórmula para daqui a $$t$$ dias: sendo $$t$$ qualquer número inteiro positivo que quisermos, a generalização é $$I_t=\alpha^t \cdot I_0$$. O praticamente onipresente regime de juros compostos dos números financeiros também segue essa mesma lógica ($$F = P(1+i)^n$$).
 
 Aqui está o segredo da lei de Benford. Vejamos a simulação de crescimento da epidemia exponencialmente, isso é, cada dia é um múltiplo fixo do dia anterior. Analisemos na escala padrão e na escala logarítmica ao longo do tempo (nesse caso usamos exponenciais de 2, mas poderia ser qualquer número-base). Veja que nos dois casos, cada gradação de azul é a área referente a um dígito. A primeira corresponde entre 10 e 20, a segunda entre 20 e 30, assim sucessivamente até o número 100. Veja que essa distância é diferente na escala padrão e na escala logarítmica.
 
 ![](/img/covid19/f14.png)
 ***Imagem 14**: Função exponencial e escala logarítmica*
 
-Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obedecer a lei de Benford. Quando olhamos pelas lentes logarítmicas, uma função exponencial se parece uma função que cresce linearmente, que cada observação é equidistante das observações antes e depois. Todavia, nessa mesma lente logarítmica, a área que existe entre 10 e 20 é menor a que existe entre 20 e 30, e assim succesivamente. Isso quer dizer que a probabilidade da variável cair nessa faixa é menor que nas faixas seguintes.
+Esse gráfico já nos dá uma pista de porque fenômenos exponenciais podem obedecer a lei de Benford. Quando olhamos pelas lentes logarítmicas, uma função exponencial se parece uma função que cresce linearmente, que cada observação é equidistante das observações antes e depois. Todavia, nessa mesma lente logarítmica, a área que existe entre 10 e 20 é maior a que existe entre 20 e 30, e assim succesivamente. Isso quer dizer que a probabilidade da variável cair nas faixas iniciais é maior que nas faixas seguintes.
 
 Usando um jargão técnico, <ins>**a mantissa dos logs é uniformemente distribuída**</ins>. Para o número $$x$$ que conseguimos da amostra, vamos aplicar o seu log -- por exemplo, apliquemos o log para o número 150:  $$log_{10} (150) \approx 2.176$$. Podemos decompor o resultado na parte inteira $$m = 2$$ e na parte decimal $$d = 0.176$$. A parte decimal é a que chamamos de *mantissa*.
 
@@ -172,7 +172,7 @@ Para este exercício, vamos realizar três testes de hipóteses:
 * Teste Kolmogorov-Smirnov (bicaudal)
 * Teste de Kuiper
 
-Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igualdade entre as distribuições empírica ($$D_E$$) e teórica ($$D_T$$)</ins>. O teste qui-quadrado é o mais comumente utilizado, porém tende a rejeitar a hipótese nula mais facilmente, enquanto que o teste KS é menos sensível a diferenças pontuais; o teste de Kuiper funciona da mesma forma que o teste KS, com a diferença que considera separadamente diferenças positivas e negativas entre as distribuições (o caso "E maior que T" é encarado como diferente do caso "T maior que E"). A tabela com os p-valores associados está abaixo:
+Os três testes acima são parecidos, <ins>todos têm como hipótese nula a igualdade entre as distribuições empírica ($$D_E$$) e teórica ($$D_T$$)</ins>. O teste qui-quadrado é o mais comumente utilizado, porém tende a rejeitar a hipótese nula mais facilmente, enquanto que o teste KS é menos sensível a diferenças pontuais; o teste de Kuiper funciona da mesma forma que o teste KS, com a diferença que considera separadamente diferenças positivas e negativas entre as distribuições (o caso "$$D_E$$ maior que $$D_T$$" é encarado como diferente do caso "$$D_T$$ maior que $$D_E$$"). A tabela com os p-valores associados está abaixo:
 
 <center>
 
@@ -510,10 +510,12 @@ Basicamente, quanto **menor** o p-valor, **menos** os dados do respectivo país 
 Vamos ver agora o quão "parecidos" são os dados dos países entre si, utilizando uma métrica chamada **Distância de Kullback-Leibler** (doravante "distância KL"), a qual é uma <ins>medida de entropia relativa entre duas distribuições de probabilidade</ins>. Seu cálculo para distribuições discretas se dá mediante a seguinte expressão:
 
 \begin{equation}
-KL(D_E||D_T) = \sum\limits_{x \in \mathcal{P}}{D_E(x)\cdot log\left(\frac{D_E(x)}{D_T(x)}\right)}
+KL(D_1||D_2) = \sum\limits_{x \in \mathcal{P}}{D_1(x)\cdot log\left(\frac{D_1(x)}{D_2(x)}\right)}
 \end{equation}
 
-A distância KL fornece o valor esperado da diferença logarítmica entre duas distribuições (no nosso caso, $$D_E$$ e $$D_T$$) definidas no mesmo espaço de probabilidade $$\mathcal{P}$$; a discussão teórica da  está além dos escopos deste post, pois envolve conhecimentos de teoria da informação e teoria da medida. Em termos simplificados, a distância KL mede o quão diferentes são duas distribuições de probabilidade -- quanto mais próximo de zero, mais "parecidas" elas são. Como são 24 países, como resultado temos uma matriz 24x24 que mede a "diferença" entre os dados dos países considerados, matriz cuja diagonal principal é toda zero (a "diferença" de algo com ela mesma é igual a zero!).
+A distância KL fornece o valor esperado da diferença logarítmica entre duas distribuições $$D_1$$ e $$D_2$$ definidas no mesmo espaço de probabilidade $$\mathcal{P}$$; a discussão teórica da esse conceito está além dos escopos deste post, pois envolve conhecimentos de teoria da informação e teoria da medida. Em termos simplificados, a distância KL mede o quão diferentes são duas distribuições de probabilidade -- quanto mais próximo de zero, mais "parecidas" elas são. Como são 24 países, ao compararmos todas as distribuições empíricas $$D_E$$ obtemos como resultado matrizes 24x24 que medem a "diferença" entre os dados dos países considerados (uma para dados de casos e outra para dados de óbitos), matrizes cujas diagonais principais são toda zero (a "diferença" de algo com ela mesma é igual a zero!).
+
+Apresentamos na **tabela 4** abaixo a matriz de distâncias KL entre as distribuições empíricas dos dados de casos confirmados dos 24 países selecionados. Para economizar espaço, omitimos a matriz calculada a partir dos dados de óbitos.
 
 <center>
 
