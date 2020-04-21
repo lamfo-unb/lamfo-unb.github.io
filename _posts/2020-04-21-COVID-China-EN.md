@@ -513,7 +513,7 @@ Now let's see how "similar" the country data are to each other, using a metric c
 KL(D_1||D_2) = \sum\limits_{x \in \mathcal{P}}{D_1(x)\cdot log\left(\frac{D_1(x)}{D_2(x)}\right)}
 \end{equation}
 
-The KL divergence gives the expected value of the logarithmic difference between two distributions $$ D_1 $$ and $$ D_2 $$ defined in the same probability space $$ \mathcal{P} $$; the theoretical discussion of this concept lies beyond the scope of this post, as it involves knowledge of information theory and measure theory. In simplified terms, the KL divergence measures how different two probability distributions are -- the closer to zero its value, the more "similar" they are. As there are 24 countries, by comparing all dempirical distributions $D_E$ we yield 24x24 matrices that measure the "difference" between the data of the countries considered (one for the cases data and another for the deaths data), matrice whose main diagonals are all zero (the "difference" of something to itself is equal to zero!).
+The KL divergence gives the expected value of the logarithmic difference between two distributions $$ D_1 $$ and $$ D_2 $$ defined in the same probability space $$ \mathcal{P} $$; the theoretical discussion of this concept lies beyond the scope of this post, as it involves knowledge of information theory and measure theory. In simplified terms, the KL divergence measures how different two probability distributions are -- the closer to zero its value, the more "similar" they are. As there are 24 countries, by comparing all dempirical distributions $$D_E$$ we yield 24x24 matrices that measure the "difference" between the data of the countries considered (one for the cases data and another for the deaths data), matrice whose main diagonals are all zero (the "difference" of something to itself is equal to zero!).
 
 In **table 4** below we present the matrix of KL divergenves between the empirical distributions of confirmed cases data from the 24 selected countries. To save space, we omitted the matrix calculated from the deaths data.
 
@@ -1205,6 +1205,7 @@ In **table 4** below we present the matrix of KL divergenves between the empiric
 </table>
 
 </center>
+
 ***Table 4**: Pairwise KL divergences between the analyzed countries COVID-19 cases first digit distributions, rounded to 4 digits*
 
 The matrix above does not have a very immediate practical interpretation, so we applied a clustering algorithm to define which countries are most similar to each other -- pairs of countries with a larger KL divergence are less similar to each other than pairs of countries with a smaller KL divergence. The chosen algorithm was DBSCAN, which assign each point in the sample to *clusters* based on the minimum number of points in each *cluster* ($$mp$$) and the maximum distance that a point have to another point of the same *cluster* ($$ \varepsilon$$). <ins>Points that do not have at least $$mp$$ points within the radius of $$\varepsilon$$ are classified as *outliers* that belong to no *cluster*</ins>. A good introductory material on DBSCAN can be found [here](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
@@ -1324,6 +1325,7 @@ One of the advantages of DBSCAN is the fact that the *cluster* number is automat
 </table>
 
 </center>
+
 ***Table 5**: DBSCAN clustering between the KL divergences of COVID-19 cases time series first digit distributions of the analyzed countries*
 
 
@@ -1436,6 +1438,7 @@ One of the advantages of DBSCAN is the fact that the *cluster* number is automat
     <td class="tg-c3ow">1</td>
   </tr>
 </table>
+
 ***Table 6**: DBSCAN clustering between the KL divergences of COVID-19 deaths time series first digit distributions of the analyzed countries*
 
 Again, as suggested by the visual inspection and hypothesis tests aforementioned, the results indicate that the data from China show distinct patterns from the majority of the countries most affected by the pandemic, which in turn showed similar patterns of infectivity and lethality: the algorithm returned only one *cluster*, classifying China as "*outlier*" for both data of case numbers and death numbers. Indeed, countries categorized as "*cluster* 1" seem to follow the distribution of Benford's Law better.
