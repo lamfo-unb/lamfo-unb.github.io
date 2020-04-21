@@ -162,9 +162,6 @@ Para este exercício, escolhemos os <ins> países com mais de 10000 casos confir
 ![](/img/covid19/f15.png)
 ***Imagem 15**: Distribuição do primeiro dígito das séries de casos de COVID-19*
 
-![](/img/covid19/f16.png)
-***Imagem 16**: Distribuição do primeiro dígito das séries de óbitos por COVID-19*
-
 **Nenhuma base de dados segue perfeitamente a Lei de Benford, mas as distribuições empíricas da China parecem ser particularmente diferentes das dos demais países**. Pela inspeção visual, os dados da China parecem destoar significativamente da Lei de Benford. Para maior robustez, vamos comparar as distribuições empíricas $$D_E$$ com a distribuição teórica $$D_T$$ que vem da Lei de Benford realizando alguns testes de hipóteses.
 
 ## Testes de hipóteses
