@@ -92,7 +92,6 @@ With the visual analysis above, we can deduce the existence of some underlying "
 Life is mysterious and unexpected patterns rule the world. As they say, “life imitates art”. However, when art tries to imitate life, we can feel something strange, as if the complexity of life cannot be replaced by naive human engineering.
 
 One of those patterns that seems to "emerge" in nature is Benford's Law, discovered by [Newcomb (1881)](https://www.semanticscholar.org/paper/Note-on-the-Frequency-of-Use-of-the-Different-in-Newcomb/4136337f95c88d446a5577d9331c8fc0309c11af) and popularized by [Benford (1938)](https://en.scribd.com/document/209534421/The-Law-of-Anomalous-Numbers), and widely used to check frauds in databases.
-Um desses padrões que parecem "emergir" na natureza é Lei de Benford, descoberta por [Newcomb (1881)](https://www.semanticscholar.org/paper/Note-on-the-Frequency-of-Use-of-the-Different-in-Newcomb/4136337f95c88d446a5577d9331c8fc0309c11af) e popularizada por [Benford (1938)](https://pt.scribd.com/document/209534421/The-Law-of-Anomalous-Numbers), muito usada para verificar fraudes em base de dados.
 
 Benford, testing for more than 20 variables from different contexts, such as river sizes, population of cities, physics constants, mortality rate, etc., found out that **the chance of the first digit of a number to be equal to 1 was the highest, chance that decreased progressively for the subsequent numbers**. That is, it is more likely that the first digit of a number is 1, then 2, and successively up to 9.
 
