@@ -161,6 +161,9 @@ For this exercise, we picked the <ins>countries with more than 10,000 confirmed 
 ![](/img/covid19/f15.png)
 ***Image 15**: First digit distributions of COVID-19 cases*
 
+![](/img/covid19/f16.png)
+***Image 16**: First digit distributions of COVID-19 deaths*
+
 **No database follows Benford's Law perfectly, but China's empirical distributions appear to be particularly different from those of other countries**. By visual inspection, the data from China seems to be significantly desynchronized with Benford's Law. For greater robustness, we will compare the empirical distributions $$D_E$$ with the theoretical distribution $$D_T$$ that comes from Benford's Law by performing some hypothesis tests.
 
 ## Hypothesis tests
