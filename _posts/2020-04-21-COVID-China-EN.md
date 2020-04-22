@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Statistical analysis of the chinese COVID-19 data with Benford's Law and clustering.
+title: Statistical analysis of the Chinese COVID-19 data with Benford's Law and clustering.
 lang: en
 header-img: img/covid_capa.jpg
 date: 2020-04-21
@@ -21,11 +21,11 @@ comments: true
 
 ## Motivation
 
-COVID-19 (SARS-CoV-2) is a ongoing pandemic that infected more than 2.5 million people around the world and claimed more than 170,000 lifes as of 21 April 2020. Unlike all other pandemics recorded in history, a large volume of data and news concerning COVID-19 are flows in with great speed and coverage, mobilizing scholars from various fields of knowledge to focus their efforts on analyzing those data and proposing solutions.
+COVID-19 (SARS-CoV-2) is an ongoing pandemic that infected more than 2.5 million people around the world and claimed more than 170,000 lives as of 21 April 2020. Unlike all other pandemics recorded in history, a large volume of data and news concerning COVID-19 are flowed in with great speed and coverage, mobilizing scholars from various fields of knowledge to focus their efforts on analyzing those data and proposing solutions.
 
-In epidemic data, it is natural to observe an exponential growth in the infected cases, especially in the early stages of the disease. As addressed in posts like [this](https://medium.com/@tomaspueyo/coronavirus-the-hammer-and-the-dance-be9337092b56), measures of social isolation seek to "flatten the curve", reducing the number of affected at the peak, but prolonging the "wave" over the time. Similarly, the number of deaths also follows an exponential trend.
+In epidemic data, it is natural to observe an exponential growth in the infected cases, especially in the early stages of the disease. As addressed in posts like [this](https://medium.com/@tomaspueyo/coronavirus-the-hammer-and-the-dance-be9337092b56), measures of social isolation seek to "flatten the curve", reducing the number of affected at the peak, but prolonging the "wave" over time. Similarly, the number of deaths also follows an exponential trend.
 
-Analyzing data from countries affected by the pandemic, it is possible to observe patterns that are common to all. Despite the existence of several peculiarities such as territorial extension, population density, temperature, season, degree of underreporting, social discipline to comply with isolation measures, etc., which differ significantly between different countries, the virus has not (yet) suffered radical mutations since its appearance in China, such that the general parameters of infectivity and lethality are similar between countries. However, **the chinese data are a notable exception**, showing a behavior that differs from the others -- despite being the first country affected by the disease, the number of infected people evolution remained close to a linear trend in the early stages , followed by <ins>few moments that suffered abrupt variation and prolonged periods marked by the absence of variance</ins>, both unusual patterns in nature. Here are some graphs:
+Analyzing data from countries affected by the pandemic, it is possible to observe patterns that are common to all. Despite the existence of several peculiarities such as territorial extension, population density, temperature, season, degree of underreporting, social discipline to comply with isolation measures, etc., which differ significantly between different countries, the virus has not (yet) suffered radical mutations since its appearance in China, such that the general parameters of infectivity and lethality are similar between countries. However, **the Chinese data are a notable exception**, showing a behavior that differs from the others -- despite being the first country affected by the disease, the number of infected people evolution remained close to a linear trend in the early stages, followed by <ins>few moments that suffered abrupt variation and prolonged periods marked by the absence of variance</ins>, both unusual patterns in nature. Here are some graphs:
 
 ![](/img/covid19/f1.png)
 ***Image 1**: Cumulative COVID-19 cases in China, as of 18 Apr 2020*
@@ -39,12 +39,12 @@ Analyzing data from countries affected by the pandemic, it is possible to observ
 
 **Image 1** above shows the cumulative number of confirmed cases of COVID-19 in China (Taiwan not included). Note that the exponential pattern appears at the beginning but the concavity of the curve changes rapidly, contrary to expectations and to what was observed in almost all other countries. The growth happened with "jumps" at the beginning of the series, followed by a practically linear trend in the first days of February, a single day of great growth, and a long period with decreasing new cases per day, until the curve became practically a straight line since the early March.
 
-Furthermore, looking at the decomposition of the aggregate data for province level in **image 2**, we can notice that a single province -- Hubei -- is responsible for almost all cases from China, while all other provinces (which also differ considerably among themselves in area, population density, temperature, distance to the virus' city of origin, etc.) exhibited practically the same pattern, resulting in a sigmoid curve with surgical precision.
+Furthermore, looking at the decomposition of the aggregate data for province-level in **image 2**, we can notice that a single province -- Hubei -- is responsible for almost all cases from China, while all other provinces (which also differ considerably among themselves in area, population density, temperature, distance to the virus' city of origin, etc.) exhibited practically the same pattern, resulting in a sigmoid curve with surgical precision.
 
 At the provincial level, the only place that showed some degree of variance over time was Hong Kong; in Shandong, there was a great variation in a single day -- 21 February 2020, when an outbreak of the virus was reported in the Rencheng Prison in the city of Jining: on that day 203 people were added to the confirmed statistic, an isolated point in a "well behaved" curve in all periods besides that day. In Guangdong (in southern China) and Heilongjiang (in northeastern China) the series returned to grow in late March and early April, respectively, both after a long period with virtually no variation. See the behavior of the series of these provinces in **image 3**.
 
 ![](/img/covid19/f4.png)
-***Image 4**: Cumulative COVID-19 cases per state in the Unites States, as of 30 Mar 2020. Retrieved from ["Coronavirus: Out of Many, One" by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
+***Image 4**: Cumulative COVID-19 cases per state in the United States, as of 30 Mar 2020. Retrieved from ["Coronavirus: Out of Many, One" by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
 
 ![](/img/covid19/f5.png)
 ***Image 5**: Same as image 4, with all states except New York and New Jersey. Retrieved from ["Coronavirus: Out of Many, One" by Tomas Pueyo](https://medium.com/@tomaspueyo/coronavirus-out-of-many-one-36b886af37e9)*
@@ -54,7 +54,7 @@ It is well known that <ins>the derivative of an exponential function is also an 
 ![](/img/covid19/f6.png)
 ***Image 6**: Daily variation of COVID-19 cases in China, as of 18 Apr 2020*
 
-The initial section of the series seems more like a straight line than an exponential curve, considering the two peaks on January 28 and February 02, while the number of new cases started to decrease rapidly and without major variations -- except for the peak of 15136 new cases on 13 February 2020, which clearly differs from the other periods. Disregarding this anomalous point, we can see a practically linear trend between Febryary 02 and February 23, from which the series resembles a straight line -- again, a rare pattern in contagious diseases.
+The initial section of the series seems more like a straight line than an exponential curve, considering the two peaks on January 28 and February 02, while the number of new cases started to decrease rapidly and without major variations -- except for the peak of 15136 new cases on 13 February 2020, which clearly differs from the other periods. Disregarding this anomalous point, we can see a practically linear trend between February 02 and February 23, from which the series resembles a straight line -- again, a rare pattern in contagious diseases.
 
 See below the same graph comparing Hubei with all other provinces:
 
@@ -77,25 +77,25 @@ It is worth noting that, [on the same day that anomalous peak occurred, Jiang Ch
 ![](/img/covid19/f11.png)
 ***Image 11**: Daily variation of COVID-19 deaths in China, as of 18 Apr 2020*
 
-The adoption of severe measures of social isolation influences the shape of the curves directly. However, the exponential pattern still remains at least in the initial stages, and effects of those measures also take some time to become evident. Let's compare the data from Japan, Singapore and South Korea, which responded early to the disease, as well as from Italy, Spain and the United Kingdom, which acted more intensely only in more advanced stages:
+The adoption of severe measures of social isolation influences the shape of the curves directly. However, the exponential pattern still remains at least in the initial stages, and the effects of those measures also take some time to become evident. Let's compare the data from Japan, Singapore, and South Korea, which responded early to the disease, as well as from Italy, Spain, and the United Kingdom, which acted more intensely only in more advanced stages:
 
 ![](/img/covid19/f12.png)
 ***Imagem 12**: Cumulative COVID-19 cases in Spain, Italy, United Kingdom, China, South Korea, Japan, and Singapore, as of 18 Apr 2020*
 
 ![](/img/covid19/f13.png)
-***Imagem 13**: Same as image 12, with the asian countries except China. Note that Japan and Singapore also exhibited a late exponential growth. Only South Korea's curve exhibited a similar shape to the chinese data*
+***Imagem 13**: Same as image 12, with the Asian countries except for China. Note that Japan and Singapore also exhibited a late exponential growth. Only South Korea's curve exhibited a similar shape to the Chinese data*
 
-With the visual analysis above, we can deduce the existence of some underlying "pattern" in the COVID-19 data, but for some reason it does not appear in the Chinese data. Next, let's do an exercise trying to identify this pattern using **Benford's Law**.
+With the visual analysis above, we can deduce the existence of some underlying "pattern" in the COVID-19 data, but for some reason, it does not appear in the Chinese data. Next, let's do an exercise trying to identify this pattern using **Benford's Law**.
 
 ## Benford's Law
 
 Life is mysterious and unexpected patterns rule the world. As they say, “life imitates art”. However, when art tries to imitate life, we can feel something strange, as if the complexity of life cannot be replaced by naive human engineering.
 
-One of those patterns that seems to "emerge" in nature is Benford's Law, discovered by [Newcomb (1881)](https://www.semanticscholar.org/paper/Note-on-the-Frequency-of-Use-of-the-Different-in-Newcomb/4136337f95c88d446a5577d9331c8fc0309c11af) and popularized by [Benford (1938)](https://en.scribd.com/document/209534421/The-Law-of-Anomalous-Numbers), and widely used to check frauds in databases.
+One of those patterns that seem to "emerge" in nature is Benford's Law, discovered by [Newcomb (1881)](https://www.semanticscholar.org/paper/Note-on-the-Frequency-of-Use-of-the-Different-in-Newcomb/4136337f95c88d446a5577d9331c8fc0309c11af) and popularized by [Benford (1938)](https://en.scribd.com/document/209534421/The-Law-of-Anomalous-Numbers), and widely used to check frauds in databases.
 
 Benford, testing for more than 20 variables from different contexts, such as river sizes, population of cities, physics constants, mortality rate, etc., found out that **the chance of the first digit of a number to be equal to 1 was the highest, chance that decreased progressively for the subsequent numbers**. That is, it is more likely that the first digit of a number is 1, then 2, and successively up to 9.
 
-[Okhrimenko and Kopczewski (2019)](https://www.nbp.pl/badania/seminaria/8ii2019.pdf), two behavioral economists, tested people's ability to create false data in order to circumvent the tax base. The authors found evidence that by the criteria of Benford's law, the system would easily identify false data. Other applications of Benford's Law for manipulated data identification and fraud detection include [Hales et al. (2008)](https://www.sciencedirect.com/science/article/abs/pii/S0377221706011702), [Abrantes- Metz et al. (2012)](https://www.sciencedirect.com/science/article/abs/pii/S0378426611002032) and [Nigrini (2012)](https://www.amazon.com/Benfords-Law-Applications-Accounting-Detection/dp/1118152859).
+[Okhrimenko and Kopczewski (2019)](https://www.nbp.pl/badania/seminaria/8ii2019.pdf), two behavioral economists, tested people's ability to create false data in order to circumvent the tax base. The authors found evidence that by the criteria of Benford's law, the system would easily identify false data. Other applications of Benford's Law for manipulated data identification and fraud detection include [Hales et al. (2008)](https://www.sciencedirect.com/science/article/abs/pii/S0377221706011702), [Abrantes- Metz et al. (2012)](https://www.sciencedirect.com/science/article/abs/pii/S0378426611002032), and [Nigrini (2012)](https://www.amazon.com/Benfords-Law-Applications-Accounting-Detection/dp/1118152859).
 
 How can we intuitively explain this seemingly random regularity? The answer is related to two known concepts: the exponential function and the logarithmic scale. Let's review them as they are everywhere, especially during the current pandemic...
 
@@ -105,7 +105,7 @@ Epidemics such as the Coronavirus, which we are experiencing at the moment, are 
 
 Assuming that the rate is the same for tomorrow (we can interpret it as having no new policies, or no changes in population habits have occurred), the number of people infected the day after tomorrow, $$I_2$$, is a proportion of what will be tomorrow ($$I_2=\alpha \cdot I_1$$), which in turn can be substituted by $$I_2=\alpha \cdot I_1 = \alpha \cdot \alpha \cdot I_0$$. This expression can be generalized for $$t$$ days from now: being $$t$$ any positive integer, the generalization is $$I_t=\alpha^t \cdot I_0$$. The virtually omnipresent compound interest from the financial numbers also follows the same logic ($$F = P(1+i)^n$$).
 
-Here is the secret of Benford's law. Let's look at a exponentially growing epidemic simulation, that is, the number of infected at each day is a fixed multiple of the previous day. Let's look at the standard scale and the logarithmic scale over time (in this case we use exponentials of 2, but it could be any positive integer). Note that in both cases, each gradation of blue is the area referring to a digit. The first corresponds between 10 and 20, the second between 20 and 30, so on until 100. Note that the width of the bands is different between the standard scale and the logarithmic scale.
+Here is the secret of Benford's law. Let's look at an exponentially growing epidemic simulation, that is, the number of infected at each day is a fixed multiple of the previous day. Let's look at the standard scale and the logarithmic scale over time (in this case we use exponentials of 2, but it could be any positive integer). Note that in both cases, each gradation of blue is the area referring to a digit. The first corresponds between 10 and 20, the second between 20 and 30, so on until 100. Note that the width of the bands is different between the standard scale and the logarithmic scale.
 
 ![](/img/covid19/f14.png)
 ***Imagem 14**: Exponential function and logarithmic scale*
@@ -149,7 +149,7 @@ To save the reader's time, we calculated the probability distribution for each d
 \end{array}
 
 </center>
-***Tabela 1** : First digit distribution according to Benford's Law*
+***Table 1** : First digit distribution according to Benford's Law*
 
 For more details on Benford's law and its applications, take a look at these links [[1](http://prorum.com/?qa=2157/existem-formas-de-detectar-fraudes-em-bases-de-dados); [2](https://epublications.marquette.edu/cgi/viewcontent.cgi?article=1031&context=account_fac); [3](https://towardsdatascience.com/what-is-benfords-law-and-why-is-it-important-for-data-science-312cb8b61048)]
 
@@ -173,7 +173,7 @@ For this exercise, we will perform three hypothesis tests:
 * Kolmogorov–Smirnov test (two-tailed)
 * Kuiper's test
 
-The three tests above are similar, <ins>all of them have as a null hypothesis of equality between the empirical ($$D_E$$) and theoretical ($$D_T$$) distributions</ins>. The chi-squared test is the most commonly used, however it tends to reject the null hypothesis more easily, while the KS test is less sensitive to pointwise differences; Kuiper's test works in the same way as the KS test, with the difference that it considers separately positive and negative differences between the distributions (the case "$$D_E$$ greater than $$D_T$$" is seen as different from the case "$$D_T$$ greater than $$D_E$$"). The tables with the associated p-values are displayed below:
+The three tests above are similar, <ins>all of them have as a null hypothesis of equality between the empirical ($$D_E$$) and theoretical ($$D_T$$) distributions</ins>. The chi-squared test is the most commonly used, however, it tends to reject the null hypothesis more easily, while the KS test is less sensitive to pointwise differences; Kuiper's test works in the same way as the KS test, with the difference that it considers separately positive and negative differences between the distributions (the case "$$D_E$$ greater than $$D_T$$" is seen as different from the case "$$D_T$$ greater than $$D_E$$"). The tables with the associated p-values are displayed below:
 
 
 <center>
@@ -505,7 +505,7 @@ The three tests above are similar, <ins>all of them have as a null hypothesis of
 </center>
 ***Table 3** : P-values of the hypothesis tests for COVID-19 deaths data, rounded to 4 digits. Values with significance at 95% confidence level are marked in bold*
 
-Basically, the **smaller** the p-value, **less** the data for the respective country seems to "obey" Benford's Law. <ins>Using this evaluation metric, the Chinese data are clearly anomalous regarding Benford's Law, while the vast majority of other countries seem to follow it reasonably well.</ins>
+Basically, the **smaller** the p-value, the **less** the data for the respective country seems to "obey" Benford's Law. <ins>Using this evaluation metric, the Chinese data are clearly anomalous regarding Benford's Law, while the vast majority of other countries seem to follow it reasonably well.</ins>
 
 ## KL divergence and DBSCAN clustering
 
@@ -515,9 +515,9 @@ Now let's see how "similar" the country data are to each other, using a metric c
 KL(D_1||D_2) = \sum\limits_{x \in \mathcal{P}}{D_1(x)\cdot log\left(\frac{D_1(x)}{D_2(x)}\right)}
 \end{equation}
 
-The KL divergence gives the expected value of the logarithmic difference between two distributions $$ D_1 $$ and $$ D_2 $$ defined in the same probability space $$ \mathcal{P} $$; the theoretical discussion of this concept lies beyond the scope of this post, as it involves knowledge of information theory and measure theory. In simplified terms, the KL divergence measures how different two probability distributions are -- the closer to zero its value, the more "similar" they are. As there are 24 countries, by comparing all dempirical distributions $$D_E$$ we yield 24x24 matrices that measure the "difference" between the data of the countries considered (one for the cases data and another for the deaths data), matrice whose main diagonals are all zero (the "difference" of something to itself is equal to zero!).
+The KL divergence gives the expected value of the logarithmic difference between two distributions $$ D_1 $$ and $$ D_2 $$ defined in the same probability space $$ \mathcal{P} $$; the theoretical discussion of this concept lies beyond the scope of this post, as it involves knowledge of information theory and measure theory. In simplified terms, the KL divergence measures how different two probability distributions are -- the closer to zero its value, the more "similar" they are. As there are 24 countries, by comparing all empirical distributions $$D_E$$ we yield 24x24 matrices that measure the "difference" between the data of the countries considered (one for the cases data and another for the deaths data), matrice whose main diagonals are all zero (the "difference" of something to itself is equal to zero!).
 
-In **table 4** below we present the matrix of KL divergenves between the empirical distributions of confirmed cases data from the 24 selected countries. To save space, we omitted the matrix calculated from the deaths data.
+In **table 4** below we present the matrix of KL divergences between the empirical distributions of confirmed cases data from the 24 selected countries. To save space, we omitted the matrix calculated from the deaths data.
 
 <center>
 
@@ -1210,7 +1210,7 @@ In **table 4** below we present the matrix of KL divergenves between the empiric
 
 ***Table 4**: Pairwise KL divergences between the analyzed countries COVID-19 cases first digit distributions, rounded to 4 digits*
 
-The matrix above does not have a very immediate practical interpretation, so we applied a clustering algorithm to define which countries are most similar to each other -- pairs of countries with a larger KL divergence are less similar to each other than pairs of countries with a smaller KL divergence. The chosen algorithm was DBSCAN, which assign each point in the sample to *clusters* based on the minimum number of points in each *cluster* ($$mp$$) and the maximum distance that a point have to another point of the same *cluster* ($$ \varepsilon$$). <ins>Points that do not have at least $$mp$$ points within the radius of $$\varepsilon$$ are classified as *outliers* that belong to no *cluster*</ins>. A good introductory material on DBSCAN can be found [here](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
+The matrix above does not have a very immediate practical interpretation, so we applied a clustering algorithm to define which countries are most similar to each other -- pairs of countries with a larger KL divergence are less similar to each other than pairs of countries with a smaller KL divergence. The chosen algorithm was DBSCAN, which assigns each point in the sample to *clusters* based on the minimum number of points in each *cluster* ($$mp$$) and the maximum distance that a point have to another point of the same *cluster* ($$ \varepsilon$$). <ins>Points that do not have at least $$mp$$ points within the radius of $$\varepsilon$$ are classified as *outliers* that belong to no *cluster*</ins>. A good introductory material on DBSCAN can be found [here](https://medium.com/@elutins/dbscan-what-is-it-when-to-use-it-how-to-use-it-8bd506293818).
 
 One of the advantages of DBSCAN is the fact that the *cluster* number is automatically defined instead of being chosen by the user, making it a good tool for anomaly detection. For this exercise, we used $$mp = 3$$ and $$\varepsilon$$ as the average of the KL divergences between countries plus three sample standard deviations. The result of this clustering is easier to interpret:
 
@@ -1449,7 +1449,7 @@ Although China is the place of origin of the disease, given the great divergence
 
 ## Final remarks
 
-As the pandemic affects more and more people and has an increasingly deeper impact on economic activities and social life at global level, discussing the underreporting of COVID-19 data becomes especially relevant, both for the assessment of the situation severity and for the proposal of solutions and means to overcome the crisis. Given that scholars, researchers and policy-makers around the world are dedicated to this cause, having accurate and reliable data at hand is of paramount importance, as the quality of the data directly affects the quality of all analysis derived from them. As the saying goes: **"*Garbage in, garbage out!*"**
+As the pandemic affects more and more people and has an increasingly deeper impact on economic activities and social life at a global level, discussing the underreporting of COVID-19 data becomes especially relevant, both for the assessment of the situation severity and for the proposal of solutions and means to overcome the crisis. Given that scholars, researchers, and policy-makers around the world are dedicated to this cause, having accurate and reliable data at hand is of paramount importance, as the quality of the data directly affects the quality of all analyses derived from them. As the saying goes: **"*Garbage in, garbage out!*"**
 
 ---
 
