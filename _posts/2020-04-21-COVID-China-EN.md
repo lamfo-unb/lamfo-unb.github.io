@@ -117,7 +117,7 @@ Using a technical jargon, <ins>**the log mantissa is uniformly distributed**</in
 
 ### Mantissa and theoretical distribution $$D_T$$
 
-From the logarithm properties, $$log_{10} (150) = log_{10}(100 \cdot 1.5) = log_{10}(100) + log_{10}(1.5) = 2 + 0.176$$. Note that the base 10 log of any integer power of 10 (100, 1000, 10000 ...) will result in an integer. In this sense, the integer part of the base 10 log returns the number of digits that the original number has (since the Indo-Arabic number system has 10 digits). The mantissa, on the other hand, is responsible for saying which is the first digit.
+From the logarithm properties, $$log_{10} (150) = log_{10}(100 \cdot 1.5) = log_{10}(100) + log_{10}(1.5) = 2 + 0.176$$. Note that the base 10 log of any integer power of 10 (100, 1000, 10000 ...) will result in an integer. In this sense, the integer part of the base 10 log returns the number of digits that the original number has (since the Hindu-Arabic numeral system has 10 digits). The mantissa, on the other hand, is responsible for saying which is the first digit.
 
 For numbers at the hundreds, when the mantissa is in the $$[0, 0.301)$$ range, the original number will be between $$[100, 200)$$. Doing the same procedure as above, when the number reaches 200, its log will result in $$ log_{10}(200) = log_{10}(100 \cdot 2) = log_{10}(100) + log_{10}(2) $$ which results in $$ 2 + 0.301 $$.
 
