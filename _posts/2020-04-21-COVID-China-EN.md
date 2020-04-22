@@ -1450,7 +1450,7 @@ Although China is the place of origin of the disease, given the great divergence
 
 ## Final remarks
 
-As the pandemic affects more and more people and has an increasingly deeper impact on economic activities and social life at global level, discussing the underreporting of COVID-19 data becomes especially relevant, both for the assessment of the situation severity and for the proposal of solutions and means to overcome the crisis. Given that scholars, researchers and policy-makers around the world are dedicated to this cause, having accurate and reliable data at hand is of paramount importance, as the quality of the data directly affects the quality of all analysis derived from them. As the saying goes: **"* Garbage in, garbage out! *"**
+As the pandemic affects more and more people and has an increasingly deeper impact on economic activities and social life at global level, discussing the underreporting of COVID-19 data becomes especially relevant, both for the assessment of the situation severity and for the proposal of solutions and means to overcome the crisis. Given that scholars, researchers and policy-makers around the world are dedicated to this cause, having accurate and reliable data at hand is of paramount importance, as the quality of the data directly affects the quality of all analysis derived from them. As the saying goes: **"*Garbage in, garbage out!*"**
 
 ---
 
