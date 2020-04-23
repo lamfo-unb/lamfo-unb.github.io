@@ -41,7 +41,7 @@ A **imagem 1** acima mostra o número acumulado de casos confirmados de COVID-19
 
 Ademais, vendo a decomposição do dado agregado para nível de província na **imagem 2**, é possível notar que uma única província -- Hubei -- puxa praticamente toda a série da China, enquanto que todas as outras províncias (as quais também diferem bastante em área, densidade populacional, temperatura, distância com a cidade de origem do vírus, etc.) apresentam praticamente o mesmo padrão, resultando numa curva sigmóide praticamente cirúrgica.
 
-A nível de província, o único local que apresentou algum grau de variância ao longo do tempo foi Hong Kong; em Shandong, observou-se uma grande variação num único dia -- 21/02/2020, quando foi notificado um surto do vírus na penitenciária de Rencheng da cidade de Jinin: nesse dia 203 pessoas foram adicionadas à estatística de confirmados, um ponto isolado numa curva "bem comportada" em todos os períodos além desse dia. Em Guangdong (no sul da China) e em Heilongjiang (no nordeste da China) a série voltou a apresentar crescimento no fim de março e no início de abril, respectivamente, ambos após um longo período praticamente sem variações. Veja o comportamento das séries dessas províncias na **imagem 3**.
+A nível de província, o único local que apresentou algum grau de variância ao longo do tempo foi Hong Kong; em Shandong, observou-se uma grande variação num único dia -- 21/02/2020, quando foi notificado um surto do vírus na penitenciária de Rencheng da cidade de Jining: nesse dia 203 pessoas foram adicionadas à estatística de confirmados, um ponto isolado numa curva "bem comportada" em todos os períodos além desse dia. Em Guangdong (no sul da China) e em Heilongjiang (no nordeste da China) a série voltou a apresentar crescimento no fim de março e no início de abril, respectivamente, ambos após um longo período praticamente sem variações. Veja o comportamento das séries dessas províncias na **imagem 3**.
 
 Para efeito de comparação, veja as séries dos casos de COVID-19 em cada estado dos Estados Unidos:
 
@@ -67,7 +67,7 @@ Veja abaixo o mesmo gráfico comparando a província de Hubei com todas as demai
 ![](/img/covid19/f8.png)
 ***Imagem 8**: Igual à imagem 7, com todas as províncias exceto Hubei, com escala ajustada para melhor visualização*
 
-Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoling e Ma Guoqiang foram exonerados](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): eles eram o Nº 1 e o Nº 2 na hierarquia de comando de Hubei (secretário-geral e vice secretário-geral do Partido na província, respectivamente).
+Vale notar que, [no mesmo dia que houve esse pico, Jiang Chaoliang e Ma Guoqiang foram exonerados](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): eles eram o Nº 1 e o Nº 2 na hierarquia de comando de Hubei (secretário-geral e vice secretário-geral do Partido na província, respectivamente).
 
 **Os dados chineses de óbitos por COVID-19 são igualmente anti-intuitivos**, veja abaixo nas **imagens 9 a 11**. Note que a província com mais mortes registradas foi Henan, que é vizinha de Hubei, com apenas 22 óbitos. A variação diária de mortos é uma série praticamente estacionária, temperada com o bizarro "ajuste" de 1290 mortes em 17/04 após mais de um mês quase sem mortes oficiais:
 
