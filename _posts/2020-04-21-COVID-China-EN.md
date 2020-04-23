@@ -64,7 +64,7 @@ See below the same graph comparing Hubei with all other provinces:
 ![](/img/covid19/f8.png)
 ***Image 8**: Same as image 7, with all provinces except Hubei, re-scaled for better viewing*
 
-It is worth noting that, [on the same day that anomalous peak occurred, Jiang Chaoling and Ma Guoqiang were exonerated](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): they were the No. 1 and No. 2 in the Hubei command hierarchy (secretary-general and deputy secretary-general of the Party in the province, respectively).
+It is worth noting that, [on the same day that anomalous peak occurred, Jiang Chaoliang and Ma Guoqiang were exonerated](http://www.xinhuanet.com/renshi/2020-02/13/c_1125568253.htm): they were the No. 1 and No. 2 in the Hubei command hierarchy (secretary-general and deputy secretary-general of the Party in the province, respectively).
 
 **The Chinese data for deaths from COVID-19 are also anti-intuitive**, see below in **images 9 to 11**. Note that the second province with the most recorded deaths after Hubei was its neighbor Henan, with only 22 deaths. The daily variation in deaths is a practically stationary series, with the extra spice of the bizarre "adjustment" of 1290 deaths on April 17 after more than a month with almost no official deaths:
 
