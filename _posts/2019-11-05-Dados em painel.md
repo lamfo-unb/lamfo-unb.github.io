@@ -3,7 +3,7 @@ layout: post
 title: Dados em Painel
 lang: pt
 header-img: 2019-09-11 21:12:39
-date: 2019-05-30 23:59:07
+date: 2019-09-11 21:12:39
 tags: [Causalidade, Econometria, Panel Data]
 author: Mateus Hiro Nagata, Alixandro Werneck Leite
 comments: true
