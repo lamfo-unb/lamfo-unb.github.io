@@ -1,3 +1,14 @@
+---
+layout: post
+title: O Método dos Mínimos Quadrados Ordinários e Regressão Linear Simples
+lang: pt
+header-img: img/home-bg.jpg
+date: 2020-02-07 23:59:07
+tags: [MQO, Regressão Linear, Econometria]
+author: João Pedro Fontoura da Silva
+comments: true
+---
+
 # O Método dos Mínimos Quadrados Ordinários e Regressão Linear Simples
 
 ---
@@ -379,7 +390,7 @@ abline(linearmodel)
 \end{lstlisting}
 ```
 
-![](https://i.imgur.com/SzCyNAm.jpg)
+<img src="/img/exemplo_regressao_linear.jpg" style="display: block; margin: auto;" />
 
 
 A interpretação do modelo é simples: a relação entre *TestScore* e *STR* é negativa, ou seja, escolas onde se observa uma maior proporção de estudantes relativa à quantidade de professores apresentam notas menores em testes. Pelo modelo estimado, há uma queda de aproximadamente 2.3 pontos na nota dos testes para um aumento observado no STR de um aluno por professor.
