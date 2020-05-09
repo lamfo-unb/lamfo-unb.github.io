@@ -123,7 +123,7 @@ $$
 
 Em que $$\hat{\rho}_{x_y}$$ é a correlação amostral entre $$x_i$$ e $$y_i$$, e $$\hat{\sigma}_x$$ e $$\hat{\sigma}_y$$ denotam os desvios padrão da amostra. Disto temos a implicação de que se $$x_i$$ e $$y_i$$ forem positivamente correlacionados na amostra, $$\hat{\beta_1}<0$$ (o contrário também é válido).
 
-As estimativas dadas por (9) e (10) são denominadas de **estimativas de mínimos quadrados ordinários (MQO)** de $$\beta_0$$ e $\beta_1$.
+As estimativas dadas por (9) e (10) são denominadas de **estimativas de mínimos quadrados ordinários (MQO)** de $$\beta_0$$ e $$\beta_1$$.
 
 Seja $$\hat{y_i}$$ um valor estimado de y quando $$x$$ = $$x_i$$, de tal forma que obtemos $$\hat{y_i}=\hat{\beta_0}+\hat{\beta_1}x_i$$. O **resíduo** da observação i é a diferença entre o valor verdadeiro de $$y_i$$ e seu valor estimado:
 
@@ -131,7 +131,7 @@ $$
 \hat{u}_i=y_i - \hat{y}_i = y_i-\hat{\beta_0}-\hat{\beta_1}x_i \tag{12}
 $$
 
-É importante observar que os resíduos não são iguais ao termo de erro. Agora, suponha que escolhamos $\hat{\beta_0}$ e $\hat{\beta_1}$ com a finalidade de fazer a soma dos quadrados dos resíduos,
+É importante observar que os resíduos não são iguais ao termo de erro. Agora, suponha que escolhamos $$\hat{\beta_0}$$ e $$\hat{\beta_1}$$ com a finalidade de fazer a soma dos quadrados dos resíduos,
 
 $$
 \sum_{i=1}^{n} \hat{u}_i^{2}= \sum_{i=1}^{n} (y_i-\hat{\beta_0}-\hat{\beta_1}x_i)^{2} \tag{13}
@@ -218,7 +218,7 @@ $$
 
 O $$R^{2}$$ é a razão entre a variação explicada e a variação total; assim, ele é interpretado com a fração da variação amostra em $$y$$ que é explicada por $$x$$. É um número que mede quão bem a reta de regressão de MQO se ajusta aos dados.
 
-O valor de $$R^{2}$$ está sempre contido entre zero e um; um valor de $R^{2}$ quase igual a zero indica um ajuste ruim da reta de MQO.
+O valor de $$R^{2}$$ está sempre contido entre zero e um; um valor de $$R^{2}$$ quase igual a zero indica um ajuste ruim da reta de MQO.
 
 ### 2.5 Valores esperados e variâncias dos estimadores de MQO
 #### 2.5.1 Inexistência de viés em MQO
@@ -425,7 +425,7 @@ summary(linearmodel)
 ````
 
 
-O $$R^{2}$$ deste modelo tem um valor de 0,051. Logo, 5,1\% da variação da variável dependente *TestScore* é explicada pela variável independente *STR*, ou seja, a regressão explica pouco da variação nas notas, e muito dessa variação permanece inexplicada. O erro padrão da regressão, por sua vez, é de 18,58; isso indica que na média o desvio da nota realmente obtida em relação à reta de regressão é de 18,58 pontos.
+O $$R^{2}$$ deste modelo tem um valor de 0,051. Logo, 5,1% da variação da variável dependente *TestScore* é explicada pela variável independente *STR*, ou seja, a regressão explica pouco da variação nas notas, e muito dessa variação permanece inexplicada. O erro padrão da regressão, por sua vez, é de 18,58; isso indica que na média o desvio da nota realmente obtida em relação à reta de regressão é de 18,58 pontos.
 
 ## Referências:
 
