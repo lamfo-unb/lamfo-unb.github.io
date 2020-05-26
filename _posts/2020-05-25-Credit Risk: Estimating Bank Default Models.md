@@ -2,7 +2,7 @@
 layout: post
 title: Credit Risk - Estimating Bank Default Models.
 lang: es
-header-img:![]https://i.imgur.com/OW2ZvEk.jpg)
+header-img:![]https://i.imgur.com/OW2ZvEk.jpg
 date: 2020-05-26
 tags: [Merton Default Probability, KMV Model, Z-Score, Black-Scholes]
 author: João Gabriel de Moraes Souza.
