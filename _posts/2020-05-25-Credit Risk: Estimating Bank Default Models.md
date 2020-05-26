@@ -28,15 +28,11 @@ where $V$ is the total value of the firm's assets (random variable), $\mu$ is th
 
 The Merton model uses the [Black and Scholes (1973)](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) model of options in which the firm's equity value follows the stipulated process of [Black and Scholes (1973)](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) for call options. A call option on the underlying assets has the same properties as a caller has, namely, a demand on the assets after reaching the strike price of the option. In this case, the exercise price of the option equals the book value of the firm's obligations. If the value of the assets is insufficient to cover the firm's obligations, then shareholders with a call option do not exercise their option and leave the firm to their creditors.
 
-$$
-E = V\mathcal{N}(d_1)- e^{-rT}F\mathcal{N}(d_2)
-$$
+$$ E = V\mathcal{N}(d_1)- e^{-rT}F\mathcal{N}(d_2) $$
 
-where $E$ is the market value of the equity of the firm (or free cash flow to the shareholder), $F$ is the face value of the debt securities, $r$ is the risk-free interest rate, and $\mathcal {N} (.)$ is the standardized cumulative normal distribution; $d_1$ is given by
+where $E$ is the market value of the equity of the firm (or free cash flow to the shareholder), $F$ is the face value of the debt securities, $ r $ is the risk-free interest rate, and $\mathcal {N} (.)$ is the standardized cumulative normal distribution; $ d_1 $ is given by
 
-$$
-d_1 = \frac{ln(\frac{V}{F})+(r+0.5\sigma^2_V)T}{\sigma_V\sqrt{T}}
-$$
+$$ d_1 = \frac{ln(\frac{V}{F})+(r+0.5\sigma^2_V)T}{\sigma_V\sqrt{T}} $$
 
 and $d_2$ is simply $d_1-\sigma_V\sqrt{T}$.
 
