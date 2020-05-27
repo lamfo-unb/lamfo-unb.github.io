@@ -11,14 +11,14 @@ comments: true
 
 ## Introduction
 
-In this post, I intruduce the calculation measures of default banking. In particular, this post considers the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) probability of default method, also known as the Merton model, the default model KMV from Moody's, and the Z-score model of [Lown et al. (2000)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=571342) and of [Tabak et al. (2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598), which is an adaptation of the [Altman (1968)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1968.tb00843.x) model.
+In this post, I intruduce the calculation measures of default banking. In particular, this post considers the [ Merton (1974) ](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) probability of default method, also known as the Merton model, the default model KMV from Moody's, and the Z-score model of [ Lown et al. (2000) ](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=571342) and of [ Tabak et al. (2013) ](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598), which is an adaptation of the [ Altman (1968) ](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1968.tb00843.x) model.
 
 The data used in the study are utilized in three stages. In the foreground, we use the values extracted from the balance of payments, then we use the financial statements, and lastly, we use the stock price history of world banks listed on the stock exchange, all extracted from the database of Bloomberg. The analysis period covers the first quarter of 2000 until the third quarter of 2016 with a periodicity of 67 quarters in 2,325 banks and 92 countries. Note that the assembled panel is unbalanced, containing 155,775 observations.
 
 
 ## Merton Model
 
-The [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model aims to find the values of assets and their volatilities in a dynamic process following [Black and Scholes (1973)](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents). In the Merton model, it is assumed that the total value of the firm follows a geometric Brownian motion process.
+The [ Merton (1974) ](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model aims to find the values of assets and their volatilities in a dynamic process following [ Black and Scholes (1973) ](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents). In the Merton model, it is assumed that the total value of the firm follows a geometric Brownian motion process.
 
 $$
 dV = \mu Vdt +\sigma_V VdW
@@ -26,7 +26,7 @@ $$
 
 where $V$ is the total value of the firm's assets (random variable), $\mu$ is the expected continuous return of $V$, $\sigma_V$ is the firm value volatility, and $dW$ is the standard process of Gauss--Wiener.
 
-The Merton model uses the [Black and Scholes (1973)](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) model of options in which the firm's equity value follows the stipulated process of [Black and Scholes (1973)](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) for call options. A call option on the underlying assets has the same properties as a caller has, namely, a demand on the assets after reaching the strike price of the option. In this case, the exercise price of the option equals the book value of the firm's obligations. If the value of the assets is insufficient to cover the firm's obligations, then shareholders with a call option do not exercise their option and leave the firm to their creditors.
+The Merton model uses the [ Black and Scholes (1973) ](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) model of options in which the firm's equity value follows the stipulated process of [ Black and Scholes (1973) ](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) for call options. A call option on the underlying assets has the same properties as a caller has, namely, a demand on the assets after reaching the strike price of the option. In this case, the exercise price of the option equals the book value of the firm's obligations. If the value of the assets is insufficient to cover the firm's obligations, then shareholders with a call option do not exercise their option and leave the firm to their creditors.
 
 $$ E = V\mathcal{N}(d_1)- e^{-rT}F\mathcal{N}(d_2) $$
 
@@ -36,20 +36,20 @@ $$ d_1 = \frac{ln(\frac{V}{F})+(r+0.5\sigma^2_V)T}{\sigma_V\sqrt{T}} $$
 
 and $d_2$ is simply $d_1-\sigma_V\sqrt{T}$.
 
-Applying the Itô Lemma in the dynamic process of $V$ and manipulating the terms of Equation of $d_1$, we obtain the following equation of the variability of the free cash flows of the shareholders ($\sigma_E$) [(Bharath and Shumway, 2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext).
+Applying the Itô Lemma in the dynamic process of $V$ and manipulating the terms of Equation of $d_1$, we obtain the following equation of the variability of the free cash flows of the shareholders ($\sigma_E$) [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext).
 
 $$
     \sigma_E=\left(\frac{V}{E}\right)\frac{\partial E}{\partial V}\sigma_V
 $$
 
-Given that [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x), it can be shown that $\frac{\partial E}{\partial V} = \mathcal{N} (d_1)$; then, Equation of $\sigma_E$ can be written as follows [(Bharath and Shumway, 2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext):
+Given that [ Merton (1974) ](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x), it can be shown that $\frac{\partial E}{\partial V} = \mathcal{N} (d_1)$; then, Equation of $\sigma_E$ can be written as follows [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext):
 
 
 $$
   \sigma_E = \left(\frac{V}{E}\right)\mathcal{N}(d_1)\sigma_V\  
 $$
 
-Basically, the algorithm works with Equations of $E$ and $\sigma_E$ to find the value terms of the asset $V$ and the volatility of the asset value $\sigma_V$. In this study, I use the Newton method to solve Equations $E$ and $\sigma_E$, the same algorithm that was used by [Anginer and Demirguc-Kunt (2014)](https://www.sciencedirect.com/science/article/pii/S1572308914000266).
+Basically, the algorithm works with Equations of $E$ and $\sigma_E$ to find the value terms of the asset $V$ and the volatility of the asset value $\sigma_V$. In this study, I use the Newton method to solve Equations $E$ and $\sigma_E$, the same algorithm that was used by [ Anginer and Demirguc-Kunt (2014) ](https://www.sciencedirect.com/science/article/pii/S1572308914000266).
 
 Equations $E$ and $\sigma_E$ have numerical solutions only for the values of $V$ and $\sigma_ {V}$. Once the numerical solution is found, the distance of default is calculated as follows:
 
