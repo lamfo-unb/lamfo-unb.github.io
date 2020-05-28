@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Credit Risk - Estimating Bank Default Models.
+title: Credit Risk - Estimating Bank Default Models
 lang: en
 header-img: img/CR/bank_default.jpeg
 date: 2020-05-26
@@ -442,7 +442,7 @@ In the background, I approach the inputs that make up the variable Z-score of [L
 
 \begin{array}{lcccc}
 \hline
-& ROA_{i.t} & sd_{ROA \ i.t} & ROE_{i.t} & EQAS_{i.t} \\ \hline
+& ROA_{i.t} & sd_{ROA.i.t} & ROE_{i.t} & EQAS_{i.t} \\ \hline
 Min & -136.80  & -230.53 & -230.50 & -19.90 \\
 1º \ \ Quartile & 0.0009 & 0.01141 & 0.01  & 0.07  \\
 Median & 0.002 & 0.02321 & 0.02  & 0.09 \\
@@ -460,7 +460,7 @@ In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi
 
 \begin{array}{lccc}
 \hline
-& \pi\_Merton_{i,t,j} & log(z-score_{i,t,j}) & \pi\_kmv_{i,t,j} \\ \hline
+& \pi_{Merton.i.t.j} & log(z-score_{i.t.j}) & \pi_{kmv.i.t.j} \\ \hline
 Min & 0.00  & -10.16 & 0.00  \\
 1º  Quartile & 0.00  & 3.20 & 0.00    \\
 Median & 0.00 & 3.90 & 0.00  \\
