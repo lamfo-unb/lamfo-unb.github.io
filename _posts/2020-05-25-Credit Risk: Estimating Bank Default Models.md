@@ -479,7 +479,7 @@ As an illustration, Figure 1 shows the temporal evolution of the default indicat
 
 <center>
 
-![](/img/CR/Default_Merton_zscore.png)
+/img/CR/Default_Merton_zscore.png
 
 </center>
 ***Figure 1**: Temporal Evolution of the Default Measures*
@@ -488,7 +488,7 @@ Another analysis was undertaken of the probabilities of default by economic regi
 
 <center>
 
-![](/img/CR/Default_Merton_region.png)
+/img/CR/Default_Merton_region.png
 
 </center>
 ***Figure 2**: Temporal Evolution of Default Measures per Region*
