@@ -2,7 +2,7 @@
 layout: post
 title: Credit Risk - Estimating Bank Default Models.
 lang: en
-header-img: https://i.imgur.com/OW2ZvEk.jpg
+header-img: img/CR/bank_default.jpeg
 date: 2020-05-26
 tags: [Merton Default Probability, KMV Model, Z-Score, Black-Scholes]
 author: João Gabriel de Moraes Souza.
@@ -24,34 +24,38 @@ $$
 dV = \mu Vdt +\sigma_V VdW
 $$
 
-where $V$ is the total value of the firm's assets (random variable), $\mu$ is the expected continuous return of $V$, $\sigma_V$ is the firm value volatility, and $dW$ is the standard process of Gauss--Wiener.
+where $$V$$ is the total value of the firm's assets (random variable), $$\mu$$ is the expected continuous return of $$V$$, $$\sigma_V$$ is the firm value volatility, and $$dW$$ is the standard process of Gauss--Wiener.
 
 The Merton model uses the [ Black and Scholes (1973) ](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) model of options in which the firm's equity value follows the stipulated process of [ Black and Scholes (1973) ](https://www.jstor.org/stable/1831029?seq=1#metadata_info_tab_contents) for call options. A call option on the underlying assets has the same properties as a caller has, namely, a demand on the assets after reaching the strike price of the option. In this case, the exercise price of the option equals the book value of the firm's obligations. If the value of the assets is insufficient to cover the firm's obligations, then shareholders with a call option do not exercise their option and leave the firm to their creditors.
 
-$$ E = V\mathcal{N}(d_1)- e^{-rT}F\mathcal{N}(d_2) $$
+$$ 
+E = V\mathcal{N}(d_1)- e^{-rT}F\mathcal{N}(d_2) 
+$$
 
-where $E$ is the market value of the equity of the firm (or free cash flow to the shareholder), $F$ is the face value of the debt securities, $ r $ is the risk-free interest rate, and $\mathcal {N} (.)$ is the standardized cumulative normal distribution; $ d_1 $ is given by
+where $$E$$ is the market value of the equity of the firm (or free cash flow to the shareholder), $$F$$ is the face value of the debt securities, $$ r $$ is the risk-free interest rate, and $$\mathcal {N} (.)$$ is the standardized cumulative normal distribution; $$ d_1 $$ is given by
 
-$$ d_1 = \frac{ln(\frac{V}{F})+(r+0.5\sigma^2_V)T}{\sigma_V\sqrt{T}} $$
+$$ 
+d_1 = \frac{ln(\frac{V}{F})+(r+0.5\sigma^2_V)T}{\sigma_V\sqrt{T}}
+$$
 
-and $d_2$ is simply $d_1-\sigma_V\sqrt{T}$.
+and $$d_2$$ is simply $$d_1-\sigma_V\sqrt{T}$$.
 
-Applying the Itô Lemma in the dynamic process of $V$ and manipulating the terms of Equation of $d_1$, we obtain the following equation of the variability of the free cash flows of the shareholders ($\sigma_E$) [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext).
+Applying the Itô Lemma in the dynamic process of $$V$$ and manipulating the terms of Equation of $$d_1$$, we obtain the following equation of the variability of the free cash flows of the shareholders ($$\sigma_E$$) [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext).
 
 $$
     \sigma_E=\left(\frac{V}{E}\right)\frac{\partial E}{\partial V}\sigma_V
 $$
 
-Given that [ Merton (1974) ](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x), it can be shown that $\frac{\partial E}{\partial V} = \mathcal{N} (d_1)$; then, Equation of $\sigma_E$ can be written as follows [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext):
+Given that [ Merton (1974) ](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x), it can be shown that $$\frac{\partial E}{\partial V} = \mathcal{N} (d_1)$$; then, Equation of $$\sigma_E$$ can be written as follows [ (Bharath and Shumway, 2008) ](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext):
 
 
 $$
   \sigma_E = \left(\frac{V}{E}\right)\mathcal{N}(d_1)\sigma_V\  
 $$
 
-Basically, the algorithm works with Equations of $E$ and $\sigma_E$ to find the value terms of the asset $V$ and the volatility of the asset value $\sigma_V$. In this study, I use the Newton method to solve Equations $E$ and $\sigma_E$, the same algorithm that was used by [ Anginer and Demirguc-Kunt (2014) ](https://www.sciencedirect.com/science/article/pii/S1572308914000266).
+Basically, the algorithm works with Equations of $$E$$ and $$\sigma_E$$ to find the value terms of the asset $$V$$ and the volatility of the asset value $$\sigma_V$$. In this study, I use the Newton method to solve Equations $$E$$ and $$\sigma_E$$, the same algorithm that was used by [ Anginer and Demirguc-Kunt (2014) ](https://www.sciencedirect.com/science/article/pii/S1572308914000266).
 
-Equations $E$ and $\sigma_E$ have numerical solutions only for the values of $V$ and $\sigma_ {V}$. Once the numerical solution is found, the distance of default is calculated as follows:
+Equations $$E$$ and $$\sigma_E$$ have numerical solutions only for the values of $$V$$ and $$\sigma_ {V}$$. Once the numerical solution is found, the distance of default is calculated as follows:
 
 $$
 DD = \frac{ln\left(\frac{V}{F}\right) + (\mu - \frac{1}{2}\sigma^{2}_{V})T}{\sigma_{V} \sqrt{T}}
@@ -63,9 +67,9 @@ $$
 \pi_{Merton} = \mathcal{N}(-DD)
 $$
 
-The default probability measure of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) is simply the probability function of the normal minus the distance to default, Equation of $DD$. According to [Bharath and Shumway (2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext), this probability of default (Equation of $\pi_{Merton}$) should be a sufficient statistic for the default prognostic.
+The default probability measure of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) is simply the probability function of the normal minus the distance to default, Equation of $DD$. According to [Bharath and Shumway (2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext), this probability of default (Equation of $$\pi_{Merton}$$) should be a sufficient statistic for the default prognostic.
 
-The starting point of the algorithm follows an adaptation of [Bharath and Shumway (2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext)  and [Anginer and Demirguc-Kunt (2014)](https://www.sciencedirect.com/science/article/pii/S1572308914000266), where the initial kicks of $V$ assume $V = market \ capitalization + total \ liabilities$ and $\sigma_ {V}$ assume $\sigma_{V} = \sigma_{asset \ price \ return} \times (market \ capitalization + total \ liabilities).$
+The starting point of the algorithm follows an adaptation of [Bharath and Shumway (2008)](https://academic.oup.com/rfs/article-abstract/21/3/1339/1566804?redirectedFrom=fulltext)  and [Anginer and Demirguc-Kunt (2014)](https://www.sciencedirect.com/science/article/pii/S1572308914000266), where the initial kicks of $$V$$ assume $$V = market \ capitalization + total \ liabilities$$ and $$\sigma_ {V}$$ assume $$\sigma_{V} = \sigma_{asset \ price \ return} \times (market \ capitalization + total \ liabilities).$$
 
 ### Application in R
 
@@ -172,13 +176,13 @@ base_merton$DD_merton_bailout[is.infinite(base_merton$DD_merton_bailout)]<- NA
 ## KMV Model
 
 
-The KMV model is calculated from the total value of the firm's assets $V$ and the volatility of the asset value $\sigma_{V}$ from the iteration between Equations $E$ and $\sigma_E$. We can observe the same process in [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) Model.
+The KMV model is calculated from the total value of the firm's assets $$V$$ and the volatility of the asset value $$\sigma_{V}$$ from the iteration between Equations $$E$$ and $$\sigma_E$$. We can observe the same process in [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) Model.
 
 $$
 DD_{KMV it} = \frac{(V_{it} - TL_{it})}{(V_{it} \cdot \sigma_{V it})}
 $$
 
-where $V_ {it}$ represents the market value of asset $i$ in period $t$, $\sigma_ {V it}$ represents the volatility of asset value $i$ in period $t$, and $TL_ {it}$ is total liabilities to asset $i$ in period $t$. As indicated by Equation $DD_{KMV it}$, with higher $DD_ {kMV it}$, the distance to default from bank $i$ in period $t$ is greater.
+where $$V_ {it}$$ represents the market value of asset $$i$$ in period $$t$$, $$\sigma_ {V it}$$ represents the volatility of asset value $$i$$ in period $$t$$, and $$TL_ {it}$$ is total liabilities to asset $$i$$ in period $$t$$. As indicated by Equation $$DD_{KMV it}$$, with higher $$DD_ {kMV it}$$, the distance to default from bank $$i$$ in period $$t$$ is greater.
 
 To normalize the variable to have a parallel effect and correlation analysis, normalization similar that elaborated by [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) is used. In other words, the probability of default of the KMV model is
 
@@ -219,15 +223,15 @@ $$
 Z-score_{it}=\frac{ROA_{it}+EQUAS_{it}}{\sigma_{ROA_i}}
 $$
 
-where $EQUAS = \left(\frac{E_{it}-E_{it-1}}{TA_{it}-TA_{it-1}}\right)$. In this model, $E_ {it}$ represents bank equity $i$ in period $t$, $E_{it-1}$ represents bank equity $i$ in period $t-1$, $TA_ {it}$ represents total assets of bank $i$ in period $t$, and $TA_{it-1}$ represents total assets of bank $i$ in period $t-1$.
+where $$EQUAS = \left(\frac{E_{it}-E_{it-1}}{TA_{it}-TA_{it-1}}\right)$$. In this model, $$E_ {it}$$ represents bank equity $$i$$ in period $$t$$, $$E_{it-1}$$ represents bank equity $$i$$ in period $$t-1$$, $$TA_ {it}$$ represents total assets of bank $$i$$ in period $$t$$, and $$TA_{it-1}$$ represents total assets of bank $$i$$ in period $$t-1$$.
 
-Parameter $ROA_ {it}$ is expressed as the following relation:
+Parameter $$ROA_ {it}$$ is expressed as the following relation:
 
 $$
 ROA_{it}=\frac{2\pi_{it}}{(TA_{it}-TA_{it-1})}
 $$
 
-$ROA_ {it}$ is the return on assets in period $t$ for bank $i$ and $\sigma_ {ROA it}$ is the standard deviation of $ROA$ of bank $i$ in period $t$. As the formula indicates, the higher the Z-score value, the lower the probability of bank failure $i$. For [Tabak et al. (2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598), the Z-score is a risk default measure accepted by the literature. The Z-score measures the number of standard deviations of $ROA$ that must decrease in order for banks become insolvent, which can be interpreted as the inverse of the probability of insolvency [(Tabak et al.,  2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598).
+$$ROA_ {it}$$ is the return on assets in period $$t$$ for bank $$i$$ and $$\sigma_ {ROA it}$$ is the standard deviation of $$ROA$$ of bank $$i$$ in period $$t$$. As the formula indicates, the higher the Z-score value, the lower the probability of bank failure $$i$$. For [Tabak et al. (2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598), the Z-score is a risk default measure accepted by the literature. The Z-score measures the number of standard deviations of $$ROA$$ that must decrease in order for banks become insolvent, which can be interpreted as the inverse of the probability of insolvency [(Tabak et al.,  2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598).
 
 Both the default probability measure of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) and the KMV measure have a direct relationship with the default, that is, the higher their values, the greater the likelihood of a financial institution falling. Meanwhile, the Z-score model has an inverse relationship with the default bank, that is, the higher its values, the more distant the bank is from the default. This inverse relationship between the Merton Models, Model KMV and Model Z-score occurs because the first two represent a normalization of the distances from the default, making them directly linked to the default. In the Z-score model, on the other hand, the relationship is inverse because it measures the distance from the default, that is, the probability of banks being further from the default and not the direct probability of default.
 
@@ -418,7 +422,7 @@ In this section, I discuss the descriptive analyzes of the inputs that comprise 
 
 <center>
 
-\begin{array}{lcccccc}
+\begin{array}{lccccc}
 \hline
 & r_{i.t}  & E_{i.t} & F_{i.t} & T_{bill.it} & sd_{i.t} \\ \hline
 Min & -4.3820 & 0.0000 & 0.0000 & 0.0056 & 0.00 \\
@@ -428,10 +432,9 @@ Mean & -0.0067 & 4,332 & 43,255 & 0.0098  & 0.02 \\
 3º \ \ Quartile & 0.0878 & 1,588 & 10,683 & 0.0116 & 0.03  \\
 Max & 2.5451  & 338,916 & 3,538,000  & $0.0159$ & $0.14$ \\ \hline
 \end{array}
-**Tabel 1-** Summary of Inputs in the $\pi_{Merton}$ and KMV Models. All returns are continuos and monetary data are in milons of USD.
 
 </center>
-
+**Tabel 1-** Summary of Inputs in the $$\pi_{Merton}$$ and KMV Models. All returns are continuos and monetary data are in milons of USD.
 
 In the background, I approach the inputs that make up the variable Z-score of [Lown et al. (2000)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=571342) and of [Tabak et al. (2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598). The parameters are listed in Table 2.
 
@@ -447,9 +450,9 @@ Mean & 0.0005 & 0.017 & 0.02 & 0.10 \\
 3º \ \ Quartile & 0.003 & 0.03662 & 0.04 & 0.12  \\
 Max & 70.61 & 21.09  & 148.21  & 1.00 \\ \hline
 \end{array}
-**Tabel 2-** Summary of Inputs to \(Z-score\). All returns are continuos and monetary data are in milons of USD.
 
 </center>
+**Tabel 2-** Summary of Inputs to $$Z-score$$. All returns are continuos and monetary data are in milons of USD.
 
 In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $[0.1]$ probabilities of default. The values of the $\log(Z-score)$ model are presented in values of deviations from default.
 
@@ -465,31 +468,30 @@ Mean & 0.46 & 3.74 & 0.49  \\
 3º \ \ Quartile & 1.00 & 4.44 & 1.00   \\
 Max & 1.00 & 9.73  & 1.00 \\ \hline
 \end{array}
-**Tabel 3-** Descriptive Analysis of Default Variables.
 
 </center>
+**Tabel 3-** Descriptive Analysis of Default Variables.
 
-In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $[0.1]$ probabilities of default. The values of the $\log(Z-score)$ model are presented in values of deviations from default.
+In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $$[0.1]$$ probabilities of default. The values of the $$log(Z-score)$$ model are presented in values of deviations from default.
 
 
-As an illustration, Figure 1 shows the temporal evolution of the default indicators. It can be noticed that, near the period of the financial crisis of 2008, the indicators present a higher probability of default. The greater the $\pi_ {Merton}$ indicator, the greater the probability that the bank defaults. The $Z-score$ indicator is the inverse: the larger the indicator, the lower the probability of default. However, it is observed from Figure 1 that at some time points, the indicators move in the same direction. The $Z-score$ indicator may have a slower response than the $\pi_{Merton}$ indicator, since it has only accounting data sets, whereas the $\pi_{Merton}$ indicator uses market data as well; these kind of data have faster responses to the default measures.
+As an illustration, Figure 1 shows the temporal evolution of the default indicators. It can be noticed that, near the period of the financial crisis of 2008, the indicators present a higher probability of default. The greater the $$\pi_ {Merton}$$ indicator, the greater the probability that the bank defaults. The $$Z-score$$ indicator is the inverse: the larger the indicator, the lower the probability of default. However, it is observed from Figure 1 that at some time points, the indicators move in the same direction. The $$Z-score$$ indicator may have a slower response than the $$\pi_{Merton}$$ indicator, since it has only accounting data sets, whereas the $$\pi_{Merton}$$ indicator uses market data as well; these kind of data have faster responses to the default measures.
 
 <center>
 
-![](https://i.imgur.com/KMWSOWm.png)
+![](/img/CR/Default_Merton_zscore.png)
 
-***Figure 1**: Temporal Evolution of the Default Measures*
 </center>
+***Figure 1**: Temporal Evolution of the Default Measures*
 
 Another analysis was undertaken of the probabilities of default by economic region. Figure 2 shows the evolution of the average default probability of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) in economic regions. It can be observed that in general, banks of North America, South Asia and Sub-Saharan Africa have higher indexes of default relative to other regions, such as Latin America, the Caribbean, North Africa, Middle East, Europe and Central Asia. This effect can be observed since, in general, regions that have the highest average indicators of default have larger numbers of financial institutions than do those of other regions.
 
 <center>
 
+![](/img/CR/Default_Merton_region.png)
 
-![](https://i.imgur.com/EQwt5BA.png)
-
-***Figure 2**: Temporal Evolution of Default Measures per Region*
 </center>
+***Figure 2**: Temporal Evolution of Default Measures per Region*
 
 ## Final Remarks
 
