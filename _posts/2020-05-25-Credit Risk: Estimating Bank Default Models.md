@@ -454,7 +454,7 @@ Max & 70.61 & 21.09  & 148.21  & 1.00 \\ \hline
 </center>
 **Tabel 2-** Summary of Inputs to $$Z-score$$. All returns are continuos and monetary data are in milons of USD.
 
-In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $[0.1]$ probabilities of default. The values of the $\log(Z-score)$ model are presented in values of deviations from default.
+In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $$[0.1]$$ probabilities of default. The values of the $$\log(Z-score)$$ model are presented in values of deviations from default.
 
 <center>
 
