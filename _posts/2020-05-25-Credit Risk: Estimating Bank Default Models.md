@@ -479,7 +479,7 @@ As an illustration, Figure 1 shows the temporal evolution of the default indicat
 
 <center>
 
-![](/img/CR/dmz.png)
+![](https://i.imgur.com/KMWSOWm.png)
 
 </center>
 ***Figure 1**: Temporal Evolution of the Default Measures*
@@ -488,7 +488,7 @@ Another analysis was undertaken of the probabilities of default by economic regi
 
 <center>
 
-![](/img/CR/dmr.png)
+![](https://i.imgur.com/EQwt5BA.png)
 
 </center>
 ***Figure 2**: Temporal Evolution of Default Measures per Region*
