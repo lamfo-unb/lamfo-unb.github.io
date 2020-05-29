@@ -438,7 +438,7 @@ Max & 2.5451  & 338,916 & 3,538,000  & $0.0159$ & $0.14$ \\ \hline
 
 In the background, I approach the inputs that make up the variable Z-score of [Lown et al. (2000)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=571342) and of [Tabak et al. (2013)](https://www.sciencedirect.com/science/article/abs/pii/S0378426613002598). The parameters are listed in Table 2.
 
-</center>
+<center>
 
 \begin{array}{lcccc}
 \hline
@@ -456,7 +456,7 @@ Max & 70.61 & 21.09  & 148.21  & 1.00 \\ \hline
 
 In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) model and KMV vary between $[0.1]$ probabilities of default. The values of the $\log(Z-score)$ model are presented in values of deviations from default.
 
-</center>
+<center>
 
 \begin{array}{lccc}
 \hline
