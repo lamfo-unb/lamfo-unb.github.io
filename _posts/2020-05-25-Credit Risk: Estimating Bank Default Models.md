@@ -424,7 +424,7 @@ In this section, I discuss the descriptive analyzes of the inputs that comprise 
 
 \begin{array}{lccccc}
 \hline
-& r_{i.t}  & E_{i.t} & F_{i.t} & T_{bill.it} & sd_{i.t} \\ \hline
+& r_{i.t}  & E_{i.t} & F_{i.t} & T_{bill.i.t} & sd_{i.t} \\ \hline
 Min & -4.3820 & 0.0000 & 0.0000 & 0.0056 & 0.00 \\
 1º \ \ Quartile & -0.081587 & 64.5  & 649 & 0.0074  & 0.01  \\
 Median & 0.0042 & 300.2  & 2,243 & 0.0101 & 0.02 \\
@@ -442,7 +442,7 @@ In the background, I approach the inputs that make up the variable Z-score of [L
 
 \begin{array}{lcccc}
 \hline
-& ROA_{i.t} & sd_{ROA.i.t} & ROE_{i.t} & EQAS_{i.t} \\ \hline
+& ROA_{i.t} & \sigma_{ROA.i.t} & ROE_{i.t} & EQAS_{i.t} \\ \hline
 Min & -136.80  & -230.53 & -230.50 & -19.90 \\
 1º \ \ Quartile & 0.0009 & 0.01141 & 0.01  & 0.07  \\
 Median & 0.002 & 0.02321 & 0.02  & 0.09 \\
@@ -462,7 +462,7 @@ In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi
 \hline
 & \pi_{Merton.i.t.j} & log(z-score_{i.t.j}) & \pi_{kmv.i.t.j} \\ \hline
 Min & 0.00  & -10.16 & 0.00  \\
-1º  Quartile & 0.00  & 3.20 & 0.00    \\
+1º \ \ Quartile & 0.00  & 3.20 & 0.00    \\
 Median & 0.00 & 3.90 & 0.00  \\
 Mean & 0.46 & 3.74 & 0.49  \\
 3º \ \ Quartile & 1.00 & 4.44 & 1.00   \\
@@ -479,7 +479,7 @@ As an illustration, Figure 1 shows the temporal evolution of the default indicat
 
 <center>
 
-/img/CR/Default_Merton_zscore.png
+![](/img/CR/dmz.png)
 
 </center>
 ***Figure 1**: Temporal Evolution of the Default Measures*
@@ -488,7 +488,7 @@ Another analysis was undertaken of the probabilities of default by economic regi
 
 <center>
 
-/img/CR/Default_Merton_region.png
+![](/img/CR/dmr.png)
 
 </center>
 ***Figure 2**: Temporal Evolution of Default Measures per Region*
