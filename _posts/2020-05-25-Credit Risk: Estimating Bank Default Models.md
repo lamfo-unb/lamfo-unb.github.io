@@ -477,20 +477,15 @@ In Table 3 The values of the [Merton (1974)](https://onlinelibrary.wiley.com/doi
 
 As an illustration, Figure 1 shows the temporal evolution of the default indicators. It can be noticed that, near the period of the financial crisis of 2008, the indicators present a higher probability of default. The greater the $$\pi_ {Merton}$$ indicator, the greater the probability that the bank defaults. The $$Z-score$$ indicator is the inverse: the larger the indicator, the lower the probability of default. However, it is observed from Figure 1 that at some time points, the indicators move in the same direction. The $$Z-score$$ indicator may have a slower response than the $$\pi_{Merton}$$ indicator, since it has only accounting data sets, whereas the $$\pi_{Merton}$$ indicator uses market data as well; these kind of data have faster responses to the default measures.
 
-<center>
+
 
 ![](https://i.imgur.com/KMWSOWm.png)
-
-</center>
 ***Figure 1**: Temporal Evolution of the Default Measures*
 
 Another analysis was undertaken of the probabilities of default by economic region. Figure 2 shows the evolution of the average default probability of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) in economic regions. It can be observed that in general, banks of North America, South Asia and Sub-Saharan Africa have higher indexes of default relative to other regions, such as Latin America, the Caribbean, North Africa, Middle East, Europe and Central Asia. This effect can be observed since, in general, regions that have the highest average indicators of default have larger numbers of financial institutions than do those of other regions.
 
-<center>
 
 ![](https://i.imgur.com/EQwt5BA.png)
-
-</center>
 ***Figure 2**: Temporal Evolution of Default Measures per Region*
 
 ## Final Remarks
