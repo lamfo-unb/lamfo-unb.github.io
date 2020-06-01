@@ -479,13 +479,13 @@ As an illustration, Figure 1 shows the temporal evolution of the default indicat
 
 
 
-![](https://i.imgur.com/KMWSOWm.png)
+![](/img/CR/dmz.png)
 ***Figure 1**: Temporal Evolution of the Default Measures*
 
 Another analysis was undertaken of the probabilities of default by economic region. Figure 2 shows the evolution of the average default probability of [Merton (1974)](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1974.tb03058.x) in economic regions. It can be observed that in general, banks of North America, South Asia and Sub-Saharan Africa have higher indexes of default relative to other regions, such as Latin America, the Caribbean, North Africa, Middle East, Europe and Central Asia. This effect can be observed since, in general, regions that have the highest average indicators of default have larger numbers of financial institutions than do those of other regions.
 
 
-![](https://i.imgur.com/EQwt5BA.png)
+![](/img/CR/dmr.png)
 ***Figure 2**: Temporal Evolution of Default Measures per Region*
 
 ## Final Remarks
