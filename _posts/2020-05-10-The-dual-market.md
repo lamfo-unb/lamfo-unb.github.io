@@ -3,7 +3,7 @@ layout: post
 title: The dual market
 lang: en
 header-img: img/004.png
-date: 2017-04-29 23:59:07
+date: 2020-05-10 23:59:07
 tags: [wages determination process,segmentation, ols]
 author: Fernanda Vieira
 comments: true
