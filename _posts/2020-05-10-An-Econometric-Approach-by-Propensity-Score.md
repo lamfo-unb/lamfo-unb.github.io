@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AAn Econometric Approach by Propensity Score
+title: An Econometric Approach by Propensity Score
 lang: en
 header-img: kernel.png
 date: 2020-05-10 14:00:07
