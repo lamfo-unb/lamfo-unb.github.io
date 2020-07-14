@@ -23,6 +23,8 @@ Uma aplicação de ferramentas estatísticas é a avaliação da eficácia de um
 
 Como os dados chegam ao pesquisador? Eles podem ser provenientes de experimentos ou pela observação, caso no qual as variáveis independentes (isto é, explicativas) não estão sob controle do pesquisador. Um detalhe de grande importância quando da realização de estudos estatísticos é garantir a minimização de vieses, que podem surgir de várias formas. No caso aqui em discussão, uma fonte de viés pode surgir do modo como cada indivíduo é escolhido/alocado a pertencer a determinado grupo de estudo. Uma alocação enviesada pode ocasionar erros de inferência, já que a amostra não é representativa da população que se quer analisar, consequentemente tornando os resultados menos confiáveis, ou mesmo falsos, do ponto de vista estatístico. Queremos, portanto, encontrar modelos que auxiliem a solucionar esse problema de viés de seleção e que possam providenciar estimativas válidas do efeito médio de tratamento (Average Treatment Effect – ATE).
 
+O ATE é calculado tomando-se a diferença da média entre os resultados obtidos no grupo de controle e grupo de tratamento; desta forma, obtemos uma medida dos efeitos entre ambos os grupos e podemos avaliar a eficácia do tratamento nos indivíduos.
+
 Randomized Control Trials (RCT) são experimentos nos quais a alocação é randomizada – isso significa que a probabilidade do indivíduo pertencer ao grupo de controle ou ao grupo de tratamento é a mesma (50%) em nosso exemplo binário. A garantia de randomização diminui o risco de viés na análise, assim como de associações espúrias, já que temos uma maior certeza em afirmar que os grupos são parecidos em tudo, exceto sua exposição ao tratamento. Contudo, nem sempre a realização de um RCT é possível: os custos podem ser proibitivamente elevados, e em muitos casos o tema de estudo esbarra em questões éticas, inviabilizando a realização de experimentos.
 
 
@@ -34,6 +36,10 @@ Quando não é possível randomizar a alocação dos indivíduos aos grupos, com
 Devido a essas limitações, o Propensity Score Matching (PSM) é uma alternativa para estimar os efeitos causais de receber o tratamento em uma amostra de indivíduos. O método PSM foi introduzido na literatura por Paul Rosenbaum e Donald Rubin em 1983; a ideia é de atribuir uma probabilidade de receber o tratamento a cada indivíduo da amostra – o propensity score (PS) –, controlando para suas características observadas, e depois parear unidades de ambos os grupos com propensity scores similares, para em seguida comparar os resultados obtidos entre os pares. O modelo pode ajudar a solucionar o problema de viés de seleção e providenciar estimativas não enviesadas do efeito médio do tratamento.
 
 O propensity score é uma probabilidade condicional de que o participante de um estudo receba o tratamento dadas as covariáveis observadas; assim, não só aos participantes que de fato receberam o tratamento lhes é atribuído um propensity score, mas àqueles que não receberam também lhes é atribuída essa probabilidade. Além disso, condicionando para o PS, cada participante apresenta a mesma probabilidade de alocação para o tratamento, assim como em um experimento randomizado. O propensity score pode ser encarado como um balancing score (cujo conceito é explicado mais à frente) representante de um conjunto de covariáveis; deste modo, um par de indivíduos do grupo de controle e de tratamento que apresentem um propensity score similar podem ser comparáveis, mesmo que apresentem diferenças nas covariáveis específicas.
+
+O viés quando da estimação do ATE surge quando diferenças nos resultados possam ser consequência de caracterísiticas secundárias dos indivíduos do que realmente em razão do tratamento aplicado. O cenário ideal para mitigação desse problema seria a realização de um RCT, dado que a randomização permite balancear essas caracterísiticas secundárias quando da alocação nos grupos de tratamento ou controle. O método PSM surge como alternativa à realização de um RCT, na medida em que simula um experimento controlado; a atribuição de probabilidades aos indivíduos-teste de receber o tratamento influi no sentido de enfrentar o problema de viés de seleção e viés dos estimadores do ATE, já que por esse método estaremos comparando agentes com caracterísiticas semelhantes, porém diferentes quanto à sua participação no grupo de tratamento. Assim, a análise é realizada entre uma seleção de indivíduos de ambos os grupo com relativo grau de paridade – e, esperamos, comparabilidade – em termos de covariáveis observada. 
+
+Uma diferença chave entre os dois métodos, contudo, é que enquanto o RCT realiza um balanceamento para todas as caracterísitcas secundárias dos indivíduos, sejam eles participantes ou não do grupo de tratamento, o PSM permite somente o balanceamento daquelas características observáveis pelo pesquisador no momento do estudo. Aquilo que não for observável não será levado em consideração quando do cálculo das probabilidades condicionais, sendo portanto uma potencial fonte de viés quando da estimação do ATE.
 
 Como dito anteriormente, o propensity score é uma medida de equilíbrio que sumariza a informação do vetor de covariáveis. Participantes do grupo de controle e do grupo de tratamento com o mesmo valor do propensity score têm a mesma distribuição das covariáves observadas; ou seja, em um set de pares que é homogêneo para o PS, ambos os indivíduos podem apresentar valores diferentes para as covariáveis, mas essas diferenças serão puramente por acaso, e não diferenças sistemáticas.
 
@@ -406,7 +412,7 @@ plt.show()
 ```    
 
 
-![png](output_10_1.png)
+<img src="/img/oficina-PMS/output_10_1.png" style="display: block; margin: auto;" />
 
 
 
@@ -728,7 +734,7 @@ plt.show()
 ```    
 
 
-![png](output_17_1.png)
+<img src="/img/oficina-PMS/output_17_1.png" style="display: block; margin: auto;" />
 
 Um pouco diferente, não?
 
