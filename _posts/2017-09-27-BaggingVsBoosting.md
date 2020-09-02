@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Classificadores Ensemble, tipos Bagging e Boosting
+title: Classificadores Ensemble&#58; Bagging e Boosting
 lang: pt
 header-img: img/0026.png
 date: 2017-09-27 14:15:07
