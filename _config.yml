@@ -11,7 +11,7 @@ email_username:  lamfo@unb.br
 
 # Google Analytics
 # To enable google analytics, uncomment below line with a valid Google Tracking ID
-google_tracking_id: UA-97417743-1
+google_tracking_id: UA-157542230-2
 
 # Build settings
 markdown: kramdown
