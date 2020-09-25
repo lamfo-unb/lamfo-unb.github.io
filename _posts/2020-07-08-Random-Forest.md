@@ -9,6 +9,12 @@ author: Marcius Lima, Fernanda Amorim
 comments: true
 ---
 
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
+
 # Random Forest
 
 *Random Forest* é um método de aprendizado de máquina utilizado para problemas que envolvam classificação ou regressão. Ele se baseia em uma coleção de árvores de decisão $\{h(x,\Theta_k),k=1,...\}$ em que os $\{\Theta_k\}$ são vetores aleatórios independentes e identicamente distribuídos. Podemos pensar em uma árvore de decisão como uma representação gráfica para um determinado processo de decisão. As árvores são formadas por nós, que armazenam informação (perguntas). O nó raiz é o nó que possui maior nível hierárquico e, a partir dele, ramificam-se os nós filhos. O nó que não possui filhos é conhecido como nó folha ou terminal. A imagem abaixo exemplifica a estrutura de uma árvore.
