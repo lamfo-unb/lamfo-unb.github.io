@@ -104,7 +104,7 @@ $$\mathbf{B}^{*} = \sum_{k=1}^{J}\,(\hat{\mu}_j^{*}-\hat{\mu}^{*})\,(\hat{\mu}_j
 Através desse procedimento, reduzimos nossos dados de $\mathbf{X}_{(n \times p)}$ para $\mathbf{Z}_{(n \times L)}$, reduzindo a dimensão do problema de $p$ para $L$.
 
 
-![](https://i.imgur.com/z0tRcb7.jpg)
+<img src="/img/LDA/three.jpg" style="display: block; margin: auto;" />
 
 O **LDA** cria um novo eixo e projeta os dados ortogonalmente de forma a **minimizar a variância e maximizar a distância entre as médias das classes**. No exemplo acima, a simples projeção ortogonal no eixo horizontal não é ótima pois as informações atreladas à separação dos dados em classes foi perdida. No segundo caso, com a aplicação de um LDA, corrige-se esse problema.
 
@@ -207,7 +207,7 @@ Today   1.20995907
 ```{r}
 plot(modelo_analise)
 ```
-![](https://i.imgur.com/VrklX6s.png)
+<img src="/img/LDA/up_down.png" style="display: block; margin: auto;" />
 
 
 ```
