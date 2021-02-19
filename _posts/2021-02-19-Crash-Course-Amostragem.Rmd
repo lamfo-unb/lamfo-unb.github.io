@@ -1,12 +1,12 @@
 ---
-title: "Crash Course de Amostragem - LAMFO"
-author: 
-- Alex Rodrigues do Nascimento
-- Igor Ferreira do Nascimento
-- Laboratório de Aprendizado de Máquina em Finanças e Organizações - LAMFO
-date: "19/02/2021"
-output: html_document
-bibliography: references.bib
+layout: post
+title: "Crash Course de Amostragem"
+lang: pt
+header-img: img/home-bg.jpg
+tags: [amostragem, estatística, crash course]
+author: Alex Rodrigues do Nascimento, Igor Ferreira do Nascimento
+date: 2021-02-19 23:59:07
+comments: true
 ---
 
 ### Amostragem clássica
