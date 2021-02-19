@@ -234,7 +234,7 @@ Ao calcular a primeira derivada, tem-se um candidato a ponto máximo. Esse é o 
 ### Coeficientes
 
 
-A variável resposta da regressão logística possui distribuição de Bernoulli, com probabilidade de sucesso %$p$% e probabilidade de fracasso {% $1-p$ %}.
+A variável resposta da regressão logística possui distribuição de Bernoulli, com probabilidade de sucesso %$p$% e probabilidade de fracasso %$1-p$%.
 
 $$
 {% P(y_{i}) = p_i^{y_{i}} (1-p_i)^{1-y_{i}} \\
