@@ -245,7 +245,7 @@ $$
 A probabilidade de observar uma amostra e dada pelo produto das probabilidades individuais:
 
 $$
-P(y_{1}, ..., y_{n} ) = \prod^{n}_{i=1}{p_i^{y_{i}}(1-p_i)^{1-y_{i}}}
+P(y_{1}, ..., y_{n} ) = \prod^{n}_{i=1}{% p_i^{y_{i}}(1-p_i)^{1-y_{i}} %}
 $$
 
 Sabe-se que $L (\theta;x)= P(x;\theta)$, portanto,
