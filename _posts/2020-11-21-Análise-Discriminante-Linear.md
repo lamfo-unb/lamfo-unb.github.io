@@ -4,7 +4,7 @@ title: Análise Discriminante Linear
 lang: pt
 header-img: img/home-bg.jpg
 date: 2020-11-21 23:59:07
-tags: [LDA, , Funções classificatórias]
+tags: [LDA, Funções classificatórias]
 author: João Pedro Fontoura da Silva, Alícia Isaias Macedo
 comments: true
 ---
