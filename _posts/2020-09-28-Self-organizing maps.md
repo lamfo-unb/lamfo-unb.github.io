@@ -1,3 +1,20 @@
+---
+layout: post
+title: Self-organizing maps
+lang: pt
+header-img: img/home-bg.jpg
+date: 2020-09-28 23:59:07
+tags: [Self-organizing maps, Images, Machine Learning, Estatística]
+author: Stefano Dantas, Neuremberg Matos e Ricardo Pinho
+comments: true
+---
+
+
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
 # Self-organizing maps
 
 ## Definição
