@@ -29,7 +29,7 @@ A Impureza de Gini pode ser descrita pela equação,
 
 
 \begin{equation}
-    G = \sum^C_{i=1}{p(i)*(1-p(i))},
+    G = \sum^C_{i=1}{p(i)*(1-p(i))}
 \end{equation}
 
 e representa a probabilidade de se classificar incorretamente uma amostra retirada aleatoriamente se esta fosse aleatoriamente classificada de acordo com a distribuição de classe dos dados.
@@ -37,17 +37,17 @@ e representa a probabilidade de se classificar incorretamente uma amostra retira
 A Entropia mede a desordem de um grupamento de variáveis e é dada por
 
 \begin{equation}
-    Entropia = -\sum^C_{i=1}{p(i)*log_2p(i)}.
+    Entropia = -\sum^C_{i=1}{p(i)*log_2p(i)}
 \end{equation}
 
 Por fim, para o MAE e o MSE, tem-se que
 
 \begin{equation}
-    MAE = \frac{1}{n}\sum^N_{i=1}{{y_i - \hat{y_i}},
+    MAE = \frac{1}{n}\sum^N_{i=1}{{y_i - \hat{y_i}}
 \end{equation}
 
 \begin{equation}
-    MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}.
+    MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}
 \end{equation}
 
 Importante notar que com relação as duas últimas, o MSE coloca mais peso em grandes erros, isto é, coloca mais importância a erros maiores do que a MAE. De modo que se para o problema em questão, um erro de (10-5) tem que ser analisado como um erro maior que 5, é melhor utilizar o MSE como critério. Mas caso a disparidade não tenha tanta importância no problema, então pode-se utiizar o MAE.
