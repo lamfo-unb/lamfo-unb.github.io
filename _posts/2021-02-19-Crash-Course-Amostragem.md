@@ -752,4 +752,71 @@ As variáveis preditoras são ordenadas segundo $\theta_i$ e determina-se um lim
 
 
 ### Referências
+@article{Hansen1982,
+author = {Hansen, Lars Peter},
+doi = {10.2307/1912775},
+file = {:home/joaogabrielsouza/{\'{A}}rea de Trabalho/PPGA/Doutorado{\_}Financas/Tese - Financas Bancarias/Artigos Tese/Ensaio 2/Hansen - Large Sample Properties of Generalized Method of Moments Estimators - 1982 - Econometrica.pdf:pdf},
+issn = {00129682},
+journal = {Econometrica},
+month = {jul},
+number = {4},
+pages = {1029-1054},
+title = {{Large Sample Properties of Generalized Method of Moments Estimators}},
+url = {https://www.jstor.org/stable/1912775?origin=crossref},
+volume = {50},
+year = {1982}
+}
 
+@misc{Cochrane2017,
+author = {Cochrane, John H},
+file = {:home/joaogabrielsouza/{\'{A}}rea de Trabalho/PPGA/Artigos/Cochrane - GMM_notes.pdf:pdf},
+pages = {210--231},
+title = {{GMM Notes}},
+year = {2017}
+}
+
+@article{Newey1987,
+author = {Newey, Whitney K and West, Kenneth D},
+file = {:home/joaogabrielsouza/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Newey, West - 1987 - A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix.pdf:pdf},
+journal = {Econometrica},
+number = {3},
+pages = {703--708},
+title = {{A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix}},
+volume = {55},
+year = {1987}
+}
+
+@article{Fama1993,
+author = {Fama, Eugene F. and French, Kenneth R.},
+doi = {10.1016/0304-405X(93)90023-5},
+file = {:home/joaogabrielsouza/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Fama, French - 1993 - Common risk factors in the returns on stocks and bonds.pdf:pdf},
+issn = {0304405X},
+journal = {Journal of Financial Economics},
+number = {1},
+pages = {3--56},
+pmid = {295138},
+publisher = {Elsevier},
+series = {Journal of Financial Economics},
+title = {{Common risk factors in the returns on stocks and bonds}},
+volume = {33},
+year = {1993}
+}
+
+@article{mayer2010drawing,
+  title={Drawing an elephant with four complex parameters},
+  author={Mayer, J{\"u}rgen and Khairy, Khaled and Howard, Jonathon},
+  journal={American Journal of Physics},
+  volume={78},
+  number={6},
+  pages={648--649},
+  year={2010},
+  publisher={American Association of Physics Teachers}
+}
+
+@book{james2013introduction,
+  title={An introduction to statistical learning},
+  author={James, Gareth and Witten, Daniela and Hastie, Trevor and Tibshirani, Robert},
+  volume={112},
+  year={2013},
+  publisher={Springer}
+}
