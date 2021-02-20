@@ -3,9 +3,9 @@ layout: post
 title: "Crash Course de Amostragem"
 lang: pt
 header-img: img/home-bg.jpg
+date: 2020-09-27 23:59:15
 tags: [amostragem, estatística, crash course]
 author: Alex Rodrigues do Nascimento, Igor Ferreira do Nascimento
-date: 2020-09-27 23:59:15
 comments: true
 --
 
