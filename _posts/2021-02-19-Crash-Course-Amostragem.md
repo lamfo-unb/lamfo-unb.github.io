@@ -12,7 +12,7 @@ comments: true
 ### Amostragem clássica
 
 
-O censo é a coleta das informações de toda a população, enquanto a amostragem é a coleta de um sobconjunto representativo dessa população. 
+O censo é a coleta das informações de toda a população, enquanto a amostragem é a coleta de um sobconjunto representativo dessa população.
 
 A principal vantagem do censo é a desvantagem da amostragem, e vice-versa. Por exemplo, ao coletarmos apenas um subconjunto da população, fazemos isso de forma mais **rápida** e com menor **custo**, quando comparamos com o censo. No entanto, ao realizarmos o censo, não há erro, pois foi coletada todas as informações da população. Já o processo de amostragem, as informações coletadas dependem da amostra, e por isso, há o chamado **erro amostral**.
 
@@ -25,17 +25,17 @@ A população possui **parâmetros**, normalmente, desconhecidos, e por meio do 
 A principal referência para o estudo clássico em amostragem é @cochran2007sampling. Nesse livro, o autor apresenta 11 etapas para o processo de amostragem. A seguir, apresentamos as principais:
 
  * Definição dos objetivos da pesquisa
- 
+
  * Definição da população a ser amostrada
- 
+
  * Quais informações da população serão coletadas
- 
+
  * Nível de precisão. Aqui temos o tão conhecido: ["O nível de confiança da pesquisa é de 95%"](https://www.youtube.com/watch?v=6x2IKleWgOQ)
- 
+
  * [Plano amostral](https://faculty.elgin.edu/dkernler/statistics/ch01/1-4.html).
- 
+
  * Pré-teste
- 
+
  * Análise dos dados
 
 
@@ -51,7 +51,7 @@ Outra forma de se realizar a amostragem é utilizando planos amostrais mais elab
 
 Obviamente, para esse tipo de divisão precisamos **conhecer tal atributo para cada elemento da população**, para só então, realizarmos o processo de seleção estratificada.
 A definição do tamanho a ser coletado em cada estrato para a amostra deve ser escolhido de acordo com os objetivos da pesquisa e podem ser encontrados em @cochran2007sampling. O mais utilizado é a alocação proporcional ao tamanho dos estratos, isto é, o tamanho amostral em cada estrato é proporcional ao tamanho do estrato.
- 
+
 Nas equações a seguir $N_h$ é o tamanho do estrato $i$ em uma população de tamanho $N$, e $n_h$ é o tamanho da amostra no estrato $h$ em uma amostra de tamanho $n$. Dessa forma, $n_h$ é proporcional a $N_h$. Além disso, o estimador amostral é uma combinação do estimador em cada estrato $h$ ponderado pelo peso do estrato na amostra $\frac{n_h}{n}$
 
 ![*Estimador e tamanho  amostral da amostragem estratificada, sendo L o número de estratos. Fonte:@cochran2007sampling*](SLID2.png)
@@ -75,14 +75,14 @@ amostragem (SIPD), tendo em conhecimento o  Cadastro Nacional de Endereços para
     - colar ou expansão metropolitana ou a outra RM;
     - à RIDE com sede em outra UF e
     - Demais municípios da UF.
-    
+
 * Etapa 1: Unidades Primárias de Amostragem (UPAs): selecionadas com probabilidade proporcional ao tamanho, medido pelo número de domicílios particulares permanentes ocupados e vagos (DPPs).
 
-* Etapa 2: selecionado amostra de 14 domicílios particulares permanentes ocupados dentro de cada UPA da amostra, por amostragem aleatória simples, baseado no cadastro CNEFE 
+* Etapa 2: selecionado amostra de 14 domicílios particulares permanentes ocupados dentro de cada UPA da amostra, por amostragem aleatória simples, baseado no cadastro CNEFE
 
 Dentre as pesquisas que utilizam esse planejamento amostral, temos Pesquisa de Orçamentos Familiares (POF),  Pesquisa de Orçamentos Familiares
 Simplificada (POFs),  Pesquisa Nacional de Saúde (PNS), PME (Pesquisa Mensal de
-Emprego), PNAD (Pesquisa Nacional por Amostra de Domicílios) e Pesquisa Nacional por Amostra de Domicílios Contínua (PNAD Contínua).  
+Emprego), PNAD (Pesquisa Nacional por Amostra de Domicílios) e Pesquisa Nacional por Amostra de Domicílios Contínua (PNAD Contínua).
 
 ### Aplicação PNAD contínua
 
@@ -103,7 +103,7 @@ $$w^{**}_{gij} = \frac{1}{m_g}\times \frac{N_g}{N_{gi}}\times
     \frac{N^{*}_g}{n_{gi}}\times\frac{n^{*}_{gi}}{n^{**}_{gi}}\times\frac{P_a^{tri}}{\hat{P}_a^{tri}} $$
 
  * $P_a^{tri}$ é a estimativa populacional produzida pela Coordenação de População e
-Indicadores Sociais (COPIS) para o nível geográfico a para o dia 15 do mês do meio do trimestre 
+Indicadores Sociais (COPIS) para o nível geográfico a para o dia 15 do mês do meio do trimestre
 
 
 * $\hat{P}_a^{tri}$ é a estimativa populacional obtida com os dados da pesquisa para o nível geográfico ano trimestre
@@ -124,7 +124,7 @@ $$\bar{Z}_{h} = \frac{1}{m_h}\sum_{i} \hat{Z}_{hi}$$
 
 Esse seria o processo manual para o cálculo do erro. No entanto, é possível calcular o erro amostral em planos amostrais complexos, como o plano de múltiplos estágios da amostra mestra utilizando o pacote @pkgsuurby.
 
-Vamos utilizar os dados da PNAD contínua e comparar as estimativas do pacote Survey e utilizando os procedimentos de aproximação da variância do estimador por meio da Linearização de Taylor @de2014amostra, implementada  por meio da função **estimativaplano**, apresentada a seguir. 
+Vamos utilizar os dados da PNAD contínua e comparar as estimativas do pacote Survey e utilizando os procedimentos de aproximação da variância do estimador por meio da Linearização de Taylor @de2014amostra, implementada  por meio da função **estimativaplano**, apresentada a seguir.
 
 ```{r pacotes,message=FALSE,warning=FALSE}
 library(PNADcIBGE)
@@ -137,67 +137,67 @@ library(knitr)
 
 # Função para cálculo manual
 estimativaplano <- function(base,vars,y,flt=NULL){
-  
+
   .vars <- rlang::syms(vars)
-  base <- base %>% 
+  base <- base %>%
     mutate(bys =  paste(!!!.vars, sep = "-" ))
-  
+
   .vars <- rlang::syms(y)
-  base <- base %>% 
+  base <- base %>%
     mutate(y =  as.numeric(!!!.vars))
-  
+
   # DEPENDENCIA DA ANÁLISE
   if(length(flt)>0){
     for(itss in 1:length(flt)){
     .vars <- rlang::syms(flt[itss])
-    base <- base %>% 
+    base <- base %>%
       filter(!is.na(!!!.vars))
     }
   }
-  
-  
-  
+
+
+
   base2 <- base %>%
     group_by(UPA,Estrato,bys) %>%
     summarise(N = sum(ifelse(is.na(y),0,1),na.rm = T),
               peso = sum(ifelse(is.na(y),NA,V1028),na.rm = T),
               zhi = sum(V1028*y,na.rm = T)) %>%
     filter(N>0) %>% as.data.table()
-  
+
   base2[,mh:=length(unique(UPA)),by=c("Estrato","bys")]
   base2[,zhb := sum(zhi*(1/mh),na.rm = T),by=c("Estrato","bys")]
-  
+
   base2_t <- base2 %>%
     group_by(Estrato,mh,bys) %>%
-    summarise(vtheta = sum((zhi-zhb)^2,na.rm = T)) 
-  
-  
+    summarise(vtheta = sum((zhi-zhb)^2,na.rm = T))
+
+
   base2_t <- left_join(base %>%
                                     group_by(bys) %>%
                                     summarise(N=sum(ifelse(is.na(y),0,1),na.rm = T),
                                               peso = sum(ifelse(is.na(y),NA,V1028),na.rm = T),
                                               total = sum(y*V1028,na.rm = T)) ,
-                                  base2_t %>% 
+                                  base2_t %>%
                                     group_by(bys) %>%
                                     summarise(SE= (sum(vtheta*(mh/(mh-1)),na.rm = T))^(0.5)),
                                   by = "bys") %>%
     mutate(media = total/peso,
            SEmedia = SE/peso,
            CVmedia = (SEmedia/media))
-  
-  
-  
+
+
+
   a <- data.frame(do.call(
     "rbind",
     (str_split(base2_t$bys, "-",n=length(vars)))
   ))
-  
+
   names(a) <- vars
   base2_t <- cbind(a,base2_t %>% select(-bys))
-  
-  
+
+
   return(base2_t)
-  
+
 }
 
 
@@ -215,7 +215,7 @@ Inicialmente, os microdados da PNAD contínua e o dicionário de variáveis pode
 
 Vamos utilizar a amostragem feita na PNAD para estimativas de renda por variáveis categóricas.A importação dos dados da PNAD são feitos utilizando o pacote @PNADcIBGE de forma direta do ftp do IBGE. Entre os principais parâmetros:
 
-* ano e trimestre;  
+* ano e trimestre;
 
 * variáveis do do questionário e que podem ser consultadas no [dicionário](ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento) da PNAD
 
@@ -232,7 +232,7 @@ trimestret <- 2
 
 
   t0 <- Sys.time()
-  
+
 pnadc.svy <- get_pnadc(year=anot, quarter=trimestret,
                        vars=c("V2007","V3009A","V2005",
                               "V4074A","V4078A","V1028",
@@ -250,7 +250,7 @@ pnadc.svy <- get_pnadc(year=anot, quarter=trimestret,
                        labels=TRUE, design=TRUE)
 
   print(Sys.time()-t0)
-  
+
 ```
 
 
@@ -264,7 +264,7 @@ Vamos criar uma nova variável relacionada à variável V2010 (raça) como "bran
 
 ```{r ck1, echo=TRUE,warning=FALSE,message=FALSE}
 
-base <- pnadc.svy$variables 
+base <- pnadc.svy$variables
 
 base <- base %>%
   mutate(CODUF = substr(Estrato,1,2),
@@ -275,7 +275,7 @@ base <- base %>%
 ```
 
 
-## Totais 
+## Totais
 
 
 Baseado no plano da amostra mestra (múltiplos estágios), podemos verificar que o peso expansivos das observações permitem estimar verificar os quantitativos.
@@ -303,7 +303,7 @@ Por exemplo, para o estrato **Acre e capital**, temos 4045 registros que totaliz
 #  População UF (ESTRATO)
 vars <- c("Ano","UF","V1029","V1023")
 y <- c("V1028")
-UFS <- estimativaplano(base,vars,y) 
+UFS <- estimativaplano(base,vars,y)
 
 head(UFS) %>%  select(UF,V1029,V1023,N,peso)%>%kable()
 ```
@@ -368,7 +368,7 @@ Sys.time() - t0
 mediapacote%>% kable()
 #Função estimaplano
 rendaBR %>% select(media,N,SEmedia,CVmedia) %>% kable()
- 
+
 ```
 
 
@@ -439,12 +439,12 @@ Agora, vamos fazer a diferença entre as remuneração para cada nível de estud
 vars <- c("V2010")
 
 y <- "tempestudo"
-TEMestudo <- estimativaplano(base,vars,y) 
+TEMestudo <- estimativaplano(base,vars,y)
 
 TEMestudo %>% select(V2010,media,SEmedia) %>% kable()
 
 
-difrendaestudo <- rendaestudo %>% select(tempestudo,V2010,media) %>% 
+difrendaestudo <- rendaestudo %>% select(tempestudo,V2010,media) %>%
                    filter(!is.nan(media)) %>% spread(key = "V2010",value="media")
 
 difrendaestudo$Dif <- difrendaestudo$Branca - difrendaestudo$Preta
@@ -455,7 +455,7 @@ difrendaestudo %>% kable()
 
 ```
 
-Vamos fazer a mesma análise utilizando a variável sexo. A análise geral, a mulher ganha em média R$ 500 a menos do que o homem.  No entanto, o tempo médio de estudo da mulher é maior do que o homem. Dessa forma, temos que para o mesmo tempo de estudo, a diferença entre sexo é maior do que entre raças. 
+Vamos fazer a mesma análise utilizando a variável sexo. A análise geral, a mulher ganha em média R$ 500 a menos do que o homem.  No entanto, o tempo médio de estudo da mulher é maior do que o homem. Dessa forma, temos que para o mesmo tempo de estudo, a diferença entre sexo é maior do que entre raças.
 
 
 ```{r ck3333, echo=TRUE,message=FALSE,warning=FALSE}
@@ -465,7 +465,7 @@ Vamos fazer a mesma análise utilizando a variável sexo. A análise geral, a mu
 vars <- c("V2007")
 
 y <- "tempestudo"
-TEMestudo <- estimativaplano(base,vars,y) 
+TEMestudo <- estimativaplano(base,vars,y)
 
 TEMestudo %>% select(V2007,media,SEmedia) %>% kable()
 
@@ -476,7 +476,7 @@ y <- "VD4020"
 rendasexo <- estimativaplano(base,vars,y)
 
 
-rendasexo<- rendasexo %>% mutate(tempestudo  = as.numeric(tempestudo)) %>% 
+rendasexo<- rendasexo %>% mutate(tempestudo  = as.numeric(tempestudo)) %>%
           select(V2007,tempestudo,media,SEmedia,CVmedia) %>% filter(!is.nan(media))
 
 
@@ -487,7 +487,7 @@ ggplot(rendasexo,aes(x = tempestudo, y = media,col=V2007)) +
 
 
 
-difrendasexo <- rendasexo %>% select(tempestudo,V2007,media) %>% 
+difrendasexo <- rendasexo %>% select(tempestudo,V2007,media) %>%
   spread(key = "V2007",value="media")
 
 difrendasexo$Dif <- difrendasexo$Homem - difrendasexo$Mulher
@@ -511,7 +511,7 @@ O Método é utilizado, em geral, para estimar o erro padrão de estimadores. Su
 $$
 Var^{*}_{B}(\hat{\theta}) = \frac{1}{B-1}\sum_{i=1}^{B} (\hat{\theta^{*}_i} - \overline{\hat{\theta^{*}}})^2.
 $$
-A operacionalização da técnica pode ser resumida em $4$ passos: 
+A operacionalização da técnica pode ser resumida em $4$ passos:
 
 (1). Iniciar com uma amostra;
 
@@ -555,7 +555,7 @@ ggplot(x.boot.sample %>% mutate(B=ordered(B, c(1,2,"3...","...101",102,"103...",
 (3). Computar a estatística de interesse para cada amostra;
 
 ```{r, message=FALSE, warning=FALSE}
-x.bar <- apply(x.boot,2,mean) 
+x.bar <- apply(x.boot,2,mean)
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -579,12 +579,12 @@ regresão linear, robusta ou não-linear.
 
 Em muitos casos, *bootstrap* oferece um estimador razoável que é consistente.
   $$
-     Var^{*}_{B}(\hat{\theta}) \xrightarrow{B \xrightarrow{} \infty }  Var^{*}(\hat{\theta}), 
+     Var^{*}_{B}(\hat{\theta}) \xrightarrow{B \xrightarrow{} \infty }  Var^{*}(\hat{\theta}),
   $$
   $$
-    Var^{*}(\hat{\theta})  \xrightarrow{n \xrightarrow{} \infty }  Var(\hat{\theta}), 
+    Var^{*}(\hat{\theta})  \xrightarrow{n \xrightarrow{} \infty }  Var(\hat{\theta}),
   $$
-  
+
 no qual,  $Var^{*}(\hat{\theta}) = \frac{1}{n^n-1}\sum_{i=1}^{n^n} (\hat{\theta^{*}_i} - \overline{\hat{\theta^{*}}})^2.$
 
 
@@ -605,7 +605,7 @@ simples, elegante e muito poderoso;
 cuja implantação em softwares é questão de tempo.
 
 
-Sua fácil aplicabilidade torna o método uma poderosa ferramenta, com possibilidade de ser utilizado em muitas técnicas de *machine learning*, incluindo algumas que uma medida de variabilidade é difícil de se obter. Ressalta-se que a técnica de *Bootstrap* utiliza, basicamente, o conceito de amostragem aleatória simples com reposição. 
+Sua fácil aplicabilidade torna o método uma poderosa ferramenta, com possibilidade de ser utilizado em muitas técnicas de *machine learning*, incluindo algumas que uma medida de variabilidade é difícil de se obter. Ressalta-se que a técnica de *Bootstrap* utiliza, basicamente, o conceito de amostragem aleatória simples com reposição.
 
 ### Avaliação da Qualidade de Ajuste
 
@@ -700,22 +700,22 @@ text(tree.mkt,pretty = 0)
      \hat{f}(x) = \frac{1}{B}\sum_{b=1}^B \hat{f}^b(x).
      $$
      Aplicado em árvore de decisão fornece melhorias na precisão ao combinar centenas ou mesmo milhares de árvores em um único procedimento.
-    
+
 ```{r, message=FALSE, warning=FALSE}
 
 library (randomForest)
 set.seed (1)
 
 bag.mkt =randomForest(sales.c∼.-sales,data=marketing, mtry=3, importance =TRUE) #mtry = 3 considera todas as variáveis (Bagging)
-bag.mkt 
+bag.mkt
 
 ```
 
 
-### Floresta Aleatória 
+### Floresta Aleatória
 
 O método de *Bagging* tende a utilizar as mesmas variáveis para construir as árvores de decisão em cada amostra *Bootstrap*, gerando árvores correlacionadas o que impacta a redução de variância.  As florestas aleatórias (FA) superam esse problema, forçando cada divisão a considerar apenas um subconjunto dos preditores.
-  
+
    $$
   \hat{f}^{*}(x) = \frac{1}{B}\sum_{b=1}^B \hat{f}^{*}_b(x).
    $$
@@ -727,8 +727,8 @@ Em geral utiliza-se um grupo de $m=\sqrt{p}$ variáveis para construir cada árv
 library (randomForest)
 set.seed (1)
 
-rf.mkt =randomForest(sales.c∼.-sales,data=marketing, mtry=2, importance =TRUE) 
-rf.mkt 
+rf.mkt =randomForest(sales.c∼.-sales,data=marketing, mtry=2, importance =TRUE)
+rf.mkt
 
 ```
 
@@ -739,8 +739,8 @@ A redução de correlação entre as árvores de decisão é a motivação para 
 No contexto de *Big Data*, uma grande proporção de preditores não são informativos para a análise e a utilização de amostragem aleatória simples tende a gerar árvores de decisão com baixo poder de previsão.
 @ye2013stratified  apresentam uma metodologia que utiliza amostragem **estratificada** para construção da floresta aleatória.
 
- A ideia dos autores se baseia em dividir as $p$ variáveis em dois grupos: muito informativo e pouco informativo. Em seguida, selecionamos aleatoriamente variáveis de cada grupo, garantindo que temos características representativas de ambos. Esta abordagem garante que cada subespaço contenha informação suficiente para a finalidade.  
- 
+ A ideia dos autores se baseia em dividir as $p$ variáveis em dois grupos: muito informativo e pouco informativo. Em seguida, selecionamos aleatoriamente variáveis de cada grupo, garantindo que temos características representativas de ambos. Esta abordagem garante que cada subespaço contenha informação suficiente para a finalidade.
+
 Considera-se uma função não negativa $\phi$ que capture o grau de explicação da variável $p_i$ com respeito a variável resposta $Y$. Normaliza-se $\phi_i$:
 
 $$
