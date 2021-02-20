@@ -3,7 +3,7 @@ layout: post
 title: Self-organizing maps
 lang: pt
 header-img: img/home-bg.jpg
-date: 2020-09-28 23:59:07
+date: 2020-08-29 23:59:07
 tags: [Self-organizing maps, Images, Machine Learning, Estatística]
 author: Stefano Dantas, Neuremberg Matos e Ricardo Pinho
 comments: true
@@ -18,8 +18,8 @@ comments: true
 # Self-organizing maps
 
 ## Definição
-O *self-organizing map* (SOM) é um modelo neural não supervisonado, ou seja, não demanda intervenção humana durante o treinamento. Além disso, o SOM utiliza aprendizado competitivo, onde os neurônios recebem padrões de entradas e competem tendo como resultado um vencedor, para cada padrão, que será ativado. Os neurônios vencedores podem representar diversos padrões de entrada formando *clusters* de padrões similares. Após ser determinado vencedor, esse neurônio tem seus pesos ajustados ficando mais próximo do padrão de entrada associado a ele. A repetição dessa lógica resulta em pesos que convergem para a estabilidade atuando como centros de massa dos agrupamentos de padrões de entrada.  
-A proposição do algoritmo de *self-organizing maps* (SOM) foi feita pelo acadêmico finlandês Teuvo Kohonen em 1982.  
+O *self-organizing map* (SOM) é um modelo neural não supervisonado, ou seja, não demanda intervenção humana durante o treinamento. Além disso, o SOM utiliza aprendizado competitivo, onde os neurônios recebem padrões de entradas e competem tendo como resultado um vencedor, para cada padrão, que será ativado. Os neurônios vencedores podem representar diversos padrões de entrada formando *clusters* de padrões similares. Após ser determinado vencedor, esse neurônio tem seus pesos ajustados ficando mais próximo do padrão de entrada associado a ele. A repetição dessa lógica resulta em pesos que convergem para a estabilidade atuando como centros de massa dos agrupamentos de padrões de entrada.
+A proposição do algoritmo de *self-organizing maps* (SOM) foi feita pelo acadêmico finlandês Teuvo Kohonen em 1982.
 
 ![](https://hs.mediadelivery.fi/img/468/fc61cf87757b4e90a02b5918d78fe9de.jpg)
 
@@ -44,7 +44,7 @@ $$f: \mathcal{X} \rightarrow \mathcal{Y}, \mathcal{X} \in \mathbb{R}^D, \mathcal
 
 Essa função $f$ realizará esse mapeamento utilizando uma série de parâmetros (pesos) $\mathbf{W}$. Uma das formas mais utilizadas para se aproximar uma função é usando uma rede neural artificial. Esse método é extremamente versátil e poderoso. Porém, a forma clássica de treinar esse modelo é utilizando *backpropagation*. Como não temos classes para utilizar no treinamento, não podemos usar essa técnica.
 
-A grande questão é então como treinar uma rede neural sem usar o *backpropagation*? Isso é feito por meio do aprendizado competitivo. 
+A grande questão é então como treinar uma rede neural sem usar o *backpropagation*? Isso é feito por meio do aprendizado competitivo.
 
 Nessa técnica, cada neurônio da rede "compete" com outros neurônios para representar parte dos dados de entrada. Desse modo, com o passar do tempo, certos neurônios se especializam na representação de determinada parte do espaço de entrada dos dados.
 
@@ -52,7 +52,7 @@ Nessa técnica, cada neurônio da rede "compete" com outros neurônios para repr
 
 Suponha que queremos treinar um mapa com dados de entrada $\mathbf{X} = \{X_1,X_2,...,X_N\}$, e cada exemplo tem $D$ parâmetros $X_i = \{x_{i,1},x_{i,2},...,x_{i,D}\}$. O mapeamento será feito por meio de um conjunto de $M$ pesos, onde cada peso tem $D$ parâmetros. Ou seja, $\mathbf{W} = \{W_1,W_2,...,W_M\}, W_i \in \mathbb{R}^D ~\forall i \in {1,...,M}$.
 
-O algoritmo para treinar um mapa auto-organizável é divido em 5 etapas. 
+O algoritmo para treinar um mapa auto-organizável é divido em 5 etapas.
 
 1. Inicializar os neurônios com pesos aleatórios e o número da iteração $n = 0$
 2. Selecionar uma entrada $X_i aleatoriamente$
@@ -82,7 +82,7 @@ Se observamos a equação de $h_{j,L(X)}(n)$, podemos notar que essa equação r
 
 ### Exemplo
 
-Para ilustrar o algoritmo, considere o seguinte exemplo onde temos 3 neurônios e 2 dados de entrada $X_1 = [1,1,2],X_2=[3,5,1]$. 
+Para ilustrar o algoritmo, considere o seguinte exemplo onde temos 3 neurônios e 2 dados de entrada $X_1 = [1,1,2],X_2=[3,5,1]$.
 
 Os pesos foram iniciados aleatoriamente.
 
@@ -90,7 +90,7 @@ Os pesos foram iniciados aleatoriamente.
 ![](https://i.imgur.com/DphJaUB.png)
 
 
-Suponha que selecionamos $X_1$ na primeira iteração. O próximo passo é então medir a distância entre $X_1$ e todos os outros pesos. 
+Suponha que selecionamos $X_1$ na primeira iteração. O próximo passo é então medir a distância entre $X_1$ e todos os outros pesos.
 
 Calcula-se então $d_{X_1,W_1},d_{X_1,W_2},d_{X_1,W_3}$. Os valores encontrados são $d_{X_1,W_1} = 1.80,d_{X_1,W_2}=1.48,d_{X_1,W_3}=1.87$. Logo, o neurônio mais próximo de $X_1$ é $W_2 = L(X)$.
 
@@ -291,9 +291,9 @@ som.train_random(X, 1000, verbose=True)
 
 ```
 
-     [ 1000 / 1000 ] 100% - 0:00:00 left 
+     [ 1000 / 1000 ] 100% - 0:00:00 left
      quantization error: 0.4487733862565572
-    
+
 
 Vamos agora instanciar a classe `Mapa` para plotar os mapas:
 
@@ -357,4 +357,3 @@ Diferentemente do primeiro gráfico, a relação entre a variável `income_group
 Em outras palavras, mesmo que a facilidade de abrir um novo negócio afetasse diretamente o nível de renda, caso esse efeito não produza efeitos imediatos é razoável esperar que o gráfico acima não capture esse efeito entre as variáveis.
 
 Aqui encerra o nosso post. Os códigos e os dados usados nessa aplicação estão no nosso repositório no [GitHub](https://github.com/lamfo-unb/self-organizing-maps).
-
