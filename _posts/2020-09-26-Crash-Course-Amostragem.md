@@ -5,7 +5,7 @@ lang: pt
 header-img: img/home-bg.jpg
 tags: [amostragem, estatística, crash course]
 author: Alex Rodrigues do Nascimento, Igor Ferreira do Nascimento
-date: 2020-09-26 23:59:08
+date: 2020-09-27 23:59:15
 comments: true
 --
 
