@@ -7,6 +7,7 @@ tags: [amostragem, estatística, crash course]
 author: Alex Rodrigues do Nascimento, Igor Ferreira do Nascimento
 date: 2020-09-26 23:59:08
 comments: true
+
 --
 
 ### Amostragem clássica
