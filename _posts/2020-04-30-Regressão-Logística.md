@@ -1,10 +1,9 @@
-
 ---
 layout: post
 title: Regressão Logística
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
-date: 2020-04-30
+date: 2020-04-30 23:59:07
 tags: [Regressão, Linear, Logistíca, Machine Learning]
 author: Alixandro Werneck Leite, Lucas Moreira Gomes e Alícia Isaias Macedo 
 comments: true
