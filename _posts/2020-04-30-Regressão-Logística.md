@@ -237,26 +237,26 @@ Ao calcular a primeira derivada, tem-se um candidato a ponto máximo. Esse é o 
 A variável resposta da regressão logística possui distribuição de Bernoulli, com probabilidade de sucesso %$p$% e probabilidade de fracasso %$1-p$%.
 
 $$
-% p(y_{i}) = % p_i %^{y_{i}} (1-p_i)^{1-y_{i}} % \\
-% P(y_{i} = 1) = % p_i% ^1 (1-p_i)^{1-1} = p_{i} % \\
-% P(y_{i} = 0) = % p_i %^0 (1-p_i)^{1-0} = 1- p_{i} %
+% p(y_{i}) = p_i^{y_{i}} (1-p_i)^{1-y_{i}}  \\
+% P(y_{i} = 1) = p_i^1 (1-p_i)^{1-1} = p_{i} \\
+% P(y_{i} = 0) = p_i^0 (1-p_i)^{1-0} = 1- p_{i}
 $$
 
 A probabilidade de observar uma amostra e dada pelo produto das probabilidades individuais:
 
 $$
-P(y_{1}, ..., y_{n} ) = \prod^{n}_{i=1}{% p_i^{y_{i}}(1-p_i)^{1-y_{i}} %}
+P(y_{1}, ..., y_{n} ) = \prod^{n}_{i=1}{p_i^{y_{i}}(1-p_i)^{1-y_{i}}}
 $$
 
 Sabe-se que $L (\theta;x)= P(x;\theta)$, portanto,
 
 $$
-L (\beta;x) = \prod^{n}_{i=1}{% p_i^{y_{i}} (1-p_i)^{1-y_{i}} %}
+L (\beta;x) = \prod^{n}_{i=1}{p_i^{y_{i}} (1-p_i)^{1-y_{i}}}
 $$
 Aplicando $log$ dos dois lados
 
 $$
-l (\beta;x) = \sum^{n}_{i=1}{% {y_{i} \log p_i} + ({1-y_{i})\log(1-p_i)} %}
+l (\beta;x) = \sum^{n}_{i=1}{{y_{i} \log p_i} + ({1-y_{i})\log(1-p_i)}}
 $$
 
 Ao maximizar a função log-verossimilhança, encontra-se os parâmetros $b_{0}, b_{1}, ..., b_{n}$ para os quais a função $L (\beta;x)$ atinge um valor máximo.
