@@ -41,7 +41,7 @@ Por fim, para o MAE e o MSE, tem-se que
 
 
 <br />
-<center><img src="https://latex.codecogs.com/svg.latex?MSE&space;=&space;\frac{1}{n}\sum^N_{i=1}{{% (y_i&space;-&space;\hat{y_i})^2} %}." title="MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}." /></center>
+<center><img src="https://latex.codecogs.com/svg.latex?MSE&space;=&space;\frac{1}{n}\sum^N_{i=1}{% {(y_i&space;-&space;\hat{y_i %})^2}}." title="MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}." /></center>
 <br />
 
 Importante notar que com relação as duas últimas, o MSE coloca mais peso em grandes erros, isto é, coloca mais importância a erros maiores do que a MAE. De modo que se para o problema em questão, um erro de (10-5) tem que ser analisado como um erro maior que 5, é melhor utilizar o MSE como critério. Mas caso a disparidade não tenha tanta importância no problema, então pode-se utiizar o MAE.
