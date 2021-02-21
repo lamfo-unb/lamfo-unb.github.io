@@ -41,7 +41,7 @@ Por fim, para o MAE e o MSE, tem-se que
 
 
 <br />
-<center><img src="https://latex.codecogs.com/svg.latex?MSE&space;=&space;\frac{1}{n}\sum^N_{i=1}{{(y_i&space;-&space;\hat{y_i})^2}}." title="MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}." /></center>
+<center><img src="https://latex.codecogs.com/svg.latex?MSE&space;=&space;\frac{1}{n}\sum^N_{i=1}{{% (y_i&space;-&space;\hat{y_i})^2} %}." title="MSE = \frac{1}{n}\sum^N_{i=1}{{(y_i - \hat{y_i})^2}}." /></center>
 <br />
 
 Importante notar que com relação as duas últimas, o MSE coloca mais peso em grandes erros, isto é, coloca mais importância a erros maiores do que a MAE. De modo que se para o problema em questão, um erro de (10-5) tem que ser analisado como um erro maior que 5, é melhor utilizar o MSE como critério. Mas caso a disparidade não tenha tanta importância no problema, então pode-se utiizar o MAE.
@@ -64,7 +64,7 @@ Para demonstrar a capacidade do modelo de generalização, é necessário entend
 <center><img src="https://latex.codecogs.com/svg.latex?mg(\boldsymbol{X},Y)&space;=&space;P_{\Theta}(h(\boldsymbol{X},&space;\Theta)&space;=&space;Y)&space;-&space;max_{j&space;\neq&space;Y}&space;(P_{\Theta}(h(\boldsymbol{X},\Theta)&space;=&space;j)," title="mg(\boldsymbol{X},Y) = P_{\Theta}(h(\boldsymbol{X}, \Theta) = Y) - max_{j \neq Y} (P_{\Theta}(h(\boldsymbol{X},\Theta) = j)," /></center>
 <br />
 
- 
+
 em que <img src="https://latex.codecogs.com/svg.latex?\Theta" title="\Theta" /> representa vetores aleatórios distribuídos de forma independente. O erro de generalização pode ser dado por:
 
 <br />
@@ -84,28 +84,28 @@ Por fim, é importante ter em mente que o objetivo principal de *Random Forest* 
 
 # Light Gradient Boosting Model
 
-O Algoritmo *Light Gradient Boosting Model*, mais conhecido como *LightGBM* faz parte da família de algoritmos de Gradient Boosting Decision Tree (GBDT), assim como os algoritmos *XGBoost* e *pGBRT*. GBDT são um grupo de modelos que tem sido muito utilizado em técnicas de Aprendizado de Máquina principalmente pelo surgimento de novos estudos na área de tecnologia e *big data* (KE et al, 2017). A lógica dos modelos *Gradient Boosting* é a junção de vários modelos "fracos", o processo de aprendizado vai se ajustando a medida que os modelos são adicionados e o objetivo é produzir uma estimativa mais precisa das variável resposta. Os modelos são construídos em etapas e em cada etapa, os modelos são correlacionados com um gradiente negativo da função de perda. A função de perda é uma medida de ajuste dos coeficientes do modelo e é utilizada para que nas etapa do *Gradient Boosting* os erros sejam minimizados(FRIEDMAN, 2001; NATEKIN;KNOLL, 2013). 
+O Algoritmo *Light Gradient Boosting Model*, mais conhecido como *LightGBM* faz parte da família de algoritmos de Gradient Boosting Decision Tree (GBDT), assim como os algoritmos *XGBoost* e *pGBRT*. GBDT são um grupo de modelos que tem sido muito utilizado em técnicas de Aprendizado de Máquina principalmente pelo surgimento de novos estudos na área de tecnologia e *big data* (KE et al, 2017). A lógica dos modelos *Gradient Boosting* é a junção de vários modelos "fracos", o processo de aprendizado vai se ajustando a medida que os modelos são adicionados e o objetivo é produzir uma estimativa mais precisa das variável resposta. Os modelos são construídos em etapas e em cada etapa, os modelos são correlacionados com um gradiente negativo da função de perda. A função de perda é uma medida de ajuste dos coeficientes do modelo e é utilizada para que nas etapa do *Gradient Boosting* os erros sejam minimizados(FRIEDMAN, 2001; NATEKIN;KNOLL, 2013).
 
-Algoritmos de GBDT utilizam da lógica de Aprendizado por Árvore de Decisão para modelagem preditiva e estes modelos precisam estudar todas as instâncias dos recursos (variáveis) para estimar qual seria o ganho de informação em cada nó de decisão. Isso mostra que a complexidade computacional destes modelos depende da quantidade de dados e dos recursos das bases de dados, logo os modelos com implementações muito demoradas devido ao uso de bases com muitos dados. 
+Algoritmos de GBDT utilizam da lógica de Aprendizado por Árvore de Decisão para modelagem preditiva e estes modelos precisam estudar todas as instâncias dos recursos (variáveis) para estimar qual seria o ganho de informação em cada nó de decisão. Isso mostra que a complexidade computacional destes modelos depende da quantidade de dados e dos recursos das bases de dados, logo os modelos com implementações muito demoradas devido ao uso de bases com muitos dados.
 
-A diferença principal dos outros modelos baseados em Árvore de Decisão é que, no LightGBM, as árvores crescem "verticalmente" enquanto os outros algoritmos crescem "horizontalmente". Crescer verticalmente significa que a Árvore cresce *leaf-wise*, ou seja, que o Algoritmo vai selecionar a ''folha'' que tenha o máximo *delta loss to grow*. 
+A diferença principal dos outros modelos baseados em Árvore de Decisão é que, no LightGBM, as árvores crescem "verticalmente" enquanto os outros algoritmos crescem "horizontalmente". Crescer verticalmente significa que a Árvore cresce *leaf-wise*, ou seja, que o Algoritmo vai selecionar a ''folha'' que tenha o máximo *delta loss to grow*.
 
 ![](https://i.imgur.com/FuD6zcz.png)
 [Fonte](https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc)
 
 
-Na tentativa de solucionar os problemas de com tempo de processamento e o uso da memória, Ke et al (2017)propõe o uso de duas técnicas para aprimorar os algoritmos de *Gradient Boosting*: Amostragem unilateral baseado em Gradiente (*Gradient-based One-Side Sampling* - GOSS) e Pacote de Recursos Exclusivos (*Exclusive Feature Bundling* - EFB). Algoritmos de *Gradient Boosting* que utilizam GOSS e EFB são denominados de *Light Gradient Boosting Models*, ou LightGBM. Este modelo se tornou muito popular em estudos e em competições na plataforma de competições de Ciência de Dados [Kaggle](https://www.kaggle.com/), principalmente pela velocidade de processamento, menor uso de memória e melhor acurácia das previsões. 
+Na tentativa de solucionar os problemas de com tempo de processamento e o uso da memória, Ke et al (2017)propõe o uso de duas técnicas para aprimorar os algoritmos de *Gradient Boosting*: Amostragem unilateral baseado em Gradiente (*Gradient-based One-Side Sampling* - GOSS) e Pacote de Recursos Exclusivos (*Exclusive Feature Bundling* - EFB). Algoritmos de *Gradient Boosting* que utilizam GOSS e EFB são denominados de *Light Gradient Boosting Models*, ou LightGBM. Este modelo se tornou muito popular em estudos e em competições na plataforma de competições de Ciência de Dados [Kaggle](https://www.kaggle.com/), principalmente pela velocidade de processamento, menor uso de memória e melhor acurácia das previsões.
 
-A Amostragem unilateral baseado em Gradiente é utilizado dentro de um contexto que mostra que instâncias de dados com gradientes diferentes possuem desempenhos diferentes no ganho de informações. Isto significa que a instância com gradientes maiores, terão maior contribuição no ganho de informação, logo a amostragem focando nestas instância é benéfica para uma maior acurácia. Amostrasfem unilateral baseado em gradiente é uma técnica que vai focar nas instâncias de dados com gradientes maiores e eliminando aleatoriamente as instâncias com gradientes menores. 
+A Amostragem unilateral baseado em Gradiente é utilizado dentro de um contexto que mostra que instâncias de dados com gradientes diferentes possuem desempenhos diferentes no ganho de informações. Isto significa que a instância com gradientes maiores, terão maior contribuição no ganho de informação, logo a amostragem focando nestas instância é benéfica para uma maior acurácia. Amostrasfem unilateral baseado em gradiente é uma técnica que vai focar nas instâncias de dados com gradientes maiores e eliminando aleatoriamente as instâncias com gradientes menores.
 
-O Pacote de Recursos Exclusivos é uma técnica que se faz necessária tendo em vista que, em aplicações reais, embora haja um grande número de *features*, o espaço de *features* é escasso. Muitas *features* dentro do espaço acabam sendo exclusivas, isto é, em poucas situações recebem valores diferentes de zero simultaneamente. O Pacote de Recursos Exclusivos faz parte de um algoritmo eficiente que seleciona as *features* exclusivos em uma única *feature* e assim auxiliar com o uso de menos memória no processamento. 
+O Pacote de Recursos Exclusivos é uma técnica que se faz necessária tendo em vista que, em aplicações reais, embora haja um grande número de *features*, o espaço de *features* é escasso. Muitas *features* dentro do espaço acabam sendo exclusivas, isto é, em poucas situações recebem valores diferentes de zero simultaneamente. O Pacote de Recursos Exclusivos faz parte de um algoritmo eficiente que seleciona as *features* exclusivos em uma única *feature* e assim auxiliar com o uso de menos memória no processamento.
 
-Estas técnicas fazem com que o LightGBM tenha uma maior velocidade de processamento, consiga lidar com grandes bases de dados, ocupe menos memória para executar e foque na acurácia dos resultados. Entretanto, o modelo é sensível a *overfitting* e, por isso, não é aconselhável de uso em bases com poucas observações 
+Estas técnicas fazem com que o LightGBM tenha uma maior velocidade de processamento, consiga lidar com grandes bases de dados, ocupe menos memória para executar e foque na acurácia dos resultados. Entretanto, o modelo é sensível a *overfitting* e, por isso, não é aconselhável de uso em bases com poucas observações
 
 
-# Implementação Básica dos Modelos 
+# Implementação Básica dos Modelos
 
-Vamos fazer uma implementação breve dos modelos em Python e comparar o desempenho dos modelos. 
+Vamos fazer uma implementação breve dos modelos em Python e comparar o desempenho dos modelos.
 A base utilizada foi a "Breast Cancer Dataset" criada para o Women Coders' Bootcamp organizado pelo PNUD de Nepal e retirada do Kaggle. Ela possui 5 colunas com características de tumores (*features*) e uma coluna com o resultado. Cada coluna possui 569 dados.
 
 
@@ -165,8 +165,8 @@ Matriz de Confusão:
 Assim, obtivemos 43 verdadeiros positivos (*true positives*), 65 verdadeiros negativos (*true negatives*), 4 falso positivos (*false positives*) e 2 falso negativos (*false negatives*). E uma acurácia de 94,7% no modelo.
 
 
-## LightGBM 
-O modelo Light GBM foi exemplificado com o pacote 
+## LightGBM
+O modelo Light GBM foi exemplificado com o pacote
 *scikit-learn* utilizando os seguintes parâmetros.
 
 ```
@@ -207,7 +207,7 @@ False Negatives(FN) =  6
 
 Ao analisarmos a acurácia dos modelos, o modelo Random Forest teve um desempenho melhor que o modelo Light GBM. No entanto, isso pode ser explicado principalemnte pelo tamanho da base de dados utilizada. O Modelo Light GBM tende a performar melhor com base de dados maiores. Em suma, mostramos como os modelos podem ser aplicados em Python e suas diferenças.
 
-# Referências 
+# Referências
 
 BREIMAN, L. Random forests.Machine learning, Springer, v. 45, n. 1, p. 5–32, 2001
 
