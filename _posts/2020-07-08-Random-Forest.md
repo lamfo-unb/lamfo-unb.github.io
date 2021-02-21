@@ -36,7 +36,7 @@ A Entropia mede a desordem de um grupamento de variáveis e é dada por
 Por fim, para o MAE e o MSE, tem-se que
 
 <br />
-<center><img src="https://latex.codecogs.com/svg.latex?MAE&space;=&space;\frac{1}{n}\sum^N_{i=1}{|{y_i&space;-&space;\hat{y_i}}|}," title="MAE = \frac{1}{n}\sum^N_{i=1}{|{y_i - \hat{y_i}}|}," /></center>
+<center><img src="https://latex.codecogs.com/svg.latex?MAE&space;=&space;\frac{1}{n}\sum^N_{i=1}{% |{y_i&space;-&space;\hat{y_i %}}|}," title="MAE = \frac{1}{n}\sum^N_{i=1}{|{y_i - \hat{y_i}}|}," /></center>
 <br />
 
 
