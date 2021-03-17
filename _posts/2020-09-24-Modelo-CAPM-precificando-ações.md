@@ -8,7 +8,6 @@ tags: [CAPM, Machine Learning, Finanças]
 author: Neuremberg Matos, Sarah  e Alícia Isaias Macedo
 comments: true
 ---
-
 # Modelo CAPM: precificando ações
 
 O CAPM (Capital Asset Pricing Model) é um modelo de precificação de ativos que relaciona o risco e retorno dos ativos. Esse modelo é relativamente novo, ao se comparar quando as ações surgiram.
