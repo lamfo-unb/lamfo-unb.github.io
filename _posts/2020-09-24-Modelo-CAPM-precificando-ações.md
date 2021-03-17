@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Modelo CAPM: precificando ações
+title: "Modelo CAPM: precificando ações"
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
-date: 2020-09-24 23:59:07
+date: 2020-09-24 23:59:15
 tags: [CAPM, Machine Learning, Finanças]
 author: Neuremberg Matos, Sarah Teixeira Nunes e Alícia Isaias Macedo
 comments: true
