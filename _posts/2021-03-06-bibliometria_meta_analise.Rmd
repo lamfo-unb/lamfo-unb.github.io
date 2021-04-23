@@ -8,7 +8,6 @@ date: 2021-03-06 23:59:07
 tags: [bibliometria, meta analise, Ciências das Informações]
 output: html_document
 comments: true
-
 ---
 
 # Bibliometria e Meta Análise
