@@ -1,0 +1,145 @@
+---
+layout: post
+title: "Bibliometria e Meta Analise"
+lang: pt
+header-img: img/manipulacao_data.table/img_data.table.png
+author: Alfredo Rossi, Natasha Fogaça
+date: 2021-03-06 23:59:07
+tags: [captcha, imagens, Machine Learning]
+output: html_document
+comments: true
+{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+---
+
+# Bibliometria e Meta Análise
+
+As duas técnicas de pesquisa que iremos tratar aqui, embora sejam costumeiramente confundidas e muitas vezes consideradas semelhantes, possuem peculiaridades que possibilitam ao pesquisador que empreende revisões sistemáticas da literatura, ferramentas que o auxilem na análise de papers sobre um determinado tema.
+
+Assim, o intuito aqui é tentar esclarecer e sintetizar as premissas destas duas técnicas, bem como apresentar uma aplicacao em R ao final, visando demonstrar como utilizar estas técnicas.
+
+### O que é bibliometria?
+
+É uma área de estudo da Ciência da Informação, que possui como premissa retratar o comportamento e a evolução de uma determinada área do conhecimento a partir da quantificação das características existentes nos estudos. Desta forma, é possível identificar lacunas teóricas e empíricas, bem como descrever a produção científica de um país, por exemplo.
+
+Tendo em vista que as bibliometrias são parte essencial de uma revisão sistemática da literatura, alguns autores sugerem a adoção de protocolos norteadores que possibilitam a identificação de estudos relevantes sobre um tema específico. Dybå e Dingsøyr (2008), por exemplo, indicam quatro etapas de filtragem dos trabalhos selecionados. No estágio 1, é definido o banco de dados que será adotado, e a partir dele é iniciada a busca dos papers relevantes do tema. No estágio 2, após a seleção inicial, são excluídos os estudos avaliando-se apenas se o título corresponde ao tema analisado. No estágio 3, a exclusão de artigos é feita a partir da análise do resumo. No estágio 4, o último deste protocolo, há uma avaliação crítica dos trabalhos, sendo realizada uma leitura mais acurada do seu conteúdo a fim de identificar os artigos que tratam mais especificamente do tema de pesquisa.
+
+O outro protocolo que merece destaque foi proposto por Cronin, Ryan e Coughlan (2008). Para estes autores são três etapas que devem ser adotadas para a revisão sistemática de literatura. Na primeira etapa temos a formulação da pergunta de pesquisa; haja vista que se trata de uma análise da literatura, a questão proposta deve versar pela busca da produção científica mais recente. Na segunda etapa são definidos os critérios de inclusão e exclusão de artigos, podendo estabelecer em que momento do texto deve estar presente o termo pesquisado (título, palavras-chave, resumo), o período de análise, qual a base de dados que será acessada etc. Na terceira etapa é o momento de definir os critérios de qualidade para a seleção dos artigos, onde devem ser avaliadas a pertinência e a elegibilidade dos artigos.
+
+Uma vez compreendida a relevância dos protocolos para a elaboração de bibliometrias com rigor científico e metodológico, é possível incrementar esses resultados com análises gráficas geradas a partir de softwares voltados especificamente para esse fim. Um desses softwares é o Iramuteq, que é ligado ao R, e tem como principal função a análise textual utilizando estatística. Outro software é o UCINET, que promove a construção de redes sociais a partir dos dados. Em análises bibliométricas, por exemplo, é bastante utilizado para identificar a rede de parceria (interligação) entre autores e instituições, e assim visualizar onde está concentrada a produção daquele tema.
+
+Também podemos mencionar o VOSviewer, que é voltado para revisões empreendidas na base de dados Web of Science. Dentre suas aplicações, podemos destacar o agrupamento dos artigos em clusters, possibilitando a análise de co-citação e o acoplamento bibliográfico. A análise de co-citação é aplicada para identificar os artigos fundamentais e mais eficientes na comunidade científica no tema. A interlocução de dois documentos sugere o estabelecimento de novas conexões no processo de formação de novos conhecimentos. Por sua vez, o acoplamento bibliográfico demonstra a relação entre artigos com base nas referências em comum entre eles.
+
+### E o que é meta-análise?
+
+É uma metodologia para avaliar quantitativamente os papers da literatura. Quando existe uma divergência em que determinado efeito de interesse é positivo, negativo ou nulo, o uso dessa técnica é extremamente importante para verificar de uma forma global o efeito. Essa técnica é muito usada em ciencias sociais e de saúde e vem ganhando popularidade com pacotes em softwares como R, Python e STATA, tornando mais acessivel o uso dela.
+
+A ideia por trás da meta-análise é sintetizar estudos prévios com dados tratando cada estudo como se fosse uma observação. Portanto, trata-se de uma análise de uma amostra de estudos e não de apenas participantes como um estudo usual. A meta-análise resume vários anos de análise por meio de estimativas quantitativas (regressão e teste de hipótese) e gráficas. Geralmente, artigos científicos que utilizam essa técnica possuem uma grande quantidade de citações por realizarem uma síntese de um determinado tema.
+
+O passo a passo para realizar a meta análise começa com uma grande revisão de literatura. É necessário decidir critérios objetivos para inclusão (tipo de análise feita, modelo, amostra,…) para quando realizada a pesquisa nos bancos de dados (Google Scholar, Web of Science, Open Grey, PsychInfo, Medline,…) as palavras chaves consigam trazer o máximo de papers relevantes para o estudo. Após a coleta dos papers, o próximo passo é remover aqueles que não se enquadram nos criterios de inclusao. Em seguida, é necessário calcular o tamanho dos efeitos e padronizar resultados dos estudos (OR, RR, B,…) para que estejam todos na mesma métrica e possam ser comparáveis. Uma vez que os papers possam ser comparáveis, basta aplicar o uso das técnicas de meta análise para ver o real efeito e depois escrever e reportar os resultados. Uma simulacao em R abaixo entrará nos detalhes de como pode ser feita a análise em si com base em um exemplo.
+
+Outra grande vantagem da meta-análise é que pode ser feita para uma diversidade muito grande de tipos de estudos como:
+
+- Efeitos fixos, aleatórios, mistos
+- Proporção
+- Incidence Rates and Rate Ratios
+- Heterogeneity Estimation
+- Mixture Models
+- Outros…
+
+Portanto, podemos inferir o seguinte:
+A bibliometria consiste na análise da produção científica, quantificando as características existentes nos estudos. Por sua vez a meta-análise consiste na análise dos resultados numéricos dos estudos em conjunto, como se fosse um único estudo com uma enorme amostra de participantes.
+
+### Aplicacao em R
+
+Para o uso de Meta analise vamos usar o pacote metafor do R. Portanto, o primeiro passo é a importacao dele no R.
+```{r}
+#install.packages("metafor")
+library(metafor)
+```
+
+Nesse exemplo, vamos usar a base de dados de exemplo do proprio pacote chamada "dat.bcg" que é uma base de estudo sobre efetividade da vacina BCG comtra tuberculose. A função escalc é usada para padronizar as medidas para Risco Relativo (RR).
+
+```{r}
+dat <- dat.bcg
+
+dat <- escalc(measure="RR", ai=tpos, bi=tneg, ci=cpos, di=cneg, data=dat)
+
+dat$vi <- with(dat, mean(tneg/tpos)/(tneg+tpos) +
+                 mean(cneg/cpos)/(cneg+cpos))
+```
+
+Uma vez com a base pronta, podemos executar a meta analise. A função rma executa um modelo de regressao de efeitos aleatorios. O resultado pode ser interpretado como uma modelo de regressao usual, temos a estimativa geral do efeito de -0.5540, erro padrao de 0.1963 e p-valor de 0.0048.
+Alem dessas metricas, temos a informacao sobre a variabilidade explicada pelo modelo, mensurado pela $I^2$, 89.17%.
+
+```{r}
+### random-effects model
+res <- rma(yi, vi, data=dat) #method="EB" estimation process
+res
+```
+
+Além do modelo em si, é usual gerar um grafico chamado funnel plot que verifica se existe uma assimetria nos dados. O ideal é que os dados estejam distribuidos em torno da reta central, indicando que existe de fato um efeito universal e que os estudos encontraram estimativas em torno dele (graficos mais assimetricos indicam ausencia desse efeito universal). O teste de Egger e Kendal também sao executados para testar a assimetria do funnel plot.¨
+
+```{r}
+### funnel plot
+funnel(res)
+
+# Egger regression using a meta-regression model with the standard error as predictor
+regtest(res)
+
+# Kendal, Non-parametric (Rank)
+ranktest(res)
+```
+
+Uma forma de sumarizar bem os dados é realizando o forest plot. Esse grafico mostra em cada linha a estimativa de cada paper, além da informacao dos autores e ano de publicacao. É possivel também inserir os dados no grafico. Esse grafico mostra o efeito global e intervalo de confianca obtido pela regressao.
+
+```{r}
+
+### forest plot with extra annotations
+forest(res,
+       atransf=exp,
+       at=log(c(.05, .25, 1, 4)),
+       xlim=c(-16,6),
+       ilab=cbind(dat.bcg$tpos, dat.bcg$tneg, dat.bcg$cpos, dat.bcg$cneg),
+       ilab.xpos=c(-9.5,-8,-6,-4.5),
+       cex=.75, header="Author(s) and Year",
+       mlab="")
+
+```
+
+Para finalizar, também é usual avaliar se existe p-hacking, ou seja, uma atitude de buscas por p-valores significativos (usualmente inferiores a 0.05) por parte dos pesquisadores. A ideia do teste é verificar se a distribuicao de p-valores é igual entre os valores de 0 e 0.05 ou se existe uma predominancia em torno de 0.05, indicando que os estudos possam ter sido manipulados de forma a se encontrar um modelo especifico que tornasse significativo, dando indicios que o efeito na verdade nao seja claro (o que causaria a nao publicacao de alguns papers muitas vezes).
+
+Abaixo, é feito o teste com a funcao puniform usando dados simulados gerados de uma distribuicao normal. Os paramentros indicam os tamanhos do efeito (mi), tamanho da amostra (ni), desvio padrao (sdi) e o lado que sera testado a assimetria, no caso no valor 0.05 a direita (side). No exemplo, obtemos um p-valor do teste de 0.3094, nos levando a nao rejeitar a hipotese de assimetria, ou seja, nao conseguimos encontrar indicios de p-hacking.
+
+```{r}
+library(puniform)
+
+### Generate example data for one-sample means design
+set.seed(123)
+ni <- 100
+sdi <- 1
+mi <- rnorm(8, mean = 0.2, sd = sdi/sqrt(ni))
+tobs <- mi/(sdi/sqrt(ni))
+
+### Apply p-uniform method based on sample means
+puniform(mi = mi, ni = ni, sdi = sdi, side = "right", plot = T)
+
+```
+
+
+
+### Referencias
+
+- Araújo, R. F., & Alvarenga, L. (2011). A bibliometria na pesquisa científica da pós-graduação brasileira de 1987 a 2007. Encontros Bibli: Revista Eletrônica de Biblioteconomia e Ciência da Informação, 16(31), 51-70.
+
+- Cronin, P., Ryan, F., & Coughlan, M. (2008). Undertaking a literature review: a step-by-step approach. British journal of nursing, 17(1), 38-43.
+
+- Dybå, T.; Dingsøyr, T. (2008). Streingth of evidence in Systematic Reviews in software engineering. Empirical Software Engineering and Measurement (ESEM), 8.
+
+- Ramos-Rodríguez, A. R., & Ruíz-Navarro, J. (2004). Changes in the intellectual structure of strategic management research: A bibliometric study of the Strategic Management Journal, 1980-2000. Strategic Management Journal, 25(10), 981-1004.
+
+- Projetos de meta-analise (https://www.metafor-project.org/doku.php/analyses)
+
+- Pacote R Metafor (https://cran.r-project.org/web/packages/metafor/metafor.pdf)
+
+- Funnel Plot (https://toptipbio.com/funnel-plot/)
