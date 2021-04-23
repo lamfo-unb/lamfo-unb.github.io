@@ -3,10 +3,9 @@ layout: post
 title: "Bibliometria e Meta Analise"
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
-author: Alfredo Rossi, Natasha Fogaça
 date: 2021-03-06 23:59:07
-tags: [bibliometria, meta analise, Ciências das Informações]
-output: html_document
+tags: [Bibliometria, Meta analise, Ciências das Informações]
+author: Alfredo Rossi, Natasha Fogaça
 comments: true
 ---
 
