@@ -1,16 +1,19 @@
 ---
 layout: post
-title: "Bibliometria e Meta Analise"
+title: Bibliometria e Meta Analise
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
-author: Alfredo Rossi, Natasha Fogaça
 date: 2021-03-06 23:59:07
-tags: [captcha, imagens, Machine Learning]
-output: html_document
+tags: [Bibliometria, Meta analise, Ciências das Informações]
+author: Alfredo Rossi, Natasha Fogaça
 comments: true
-{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 ---
+
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
 
 # Bibliometria e Meta Análise
 
