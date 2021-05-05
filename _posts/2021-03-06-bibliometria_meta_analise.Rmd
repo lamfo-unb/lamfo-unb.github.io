@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bibliometria e Meta Analise
+title: Bibliometria e Meta Análise
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
 date: 2021-03-06 23:59:07
