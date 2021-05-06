@@ -5,7 +5,7 @@
   lang: pt
   header-img: img/manipulacao_data.table/img_data.table.png
   date: 2020-11-21 23:59:07
-  tags: [Autoencoder, Machine Learning, Statistics]
+  tags: [Autoencoder, Machine Learning, Statistics, Artificial Intelligence]
   author: Fernanda Amorim, Pedro Watuhã
   comments: true
 ---
