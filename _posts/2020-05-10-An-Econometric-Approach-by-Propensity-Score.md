@@ -4,7 +4,7 @@ title: An Econometric Approach by Propensity Score
 lang: en
 header-img: kernel.png
 date: 2020-05-10 14:00:07
-tags: [statistics,propensity]
+tags: [statistics,propensity score]
 author: Fernanda Vieira
 comments: true
 ---
@@ -29,7 +29,7 @@ $$ \frac {\partial Y }{\partial Treatment} = \ \delta $$
 
 In other words:
 
-$$ Average \ Effect =  \mathbb{E}(Y | treatment= 0)  - \mathbb{E}(Y | treatment= 1) = \delta$$ 
+$$ Average \ Effect =  \mathbb{E}(Y | treatment= 0)  - \mathbb{E}(Y | treatment= 1) = \delta $$ 
 
 But to get this result, the treatment can not be correlationated with the action of receive or not receive the treatment. The assumption of randomize distribution of the treatment implies that the expected value of the both groups would be the same if there was or was no receive the treatment. Mathematically this means that: 
 
