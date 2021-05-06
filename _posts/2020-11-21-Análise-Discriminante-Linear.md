@@ -3,7 +3,7 @@ layout: post
 title: Análise Discriminante Linear
 lang: pt
 header-img: img/home-bg.jpg
-date: 2020-11-21 23:59:07
+date: 2020-10-10 23:59:07
 tags: [LDA, Funções classificatórias]
 author: João Pedro Fontoura da Silva, Alícia Isaias Macedo
 comments: true
@@ -34,7 +34,7 @@ Podemos seguir duas regras de alocação:
 Assumindo que os dados seguem uma distribuição Gaussiana multivariada, em que $\mathbf{X} \thicksim N(\mu, \Sigma)$, podemos obter funções de alocação. Seguindo a regra Bayesiana, classificamos $\mathbf{x}$ na classe $j$ se $j = arg\,max\,\delta_i(\mathbf{x})$ onde a função discriminatória $\delta_i(\mathbf{x})$ é dada por
 
 $$\delta_i(\mathbf{x}) = log\,f_{i}(\mathbf{x})+log\,\pi_i$$
-    
+
 O **LDA** aparece no caso em que assumimos igual covariância entre as $\mathbf{J}$ classes -- isso implica que assumimos igual grau de interdependência numérica entre as classes; a fronteira de decisão entre os pares de classes será uma função linear em $\mathbf{x}$. Assim, podemos obter a seguinte função discriminatória, usando a função de verossimilhança com distribuição Gaussiana:
 
 $$\delta_j(\mathbf{x}) = \mathbf{x}^{T}\Sigma^{-1}\mu_j - (1/2)\mu_j^{T}\,\Sigma^{-1}\mu_j + log\,\pi_j$$
@@ -51,7 +51,7 @@ Outras extensões do LDA incluem a Análise Discriminatória Flexível (FDA), on
 
 Podemos transformar os dados para deixá-los mais próximos a uma distirbuição Gaussiana, e padronizá-los para que apresentem média zero e desvio padrão unitário, de forma a facilitar a análise.
 
-Além disso, podemos simplificar a computação de funções discriminatórias se diagonalizarmos as matrizes de covariância. O que faremos é transformar os dados de modo a obter uma matriz identidade de covariância (sem correlação e com variância unitária). 
+Além disso, podemos simplificar a computação de funções discriminatórias se diagonalizarmos as matrizes de covariância. O que faremos é transformar os dados de modo a obter uma matriz identidade de covariância (sem correlação e com variância unitária).
 
 1. Aplicamos auto-decomposição na matriz de covariância: $\mathbf{\hat{\Sigma} = UDU^{T}}$
 2. Esferizamos os dados: $\mathbf{X^{*} \rightarrow D^{-\tfrac{1}{2}}U^{T}X}$
@@ -76,7 +76,7 @@ Isto é, classificamos $\mathbf{x}$ em $k$ se:
 
 $$\mathbf{x^{*}}^{T}\,(\hat{\mu}_k-\hat{\mu}_l) > (1/2)\,(\hat{\mu}_k + \hat{\mu}_l)^{T}\,(\hat{\mu}_k-\hat{\mu}_l) - log\,\hat{\pi}_k/\hat{\pi}_l$$
 
-Na equação à esquerda, temos o comprimento da projeção ortogonal de $\mathbf{x}^{*}$ na linha de segmento que une as médias das classes. No lado direito, temos a locação do centro do segmento corrigida pelas probabilidades das classes. 
+Na equação à esquerda, temos o comprimento da projeção ortogonal de $\mathbf{x}^{*}$ na linha de segmento que une as médias das classes. No lado direito, temos a locação do centro do segmento corrigida pelas probabilidades das classes.
 
 Essencialmente, **o LDA compara distâncias** entre as médias dos dados e as médias das classes, e os classifica junto àquela que apresenta **a média mais próxima**.
 
@@ -87,17 +87,17 @@ A redução de dimensionalidade tem como objetivo facilitar a visualização e t
 Podemos ir além, e construir um subespaço $L$-dimensional $H_L$ (onde $L < J$). Esse subespaço é ótimo quando as médias das classes dos dados esfericizados têm máxima separação em termos de variância. As coordenadas do subespaço ótimo são encontradas aplicando um *Principal Component Analysis* (PCA) nas médias das classes esfericizadas, porque o PCA encontra a direção da variância máxima.
 
 1. Encontramos a matriz das médias das classes, $\mathbf{M}_{(J \times p)}$, e variância-covariância agrupada, $\mathbf{W}_{(p \times p)}$
-    
+
 $$\mathbf{W} = \sum_{j=1}^{J}\sum_{g_i=1}\,(x_i-\hat{\mu}_j)\,(x_i-\hat{\mu}_j)^{T}$$
-    
+
 2. Esferizamos as médias, usando uma auto-decomposição de $\mathbf{W}$: $\mathbf{M^{*}} = \mathbf{MW}^{-1/2}$
-    
+
 3. Computamos $\mathbf{B^{*}} = cov(\mathbf{M}^{*})$, a covariância entre classes das médias esfericizadas das classes:
-    
+
 $$\mathbf{B}^{*} = \sum_{k=1}^{J}\,(\hat{\mu}_j^{*}-\hat{\mu}^{*})\,(\hat{\mu}_j^{*}-\hat{\mu}_j)^{T}$$
-    
+
 4. PCA: obtemos $L$ autovetores $\mathbf{v}_l^{*}$, correspondendo aos $L$ maiores autovalores, que definem as coordenadas do subespaço ótimo
-    
+
 5. Obtemos as novas $L$ variáveis discriminantes $Z_l - (\mathbf{W}^{-1/2}\,\mathbf{v}_l^{*})^{T}\,X$, para $l = 1,...,L$
 
 
@@ -182,12 +182,12 @@ modelo_analise
 ```
 ```
 Call:
-lda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume + Today, 
+lda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume + Today,
     data = Smarket_train)
 
 Prior probabilities of groups:
- Down    Up 
-0.493 0.507 
+ Down    Up
+0.493 0.507
 
 Group means:
             Lag1        Lag2         Lag3         Lag4          Lag5   Volume      Today
@@ -222,7 +222,7 @@ O LDA determina as médias dos grupos e calcula, para cada indivíduo, a probabi
 
 Coeficientes de discriminantes lineares : Mostra a combinação linear de variáveis preditoras que são usadas para formar a regra de decisão LDA.
 
-Ao plotar o gráfico, pode-se observar que há uma pequena interseção entre os dados, o que representa que o modelo aparenta possuir uma boa acurácia, que será calculada posteriomente. 
+Ao plotar o gráfico, pode-se observar que há uma pequena interseção entre os dados, o que representa que o modelo aparenta possuir uma boa acurácia, que será calculada posteriomente.
 
 ### 4.4 Previsões
 
@@ -242,7 +242,7 @@ modelo_predict <- predict(modelo_analise, Smarket_test[,-9])
 names(modelo_predict)
 ```
 ```
-[1] "class"     "posterior" "x"    
+[1] "class"     "posterior" "x"
 ```
 ```r
 #após prever o modelo, utiliza-se a função table para comparar os valores previstos com o valor da amostra de teste
@@ -258,7 +258,7 @@ lda.class Down  Up
 
 ### 4.5 Acurácia do modelo
 
-Por fim, as funções predict e table foram utilizadas para prever os valores do modelo e comparar com a amostra *Smarket_test*. Note que o resultado confimou a observação feita pelo gráfico. 
+Por fim, as funções predict e table foram utilizadas para prever os valores do modelo e comparar com a amostra *Smarket_test*. Note que o resultado confimou a observação feita pelo gráfico.
 
 ```r
 #Cálculo da acurácia de 96,8%
