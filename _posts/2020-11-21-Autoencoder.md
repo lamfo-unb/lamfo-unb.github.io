@@ -4,7 +4,7 @@
   title: "Autoencoder"
   lang: pt
   header-img: img/manipulacao_data.table/img_data.table.png
-  date: 2021-11-21 23:59:07
+  date: 2020-11-21 23:59:07
   tags: [Autoencoder, Machine Learning, Statistics]
   author: Fernanda Amorim, Pedro Watuhã
   comments: true
