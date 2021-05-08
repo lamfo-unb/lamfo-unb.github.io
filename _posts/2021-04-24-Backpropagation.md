@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: "Backpropagation"
+title: "Backpropagation e algoritmos de otimização por gradiente descendente"
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
 date: 2021-04-24 23:59:07
@@ -10,7 +10,7 @@ author: Jairo Alves, Vinícius Watanabe
 comments: true
 ---
 
-# Backpropagation
+# Backpropagation e algoritmos de otimização por gradiente descendente
 
 ## Vídeo 1 - Parte teórica
 Um dos principais pilares de Machine Learning é o conceito de Backpropagation. Além de ter aberto uma gama de possibilidades para os cientistas de dados e cientistas da programação, ainda hoje é um conhecimento valiosíssimo para aqueles que se interessam sobre a área. Entretanto, para entender com plenitude a ideia da propagação reversa, é necessário entender o que vem por trás desse conceito. Por esse motivo, em primeiro lugar, apresentamos o conceito de Neural Networks (que é importante não só para o Backpropagation, mas para quase todos os assuntos em Machine Learning) e o conceito de Gradient Descent. Essa primeira introdução pode ser vista, de forma muito didática, pela apresentação de Jairo Alves feita para a oficina do LAMFO no dia 24 de abril de 2021.
