@@ -12,7 +12,7 @@ comments: true
 
 # Algoritmo EM, programação dinâmica e reinforcement learning
 
-## Vídeo 1 - Parte teórica
+## Conhecendo o tema e o vídeo da oficina
 
 Muitas são as técnicas já consolidadas de otimização, mas o que fazer quando abordagens tradicionais não funcionam, ou não resolvem o problema em uma quantidade considerável de tempo?
 
