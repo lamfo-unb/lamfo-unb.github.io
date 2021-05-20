@@ -5,7 +5,7 @@ title: "Algoritmos evolutivos e programação genética"
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
 date: 2021-05-08 23:59:07
-tags: [Algoritmo EM, Machine Learning, Statistics]
+tags: [Algoritmo Evolutivos, Machine Learning, Statistics]
 author: Arthur Nunes Torres, Mateus Hiro Nagata
 comments: true
 ---
