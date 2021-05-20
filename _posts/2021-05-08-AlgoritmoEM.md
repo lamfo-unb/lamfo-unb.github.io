@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: "Algoritmo EM, programação dinâmica e reinforcement learning"
+title: "Algoritmos evolutivos e programação genética"
 lang: pt
 header-img: img/manipulacao_data.table/img_data.table.png
 date: 2021-05-08 23:59:07
@@ -10,7 +10,7 @@ author: Arthur Nunes Torres, Mateus Hiro Nagata
 comments: true
 ---
 
-# Algoritmo EM, programação dinâmica e reinforcement learning
+# Algoritmos evolutivos e programação genética
 
 ## Conhecendo o tema e o vídeo da oficina
 
